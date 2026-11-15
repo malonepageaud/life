@@ -7,7 +7,7 @@ let D = null; // decrypted data
 
 // ---------- local state ----------
 const LS = 'life:v1';
-const S = Object.assign({ todosDone: {}, custom: [], focus: {}, sports: {}, ms: {}, reset: {}, saved: [], seenChanges: 0 }, JSON.parse(localStorage.getItem(LS) || '{}'));
+const S = Object.assign({ todosDone: {}, custom: [], focus: {}, sports: {}, ms: {}, reset: {}, saved: [], seenChanges: 0, biz: {}, ex: {} }, JSON.parse(localStorage.getItem(LS) || '{}'));
 const save = () => localStorage.setItem(LS, JSON.stringify(S));
 
 // ---------- time helpers ----------
@@ -30,11 +30,12 @@ const I = {
   goals: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg>',
   ideas: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2V17h5v-1.1c0-.8.4-1.5 1-2A6 6 0 0 0 12 3z"/></svg>',
   inbox: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M3 13l3-8h12l3 8v6H3z"/><path d="M3 13h5l1 3h6l1-3h5"/></svg>',
+  business: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg>',
 };
 const ROUTES = [
-  ['today', 'Today'], ['homework', 'Homework'], ['grades', 'Grades'], ['calendar', 'Calendar'], ['sports', 'Sports'], ['goals', 'Goals'], ['ideas', 'Ideas'], ['inbox', 'Inbox'],
+  ['today', 'Today'], ['homework', 'Homework'], ['grades', 'Grades'], ['calendar', 'Calendar'], ['sports', 'Gym'], ['business', 'Business'], ['goals', 'Goals'], ['ideas', 'Ideas'], ['inbox', 'Inbox'],
 ];
-const TAB_ROUTES = ['today', 'homework', 'grades', 'calendar', 'sports', 'goals'];
+const TAB_ROUTES = ['today', 'homework', 'grades', 'calendar', 'sports', 'business', 'goals'];
 
 // ---------- crypto ----------
 const ub64 = (s) => Uint8Array.from(atob(s), c => c.charCodeAt(0));
@@ -124,44 +125,44 @@ function todoRow(t) {
 }
 
 V.today = () => {
-  const now = Date.now(), dk = dayKey();
-  const first = D.owner || 'Malone';
+  const now = Date.now(), dk = dayKey(), end = sgMidnight() + DAY;
   const h = sgParts(now).h;
-  const greet = h < 5 ? 'Late night' : h < 12 ? 'Good morning' : h < 18 ? 'Good afternoon' : 'Good evening';
-  const evToday = D.calendar.events.filter(e => e.start < sgMidnight() + DAY && e.end > now && !e.allDay);
-  const next = evToday[0];
-  const hwSoon = D.homework.filter(x => x.due && x.due > now && x.due - now < 7 * DAY);
-  const openTodos = todoItems().filter(t => !isDone(t.id));
-  const wk = sportsWeek();
-  const sToday = sportsToday();
-  const goalsAvg = (() => { const g = D.goals.map(goalProgress).filter(x => x != null); return g.length ? Math.round(100 * g.reduce((a, b) => a + b, 0) / g.length) : 0; })();
-  const newCh = D.changes.filter(c => c.time > (S.seenChanges || 0));
+  const greet = h < 5 ? 'Up late' : h < 12 ? 'Morning' : h < 18 ? 'Afternoon' : 'Evening';
   const fd = S.focus[dk] || {};
-  const rd = S.reset[dk] || {};
+  const focus = D.briefing.focus || [];
+  const t = sportsToday(), gymDone = !!S.sports[dk];
+  const parts = focus.length + (t && !t.rest ? 1 : 0);
+  const got = focus.filter((_, i) => fd[i]).length + (t && !t.rest && gymDone ? 1 : 0);
+  const score = parts ? Math.round(100 * got / parts) : 0;
+  const sched = [];
+  for (const e of D.calendar.events) if (!e.allDay && e.start < end && e.end > now - 1800000) sched.push({ t: e.start, end: e.end, text: e.title, kind: 'ev', loc: e.location });
+  for (const x of D.homework) if (x.due && x.due >= now - 1800000 && x.due < end) sched.push({ t: x.due, text: 'Due: ' + x.title, kind: 'due' });
+  for (const p of D.plan || []) { const [hh, mm] = (p.time || '').split(':').map(Number); if (isNaN(hh)) continue; const tt = sgMidnight() + (hh * 60 + (mm || 0)) * 60000; if (tt > now - 1800000 && !sched.some(s => Math.abs(s.t - tt) < 15 * 60000 && s.kind === 'ev')) sched.push({ t: tt, text: p.text, kind: 'plan' }); }
+  sched.sort((a, b) => a.t - b.t);
+  const soon = D.homework.filter(x => x.due && x.due > now && x.due - now < 7 * DAY);
+  const nextExam = (D.exams || [])[0];
+  const newCh = D.changes.filter(c => c.time > (S.seenChanges || 0)).slice(0, 4);
+  const biz = D.business?.today || [];
+  const bd = S.biz?.[dk] || {};
   return `
-  <div class="card hero">
-    <div class="eyebrow">${greet}, ${esc(first)}</div>
-    <div class="hl">${esc(D.briefing.headline)}</div>
-    ${D.briefing.summary ? `<p>${esc(D.briefing.summary)}</p>` : ''}
-  </div>
-  <div class="chips">${(D.countdowns || []).map(c => { const t = new Date(c.date).getTime(); const d = Math.ceil((t - now) / DAY); return d >= 0 ? `<span class="chip">${esc(c.label)} <b>${d === 0 ? 'today' : d + 'd'}</b></span>` : ''; }).join('')}
-    ${next ? `<span class="chip">Next: <b>${esc(next.title)}</b> ${next.start > now ? hm(next.start) : 'now'}</span>` : ''}</div>
+  <div class="card hero today-hero"><div class="row between" style="align-items:flex-start">
+    <div style="flex:1;min-width:0"><div class="eyebrow">${greet}, ${esc(D.owner || 'Malone')}</div><div class="hl">${esc(D.briefing.headline)}</div></div>
+    <div class="ring" style="--p:${score};--c:var(--ok)" title="Day score"><span>${score}%</span></div></div>
+    <div class="small muted" style="margin-top:8px">Day score: must-dos + gym</div></div>
+  <div class="chips">${(D.countdowns || []).map(c => { const d = Math.ceil((new Date(c.date).getTime() - now) / DAY); return d >= 0 ? `<span class="chip">${esc(c.label)} <b>${d === 0 ? 'today' : d + 'd'}</b></span>` : ''; }).join('')}</div>
+  <div class="card"><h2>Must do <span class="pill ${got === parts && parts ? 'ok' : ''}">${focus.filter((_, i) => fd[i]).length}/${focus.length}</span></h2><div class="list">${focus.map((f, i) => `<div class="item ${fd[i] ? 'done' : ''}"><button class="check ${fd[i] ? 'on' : ''}" data-act="focus" data-i="${i}"></button><div class="main"><div class="t">${esc(f)}</div></div></div>`).join('') || '<div class="empty">Nothing set</div>'}</div></div>
+  <div class="card"><h2>Today</h2><div class="tl">${sched.map(s => `<div class="item"><div class="time ${s.t <= now && (s.end || s.t + 3600000) > now ? 'now' : ''}" style="${s.kind === 'due' ? 'color:var(--warn)' : ''}">${hm(s.t)}</div><div class="main"><div class="t" style="${s.kind === 'plan' ? 'font-weight:500;color:#c9cde0' : ''}">${esc(s.text)}</div>${s.loc ? `<div class="m">${esc(s.loc)}</div>` : ''}</div></div>`).join('') || '<div class="empty">Nothing left today</div>'}</div></div>
   <div class="tiles">
-    <a class="tile" href="#homework" style="--glow:#ffb547"><span class="k">${I.homework.replace('<svg', '<svg width="15"')} Homework</span><span class="v">${hwSoon.length}</span><span class="s">due in the next 7 days</span></a>
-    <a class="tile" href="#grades" style="--glow:#8b7cff"><span class="k">${I.grades.replace('<svg', '<svg width="15"')} Average</span><span class="v">${D.grades.average != null ? D.grades.average.toFixed(2) : '–'}</span><span class="s">/20 on graded work</span></a>
-    <a class="tile" href="#sports" style="--glow:#46e39b"><span class="k">${I.sports.replace('<svg', '<svg width="15"')} Sports</span><span class="v">${wk.done}/${D.sports.weeklyTarget}</span><span class="s">${sToday ? (sToday.rest ? 'Rest day' : 'Today: ' + esc(sToday.name)) : ''}</span></a>
-    <a class="tile" href="#goals" style="--glow:#3fd8ff"><span class="k">${I.goals.replace('<svg', '<svg width="15"')} Goals</span><span class="v">${goalsAvg}%</span><span class="s">average progress</span></a>
+    <a class="tile" href="#homework" style="--glow:#ffb547"><span class="k">${I.homework.replace('<svg', '<svg width="15"')} Due this week</span><span class="v">${soon.length}</span><span class="s">${soon[0] ? esc(soon[0].title.slice(0, 28)) : 'clear'}</span></a>
+    <a class="tile" href="#homework" style="--glow:#ff5d7a"><span class="k">${I.calendar.replace('<svg', '<svg width="15"')} Next exam</span><span class="v">${nextExam ? Math.max(0, Math.ceil((nextExam.t - now) / DAY)) + 'd' : '–'}</span><span class="s">${nextExam ? esc(nextExam.course.split(' (')[0].split(':')[0]) : ''}</span></a>
+    <a class="tile" href="#sports" style="--glow:#46e39b"><span class="k">${I.sports.replace('<svg', '<svg width="15"')} Gym</span><span class="v">${gymDone ? '✓' : t?.rest ? 'Rest' : esc((t?.name || '').split(' ')[0])}</span><span class="s">${sportsWeek().done}/${D.sports.weeklyTarget} this week</span></a>
+    <a class="tile" href="#grades" style="--glow:#8b7cff"><span class="k">${I.grades.replace('<svg', '<svg width="15"')} Average</span><span class="v">${D.grades.average != null ? D.grades.average.toFixed(2) : '–'}</span><span class="s">/20 so far</span></a>
   </div>
-  <div class="grid2">
-  <div class="card"><h2>Top 3 today</h2><div class="list">${(D.briefing.focus || []).map((f, i) => `<div class="item ${fd[i] ? 'done' : ''}"><button class="check ${fd[i] ? 'on' : ''}" data-act="focus" data-i="${i}"></button><div class="main"><div class="t">${esc(f)}</div></div></div>`).join('') || '<div class="empty">Nothing set</div>'}</div></div>
-  <div class="card"><h2>Today's plan <span class="dim small">${D.briefing.date ? dayName(new Date(D.briefing.date + 'T12:00:00+08:00').getTime()) : ''}</span></h2><div class="tl">${(D.plan || []).map(p => { const [hh, mm] = (p.time || '').split(':').map(Number); const t = sgMidnight() + ((hh || 0) * 60 + (mm || 0)) * 60000; const isNow = t <= now && now < t + 3600000; return `<div class="item"><div class="time ${isNow ? 'now' : ''}">${esc(p.time || '')}</div><div class="main"><div class="t">${esc(p.text)}</div><div class="tag">${esc(p.tag || '')}</div></div></div>`; }).join('') || '<div class="empty">No plan yet</div>'}</div></div>
-  </div>
-  ${newCh.length || D.changes.length ? `<div class="card feed"><h2>What's new <span><button class="btn" data-act="seen">Mark seen</button></span></h2><div class="list">${D.changes.slice(0, 8).map(c => `<div class="item"><span class="k-ico" style="background:${kindColor(c.kind)}22;color:${kindColor(c.kind)}">${kindLetter(c.kind)}</span><div class="main"><div class="t">${c.time > (S.seenChanges || 0) ? '<span class="pill acc">new</span> ' : ''}${c.url ? `<a href="${esc(c.url)}" target="_blank" rel="noopener">${esc(c.text)}</a>` : esc(c.text)}</div><div class="d">${rel(c.time)}</div></div></div>`).join('')}</div></div>` : ''}
-  <div class="sec">Ideas for today <a class="small muted" href="#ideas">all →</a></div>
+  ${biz.length ? `<div class="card biz"><h2>Money moves <a class="small muted" href="#business">${esc(D.business.name || 'Business')} →</a></h2><div class="list">${biz.map((b, i) => `<div class="item ${bd[i] ? 'done' : ''}"><button class="check ${bd[i] ? 'on' : ''}" data-act="biz" data-i="${i}"></button><div class="main"><div class="t">${esc(b)}</div></div></div>`).join('')}</div></div>` : ''}
+  ${newCh.length ? `<div class="card feed"><h2>New <button class="btn" data-act="seen">Seen</button></h2><div class="list">${newCh.map(c => `<div class="item"><span class="k-ico" style="background:${kindColor(c.kind)}22;color:${kindColor(c.kind)}">${kindLetter(c.kind)}</span><div class="main"><div class="t">${c.url ? `<a href="${esc(c.url)}" target="_blank" rel="noopener">${esc(c.text)}</a>` : esc(c.text)}</div><div class="d">${rel(c.time)}</div></div></div>`).join('')}</div></div>` : ''}
+  <div class="sec">Ideas today</div>
   <div class="ideas">${(D.ideas || []).map(ideaCard).join('')}</div>
-  <div class="card"><h2>To-do <a class="small muted" href="#calendar">${openTodos.length} open →</a></h2><div class="list">${openTodos.slice(0, 6).map(todoRow).join('') || '<div class="empty">All clear</div>'}</div></div>
-  <div class="card"><h2>Evening reset</h2><div class="list">${(D.reset || []).map((r, i) => `<div class="item ${rd[i] ? 'done' : ''}"><button class="check ${rd[i] ? 'on' : ''}" data-act="reset" data-i="${i}"></button><div class="main"><div class="t">${esc(r)}</div></div></div>`).join('')}</div></div>
-  ${D.errors?.length ? `<div class="card"><h2>Sync issues</h2><div class="small muted">${D.errors.map(esc).join('<br>')}</div></div>` : ''}`;
+  ${D.errors?.length ? `<div class="small dim" style="text-align:center">Sync issue: ${D.errors.map(esc).join(' · ')}</div>` : ''}`;
 };
 const kindColor = (k) => ({ homework: '#ffb547', grade: '#8b7cff', moodle: '#3fd8ff', mail: '#ff7aa8' }[k] || '#9aa1b5');
 const kindLetter = (k) => ({ homework: 'H', grade: 'G', moodle: 'M', mail: '@' }[k] || '•');
@@ -180,6 +181,7 @@ V.homework = () => {
   let html = '';
   for (const [name, fn] of groups) { const xs = D.homework.filter(fn); if (xs.length) html += `<div class="card"><h2>${name} <span class="pill">${xs.length}</span></h2><div class="list">${xs.map(card).join('')}</div></div>`; }
   if (!D.homework.length) html += `<div class="card"><div class="empty">Nothing due on Moodle. Nice.</div></div>`;
+  if (D.exams?.length) html += `<div class="card"><h2>Finals & exams <span class="pill">${D.exams.length}</span></h2><div class="list">${D.exams.map(e => { const d = Math.ceil((e.t - now) / DAY); return `<div class="item"><div class="main"><div class="row between"><div class="t">${esc(e.course)}</div><span class="pill ${d <= 7 ? 'bad' : d <= 14 ? 'warn' : 'acc'}">${d <= 0 ? 'today' : d + 'd'}</span></div><div class="m">${fmt(e.t, { weekday: 'short', day: 'numeric', month: 'short' })} · ${hm(e.t)}</div>${e.detail ? `<div class="d">${esc(e.detail)}</div>` : ''}</div></div>`; }).join('')}</div></div>`;
   if (D.quizzesOpening?.length) html += `<div class="card"><h2>Quizzes opening</h2><div class="list">${D.quizzesOpening.map(q => `<div class="item"><div class="main"><div class="t"><a href="${esc(q.url)}" target="_blank" rel="noopener">${esc(q.subject)}</a></div><div class="d">notified ${rel(q.time)} · times in Paris time</div></div></div>`).join('')}</div></div>`;
   html += `<div class="sec">Course progress (Moodle completion)</div>`;
   html += D.courses.map(c => `<div class="card"><div class="row between"><div class="row"><span class="cdot" style="background:${esc(c.color)};margin:0"></span><b>${esc(c.name)}</b></div><span class="muted small">${c.done}/${c.tracked} done</span></div>
@@ -245,15 +247,36 @@ V.sports = () => {
   const pct = Math.min(100, Math.round(100 * wk.done / D.sports.weeklyTarget));
   const days = [...Array(7)].map((_, i) => { const d = wk.ws + i * DAY + 3600000; const p = D.sports.plan.find(x => x.day === sgParts(d).wd); return { d, k: dayKey(d), p }; });
   let month = 0; for (let i = 0; i < 30; i++) if (S.sports[dayKey(Date.now() - i * DAY)]) month++;
-  return `<div class="card hero"><div class="row between"><div><div class="eyebrow">Today · ${fmt(Date.now(), { weekday: 'long' })}</div><div class="hl" style="margin:4px 0">${t ? esc(t.name) : 'Free'}</div><p>${t ? esc(t.detail) : ''}</p>${t && t.minutes ? `<div class="small muted" style="margin-top:6px">${t.minutes} min</div>` : ''}</div>
-    <div class="ring big" style="--p:${pct};--c:var(--ok)"><span>${wk.done}/${D.sports.weeklyTarget}</span></div></div>
-    <div style="margin-top:14px"><button class="btn ${done ? '' : 'pri'}" data-act="sport">${done ? '✓ Done today (tap to undo)' : (t && t.rest ? 'Log active recovery' : 'Mark session done')}</button></div></div>
+  const ex = (S.ex ||= {})[dk] || {};
+  let n = 0;
+  const blocks = (t?.blocks || []).map(([g, items]) => `<div class="blk"><div class="tag" style="margin:10px 0 2px">${esc(g)}</div>${items.map(it => { const i = n++; return `<div class="item ${ex[i] ? 'done' : ''}" style="padding:7px 0"><button class="check ${ex[i] ? 'on' : ''}" data-act="ex" data-i="${i}"></button><div class="main"><div class="t" style="font-weight:550">${esc(it)}</div></div></div>`; }).join('')}</div>`).join('');
+  const walkI = n++;
+  const total = n - (t?.walk ? 0 : 1), checked = Object.values(ex).filter(Boolean).length;
+  return `<div class="card hero"><div class="row between"><div style="flex:1;min-width:0"><div class="eyebrow">${fmt(Date.now(), { weekday: 'long' })} · ${esc(t?.tag || '')}</div><div class="hl" style="margin:4px 0 0">${t ? esc(t.name) : 'Free'}</div></div>
+    <div class="ring big" style="--p:${pct};--c:var(--ok)"><span>${wk.done}/${D.sports.weeklyTarget}</span></div></div></div>
+  <div class="card"><h2>Today's workout <span class="pill ${checked >= total && total ? 'ok' : ''}">${checked}/${total}</span></h2>${blocks}
+    ${t?.walk ? `<div class="tag" style="margin:10px 0 2px">Cardio</div><div class="item ${ex[walkI] ? 'done' : ''}" style="padding:7px 0"><button class="check ${ex[walkI] ? 'on' : ''}" data-act="ex" data-i="${walkI}"></button><div class="main"><div class="t" style="font-weight:550">${esc(D.sports.walk || 'Incline walk 1h')}</div></div></div>` : ''}
+    <div style="margin-top:12px"><button class="btn ${done ? '' : 'pri'}" data-act="sport">${done ? '✓ Session logged (tap to undo)' : t?.rest ? 'Log recovery day' : 'Finish session'}</button></div></div>
   <div class="card"><h2>This week</h2><div class="days">${days.map(x => `<div>${fmt(x.d, { weekday: 'narrow' })}<div class="sq ${S.sports[x.k] ? 'done' : ''} ${x.p?.rest ? 'rest' : ''} ${x.k === dk ? 'today' : ''}" data-act="sportday" data-k="${x.k}">${S.sports[x.k] ? '✓' : esc((x.p?.name || '').slice(0, 2))}</div></div>`).join('')}</div></div>
-  <div class="tiles"><div class="tile" style="--glow:#46e39b"><span class="k">Week streak</span><span class="v">${streakWeeks()}</span><span class="s">weeks at ${D.sports.weeklyTarget}+ sessions</span></div><div class="tile" style="--glow:#3fd8ff"><span class="k">Last 30 days</span><span class="v">${month}</span><span class="s">sessions logged</span></div></div>
-  <div class="card"><h2>Long-term goal</h2><div class="t" style="font-weight:600">${esc(D.sports.goal)}</div><div class="bar" style="margin-top:10px"><i style="width:${Math.round(100 * (goalProgress({ auto: 'sportsConsistency' }) || 0))}%"></i></div><div class="small muted" style="margin-top:6px">${Math.round(100 * (goalProgress({ auto: 'sportsConsistency' }) || 0))}% consistency over the last 4 weeks</div></div>
-  ${D.sports.tips?.length ? `<div class="card"><h2>Tips</h2><div class="list">${D.sports.tips.map(x => `<div class="item"><div class="main"><div class="t" style="font-weight:500">${esc(x)}</div></div></div>`).join('')}</div></div>` : ''}
-  <div class="card"><h2>Weekly plan</h2><div class="list">${[1, 2, 3, 4, 5, 6, 0].map(d => D.sports.plan.find(p => p.day === d)).filter(Boolean).map(p => `<div class="item"><div class="time" style="width:44px;color:var(--mut);font-weight:650;font-size:12.5px">${['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][p.day]}</div><div class="main"><div class="t">${esc(p.name)}</div><div class="m">${esc(p.detail)}</div></div></div>`).join('')}</div></div>
-  <div class="small dim" style="text-align:center">Session check-ins are saved on this device.</div>`;
+  <div class="tiles"><div class="tile" style="--glow:#46e39b"><span class="k">Streak</span><span class="v">${streakWeeks()}</span><span class="s">weeks at ${D.sports.weeklyTarget}/${D.sports.weeklyTarget}</span></div><div class="tile" style="--glow:#3fd8ff"><span class="k">Last 30 days</span><span class="v">${month}</span><span class="s">sessions</span></div></div>
+  ${D.sports.tips?.length ? `<div class="card"><h2>Tips</h2><ul class="bul">${D.sports.tips.map(x => `<li>${esc(x)}</li>`).join('')}</ul></div>` : ''}
+  <div class="card"><h2>The split</h2>${[0, 1, 2, 3, 4, 5, 6].map(d => D.sports.plan.find(p => p.day === d)).filter(Boolean).map(p => `<details class="split"><summary><span class="dname">${['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][p.day]}</span> <b>${esc(p.name)}</b> <span class="dim small">${esc(p.tag || '')}</span></summary><ul class="bul">${(p.blocks || []).flatMap(([g, its]) => its.map(i => `<li><span class="dim">${esc(g)}:</span> ${esc(i)}</li>`)).join('')}${p.walk ? `<li>${esc(D.sports.walk)}</li>` : ''}</ul></details>`).join('')}</div>
+  <div class="small dim" style="text-align:center">Goal: ${esc(D.sports.goal)}</div>`;
+};
+V.business = () => {
+  const B = D.business || {}, now = Date.now(), dk = dayKey();
+  const g = D.goals.find(x => x.id === 'money'); const gp = g ? Math.round(100 * (goalProgress(g) || 0)) : 0;
+  const bd = S.biz?.[dk] || {};
+  const tasks = (D.todos || []).filter(t => t.tag === 'business');
+  const ideas = (D.ideas || []).filter(i => i.type === 'business');
+  return `<div class="card hero"><div class="row between"><div style="flex:1;min-width:0"><div class="eyebrow">${esc(B.role || '')} · ${esc(B.full || '')}</div><div class="hl" style="margin:4px 0 6px">${esc(B.name || 'Business')}</div><p class="small">${esc(B.pitch || '')}</p></div>
+    <div class="ring" style="--p:${gp}"><span>${gp}%</span></div></div></div>
+  ${(B.today || []).length ? `<div class="card"><h2>Today's money moves</h2><div class="list">${B.today.map((b, i) => `<div class="item ${bd[i] ? 'done' : ''}"><button class="check ${bd[i] ? 'on' : ''}" data-act="biz" data-i="${i}"></button><div class="main"><div class="t">${esc(b)}</div></div></div>`).join('')}</div></div>` : ''}
+  <div class="card"><h2>Key dates</h2><div class="list">${(B.keyDates || []).map(k => { const t = new Date(k.date + 'T09:00:00+08:00').getTime(); const d = Math.ceil((t - now) / DAY); return `<div class="item"><div class="main"><div class="row between"><div class="t">${esc(k.label)}</div><span class="pill ${d <= 3 ? 'warn' : 'acc'}">${d < 0 ? 'done' : d === 0 ? 'today' : d + 'd'}</span></div><div class="m">${dayName(t)}${k.end ? ' to ' + fmt(new Date(k.end + 'T09:00:00+08:00').getTime(), { day: 'numeric', month: 'short' }) : ''}</div></div></div>`; }).join('')}</div></div>
+  <div class="card"><h2>Tasks</h2><div class="list">${tasks.map(todoRow).join('') || '<div class="empty">No open tasks</div>'}</div></div>
+  <div class="card"><h2>Where it stands</h2><ul class="bul">${(B.status || []).map(s => `<li>${esc(s)}</li>`).join('')}${B.note ? `<li>${esc(B.note)}</li>` : ''}</ul>${B.team ? `<div class="small dim" style="margin-top:8px">Team: ${esc(B.team)}</div>` : ''}</div>
+  ${ideas.length ? `<div class="sec">Ideas</div><div class="ideas">${ideas.map(ideaCard).join('')}</div>` : ''}
+  ${(B.links || []).length ? `<div class="small" style="text-align:center">${B.links.map(l => `<a class="muted" href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.label)} ↗</a>`).join(' · ')}</div>` : ''}`;
 };
 
 V.goals = () => D.goals.map(g => {
@@ -273,10 +296,12 @@ V.ideas = () => `<div class="sec">Today</div>${(D.ideas || []).map(ideaCard).joi
 let mailBox = 'essec';
 V.inbox = () => {
   const box = D.mail?.[mailBox] || { items: [], unread: 0 };
-  return `<div class="seg"><button class="${mailBox === 'essec' ? 'on' : ''}" data-act="box" data-v="essec">ESSEC (${D.mail?.essec?.unread ?? 0})</button><button class="${mailBox === 'personal' ? 'on' : ''}" data-act="box" data-v="personal">Personal (${D.mail?.personal?.unread ?? 0})</button></div>
-  ${D.actionMail?.filter(a => a.box === mailBox).length ? `<div class="card"><h2>Needs action</h2><div class="list">${D.actionMail.filter(a => a.box === mailBox).map(mailRow).join('')}</div></div>` : ''}
-  <div class="card"><h2>Last 4 days</h2><div class="list">${box.items.map(mailRow).join('') || '<div class="empty">Quiet inbox</div>'}</div></div>
-  ${D.notifications?.length ? `<div class="card"><h2>Moodle notifications</h2><div class="list">${D.notifications.slice(0, 10).map(n => `<div class="item"><div class="main"><a class="t" href="${esc(n.url)}" target="_blank" rel="noopener" style="font-weight:${n.read ? 500 : 650}">${esc(n.subject.replace(/&amp;/g, '&'))}</a><div class="d">${rel(n.time)}</div></div></div>`).join('')}</div></div>` : ''}`;
+  const imp = box.items.filter(m => !m.muted), rest = box.items.filter(m => m.muted);
+  const act = (D.actionMail || []).filter(a => a.box === mailBox);
+  return `<div class="seg"><button class="${mailBox === 'essec' ? 'on' : ''}" data-act="box" data-v="essec">ESSEC</button><button class="${mailBox === 'personal' ? 'on' : ''}" data-act="box" data-v="personal">Personal</button></div>
+  ${act.length ? `<div class="card"><h2>Needs action</h2><div class="list">${act.map(mailRow).join('')}</div></div>` : ''}
+  <div class="card"><h2>Important · last 4 days</h2><div class="list">${imp.map(mailRow).join('') || '<div class="empty">Nothing important</div>'}</div>
+  ${rest.length ? `<details><summary>${rest.length} newsletters / noise ▾</summary><div class="list" style="margin-top:6px">${rest.map(mailRow).join('')}</div></details>` : ''}</div>`;
 };
 const mailRow = (m) => `<div class="item"><span class="cdot" style="background:${m.unread ? 'var(--acc2)' : 'transparent'}"></span><div class="main"><a class="t" href="${esc(m.url)}" target="_blank" rel="noopener" style="font-weight:${m.unread ? 700 : 550}">${esc(m.subject || '(no subject)')}</a><div class="m">${esc(m.from)} · ${rel(m.time)}</div><div class="d">${esc(m.snippet)}</div></div></div>`;
 
@@ -300,6 +325,8 @@ document.addEventListener('click', (e) => {
   else if (a === 'reset') { (S.reset[dk] ||= {})[el.dataset.i] = !S.reset[dk]?.[el.dataset.i]; }
   else if (a === 'sport') { S.sports[dk] = !S.sports[dk]; if (S.sports[dk]) toast('Session logged. Keep the streak.'); }
   else if (a === 'sportday') { const k = el.dataset.k; if (k <= dk) S.sports[k] = !S.sports[k]; }
+  else if (a === 'biz') { (S.biz ||= {}); (S.biz[dk] ||= {})[el.dataset.i] = !S.biz[dk][el.dataset.i]; }
+  else if (a === 'ex') { (S.ex ||= {}); (S.ex[dk] ||= {})[el.dataset.i] = !S.ex[dk][el.dataset.i]; }
   else if (a === 'ms') { (S.ms[el.dataset.g] ||= {})[el.dataset.i] = !S.ms[el.dataset.g]?.[el.dataset.i]; }
   else if (a === 'save') { const t = el.dataset.title; const i = S.saved.findIndex(s => s.title === t); if (i >= 0) S.saved.splice(i, 1); else { const x = (D.ideas || []).find(s => s.title === t); if (x) S.saved.unshift({ ...x, savedAt: Date.now() }); } }
   else if (a === 'seen') { S.seenChanges = Date.now(); }
