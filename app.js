@@ -80,7 +80,7 @@ async function boot() {
 function showLock(err) {
   $('#shell').classList.add('hidden'); $('#lock').classList.remove('hidden'); $('#lockErr').textContent = err || '';
 }
-function showShell() { $('#lock').classList.add('hidden'); $('#shell').classList.remove('hidden'); }
+function showShell() { $('#lock').classList.add('hidden'); $('#shell').classList.remove('hidden'); $('#fab').classList.remove('hidden'); setTimeout(() => flushPending && flushPending(), 500); }
 $('#lockForm').addEventListener('submit', async (e) => {
   e.preventDefault(); $('#lockErr').textContent = 'Unlocking…';
   try { await unlock($('#pass').value.trim()); showShell(); render(); }
@@ -117,7 +117,7 @@ const todoItems = () => {
   const custom = (S.custom || []).map(t => ({ ...t, tag: 'mine' }));
   return [...custom, ...auto];
 };
-const isDone = (id) => !!S.todosDone[id];
+const isDone = (id) => !!S.todosDone[id] || !!D?.doneServer?.[id];
 function todoRow(t) {
   const done = isDone(t.id);
   return `<div class="item ${done ? 'done' : ''}" data-todo="${esc(t.id)}"><button class="check ${done ? 'on' : ''}" data-act="todo" data-id="${esc(t.id)}" aria-label="done"></button>
@@ -130,9 +130,9 @@ V.today = () => {
   const greet = h < 5 ? 'Up late' : h < 12 ? 'Morning' : h < 18 ? 'Afternoon' : 'Evening';
   const fd = S.focus[dk] || {};
   const focus = D.briefing.focus || [];
-  const t = sportsToday(), gymDone = !!S.sports[dk];
+  const t = sportsToday(), gDone = gymDone(dk);
   const parts = focus.length + (t && !t.rest ? 1 : 0);
-  const got = focus.filter((_, i) => fd[i]).length + (t && !t.rest && gymDone ? 1 : 0);
+  const got = focus.filter((_, i) => fd[i]).length + (t && !t.rest && gDone ? 1 : 0);
   const score = parts ? Math.round(100 * got / parts) : 0;
   const sched = [];
   for (const e of D.calendar.events) if (!e.allDay && e.start < end && e.end > now - 1800000) sched.push({ t: e.start, end: e.end, text: e.title, kind: 'ev', loc: e.location });
@@ -155,7 +155,7 @@ V.today = () => {
   <div class="tiles">
     <a class="tile" href="#homework" style="--glow:#ffb547"><span class="k">${I.homework.replace('<svg', '<svg width="15"')} Due this week</span><span class="v">${soon.length}</span><span class="s">${soon[0] ? esc(soon[0].title.slice(0, 28)) : 'clear'}</span></a>
     <a class="tile" href="#homework" style="--glow:#ff5d7a"><span class="k">${I.calendar.replace('<svg', '<svg width="15"')} Next exam</span><span class="v">${nextExam ? Math.max(0, Math.ceil((nextExam.t - now) / DAY)) + 'd' : '–'}</span><span class="s">${nextExam ? esc(nextExam.course.split(' (')[0].split(':')[0]) : ''}</span></a>
-    <a class="tile" href="#sports" style="--glow:#46e39b"><span class="k">${I.sports.replace('<svg', '<svg width="15"')} Gym</span><span class="v">${gymDone ? '✓' : t?.rest ? 'Rest' : esc((t?.name || '').split(' ')[0])}</span><span class="s">${sportsWeek().done}/${D.sports.weeklyTarget} this week</span></a>
+    <a class="tile" href="#sports" style="--glow:#46e39b"><span class="k">${I.sports.replace('<svg', '<svg width="15"')} Gym</span><span class="v">${gDone ? '✓' : t?.rest ? 'Rest' : esc((t?.name || '').split(' ')[0])}</span><span class="s">${sportsWeek().done}/${D.sports.weeklyTarget} this week</span></a>
     <a class="tile" href="#grades" style="--glow:#8b7cff"><span class="k">${I.grades.replace('<svg', '<svg width="15"')} Average</span><span class="v">${D.grades.average != null ? D.grades.average.toFixed(2) : '–'}</span><span class="s">/20 so far</span></a>
   </div>
   ${biz.length ? `<div class="card biz"><h2>Money moves <a class="small muted" href="#business">${esc(D.business.name || 'Business')} →</a></h2><div class="list">${biz.map((b, i) => `<div class="item ${bd[i] ? 'done' : ''}"><button class="check ${bd[i] ? 'on' : ''}" data-act="biz" data-i="${i}"></button><div class="main"><div class="t">${esc(b)}</div></div></div>`).join('')}</div></div>` : ''}
@@ -234,7 +234,8 @@ V.calendar = () => {
 
 function sportsToday() { const wd = sgParts(Date.now()).wd; return (D.sports.plan || []).find(p => p.day === wd); }
 function weekStart(t = Date.now()) { const wd = sgParts(t).wd; return sgMidnight(t) - ((wd + 6) % 7) * DAY; }
-function sportsWeek(t = Date.now()) { const ws = weekStart(t); let done = 0; for (let i = 0; i < 7; i++) if (S.sports[dayKey(ws + i * DAY + 3600000)]) done++; return { ws, done }; }
+const gymDone = (k) => !!S.sports[k] || !!D?.gymServer?.[k];
+function sportsWeek(t = Date.now()) { const ws = weekStart(t); let done = 0; for (let i = 0; i < 7; i++) if (gymDone(dayKey(ws + i * DAY + 3600000))) done++; return { ws, done }; }
 function streakWeeks() { let n = 0, ws = weekStart() - 7 * DAY; while (n < 52) { if (sportsWeek(ws + 3600000).done >= D.sports.weeklyTarget) { n++; ws -= 7 * DAY; } else break; } if (sportsWeek().done >= D.sports.weeklyTarget) n++; return n; }
 function goalProgress(g) {
   if (g.auto === 'sportsConsistency') { let tot = 0; for (let w = 0; w < 4; w++) tot += Math.min(D.sports.weeklyTarget, sportsWeek(Date.now() - w * 7 * DAY).done); return tot / (4 * D.sports.weeklyTarget); }
@@ -242,11 +243,11 @@ function goalProgress(g) {
   return g.progress != null ? (ms != null && g.auto !== 'gradeAverage' ? Math.max(g.progress, ms) : g.progress) : ms;
 }
 V.sports = () => {
-  const t = sportsToday(), dk = dayKey(), done = !!S.sports[dk];
+  const t = sportsToday(), dk = dayKey(), done = gymDone(dk);
   const wk = sportsWeek();
   const pct = Math.min(100, Math.round(100 * wk.done / D.sports.weeklyTarget));
   const days = [...Array(7)].map((_, i) => { const d = wk.ws + i * DAY + 3600000; const p = D.sports.plan.find(x => x.day === sgParts(d).wd); return { d, k: dayKey(d), p }; });
-  let month = 0; for (let i = 0; i < 30; i++) if (S.sports[dayKey(Date.now() - i * DAY)]) month++;
+  let month = 0; for (let i = 0; i < 30; i++) if (gymDone(dayKey(Date.now() - i * DAY))) month++;
   const ex = (S.ex ||= {})[dk] || {};
   let n = 0;
   const blocks = (t?.blocks || []).map(([g, items]) => `<div class="blk"><div class="tag" style="margin:10px 0 2px">${esc(g)}</div>${items.map(it => { const i = n++; return `<div class="item ${ex[i] ? 'done' : ''}" style="padding:7px 0"><button class="check ${ex[i] ? 'on' : ''}" data-act="ex" data-i="${i}"></button><div class="main"><div class="t" style="font-weight:550">${esc(it)}</div></div></div>`; }).join('')}</div>`).join('');
@@ -257,12 +258,18 @@ V.sports = () => {
   <div class="card"><h2>Today's workout <span class="pill ${checked >= total && total ? 'ok' : ''}">${checked}/${total}</span></h2>${blocks}
     ${t?.walk ? `<div class="tag" style="margin:10px 0 2px">Cardio</div><div class="item ${ex[walkI] ? 'done' : ''}" style="padding:7px 0"><button class="check ${ex[walkI] ? 'on' : ''}" data-act="ex" data-i="${walkI}"></button><div class="main"><div class="t" style="font-weight:550">${esc(D.sports.walk || 'Incline walk 1h')}</div></div></div>` : ''}
     <div style="margin-top:12px"><button class="btn ${done ? '' : 'pri'}" data-act="sport">${done ? '✓ Session logged (tap to undo)' : t?.rest ? 'Log recovery day' : 'Finish session'}</button></div></div>
-  <div class="card"><h2>This week</h2><div class="days">${days.map(x => `<div>${fmt(x.d, { weekday: 'narrow' })}<div class="sq ${S.sports[x.k] ? 'done' : ''} ${x.p?.rest ? 'rest' : ''} ${x.k === dk ? 'today' : ''}" data-act="sportday" data-k="${x.k}">${S.sports[x.k] ? '✓' : esc((x.p?.name || '').slice(0, 2))}</div></div>`).join('')}</div></div>
+  ${foodCard()}
+  <div class="card"><h2>This week</h2><div class="days">${days.map(x => `<div>${fmt(x.d, { weekday: 'narrow' })}<div class="sq ${gymDone(x.k) ? 'done' : ''} ${x.p?.rest ? 'rest' : ''} ${x.k === dk ? 'today' : ''}" data-act="sportday" data-k="${x.k}">${gymDone(x.k) ? '✓' : esc((x.p?.name || '').slice(0, 2))}</div></div>`).join('')}</div></div>
   <div class="tiles"><div class="tile" style="--glow:#46e39b"><span class="k">Streak</span><span class="v">${streakWeeks()}</span><span class="s">weeks at ${D.sports.weeklyTarget}/${D.sports.weeklyTarget}</span></div><div class="tile" style="--glow:#3fd8ff"><span class="k">Last 30 days</span><span class="v">${month}</span><span class="s">sessions</span></div></div>
   ${D.sports.tips?.length ? `<div class="card"><h2>Tips</h2><ul class="bul">${D.sports.tips.map(x => `<li>${esc(x)}</li>`).join('')}</ul></div>` : ''}
   <div class="card"><h2>The split</h2>${[0, 1, 2, 3, 4, 5, 6].map(d => D.sports.plan.find(p => p.day === d)).filter(Boolean).map(p => `<details class="split"><summary><span class="dname">${['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][p.day]}</span> <b>${esc(p.name)}</b> <span class="dim small">${esc(p.tag || '')}</span></summary><ul class="bul">${(p.blocks || []).flatMap(([g, its]) => its.map(i => `<li><span class="dim">${esc(g)}:</span> ${esc(i)}</li>`)).join('')}${p.walk ? `<li>${esc(D.sports.walk)}</li>` : ''}</ul></details>`).join('')}</div>
   <div class="small dim" style="text-align:center">Goal: ${esc(D.sports.goal)}</div>`;
 };
+function foodCard() {
+  const today = (D.food || []).filter(f => dayKey(new Date(f.time).getTime()) === dayKey());
+  const kcal = today.reduce((s, f) => s + (+f.kcal || 0), 0), prot = today.reduce((s, f) => s + (+f.protein || 0), 0);
+  return `<div class="card"><h2>Food today <span class="small muted">${kcal ? '~' + kcal + ' kcal' : ''}${prot ? ' · ~' + prot + 'g protein' : ''}</span></h2>${today.length ? `<ul class="bul">${today.map(f => `<li>${esc(f.item)}${f.kcal ? ` <span class="dim">~${f.kcal} kcal</span>` : ''}</li>`).join('')}</ul>` : '<div class="empty">Tap the mic and say what you ate</div>'}<div class="small dim" style="margin-top:6px">Rough estimates from your updates.</div></div>`;
+}
 V.business = () => {
   const B = D.business || {}, now = Date.now(), dk = dayKey();
   const g = D.goals.find(x => x.id === 'money'); const gp = g ? Math.round(100 * (goalProgress(g) || 0)) : 0;
@@ -340,5 +347,71 @@ function toast(msg) { const t = $('#toast'); t.textContent = msg; t.classList.ad
 document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible' && D && Date.now() - (load._last || 0) > 5 * 60000) { load._last = Date.now(); load().catch(() => {}); } });
 setInterval(() => { if (D && document.visibilityState === 'visible') load().catch(() => {}); }, 15 * 60000);
 setInterval(() => { if (D) header(ROUTES.find(x => x[0] === route())[1]); }, 60000);
+
+// ---------- quick update (voice / text log) ----------
+const PEND = 'life:pending';
+const pending = () => JSON.parse(localStorage.getItem(PEND) || '[]');
+const setPending = (p) => localStorage.setItem(PEND, JSON.stringify(p));
+async function encryptMsg(obj, pass) {
+  const salt = crypto.getRandomValues(new Uint8Array(16)), iv = crypto.getRandomValues(new Uint8Array(12));
+  const base = await crypto.subtle.importKey('raw', new TextEncoder().encode(pass), 'PBKDF2', false, ['deriveKey']);
+  const key = await crypto.subtle.deriveKey({ name: 'PBKDF2', salt, iterations: 150000, hash: 'SHA-256' }, base, { name: 'AES-GCM', length: 256 }, false, ['encrypt']);
+  const ct = new Uint8Array(await crypto.subtle.encrypt({ name: 'AES-GCM', iv }, key, new TextEncoder().encode(JSON.stringify(obj))));
+  const b = (u) => btoa(String.fromCharCode(...u));
+  return { v: 1, salt: b(salt), iv: b(iv), ct: b(ct) };
+}
+async function postMsg(m) {
+  if (!D?.inbox?.token) throw new Error('inbox not configured');
+  const body = JSON.stringify(await encryptMsg({ time: m.time, text: m.text }, localStorage.getItem('life:pass')));
+  const r = await fetch(`https://api.github.com/repos/${D.inbox.owner}/${D.inbox.repo}/issues`, { method: 'POST', headers: { Authorization: 'Bearer ' + D.inbox.token, Accept: 'application/vnd.github+json', 'Content-Type': 'application/json' }, body: JSON.stringify({ title: 'log ' + m.id, body }) });
+  if (!r.ok) throw new Error('post ' + r.status);
+}
+async function flushPending() {
+  const p = pending(); let changed = false;
+  for (const m of p) if (m.status !== 'sent') { try { await postMsg(m); m.status = 'sent'; } catch { m.status = 'failed'; } changed = true; }
+  // drop sent messages that the server log already contains
+  const logged = new Set((D?.log || []).map(l => l.text));
+  const keep = p.filter(m => !(m.status === 'sent' && logged.has(m.text)) && Date.now() - m.t < 3 * DAY);
+  if (changed || keep.length !== p.length) setPending(keep);
+  renderChat();
+}
+function renderChat() {
+  const box = $('#chat'); if (!box || $('#sheet').classList.contains('hidden')) return;
+  const items = [...(D?.log || []).map(l => ({ t: new Date(l.time).getTime(), text: l.text, applied: l.applied || [] })), ...pending().map(m => ({ t: m.t, text: m.text, status: m.status }))].sort((a, b) => a.t - b.t).slice(-40);
+  box.innerHTML = items.map(x => `<div class="bubble"><div>${esc(x.text)}</div><div class="meta">${fmt(x.t, { weekday: 'short', hour: '2-digit', minute: '2-digit' })}${x.status ? ' · ' + (x.status === 'sent' ? 'sent, applies at next sync' : x.status === 'failed' ? 'not sent yet, will retry' : 'sending…') : ''}</div>${x.applied?.length ? `<div class="applied">${x.applied.map(a => '✓ ' + esc(a)).join('<br>')}</div>` : ''}</div>`).join('') || '<div class="empty">Nothing yet. Tap the mic and talk.</div>';
+  box.scrollTop = box.scrollHeight;
+}
+function openSheet() { $('#sheet').classList.remove('hidden'); renderChat(); flushPending(); }
+function closeSheet() { stopMic(); $('#sheet').classList.add('hidden'); }
+$('#fab').addEventListener('click', openSheet);
+$('#sheetClose').addEventListener('click', closeSheet);
+$('#sheet').addEventListener('click', (e) => { if (e.target.id === 'sheet') closeSheet(); });
+$('#send').addEventListener('click', async () => {
+  stopMic();
+  const text = $('#msg').value.trim(); if (!text) return;
+  const m = { id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6), t: Date.now(), time: new Date().toISOString(), text, status: 'sending' };
+  setPending([...pending(), m]); $('#msg').value = ''; renderChat();
+  await flushPending();
+  toast(pending().find(x => x.id === m.id)?.status === 'sent' ? 'Got it' : 'Saved, will send when online');
+});
+// speech recognition
+const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+let rec = null, listening = false, baseText = '';
+let lang = localStorage.getItem('life:lang') || 'en-US';
+const setLangBtn = () => { $('#lang').textContent = lang.startsWith('fr') ? 'FR' : 'EN'; };
+setLangBtn();
+$('#lang').addEventListener('click', () => { lang = lang.startsWith('fr') ? 'en-US' : 'fr-FR'; localStorage.setItem('life:lang', lang); setLangBtn(); if (listening) { stopMic(); startMic(); } });
+function startMic() {
+  if (!SR) { $('#msg').focus(); toast('Tap the mic on your keyboard to dictate'); return; }
+  rec = new SR(); rec.lang = lang; rec.continuous = true; rec.interimResults = true;
+  baseText = $('#msg').value ? $('#msg').value.trim() + ' ' : '';
+  rec.onresult = (e) => { let fin = '', int = ''; for (let i = 0; i < e.results.length; i++) { const r = e.results[i]; if (r.isFinal) fin += r[0].transcript; else int += r[0].transcript; } $('#msg').value = (baseText + fin + int).replace(/\s+/g, ' ').trimStart(); };
+  rec.onerror = (e) => { $('#micState').textContent = e.error === 'not-allowed' ? 'Mic blocked: allow it in Settings' : ''; stopMic(); };
+  rec.onend = () => { if (listening) { try { rec.start(); } catch { stopMic(); } } };
+  try { rec.start(); listening = true; $('#mic').classList.add('on'); $('#micState').textContent = 'Listening… tap again to stop'; } catch { toast('Mic unavailable, use keyboard dictation'); }
+}
+function stopMic() { listening = false; if (rec) { try { rec.stop(); } catch { } rec = null; } $('#mic').classList.remove('on'); $('#micState').textContent = ''; }
+$('#mic').addEventListener('click', () => listening ? stopMic() : startMic());
+
 if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
 boot();
