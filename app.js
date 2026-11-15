@@ -360,10 +360,9 @@ V.out = () => {
   const ev = D.goingOut || [];
   const ok = ev.filter(e => e.eligible), no = ev.filter(e => !e.eligible);
   const tonight = ok.filter(e => e.start < endTonight), later = ok.filter(e => e.start >= endTonight);
-  return `<div class="card hero"><div class="eyebrow">Aentry ${D.member ? '· member' : ''}</div><div class="hl" style="margin:4px 0">${tonight.length ? tonight.length + ' option' + (tonight.length > 1 ? 's' : '') + ' tonight' : 'Nothing tonight you can get into'}</div><p class="small">Only nights that let you in at ${18}. Tap Book it and I register your ticket (free ones only, I ask before paying).</p></div>
+  return `<div class="card hero"><div class="eyebrow">Aentry ${D.member ? '· member' : ''}</div><div class="hl" style="margin:4px 0">${tonight.length ? tonight.length + ' option' + (tonight.length > 1 ? 's' : '') + ' tonight' : 'Nothing free tonight'}</div><p class="small">Only nights that are free for guys and let you in at 18. Tap Book it and I register your ticket.</p></div>
   ${tonight.map(e => eventCard(e, true)).join('')}
   ${later.length ? `<div class="sec">This week</div>${later.map(e => eventCard(e)).join('')}` : ''}
-  ${no.length ? `<details class="card"><summary>${no.length} not for you (age limit or ladies only) ▾</summary><ul class="bul" style="margin-top:8px">${no.map(e => `<li>${esc(cleanTitle(e.title))} <span class="dim">${e.ladiesOnly ? 'ladies only' : 'min age ' + e.minAgeNeeded}</span></li>`).join('')}</ul></details>` : ''}
   <div class="small dim" style="text-align:center">Bring physical ID (passport / IC). Arrive before the entry cut-off.</div>`;
 };
 function tonightCard() {
