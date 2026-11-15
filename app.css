@@ -145,3 +145,11 @@ details summary::-webkit-details-marker{display:none}
 .toast.on{opacity:1;transform:translateX(-50%)}
 .feed .item .t{font-weight:550;font-size:14px}
 .k-ico{width:28px;height:28px;border-radius:9px;display:grid;place-items:center;flex:none;font-size:13px;font-weight:800}
+.bul{margin:0;padding-left:18px}.bul li{margin:5px 0;line-height:1.4}
+.split summary{display:flex;gap:8px;align-items:baseline;padding:9px 0;border-top:1px solid var(--line);color:var(--tx);font-size:14px}
+.split:first-of-type summary{border-top:0}
+.split .dname{width:34px;color:var(--mut);font-weight:650;font-size:12.5px}
+.split .bul{padding-bottom:8px;color:#c9cde0;font-size:13.5px}
+.today-hero .hl{font-size:22px}
+.biz{border-color:rgba(70,227,155,.25);background:linear-gradient(140deg,rgba(70,227,155,.10),rgba(255,255,255,.03))}
+.tabbar a{font-size:9.5px}.tabbar a svg{width:21px;height:21px}
