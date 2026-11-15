@@ -31,11 +31,12 @@ const I = {
   ideas: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2V17h5v-1.1c0-.8.4-1.5 1-2A6 6 0 0 0 12 3z"/></svg>',
   inbox: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M3 13l3-8h12l3 8v6H3z"/><path d="M3 13h5l1 3h6l1-3h5"/></svg>',
   study: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8l10-5 10 5-10 5z"/><path d="M6 10v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/></svg>',
+  out: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 22h8M12 15v7M5 3h14l-7 12z"/><path d="M7 7h10"/></svg>',
   more: '<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="19" cy="12" r="1.8"/></svg>',
   business: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg>',
 };
 const ROUTES = [
-  ['today', 'Today'], ['homework', 'Homework'], ['study', 'Study'], ['grades', 'Grades'], ['calendar', 'Calendar'], ['sports', 'Gym'], ['business', 'Business'], ['goals', 'Goals'], ['ideas', 'Ideas'], ['inbox', 'Inbox'], ['more', 'More'],
+  ['today', 'Today'], ['homework', 'Homework'], ['study', 'Study'], ['grades', 'Grades'], ['calendar', 'Calendar'], ['sports', 'Gym'], ['business', 'Business'], ['goals', 'Goals'], ['out', 'Going out'], ['ideas', 'Ideas'], ['inbox', 'Inbox'], ['more', 'More'],
 ];
 const TAB_ROUTES = ['today', 'homework', 'study', 'grades', 'sports', 'business', 'more'];
 
@@ -160,6 +161,7 @@ V.today = () => {
     <a class="tile" href="#sports" style="--glow:#46e39b"><span class="k">${I.sports.replace('<svg', '<svg width="15"')} Gym</span><span class="v">${gDone ? '✓' : t?.rest ? 'Rest' : esc((t?.name || '').split(' ')[0])}</span><span class="s">${sportsWeek().done}/${D.sports.weeklyTarget} this week</span></a>
     <a class="tile" href="#grades" style="--glow:#8b7cff"><span class="k">${I.grades.replace('<svg', '<svg width="15"')} Average</span><span class="v">${D.grades.average != null ? D.grades.average.toFixed(2) : '–'}</span><span class="s">/20 so far</span></a>
   </div>
+  ${tonightCard()}
   ${studyCard()}
   ${biz.length ? `<div class="card biz"><h2>Money moves <a class="small muted" href="#business">${esc(D.business.name || 'Business')} →</a></h2><div class="list">${biz.map((b, i) => `<div class="item ${bd[i] ? 'done' : ''}"><button class="check ${bd[i] ? 'on' : ''}" data-act="biz" data-i="${i}"></button><div class="main"><div class="t">${esc(b)}</div></div></div>`).join('')}</div></div>` : ''}
   ${newCh.length ? `<div class="card feed"><h2>New <button class="btn" data-act="seen">Seen</button></h2><div class="list">${newCh.map(c => `<div class="item"><span class="k-ico" style="background:${kindColor(c.kind)}22;color:${kindColor(c.kind)}">${kindLetter(c.kind)}</span><div class="main"><div class="t">${c.url ? `<a href="${esc(c.url)}" target="_blank" rel="noopener">${esc(c.text)}</a>` : esc(c.text)}</div><div class="d">${rel(c.time)}</div></div></div>`).join('')}</div></div>` : ''}
@@ -338,7 +340,45 @@ function quizPick(i) {
   const x = (st.q[q.id] ||= { c: 0, w: 0 }); if (ok) x.c++; else x.w++; x.last = ok ? 1 : 0; x.t = Date.now();
 }
 function quizFinish() { const byKey = {}; for (const q of quiz.qs) byKey[q.key] = (byKey[q.key] || 0) + 1; for (const k in byKey) { const st = (SST()[k] ||= { q: {}, sessions: [] }); (st.sessions ||= []).push({ t: Date.now(), n: byKey[k] }); } }
-V.more = () => `<div class="list">${[['calendar', 'Calendar', 'Week view + to-do list'], ['goals', 'Goals', 'Long-term goals and milestones'], ['inbox', 'Inbox', 'ESSEC, EPE (Zoho), personal, Fennly'], ['ideas', 'Ideas', 'Daily ideas + saved ones']].map(([r, l, d]) => `<a class="card row" href="#${r}" style="margin-bottom:10px"><span class="k-ico" style="background:rgba(139,124,255,.15);color:#b7adff;width:38px;height:38px">${I[r].replace('<svg', '<svg width="20"')}</span><div style="flex:1"><div style="font-weight:700">${l}</div><div class="small muted">${d}</div></div><span class="muted">›</span></a>`).join('')}</div>`;
+V.more = () => `<div class="list">${[['out', 'Going out', 'Aentry guest lists you can get into'], ['calendar', 'Calendar', 'Week view + to-do list'], ['goals', 'Goals', 'Long-term goals and milestones'], ['inbox', 'Inbox', 'ESSEC, EPE (Zoho), personal, Fennly'], ['ideas', 'Ideas', 'Daily ideas + saved ones']].map(([r, l, d]) => `<a class="card row" href="#${r}" style="margin-bottom:10px"><span class="k-ico" style="background:rgba(139,124,255,.15);color:#b7adff;width:38px;height:38px">${I[r].replace('<svg', '<svg width="20"')}</span><div style="flex:1"><div style="font-weight:700">${l}</div><div class="small muted">${d}</div></div><span class="muted">›</span></a>`).join('')}</div>`;
+
+
+// ---------- going out (Aentry) ----------
+const cleanTitle = (t) => t.replace(/\s*\*.*$/, '').replace(/\s*\((Mon|Tue|Tues|Wed|Thu|Thurs|Fri|Sat|Sun)[^)]*\)/i, '').replace(/\s*\(\d+ \w+, \w+\)/, '').trim();
+const priceTag = (p) => p === 0 ? '<span class="pill ok">FREE</span>' : p != null ? `<span class="pill warn">$${p}</span>` : '';
+function eventCard(e, big) {
+  const b = e.best; const cut = b?.salesEnd; const booked = (S.booked || {})[e.id];
+  return `<div class="card ev ${big ? 'evbig' : ''}">${e.image ? `<div class="evimg" style="background-image:url('${esc(e.image)}')"></div>` : ''}
+    <div class="row between" style="margin-top:${e.image ? 10 : 0}px"><div class="t" style="font-weight:750;font-size:16px">${esc(cleanTitle(e.title))}</div>${b ? priceTag(b.price) : ''}</div>
+    <div class="m">${dayName(e.start)} · ${hm(e.start)} · <a href="${esc(e.map || '#')}" target="_blank" rel="noopener">${esc((e.location || '').split(',')[0])}</a></div>
+    ${b ? `<div class="d" style="color:#c9cde0;margin-top:6px">${esc(b.title)}</div>` : ''}
+    <div class="small dim" style="margin-top:4px">${cut ? 'Sign up by ' + dayName(cut) + ' ' + hm(cut) : ''}${b?.left != null ? ' · ' + b.left + ' left' : ''}${b?.penalty ? ' · $' + b.penalty + ' no-show fee' : ''}</div>
+    ${b ? `<div class="row" style="gap:8px;margin-top:10px">${booked ? '<span class="pill acc">Booking requested</span>' : `<button class="btn pri" data-act="aebook" data-id="${e.id}">Book it</button>`}<a class="btn" href="${esc(e.url)}" target="_blank" rel="noopener">Aentry ↗</a></div>` : ''}</div>`;
+}
+V.out = () => {
+  const now = Date.now(), endTonight = sgMidnight() + DAY + 6 * 3600000;
+  const ev = D.goingOut || [];
+  const ok = ev.filter(e => e.eligible), no = ev.filter(e => !e.eligible);
+  const tonight = ok.filter(e => e.start < endTonight), later = ok.filter(e => e.start >= endTonight);
+  return `<div class="card hero"><div class="eyebrow">Aentry ${D.member ? '· member' : ''}</div><div class="hl" style="margin:4px 0">${tonight.length ? tonight.length + ' option' + (tonight.length > 1 ? 's' : '') + ' tonight' : 'Nothing tonight you can get into'}</div><p class="small">Only nights that let you in at ${18}. Tap Book it and I register your ticket (free ones only, I ask before paying).</p></div>
+  ${tonight.map(e => eventCard(e, true)).join('')}
+  ${later.length ? `<div class="sec">This week</div>${later.map(e => eventCard(e)).join('')}` : ''}
+  ${no.length ? `<details class="card"><summary>${no.length} not for you (age limit or ladies only) ▾</summary><ul class="bul" style="margin-top:8px">${no.map(e => `<li>${esc(cleanTitle(e.title))} <span class="dim">${e.ladiesOnly ? 'ladies only' : 'min age ' + e.minAgeNeeded}</span></li>`).join('')}</ul></details>` : ''}
+  <div class="small dim" style="text-align:center">Bring physical ID (passport / IC). Arrive before the entry cut-off.</div>`;
+};
+function tonightCard() {
+  const end = sgMidnight() + DAY + 6 * 3600000; const h = sgParts(Date.now()).h;
+  const e = (D.goingOut || []).find(x => x.eligible && x.start < end && x.end > Date.now());
+  if (!e || h < 12) return '';
+  return `<a class="card tonight row" href="#out"><span class="k-ico" style="background:rgba(255,61,154,.15);color:#ff8cc6;width:38px;height:38px">${I.out.replace('<svg', '<svg width="20"')}</span><div style="flex:1;min-width:0"><div class="tag">Tonight</div><div style="font-weight:700">${esc(cleanTitle(e.title))}</div><div class="small muted">${hm(e.start)} · ${e.best?.price === 0 ? 'free with Aentry' : '$' + e.best?.price}${e.best?.salesEnd ? ' · sign up by ' + hm(e.best.salesEnd) : ''}</div></div><span class="muted">›</span></a>`;
+}
+async function aeBook(id) {
+  const e = (D.goingOut || []).find(x => String(x.id) === String(id)); if (!e) return;
+  const text = `Book on Aentry: event ${e.id} "${cleanTitle(e.title)}" (${dayName(e.start)} ${hm(e.start)}), ticket "${e.best?.title}" (${e.best?.price === 0 ? 'free' : '$' + e.best?.price}).`;
+  const m = { id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6), t: Date.now(), time: new Date().toISOString(), text, status: 'sending' };
+  setPending([...pending(), m]); (S.booked ||= {})[id] = Date.now(); save(); render();
+  await flushPending(); toast(pending().find(x => x.id === m.id)?.status === 'sent' ? 'Booking request sent' : 'Saved, will send when online');
+}
 
 V.business = () => {
   const B = D.business || {}, now = Date.now(), dk = dayKey();
@@ -404,6 +444,7 @@ document.addEventListener('click', (e) => {
   else if (a === 'reset') { (S.reset[dk] ||= {})[el.dataset.i] = !S.reset[dk]?.[el.dataset.i]; }
   else if (a === 'sport') { S.sports[dk] = !S.sports[dk]; if (S.sports[dk]) toast('Session logged. Keep the streak.'); }
   else if (a === 'sportday') { const k = el.dataset.k; if (k <= dk) S.sports[k] = !S.sports[k]; }
+  else if (a === 'aebook') { aeBook(el.dataset.id); return; }
   else if (a === 'quizgo') { startQuiz(el.dataset.k); return; }
   else if (a === 'quizmix') { startMix(); return; }
   else if (a === 'quizpick') { quizPick(+el.dataset.i); }

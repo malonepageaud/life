@@ -181,3 +181,6 @@ details summary::-webkit-details-marker{display:none}
 .subj{cursor:pointer}
 .study-card{border-color:rgba(63,216,255,.25);background:linear-gradient(140deg,rgba(63,216,255,.10),rgba(255,255,255,.03))}
 .tabbar a{font-size:9.5px}
+.evimg{height:150px;border-radius:14px;background-size:cover;background-position:center;margin:-4px -4px 0}
+.ev:not(.evbig) .evimg{height:110px}
+.tonight{border-color:rgba(255,61,154,.3);background:linear-gradient(140deg,rgba(255,61,154,.12),rgba(255,255,255,.03))}
