@@ -46,6 +46,15 @@
   </main>
   <nav class="tabbar" id="tabbar"></nav>
 </div>
+<button id="fab" class="fab hidden" aria-label="Quick update"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+<div id="sheet" class="sheet hidden"><div class="sheet-card">
+  <div class="sheet-head"><div><b>Quick update</b><div class="small muted">Say what you did. I sort it into the app at the next sync.</div></div><button id="sheetClose" class="btn">Done</button></div>
+  <div id="chat" class="chat"></div>
+  <div class="composer"><textarea id="msg" rows="2" placeholder="e.g. Ate two McDonald's meals, finished the Subway case"></textarea>
+    <div class="comp-row"><button id="lang" class="chip" type="button">EN</button><span id="micState" class="small muted"></span><span style="flex:1"></span>
+    <button id="mic" class="micbtn" type="button" aria-label="Dictate"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+    <button id="send" class="btn pri" type="button">Send</button></div></div>
+</div></div>
 <div id="toast" class="toast"></div>
 <script src="app.js"></script>
 </body>
