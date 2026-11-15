@@ -1,0 +1,352 @@
+[
+  {
+    "id": "excel-001",
+    "topic": "Addressing modes",
+    "difficulty": 1,
+    "q": "Cell C1 contains =$A$1. You copy it to D2. What does D2 contain?",
+    "choices": [
+      "=A1",
+      "=$A2",
+      "=$A$1",
+      "=B2"
+    ],
+    "answer": 2,
+    "explain": "$A$1 is an absolute reference: neither column nor row changes when copied."
+  },
+  {
+    "id": "excel-002",
+    "topic": "Numerical functions",
+    "difficulty": 1,
+    "q": "A1=4, A2=6, A3=10. What does =SUM(A1:A3) return?",
+    "choices": [
+      "10",
+      "20",
+      "6.67",
+      "14"
+    ],
+    "answer": 1,
+    "explain": "4+6+10 = 20. 6.67 would be the AVERAGE."
+  },
+  {
+    "id": "excel-003",
+    "topic": "Logical functions",
+    "difficulty": 1,
+    "q": "B2 contains 8. What does =IF(B2>=10,\"success\",\"failure\") return?",
+    "choices": [
+      "failure",
+      "success",
+      "8",
+      "TRUE"
+    ],
+    "answer": 0,
+    "explain": "8 is not >= 10, so the false branch \"failure\" is returned."
+  },
+  {
+    "id": "excel-004",
+    "topic": "Conditional functions",
+    "difficulty": 1,
+    "q": "A1:A5 contain 3, 8, 5, 9, 12. What does =COUNTIF(A1:A5,\">5\") return?",
+    "choices": [
+      "2",
+      "4",
+      "5",
+      "3"
+    ],
+    "answer": 3,
+    "explain": "Only 8, 9 and 12 are greater than 5. 5 itself is not > 5."
+  },
+  {
+    "id": "excel-005",
+    "topic": "Text functions",
+    "difficulty": 1,
+    "q": "What does =LEFT(\"Singapore\",3) return?",
+    "choices": [
+      "ore",
+      "Sing",
+      "Sin",
+      "pore"
+    ],
+    "answer": 2,
+    "explain": "LEFT returns the first 3 characters: S, i, n."
+  },
+  {
+    "id": "excel-006",
+    "topic": "Rounding",
+    "difficulty": 1,
+    "q": "What does =ROUND(3.14159,2) return?",
+    "choices": [
+      "3.1",
+      "3.14",
+      "3.15",
+      "3.142"
+    ],
+    "answer": 1,
+    "explain": "ROUND to 2 decimals: 3.14159 becomes 3.14 (the next digit 1 rounds down)."
+  },
+  {
+    "id": "excel-007",
+    "topic": "Error values",
+    "difficulty": 1,
+    "q": "Which formula returns #DIV/0! ?",
+    "choices": [
+      "=10/0",
+      "=10/\"a\"",
+      "=SQRT(-4)",
+      "=VLOOKUP(99,A1:B3,2,FALSE) when 99 is missing"
+    ],
+    "answer": 0,
+    "explain": "Dividing by zero gives #DIV/0!. 10/\"a\" gives #VALUE!, SQRT(-4) gives #NUM!, a missing exact lookup gives #N/A."
+  },
+  {
+    "id": "excel-008",
+    "topic": "Charts",
+    "difficulty": 1,
+    "q": "You want to show how monthly sales changed over 12 months. Which chart fits best?",
+    "choices": [
+      "Pie chart",
+      "Scatter chart of two unrelated columns",
+      "Doughnut chart",
+      "Line chart"
+    ],
+    "answer": 3,
+    "explain": "A line chart shows a trend over time. Pie charts show shares of a whole."
+  },
+  {
+    "id": "excel-009",
+    "topic": "Charts",
+    "difficulty": 1,
+    "q": "You want to compare sales of 5 products in one month. Which chart fits best?",
+    "choices": [
+      "Line chart",
+      "Stock chart",
+      "Clustered column chart",
+      "Radar chart with 2 axes"
+    ],
+    "answer": 2,
+    "explain": "Column (or bar) charts compare values across categories."
+  },
+  {
+    "id": "excel-010",
+    "topic": "Sorting and filtering",
+    "difficulty": 1,
+    "q": "You apply a filter to show only rows where Region = \"Asia\". What happens to the other rows?",
+    "choices": [
+      "They are deleted",
+      "They are hidden, not deleted",
+      "They move to a new sheet",
+      "They are sorted to the bottom and kept visible"
+    ],
+    "answer": 1,
+    "explain": "Filtering hides rows temporarily; clearing the filter shows them again."
+  },
+  {
+    "id": "excel-011",
+    "topic": "Logical functions",
+    "difficulty": 2,
+    "q": "A1=7, B1=3. What does =IF(AND(A1>5,B1<3),\"Y\",\"N\") return?",
+    "choices": [
+      "N",
+      "Y",
+      "TRUE",
+      "#VALUE!"
+    ],
+    "answer": 0,
+    "explain": "AND needs both conditions true. A1>5 is true, but B1<3 is false (3 is not < 3), so the result is \"N\"."
+  },
+  {
+    "id": "excel-012",
+    "topic": "Logical functions",
+    "difficulty": 2,
+    "q": "A1=4, B1=\"x\". What does =IF(OR(A1>10,B1=\"x\"),1,0) return?",
+    "choices": [
+      "0",
+      "TRUE",
+      "x",
+      "1"
+    ],
+    "answer": 3,
+    "explain": "OR needs only one true condition. B1=\"x\" is true, so IF returns 1."
+  },
+  {
+    "id": "excel-013",
+    "topic": "Conditional functions",
+    "difficulty": 2,
+    "q": "A1:A4 = a, b, a, c and B1:B4 = 10, 20, 30, 40. What does =SUMIF(A1:A4,\"a\",B1:B4) return?",
+    "choices": [
+      "10",
+      "30",
+      "40",
+      "100"
+    ],
+    "answer": 2,
+    "explain": "Rows where A is \"a\": B1 (10) and B3 (30). 10+30 = 40."
+  },
+  {
+    "id": "excel-014",
+    "topic": "Lookup functions",
+    "difficulty": 2,
+    "q": "A1:A3 = A, B, C and B1:B3 = 10, 20, 30. What does =VLOOKUP(\"B\",A1:B3,2,FALSE) return?",
+    "choices": [
+      "B",
+      "20",
+      "10",
+      "#N/A"
+    ],
+    "answer": 1,
+    "explain": "Exact match for \"B\" in column 1 (row 2), then return column 2: 20."
+  },
+  {
+    "id": "excel-015",
+    "topic": "Lookup functions",
+    "difficulty": 2,
+    "q": "Which function can look up a value and return a result from a column to the LEFT of the lookup column?",
+    "choices": [
+      "XLOOKUP",
+      "VLOOKUP",
+      "HLOOKUP",
+      "SUMIF"
+    ],
+    "answer": 0,
+    "explain": "XLOOKUP takes separate lookup and return ranges so it can return from any side. VLOOKUP only returns columns to the right of the first column."
+  },
+  {
+    "id": "excel-016",
+    "topic": "Rounding",
+    "difficulty": 2,
+    "q": "What does =ROUND(1275,-2) return?",
+    "choices": [
+      "1200",
+      "1280",
+      "1270",
+      "1300"
+    ],
+    "answer": 3,
+    "explain": "A negative number of digits rounds to the left of the decimal point: 1275 to the nearest 100 is 1300."
+  },
+  {
+    "id": "excel-017",
+    "topic": "Error values",
+    "difficulty": 2,
+    "q": "=VLOOKUP(\"Z\",A1:B3,2,FALSE) returns #N/A. What is the most likely reason?",
+    "choices": [
+      "The column index is too small",
+      "The formula divides by zero",
+      "\"Z\" is not found in the first column",
+      "The cell is too narrow to show the result"
+    ],
+    "answer": 2,
+    "explain": "#N/A means a value is not available; with exact match it means no match was found."
+  },
+  {
+    "id": "excel-018",
+    "topic": "Conditional formatting",
+    "difficulty": 2,
+    "q": "You want cells over 100 to turn red automatically when values change. Which tool?",
+    "choices": [
+      "Data Validation",
+      "Conditional Formatting rule (Highlight Cells Rules)",
+      "Goal Seek",
+      "Sort A to Z"
+    ],
+    "answer": 1,
+    "explain": "Conditional formatting applies a format based on a rule and updates when the data changes."
+  },
+  {
+    "id": "excel-019",
+    "topic": "PivotTables",
+    "difficulty": 2,
+    "q": "In a PivotTable, you drag Region to Rows and Sales to Values. What do you get by default for numeric Sales?",
+    "choices": [
+      "Sum of Sales for each region",
+      "Count of Sales for each region",
+      "The original list of rows",
+      "Average of all sales in one cell"
+    ],
+    "answer": 0,
+    "explain": "Numeric fields in Values are summarised by Sum by default. You can change \"Summarize Values By\" to Count, Average, etc. A Filters field limits the whole table."
+  },
+  {
+    "id": "excel-020",
+    "topic": "Data validation",
+    "difficulty": 2,
+    "q": "You want a cell to accept only \"Yes\" or \"No\" through a drop-down. Which setting?",
+    "choices": [
+      "Conditional Formatting > Data Bars",
+      "Protect Sheet",
+      "Goal Seek",
+      "Data Validation > Allow: List"
+    ],
+    "answer": 3,
+    "explain": "Data Validation with Allow: List creates a drop-down and restricts entries."
+  },
+  {
+    "id": "excel-021",
+    "topic": "Lookup functions",
+    "difficulty": 3,
+    "q": "A1:A4 = 0, 50, 70, 90 and B1:B4 = F, D, C, A. What does =VLOOKUP(75,A1:B4,2,TRUE) return?",
+    "choices": [
+      "D",
+      "A",
+      "C",
+      "#N/A"
+    ],
+    "answer": 2,
+    "explain": "Approximate match returns the largest value that is <= 75 in the sorted column, which is 70, so \"C\"."
+  },
+  {
+    "id": "excel-022",
+    "topic": "Lookup functions",
+    "difficulty": 3,
+    "q": "A1:A3 = A, B, C and B1:B3 = 5, 6, 7. What does =INDEX(B1:B3,MATCH(\"C\",A1:A3,0)) return?",
+    "choices": [
+      "3",
+      "7",
+      "C",
+      "6"
+    ],
+    "answer": 1,
+    "explain": "MATCH(\"C\",A1:A3,0) returns position 3. INDEX(B1:B3,3) returns 7."
+  },
+  {
+    "id": "excel-023",
+    "topic": "Date functions",
+    "difficulty": 3,
+    "q": "What does =DATE(2026,12,15)+20 return?",
+    "choices": [
+      "4 January 2027",
+      "4 December 2026",
+      "5 January 2027",
+      "4 February 2027"
+    ],
+    "answer": 0,
+    "explain": "Dates are serial numbers, so +20 adds 20 days. 15 December + 16 days = 31 December, +4 more = 4 January 2027."
+  },
+  {
+    "id": "excel-024",
+    "topic": "What-if analysis",
+    "difficulty": 3,
+    "q": "You use Goal Seek to find the interest rate that gives a loan payment of 500. Which setup is correct?",
+    "choices": [
+      "Set cell = the rate cell; To value = 500; By changing = the payment formula",
+      "Set cell = any text cell; To value = 500",
+      "Set cell = the payment formula; By changing = a cell that contains a formula",
+      "Set cell = the payment formula; To value = 500; By changing = the rate cell (an input value)"
+    ],
+    "answer": 3,
+    "explain": "Goal Seek needs a formula cell to target, the desired value, and a constant input cell to change."
+  },
+  {
+    "id": "excel-025",
+    "topic": "Addressing modes",
+    "difficulty": 3,
+    "q": "D4 contains =$B4*C$3. You copy D4 to E5. What does E5 contain?",
+    "choices": [
+      "=$B4*C$3",
+      "=B5*D4",
+      "=$B5*D$3",
+      "=$C5*D$4"
+    ],
+    "answer": 2,
+    "explain": "$B keeps column B but the row moves 4 to 5. C$3 keeps row 3 but the column moves C to D."
+  }
+]

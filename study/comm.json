@@ -1,0 +1,212 @@
+[
+ {
+  "id": "comm-001",
+  "topic": "Session 3 Non-verbal Communication",
+  "difficulty": 1,
+  "q": "The claim that '93% of communication is non-verbal' came from which study?",
+  "choices": [
+   "A 2020 Medium survey",
+   "Mehrabian's 1967 study on 167 college students",
+   "A study of TED speakers",
+   "Lancaster's TEDx talk"
+  ],
+  "answer": 1,
+  "explain": "Mehrabian tested message incongruence; the 93% statistic is considered a myth when generalised."
+ },
+ {
+  "id": "comm-002",
+  "topic": "Session 3 Non-verbal Communication",
+  "difficulty": 2,
+  "q": "What did Mehrabian's study actually investigate?",
+  "choices": [
+   "Message incongruence, when verbal and non-verbal behavior do not match",
+   "Public speaking anxiety",
+   "Speech length and attention",
+   "Audience size effects"
+  ],
+  "answer": 0,
+  "explain": "It looked at mismatches between words and non-verbal cues, not all communication."
+ },
+ {
+  "id": "comm-003",
+  "topic": "Session 3 Rhetoric",
+  "difficulty": 1,
+  "q": "In rhetoric, which appeal refers to the speaker's credibility and trustworthiness?",
+  "choices": [
+   "Logos",
+   "Pathos",
+   "Kairos",
+   "Ethos"
+  ],
+  "answer": 3,
+  "explain": "Ethos is credibility, logos is logic and reason, pathos is emotion."
+ },
+ {
+  "id": "comm-004",
+  "topic": "Session 3 Rhetoric",
+  "difficulty": 1,
+  "q": "A speaker quotes a statistic and a clear cause-and-effect argument. Which appeal is mainly used?",
+  "choices": [
+   "Pathos",
+   "Ethos",
+   "Logos",
+   "Rhyme"
+  ],
+  "answer": 2,
+  "explain": "Logos is the appeal to logic and reason."
+ },
+ {
+  "id": "comm-005",
+  "topic": "Session 3 Rhetoric",
+  "difficulty": 2,
+  "q": "Why do 'three balancing statements' work in persuasive speeches?",
+  "choices": [
+   "They make the speech shorter",
+   "Brains are wired to approve of balance and symmetry, so it sounds true",
+   "They hide weak arguments from experts",
+   "They replace the need for a hook"
+  ],
+  "answer": 1,
+  "explain": "Balanced statements feel stable and truthful because of symmetry."
+ },
+ {
+  "id": "comm-006",
+  "topic": "Session 3 Rhetoric",
+  "difficulty": 2,
+  "q": "Rhyme is listed as a persuasive device. Why does it help?",
+  "choices": [
+   "It signals truth, recalls nursery rhymes and is memorable",
+   "It slows speech down",
+   "It shows technical expertise",
+   "It avoids repetition"
+  ],
+  "answer": 0,
+  "explain": "Rhyme is easy to understand and can lull the audience into agreement."
+ },
+ {
+  "id": "comm-007",
+  "topic": "Session 3 Rhetoric",
+  "difficulty": 2,
+  "q": "Martin Luther King repeats 'I have a dream that one day...'. Which device is this?",
+  "choices": [
+   "Rhyme",
+   "Exaggeration",
+   "Rhetorical question",
+   "Repetition (rule of three style)"
+  ],
+  "answer": 3,
+  "explain": "Repeated sentences sound weighty and carry the audience on a wave of emotion."
+ },
+ {
+  "id": "comm-008",
+  "topic": "Session 3 Speech Structure",
+  "difficulty": 1,
+  "q": "Besides the three appeals and devices, which two elements do good speeches need at the end of the model?",
+  "choices": [
+   "A joke and a poem",
+   "Slides and handouts",
+   "A central message and a call to action",
+   "A summary and an apology"
+  ],
+  "answer": 2,
+  "explain": "The speech model lists a central message and a call to action."
+ },
+ {
+  "id": "comm-009",
+  "topic": "Session 3 Hooks",
+  "difficulty": 1,
+  "q": "Which is NOT listed as a way to hook an audience?",
+  "choices": [
+   "Telling a story",
+   "Reading your slides line by line",
+   "Presenting a shocking statistic",
+   "Asking a question"
+  ],
+  "answer": 1,
+  "explain": "The hook list includes stories, jokes, quotes, shocking facts, questions and demos, not reading slides."
+ },
+ {
+  "id": "comm-010",
+  "topic": "Session 3 Hooks",
+  "difficulty": 2,
+  "q": "A speaker opens a climate talk with 'Floods. Plagues. Famine. Death. War.' Which approach from the slides is this?",
+  "choices": [
+   "Being dramatic, painting a verbal picture",
+   "Starting with an agenda slide",
+   "A neutral outline",
+   "Using a tongue twister"
+  ],
+  "answer": 0,
+  "explain": "The slides contrast a bland 'Earnest but BLAH' opening with a dramatic one."
+ },
+ {
+  "id": "comm-011",
+  "topic": "Session 3 Vocal Delivery",
+  "difficulty": 1,
+  "q": "Which element of vocal delivery means varying how high or low your voice sounds?",
+  "choices": [
+   "Articulation",
+   "Pace",
+   "Volume only",
+   "Pitch variety"
+  ],
+  "answer": 3,
+  "explain": "Pitch variety and intonation help emphasise key words."
+ },
+ {
+  "id": "comm-012",
+  "topic": "Session 3 Vocal Delivery",
+  "difficulty": 2,
+  "q": "'I never said she stole my money' can mean different things depending on what?",
+  "choices": [
+   "The speaker's speed",
+   "The audience size",
+   "Which word is stressed",
+   "The length of pauses only"
+  ],
+  "answer": 2,
+  "explain": "Stressing different words changes the meaning, which shows the power of emphasis."
+ },
+ {
+  "id": "comm-013",
+  "topic": "Session 3 Vocal Delivery",
+  "difficulty": 1,
+  "q": "Tongue twisters such as 'Peter Piper picked a peck of pickled peppers' are used to improve what?",
+  "choices": [
+   "Eye contact",
+   "Articulation",
+   "Slide design",
+   "Pitch range only"
+  ],
+  "answer": 1,
+  "explain": "They exercise the tongue, mouth and lips for clearer enunciation."
+ },
+ {
+  "id": "comm-014",
+  "topic": "Session 3 Fact Deck",
+  "difficulty": 2,
+  "q": "In the Fact Deck assignment, which slide question asks about motives and who gained what?",
+  "choices": [
+   "Why?",
+   "Where?",
+   "How?",
+   "Aftermath?"
+  ],
+  "answer": 0,
+  "explain": "The Why slide covers motives and who gained from the scandal."
+ },
+ {
+  "id": "comm-015",
+  "topic": "Session 3 Fact Deck",
+  "difficulty": 3,
+  "q": "For a scandal Fact Deck, which slide should explain how it was uncovered and who brought the parties to justice?",
+  "choices": [
+   "Who was involved?",
+   "When? Timeline",
+   "Sources",
+   "How?"
+  ],
+  "answer": 3,
+  "explain": "The How slide covers how the scandal unfolded, how they were caught and who brought them to justice."
+ }
+]

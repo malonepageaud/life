@@ -1,0 +1,492 @@
+[
+ {
+  "id": "macro-001",
+  "topic": "Session 1 Measuring the economy",
+  "difficulty": 1,
+  "q": "Year 1 price is $20 and output 50 units. Year 2 price is $22 and output 48 units. Using year 1 as the base year, what is real GDP in year 2?",
+  "choices": [
+   "$1,056",
+   "$960",
+   "$1,000",
+   "$1,100"
+  ],
+  "answer": 1,
+  "explain": "Real GDP values this year's output at base-year prices: 48 x $20 = $960. $1,056 (48 x 22) is nominal GDP."
+ },
+ {
+  "id": "macro-002",
+  "topic": "Session 1 Measuring the economy",
+  "difficulty": 1,
+  "q": "Nominal GDP is $1,056 and real GDP is $960. What is the GDP deflator?",
+  "choices": [
+   "110",
+   "91",
+   "96",
+   "100"
+  ],
+  "answer": 0,
+  "explain": "Deflator = nominal / real x 100 = 1,056 / 960 x 100 = 110."
+ },
+ {
+  "id": "macro-003",
+  "topic": "Session 1 Measuring the economy",
+  "difficulty": 2,
+  "q": "Which price rise shows up in the CPI but NOT in the GDP deflator?",
+  "choices": [
+   "Domestic haircut prices",
+   "Prices of goods produced domestically and exported",
+   "Prices of new machines made at home",
+   "Imported oil bought by households"
+  ],
+  "answer": 3,
+  "explain": "The CPI covers what households buy, including imports. The deflator covers what the economy produces, so imports are excluded and exports are included."
+ },
+ {
+  "id": "macro-004",
+  "topic": "Session 1 Measuring the economy",
+  "difficulty": 2,
+  "q": "The CPI rises from 125 to 130 over a year. What is the inflation rate?",
+  "choices": [
+   "5.0%",
+   "3.8%",
+   "4.0%",
+   "0.4%"
+  ],
+  "answer": 2,
+  "explain": "Inflation = (130 - 125) / 125 = 4.0%. Dividing by 130 gives 3.8%, which uses the wrong base."
+ },
+ {
+  "id": "macro-005",
+  "topic": "Session 1 Measuring the economy",
+  "difficulty": 1,
+  "q": "There are 1,150 employed, 100 unemployed and 400 people outside the labour force. What is the unemployment rate?",
+  "choices": [
+   "8.7%",
+   "8.0%",
+   "6.1%",
+   "20%"
+  ],
+  "answer": 1,
+  "explain": "Labour force = 1,150 + 100 = 1,250. Rate = 100 / 1,250 = 8%. Dividing by employed gives 8.7%."
+ },
+ {
+  "id": "macro-006",
+  "topic": "Session 1 Measuring the economy",
+  "difficulty": 1,
+  "q": "A discouraged worker stops looking for a job. What happens to the measured unemployment rate, other things equal?",
+  "choices": [
+   "It falls",
+   "It rises",
+   "It is unchanged",
+   "It rises, because they still want to work"
+  ],
+  "answer": 0,
+  "explain": "Discouraged workers leave the labour force, so they are no longer counted as unemployed and the measured rate falls."
+ },
+ {
+  "id": "macro-007",
+  "topic": "Session 1 Measuring the economy",
+  "difficulty": 1,
+  "q": "A rate goes from 4% to 5%. Which statement is correct?",
+  "choices": [
+   "It rose by 1%, a 1 percentage point increase",
+   "It rose by 25 percentage points",
+   "It rose by 5 percentage points",
+   "It rose by 1 percentage point, a 25% increase"
+  ],
+  "answer": 3,
+  "explain": "The absolute change is 1 percentage point. The relative change is 1 / 4 = 25%."
+ },
+ {
+  "id": "macro-008",
+  "topic": "Session 2 Goods market: consumption",
+  "difficulty": 1,
+  "q": "C = 100 + 0.8 YD and disposable income YD = 600. What is consumption C?",
+  "choices": [
+   "480",
+   "100",
+   "580",
+   "680"
+  ],
+  "answer": 2,
+  "explain": "C = 100 + 0.8 x 600 = 100 + 480 = 580. Use disposable income, not Y."
+ },
+ {
+  "id": "macro-009",
+  "topic": "Session 2 Goods market: consumption",
+  "difficulty": 1,
+  "q": "With c1 = 0.75 and fixed taxes, what is the multiplier?",
+  "choices": [
+   "0.75",
+   "4",
+   "1.33",
+   "3"
+  ],
+  "answer": 1,
+  "explain": "Multiplier = 1 / (1 - c1) = 1 / 0.25 = 4."
+ },
+ {
+  "id": "macro-010",
+  "topic": "Session 2 Goods market: consumption",
+  "difficulty": 3,
+  "q": "c1 = 0.8 and taxes are T = T0 + tY with t = 0.25. What is the multiplier?",
+  "choices": [
+   "2.5",
+   "5",
+   "1.25",
+   "4"
+  ],
+  "answer": 0,
+  "explain": "Multiplier = 1 / (1 - c1(1 - t)) = 1 / (1 - 0.8 x 0.75) = 1 / 0.4 = 2.5, smaller than 5 with fixed taxes because part of each extra dollar is taxed."
+ },
+ {
+  "id": "macro-011",
+  "topic": "Session 2 Goods market: consumption",
+  "difficulty": 2,
+  "q": "Which event shifts the investment curve rather than moving along it?",
+  "choices": [
+   "The central bank raises its policy rate",
+   "A rise in the interest rate",
+   "A fall in the interest rate",
+   "A fall in expected sales"
+  ],
+  "answer": 3,
+  "explain": "Only a change in r moves us along the curve. Anything else, such as expected sales or confidence, shifts it (here to the left)."
+ },
+ {
+  "id": "macro-012",
+  "topic": "Session 3 Fiscal policy and multiplier",
+  "difficulty": 3,
+  "q": "C = 100 + 0.5(Y - T), I = 150, G = 250, T = 200. What is equilibrium output Y?",
+  "choices": [
+   "1,000",
+   "600",
+   "800",
+   "900"
+  ],
+  "answer": 2,
+  "explain": "Y = 100 + 0.5(Y - 200) + 150 + 250 gives 0.5Y = 400, so Y = 800. Check: C = 400, Z = 400 + 150 + 250 = 800."
+ },
+ {
+  "id": "macro-013",
+  "topic": "Session 3 Fiscal policy and multiplier",
+  "difficulty": 1,
+  "q": "Government spending G rises by 100 and c1 = 0.6 (fixed taxes). By how much does equilibrium output rise?",
+  "choices": [
+   "100",
+   "250",
+   "60",
+   "150"
+  ],
+  "answer": 1,
+  "explain": "Multiplier = 1 / (1 - 0.6) = 2.5, so change in Y = 2.5 x 100 = 250."
+ },
+ {
+  "id": "macro-014",
+  "topic": "Session 3 Fiscal policy and multiplier",
+  "difficulty": 2,
+  "q": "Taxes T fall by 100 and c1 = 0.6. By how much does output rise?",
+  "choices": [
+   "150",
+   "250",
+   "60",
+   "100"
+  ],
+  "answer": 0,
+  "explain": "Disposable income rises by 100, first-round spending is 0.6 x 100 = 60, then multiplied by 2.5 gives 150. The tax multiplier is smaller than the G multiplier."
+ },
+ {
+  "id": "macro-015",
+  "topic": "Session 3 Fiscal policy and multiplier",
+  "difficulty": 3,
+  "q": "G and T both rise by 100 (balanced budget) and c1 = 0.6. What happens to output?",
+  "choices": [
+   "Unchanged",
+   "Rises by 250",
+   "Rises by 150",
+   "Rises by 100"
+  ],
+  "answer": 3,
+  "explain": "G raises Y by 250 and T lowers Y by 150, net +100 (Haavelmo). The balanced budget multiplier is 1."
+ },
+ {
+  "id": "macro-016",
+  "topic": "Session 4 Money market and bonds",
+  "difficulty": 1,
+  "q": "A bond pays $100 in one year and sells for $80 today. What is the interest rate?",
+  "choices": [
+   "20%",
+   "80%",
+   "25%",
+   "2.5%"
+  ],
+  "answer": 2,
+  "explain": "$80 x (1 + i) = $100, so i = 100 / 80 - 1 = 25%."
+ },
+ {
+  "id": "macro-017",
+  "topic": "Session 4 Money market and bonds",
+  "difficulty": 1,
+  "q": "What is the present value of $100 received in one year when the interest rate is 5%?",
+  "choices": [
+   "$95.00",
+   "$95.24",
+   "$105",
+   "$100"
+  ],
+  "answer": 1,
+  "explain": "PV = 100 / (1 + r) = 100 / 1.05 = $95.24. A higher r lowers the present value."
+ },
+ {
+  "id": "macro-018",
+  "topic": "Session 4 Money market and bonds",
+  "difficulty": 2,
+  "q": "Money supply is fixed and nominal income $Y rises. What happens in the money market?",
+  "choices": [
+   "Money demand shifts right and the interest rate rises",
+   "Money demand shifts left and the interest rate falls",
+   "Money supply shifts right and the interest rate falls",
+   "Nothing, money demand depends only on i"
+  ],
+  "answer": 0,
+  "explain": "Md = $Y x L(i). Higher $Y means more money wanted at each rate, so with M fixed the rate that clears the market is higher."
+ },
+ {
+  "id": "macro-019",
+  "topic": "Session 4 Money market and bonds",
+  "difficulty": 2,
+  "q": "The central bank buys bonds with newly created money. What happens?",
+  "choices": [
+   "Bond prices fall and the interest rate falls",
+   "Bond prices rise and the interest rate rises",
+   "Money supply falls and the interest rate rises",
+   "Bond prices rise and the interest rate falls"
+  ],
+  "answer": 3,
+  "explain": "Buying pushes bond prices up. Prices and interest rates move inversely, so the rate falls and M increases."
+ },
+ {
+  "id": "macro-020",
+  "topic": "Session 4 Money market and bonds",
+  "difficulty": 2,
+  "q": "In a liquidity trap, what does extra money supply do?",
+  "choices": [
+   "Lowers the rate below zero",
+   "Raises the rate",
+   "Nothing to the interest rate, which stays at zero",
+   "Raises bond prices without limit"
+  ],
+  "answer": 2,
+  "explain": "At i = 0 money demand is flat: bonds pay nothing, so people just hold the extra money and the rate cannot fall further."
+ },
+ {
+  "id": "macro-021",
+  "topic": "Session 4 Money market and bonds",
+  "difficulty": 1,
+  "q": "Nominal income $Y is 1,200 and L(i) = 0.25 at the current interest rate. What is money demand Md = $Y x L(i)?",
+  "choices": [
+   "4,800",
+   "300",
+   "1,200",
+   "30"
+  ],
+  "answer": 1,
+  "explain": "Md = 1,200 x 0.25 = 300."
+ },
+ {
+  "id": "macro-022",
+  "topic": "Session 4 Money market and bonds",
+  "difficulty": 2,
+  "q": "Money supply M = 400 and $Y = 1,000. At the equilibrium interest rate, what is L(i)?",
+  "choices": [
+   "0.40",
+   "0.25",
+   "0.60",
+   "2.5"
+  ],
+  "answer": 0,
+  "explain": "Equilibrium: M = $Y x L(i), so 400 = 1,000 x L(i) and L(i) = 0.40."
+ },
+ {
+  "id": "macro-023",
+  "topic": "Session 5 Labour market and natural rate",
+  "difficulty": 2,
+  "q": "Firms raise their markup m. What happens to the natural rate of unemployment?",
+  "choices": [
+   "It falls",
+   "It is unchanged",
+   "It falls, because real wages rise",
+   "It rises"
+  ],
+  "answer": 3,
+  "explain": "Price setting gives a lower real wage. Since alpha x un = m + zw, a higher m means a higher natural rate."
+ },
+ {
+  "id": "macro-024",
+  "topic": "Session 5 Labour market and natural rate",
+  "difficulty": 2,
+  "q": "Using alpha x un = m + zw with alpha = 0.5, m = 0.02 and zw = 0.01, what is the natural rate un?",
+  "choices": [
+   "3%",
+   "1.5%",
+   "6%",
+   "12%"
+  ],
+  "answer": 2,
+  "explain": "un = (m + zw) / alpha = 0.03 / 0.5 = 0.06 = 6%."
+ },
+ {
+  "id": "macro-025",
+  "topic": "Session 5 Labour market and natural rate",
+  "difficulty": 3,
+  "q": "Same model (alpha = 0.5, m = 0.02, zw = 0.01). zw rises to 0.02. By how much does the natural rate change?",
+  "choices": [
+   "Up 1 percentage point",
+   "Up 2 percentage points",
+   "Up 4 percentage points",
+   "Down 2 percentage points"
+  ],
+  "answer": 1,
+  "explain": "New un = 0.04 / 0.5 = 8%, from 6%, so +2 percentage points."
+ },
+ {
+  "id": "macro-026",
+  "topic": "Session 5 Labour market and natural rate",
+  "difficulty": 1,
+  "q": "Output grows faster than normal. According to Okun's law, what happens to the unemployment rate?",
+  "choices": [
+   "It falls, by less than one for one",
+   "It rises",
+   "It falls one for one",
+   "It is unchanged"
+  ],
+  "answer": 0,
+  "explain": "Faster-than-normal growth creates jobs so unemployment falls, but less than one for one in the data."
+ },
+ {
+  "id": "macro-027",
+  "topic": "Session 6 Inflation and Phillips curve",
+  "difficulty": 2,
+  "q": "Phillips curve: pi = pie - alpha(u - un), with pie = 2%, alpha = 0.5, un = 6%. If u = 8%, what is inflation?",
+  "choices": [
+   "3%",
+   "2%",
+   "5%",
+   "1%"
+  ],
+  "answer": 3,
+  "explain": "pi = 2% - 0.5 x (8% - 6%) = 2% - 1% = 1%."
+ },
+ {
+  "id": "macro-028",
+  "topic": "Session 6 Inflation and Phillips curve",
+  "difficulty": 3,
+  "q": "With theta = 1 (expected inflation = last year's), last year pi = 2%, un = 6%, alpha = 0.5 and u stays at 4%. What are inflation this year and next year?",
+  "choices": [
+   "3%, then 3%",
+   "2%, then 2%",
+   "3%, then 4%",
+   "4%, then 6%"
+  ],
+  "answer": 2,
+  "explain": "Year 1: pie = 2%, so pi = 2% + 0.5 x 2% = 3%. Year 2: pie = 3%, so pi = 4%. Inflation keeps rising (accelerationist)."
+ },
+ {
+  "id": "macro-029",
+  "topic": "Session 6 Inflation and Phillips curve",
+  "difficulty": 2,
+  "q": "In the theta = 1 version, what is true at the natural rate of unemployment (the NAIRU)?",
+  "choices": [
+   "Inflation is zero",
+   "Inflation equals last year's inflation and does not accelerate",
+   "Inflation falls every year",
+   "Inflation equals the central bank target"
+  ],
+  "answer": 1,
+  "explain": "At u = un the gap term is zero, so pi = pie = last year's inflation: non-accelerating."
+ },
+ {
+  "id": "macro-030",
+  "topic": "Session 6 Inflation and Phillips curve",
+  "difficulty": 1,
+  "q": "Inflation is above the central bank's target. What does an inflation-targeting central bank do?",
+  "choices": [
+   "Raises the policy rate",
+   "Cuts the policy rate",
+   "Leaves the rate and raises G",
+   "Buys more bonds to lower the rate"
+  ],
+  "answer": 0,
+  "explain": "It moves the policy rate to bring inflation back to target: up when inflation is too high."
+ },
+ {
+  "id": "macro-031",
+  "topic": "Session 7 IS-LM-PC",
+  "difficulty": 1,
+  "q": "In IS-LM-PC, which curve shifts when the government cuts taxes T?",
+  "choices": [
+   "LM, up",
+   "IS, to the left",
+   "LM, down",
+   "IS, to the right"
+  ],
+  "answer": 3,
+  "explain": "Fiscal policy (G, T) shifts IS. A tax cut raises demand at each interest rate, so IS shifts right."
+ },
+ {
+  "id": "macro-032",
+  "topic": "Session 7 IS-LM-PC",
+  "difficulty": 2,
+  "q": "IS: Y = 1,200 - 50r and LM is flat at r = 4%. The central bank cuts the rate to 2%. What is the new Y?",
+  "choices": [
+   "1,000",
+   "1,200",
+   "1,100",
+   "900"
+  ],
+  "answer": 2,
+  "explain": "Before: Y = 1,200 - 200 = 1,000. After: Y = 1,200 - 50 x 2 = 1,100."
+ },
+ {
+  "id": "macro-033",
+  "topic": "Session 7 IS-LM-PC",
+  "difficulty": 2,
+  "q": "G rises and the central bank keeps its rate fixed at 4% (flat LM). What happens?",
+  "choices": [
+   "Y rises and r rises",
+   "Y rises and r stays at 4%",
+   "Y is unchanged and r rises",
+   "Y falls and r stays at 4%"
+  ],
+  "answer": 1,
+  "explain": "IS shifts right along the flat LM, so the interest rate is unchanged and Y rises by the full horizontal shift."
+ },
+ {
+  "id": "macro-034",
+  "topic": "Session 7 IS-LM-PC",
+  "difficulty": 3,
+  "q": "Inflation is above target, so the central bank raises its policy rate. What happens to Y, u and inflation?",
+  "choices": [
+   "Y falls, u rises, inflation falls",
+   "Y rises, u falls, inflation falls",
+   "Y falls, u rises, inflation rises",
+   "Y falls, u falls, inflation falls"
+  ],
+  "answer": 0,
+  "explain": "LM shifts up along IS, so Y falls. By Okun's law u rises above un, and by the Phillips curve inflation falls below expected."
+ },
+ {
+  "id": "macro-035",
+  "topic": "Session 7 IS-LM-PC",
+  "difficulty": 3,
+  "q": "A higher markup m hits the economy. What happens to the natural rate un and natural output Yn?",
+  "choices": [
+   "un falls, Yn rises",
+   "un rises, Yn rises",
+   "un unchanged, Yn falls",
+   "un rises, Yn falls"
+  ],
+  "answer": 3,
+  "explain": "alpha x un = m + zw, so un rises. Higher natural unemployment means fewer workers employed, so Yn = Nn falls."
+ }
+]

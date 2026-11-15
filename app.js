@@ -7,7 +7,7 @@ let D = null; // decrypted data
 
 // ---------- local state ----------
 const LS = 'life:v1';
-const S = Object.assign({ todosDone: {}, custom: [], focus: {}, sports: {}, ms: {}, reset: {}, saved: [], seenChanges: 0, biz: {}, ex: {} }, JSON.parse(localStorage.getItem(LS) || '{}'));
+const S = Object.assign({ todosDone: {}, custom: [], focus: {}, sports: {}, ms: {}, reset: {}, saved: [], seenChanges: 0, biz: {}, ex: {}, study: {} }, JSON.parse(localStorage.getItem(LS) || '{}'));
 const save = () => localStorage.setItem(LS, JSON.stringify(S));
 
 // ---------- time helpers ----------
@@ -30,12 +30,14 @@ const I = {
   goals: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg>',
   ideas: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2V17h5v-1.1c0-.8.4-1.5 1-2A6 6 0 0 0 12 3z"/></svg>',
   inbox: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M3 13l3-8h12l3 8v6H3z"/><path d="M3 13h5l1 3h6l1-3h5"/></svg>',
+  study: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8l10-5 10 5-10 5z"/><path d="M6 10v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/></svg>',
+  more: '<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="19" cy="12" r="1.8"/></svg>',
   business: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg>',
 };
 const ROUTES = [
-  ['today', 'Today'], ['homework', 'Homework'], ['grades', 'Grades'], ['calendar', 'Calendar'], ['sports', 'Gym'], ['business', 'Business'], ['goals', 'Goals'], ['ideas', 'Ideas'], ['inbox', 'Inbox'],
+  ['today', 'Today'], ['homework', 'Homework'], ['study', 'Study'], ['grades', 'Grades'], ['calendar', 'Calendar'], ['sports', 'Gym'], ['business', 'Business'], ['goals', 'Goals'], ['ideas', 'Ideas'], ['inbox', 'Inbox'], ['more', 'More'],
 ];
-const TAB_ROUTES = ['today', 'homework', 'grades', 'calendar', 'sports', 'business', 'goals'];
+const TAB_ROUTES = ['today', 'homework', 'study', 'grades', 'sports', 'business', 'more'];
 
 // ---------- crypto ----------
 const ub64 = (s) => Uint8Array.from(atob(s), c => c.charCodeAt(0));
@@ -90,7 +92,7 @@ $('#syncBtn').addEventListener('click', () => load(true).catch(() => toast('Coul
 
 // ---------- nav ----------
 function route() { const r = (location.hash.replace('#', '').split('&')[0]) || 'today'; return ROUTES.some(x => x[0] === r) ? r : 'today'; }
-window.addEventListener('hashchange', () => { render(); window.scrollTo(0, 0); });
+window.addEventListener('hashchange', () => { if (!location.hash.startsWith('#study')) quiz = null; render(); window.scrollTo(0, 0); });
 function badges() {
   if (!D) return {};
   const hw = D.homework.filter(h => h.due && h.due > Date.now() && h.due - Date.now() < 3 * DAY).length;
@@ -100,7 +102,7 @@ function badges() {
 function renderNav() {
   const b = badges(), cur = route();
   const link = (r, label) => `<a href="#${r}" class="${cur === r ? 'on' : ''}">${I[r]}<span>${label}</span>${b[r] ? `<span class="dot">${b[r] > 9 ? '9+' : b[r]}</span>` : ''}</a>`;
-  $('#sideNav').innerHTML = ROUTES.map(([r, l]) => link(r, l)).join('');
+  $('#sideNav').innerHTML = ROUTES.filter(([r]) => r !== 'more').map(([r, l]) => link(r, l)).join('');
   $('#tabbar').innerHTML = ROUTES.filter(([r]) => TAB_ROUTES.includes(r)).map(([r, l]) => link(r, l)).join('');
 }
 function header(title) {
@@ -158,6 +160,7 @@ V.today = () => {
     <a class="tile" href="#sports" style="--glow:#46e39b"><span class="k">${I.sports.replace('<svg', '<svg width="15"')} Gym</span><span class="v">${gDone ? '✓' : t?.rest ? 'Rest' : esc((t?.name || '').split(' ')[0])}</span><span class="s">${sportsWeek().done}/${D.sports.weeklyTarget} this week</span></a>
     <a class="tile" href="#grades" style="--glow:#8b7cff"><span class="k">${I.grades.replace('<svg', '<svg width="15"')} Average</span><span class="v">${D.grades.average != null ? D.grades.average.toFixed(2) : '–'}</span><span class="s">/20 so far</span></a>
   </div>
+  ${studyCard()}
   ${biz.length ? `<div class="card biz"><h2>Money moves <a class="small muted" href="#business">${esc(D.business.name || 'Business')} →</a></h2><div class="list">${biz.map((b, i) => `<div class="item ${bd[i] ? 'done' : ''}"><button class="check ${bd[i] ? 'on' : ''}" data-act="biz" data-i="${i}"></button><div class="main"><div class="t">${esc(b)}</div></div></div>`).join('')}</div></div>` : ''}
   ${newCh.length ? `<div class="card feed"><h2>New <button class="btn" data-act="seen">Seen</button></h2><div class="list">${newCh.map(c => `<div class="item"><span class="k-ico" style="background:${kindColor(c.kind)}22;color:${kindColor(c.kind)}">${kindLetter(c.kind)}</span><div class="main"><div class="t">${c.url ? `<a href="${esc(c.url)}" target="_blank" rel="noopener">${esc(c.text)}</a>` : esc(c.text)}</div><div class="d">${rel(c.time)}</div></div></div>`).join('')}</div></div>` : ''}
   <div class="sec">Ideas today</div>
@@ -270,6 +273,73 @@ function foodCard() {
   const kcal = today.reduce((s, f) => s + (+f.kcal || 0), 0), prot = today.reduce((s, f) => s + (+f.protein || 0), 0);
   return `<div class="card"><h2>Food today <span class="small muted">${kcal ? '~' + kcal + ' kcal' : ''}${prot ? ' · ~' + prot + 'g protein' : ''}</span></h2>${today.length ? `<ul class="bul">${today.map(f => `<li>${esc(f.item)}${f.kcal ? ` <span class="dim">~${f.kcal} kcal</span>` : ''}</li>`).join('')}</ul>` : '<div class="empty">Tap the mic and say what you ate</div>'}<div class="small dim" style="margin-top:6px">Rough estimates from your updates.</div></div>`;
 }
+
+// ---------- study ----------
+const banks = {};
+async function loadBank(key) { if (banks[key]) return banks[key]; try { const r = await fetch(`study/${key}.json?v=${D.updatedAt}`); banks[key] = r.ok ? await r.json() : []; } catch { banks[key] = []; } return banks[key]; }
+const SST = () => (S.study ||= {});
+function mastery(key, total) { const st = SST()[key]?.q || {}; const ok = Object.values(st).filter(x => x.last === 1).length; return total ? Math.round(100 * ok / total) : 0; }
+function studyToday() { const d = dayKey(); let n = 0; for (const k in SST()) for (const s of SST()[k].sessions || []) if (dayKey(s.t) === d) n += s.n; return n; }
+function studyStreak() { let n = 0; for (let i = 0; i < 60; i++) { const d = dayKey(Date.now() - i * DAY); const any = Object.values(SST()).some(x => (x.sessions || []).some(s => dayKey(s.t) === d)); if (any) n++; else if (i > 0) break; } return n; }
+function studyCard() {
+  const top = (D.study || [])[0]; if (!top) return '';
+  return `<div class="card study-card"><h2>Quick study <span class="small muted">${studyToday()} questions today · ${studyStreak()}d streak</span></h2>
+    <div class="row between"><div><div class="t" style="font-weight:700">${esc(top.name)}</div><div class="small muted">${top.grade != null ? top.grade.toFixed(2) + '/20' : 'no grade yet'}${top.days != null ? ' · exam in ' + top.days + 'd' : ''}</div></div>
+    <a class="btn pri" href="#study&s=${top.key}">Quick 10</a></div></div>`;
+}
+let quiz = null;
+V.study = () => {
+  if (quiz) return quizView();
+  const m = location.hash.match(/[&?]s=(\w+)/);
+  if (m) { setTimeout(() => startQuiz(m[1]), 0); history.replaceState(null, '', '#study'); }
+  const list = D.study || [];
+  return `<div class="card hero"><div class="row between"><div><div class="eyebrow">Today</div><div class="hl" style="margin:4px 0">${studyToday()} questions</div><p class="small">${studyStreak()}-day streak. Weakest subjects first. Wrong answers come back until you get them.</p></div><div class="ring" style="--p:${Math.min(100, studyToday() * 5)};--c:var(--acc2)"><span>${Math.min(100, studyToday() * 5)}%</span></div></div><div class="small dim" style="margin-top:6px">Daily target: 20 questions</div></div>
+  <div class="card"><button class="btn pri" style="width:100%;justify-content:center;padding:12px" data-act="quizmix">Mixed 10 from your weakest 3</button></div>
+  ${list.map(s => `<div class="card subj" data-act="quizgo" data-k="${s.key}"><div class="row between"><div class="row"><span class="cdot" style="background:${esc(s.color)};margin:0"></span><div><div style="font-weight:700">${esc(s.name)}</div><div class="small muted">${s.grade != null ? s.grade.toFixed(2) + '/20 now' : 'no grade yet'}${s.days != null ? ' · exam in ' + s.days + 'd' : ''}</div></div></div><span class="btn">Quick 10</span></div>
+    <div class="bar" style="margin-top:10px"><i style="width:${mastery(s.key, s.count || 30)}%"></i></div><div class="small dim" style="margin-top:4px">Mastery ${mastery(s.key, s.count || 30)}%${SST()[s.key]?.sessions?.length ? ' · last ' + rel(SST()[s.key].sessions.at(-1).t) : ''}</div></div>`).join('')}
+  <div class="small dim" style="text-align:center">Practice questions built from your Moodle slides. New ones added as you go.</div>`;
+};
+function pick10(key, bank) {
+  const st = SST()[key]?.q || {};
+  const score = (q) => { const x = st[q.id]; if (!x) return 1; if (x.last === 0) return 0; return 2 + (x.c || 0) - (Date.now() - (x.t || 0)) / (7 * DAY); };
+  return [...bank].map(q => ({ q, r: score(q) + Math.random() * 0.8 })).sort((a, b) => a.r - b.r).slice(0, 10).map(x => ({ ...x.q, key }));
+}
+function shuffleChoices(q) { const idx = q.choices.map((_, i) => i).sort(() => Math.random() - 0.5); return { ...q, choices: idx.map(i => q.choices[i]), answer: idx.indexOf(q.answer) }; }
+async function startQuiz(key) {
+  const bank = await loadBank(key); if (!bank.length) { toast('Questions coming soon for this subject'); return; }
+  const s = (D.study || []).find(x => x.key === key); if (s) s.count = bank.length;
+  quiz = { title: s?.name || key, qs: pick10(key, bank).map(shuffleChoices), i: 0, picked: null, score: 0, wrong: [] }; render(); window.scrollTo(0, 0);
+}
+async function startMix() {
+  const keys = (D.study || []).slice(0, 3).map(s => s.key); let qs = [];
+  for (const k of keys) { const b = await loadBank(k); qs = qs.concat(pick10(k, b).slice(0, 4)); }
+  if (!qs.length) { toast('Questions coming soon'); return; }
+  quiz = { title: 'Mixed', qs: qs.sort(() => Math.random() - 0.5).slice(0, 10).map(shuffleChoices), i: 0, picked: null, score: 0, wrong: [] }; render(); window.scrollTo(0, 0);
+}
+function quizView() {
+  const q = quiz.qs[quiz.i];
+  if (!q) {
+    const n = quiz.qs.length, pct = Math.round(100 * quiz.score / n);
+    return `<div class="card hero" style="text-align:center"><div class="eyebrow">${esc(quiz.title)}</div><div class="gradebig" style="margin:10px 0">${quiz.score}/${n}</div><p>${pct >= 80 ? 'Strong. Keep it there.' : pct >= 50 ? 'Decent. The misses come back next round.' : 'Rough one. Do another round now while it is fresh.'}</p></div>
+    ${quiz.wrong.length ? `<div class="card"><h2>Review</h2>${quiz.wrong.map(w => `<div class="item"><div class="main"><div class="t" style="font-weight:600">${esc(w.q)}</div><div class="m" style="color:#7cf0bb">${esc(w.choices[w.answer])}</div><div class="d">${esc(w.explain)}</div></div></div>`).join('')}</div>` : ''}
+    <div class="row" style="gap:8px"><button class="btn pri" data-act="quizagain">Another 10</button><button class="btn" data-act="quizexit">Back</button></div>`;
+  }
+  const done = quiz.picked !== null;
+  return `<div class="row between" style="margin-bottom:10px"><button class="btn" data-act="quizexit">✕</button><span class="small muted">${esc(quiz.title)} · ${quiz.i + 1}/${quiz.qs.length} · ${esc(q.topic || '')}</span><span class="pill ok">${quiz.score}</span></div>
+  <div class="bar" style="margin-bottom:14px"><i style="width:${100 * quiz.i / quiz.qs.length}%"></i></div>
+  <div class="card"><div class="qtext">${esc(q.q)}</div>
+  <div class="choices">${q.choices.map((c, i) => `<button class="choice ${done ? (i === q.answer ? 'right' : i === quiz.picked ? 'wrong' : 'dim2') : ''}" data-act="quizpick" data-i="${i}" ${done ? 'disabled' : ''}>${esc(c)}</button>`).join('')}</div>
+  ${done ? `<div class="explain ${quiz.picked === q.answer ? 'ok' : 'no'}"><b>${quiz.picked === q.answer ? 'Correct.' : 'Not quite.'}</b> ${esc(q.explain || '')}</div><button class="btn pri" style="width:100%;justify-content:center;margin-top:12px;padding:12px" data-act="quiznext">${quiz.i + 1 < quiz.qs.length ? 'Next' : 'See score'}</button>` : ''}</div>`;
+}
+function quizPick(i) {
+  const q = quiz.qs[quiz.i]; if (quiz.picked !== null) return; quiz.picked = i;
+  const ok = i === q.answer; if (ok) quiz.score++; else quiz.wrong.push(q);
+  const st = (SST()[q.key] ||= { q: {}, sessions: [] }); st.q ||= {};
+  const x = (st.q[q.id] ||= { c: 0, w: 0 }); if (ok) x.c++; else x.w++; x.last = ok ? 1 : 0; x.t = Date.now();
+}
+function quizFinish() { const byKey = {}; for (const q of quiz.qs) byKey[q.key] = (byKey[q.key] || 0) + 1; for (const k in byKey) { const st = (SST()[k] ||= { q: {}, sessions: [] }); (st.sessions ||= []).push({ t: Date.now(), n: byKey[k] }); } }
+V.more = () => `<div class="list">${[['calendar', 'Calendar', 'Week view + to-do list'], ['goals', 'Goals', 'Long-term goals and milestones'], ['inbox', 'Inbox', 'ESSEC, EPE (Zoho), personal, Fennly'], ['ideas', 'Ideas', 'Daily ideas + saved ones']].map(([r, l, d]) => `<a class="card row" href="#${r}" style="margin-bottom:10px"><span class="k-ico" style="background:rgba(139,124,255,.15);color:#b7adff;width:38px;height:38px">${I[r].replace('<svg', '<svg width="20"')}</span><div style="flex:1"><div style="font-weight:700">${l}</div><div class="small muted">${d}</div></div><span class="muted">›</span></a>`).join('')}</div>`;
+
 V.business = () => {
   const B = D.business || {}, now = Date.now(), dk = dayKey();
   const g = D.goals.find(x => x.id === 'money'); const gp = g ? Math.round(100 * (goalProgress(g) || 0)) : 0;
@@ -334,6 +404,12 @@ document.addEventListener('click', (e) => {
   else if (a === 'reset') { (S.reset[dk] ||= {})[el.dataset.i] = !S.reset[dk]?.[el.dataset.i]; }
   else if (a === 'sport') { S.sports[dk] = !S.sports[dk]; if (S.sports[dk]) toast('Session logged. Keep the streak.'); }
   else if (a === 'sportday') { const k = el.dataset.k; if (k <= dk) S.sports[k] = !S.sports[k]; }
+  else if (a === 'quizgo') { startQuiz(el.dataset.k); return; }
+  else if (a === 'quizmix') { startMix(); return; }
+  else if (a === 'quizpick') { quizPick(+el.dataset.i); }
+  else if (a === 'quiznext') { quiz.i++; quiz.picked = null; if (quiz.i >= quiz.qs.length) quizFinish(); window.scrollTo(0, 0); }
+  else if (a === 'quizagain') { const k = quiz.qs[0]?.key; const mixed = quiz.title === 'Mixed'; quiz = null; mixed ? startMix() : startQuiz(k); return; }
+  else if (a === 'quizexit') { if (quiz && quiz.i > 0 && quiz.i < quiz.qs.length) { quiz.qs = quiz.qs.slice(0, quiz.i); quizFinish(); } quiz = null; }
   else if (a === 'biz') { (S.biz ||= {}); (S.biz[dk] ||= {})[el.dataset.i] = !S.biz[dk][el.dataset.i]; }
   else if (a === 'ex') { (S.ex ||= {}); (S.ex[dk] ||= {})[el.dataset.i] = !S.ex[dk][el.dataset.i]; }
   else if (a === 'ms') { (S.ms[el.dataset.g] ||= {})[el.dataset.i] = !S.ms[el.dataset.g]?.[el.dataset.i]; }

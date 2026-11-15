@@ -1,0 +1,422 @@
+[
+ {
+  "id": "stats-001",
+  "topic": "Session 1 Introduction and sampling",
+  "difficulty": 1,
+  "q": "Which variable is categorical and ordinal?",
+  "choices": [
+   "Eye colour",
+   "T-shirt size (S, M, L, XL)",
+   "Number of siblings",
+   "Height in cm"
+  ],
+  "answer": 1,
+  "explain": "Ordinal variables are categories with a natural order. Eye colour is nominal; the others are quantitative."
+ },
+ {
+  "id": "stats-002",
+  "topic": "Session 1 Introduction and sampling",
+  "difficulty": 1,
+  "q": "A poll asks 1,000 of a company's 50,000 customers about satisfaction. The average score of the 1,000 is called:",
+  "choices": [
+   "A statistic",
+   "A parameter",
+   "The population mean",
+   "The sampling frame"
+  ],
+  "answer": 0,
+  "explain": "A number computed from a sample is a statistic. A parameter describes the whole population."
+ },
+ {
+  "id": "stats-003",
+  "topic": "Session 1 Introduction and sampling",
+  "difficulty": 1,
+  "q": "A firm has five departments and randomly picks 20 employees from each. What sampling design is this?",
+  "choices": [
+   "Cluster sample",
+   "Systematic sample",
+   "Simple random sample",
+   "Stratified random sample"
+  ],
+  "answer": 3,
+  "explain": "Splitting the population into groups (strata) and sampling randomly within each is stratified sampling."
+ },
+ {
+  "id": "stats-004",
+  "topic": "Session 1 Introduction and sampling",
+  "difficulty": 1,
+  "q": "A company randomly picks 2 of its 5 departments and surveys every employee in those two. What design is this?",
+  "choices": [
+   "Stratified sample",
+   "Systematic sample",
+   "Cluster sample",
+   "Simple random sample"
+  ],
+  "answer": 2,
+  "explain": "Randomly choosing whole groups and sampling everyone in them is cluster sampling."
+ },
+ {
+  "id": "stats-005",
+  "topic": "Session 1 Introduction and sampling",
+  "difficulty": 3,
+  "q": "An online poll only gets answers from people who chose to respond. Which statement is correct?",
+  "choices": [
+   "It has sampling error only, which more responses would remove",
+   "It has voluntary response bias, and a larger sample would not fix it",
+   "It is unbiased because it is large",
+   "It is a stratified sample"
+  ],
+  "answer": 1,
+  "explain": "Bias comes from the way the sample is collected and does not shrink with sample size. Sampling error is random variation that shrinks as n grows."
+ },
+ {
+  "id": "stats-006",
+  "topic": "Session 2 Categorical data",
+  "difficulty": 1,
+  "q": "In a survey, 110 people: Male 30 Yes / 20 No; Female 24 Yes / 36 No. What is the marginal proportion answering Yes?",
+  "choices": [
+   "49.1%",
+   "60%",
+   "40%",
+   "54%"
+  ],
+  "answer": 0,
+  "explain": "Total Yes = 30 + 24 = 54. 54 / 110 = 49.1%."
+ },
+ {
+  "id": "stats-007",
+  "topic": "Session 2 Categorical data",
+  "difficulty": 1,
+  "q": "Same table (Male 30 Yes / 20 No; Female 24 Yes / 36 No). What share of males answered Yes?",
+  "choices": [
+   "30%",
+   "55.6%",
+   "27.3%",
+   "60%"
+  ],
+  "answer": 3,
+  "explain": "Conditional on male: 30 / (30 + 20) = 60%."
+ },
+ {
+  "id": "stats-008",
+  "topic": "Session 2 Categorical data",
+  "difficulty": 2,
+  "q": "Same table. Given that a person answered No, what is the chance they are female?",
+  "choices": [
+   "60%",
+   "36%",
+   "64.3%",
+   "40%"
+  ],
+  "answer": 2,
+  "explain": "Total No = 20 + 36 = 56. P(Female | No) = 36 / 56 = 64.3%."
+ },
+ {
+  "id": "stats-009",
+  "topic": "Session 2 Categorical data",
+  "difficulty": 2,
+  "q": "Same table: 60% of males vs 40% of females (24 / 60) said Yes. What can we conclude?",
+  "choices": [
+   "The variables are independent",
+   "The variables appear associated, so not independent",
+   "Gender causes the answer",
+   "No conclusion is possible from percentages"
+  ],
+  "answer": 1,
+  "explain": "If independent, the conditional distributions would be about equal. They differ clearly, so there is an association (not proof of causation)."
+ },
+ {
+  "id": "stats-010",
+  "topic": "Session 3 Quantitative data I",
+  "difficulty": 1,
+  "q": "What is the mean of 2, 4, 4, 6, 9?",
+  "choices": [
+   "5",
+   "4",
+   "6",
+   "4.5"
+  ],
+  "answer": 0,
+  "explain": "Sum = 25, n = 5, mean = 5. The median is 4."
+ },
+ {
+  "id": "stats-011",
+  "topic": "Session 3 Quantitative data I",
+  "difficulty": 2,
+  "q": "Sample 2, 4, 6, 8 has mean 5. What is the sample standard deviation (n - 1)?",
+  "choices": [
+   "2.24",
+   "6.67",
+   "5",
+   "2.58"
+  ],
+  "answer": 3,
+  "explain": "Squared deviations: 9 + 1 + 1 + 9 = 20. Variance = 20 / 3 = 6.67, SD = 2.58. 2.24 is the population SD (divide by 4)."
+ },
+ {
+  "id": "stats-012",
+  "topic": "Session 3 Quantitative data I",
+  "difficulty": 1,
+  "q": "A student scores 85. The class mean is 70 and SD is 10. What is the z-score?",
+  "choices": [
+   "15",
+   "0.15",
+   "1.5",
+   "-1.5"
+  ],
+  "answer": 2,
+  "explain": "z = (x - mean) / SD = (85 - 70) / 10 = 1.5."
+ },
+ {
+  "id": "stats-013",
+  "topic": "Session 3 Quantitative data I",
+  "difficulty": 2,
+  "q": "Sample mean age 35 and s = 5. By the 3 x s rule, is a respondent aged 52 an outlier?",
+  "choices": [
+   "No, it is only 2 SDs above",
+   "Yes, it is 3.4 SDs above the mean",
+   "No, only values below the mean can be outliers",
+   "Yes, but only because the data are skewed"
+  ],
+  "answer": 1,
+  "explain": "z = (52 - 35) / 5 = 3.4, beyond 3 standard deviations from the mean."
+ },
+ {
+  "id": "stats-014",
+  "topic": "Session 3 Quantitative data I",
+  "difficulty": 3,
+  "q": "Mean age 35. For a respondent aged 45 to be an outlier under the 3 x s rule, the SD must be less than about:",
+  "choices": [
+   "3.33",
+   "10",
+   "5",
+   "15"
+  ],
+  "answer": 0,
+  "explain": "Need (45 - 35) / s > 3, so s < 10 / 3 = 3.33."
+ },
+ {
+  "id": "stats-015",
+  "topic": "Session 3 Quantitative data I",
+  "difficulty": 2,
+  "q": "A CEO with a huge salary is added to a small team. Which statistic changes the least?",
+  "choices": [
+   "The mean",
+   "The standard deviation",
+   "The range",
+   "The median"
+  ],
+  "answer": 3,
+  "explain": "The median is resistant to outliers. The mean, SD and range are sensitive to extreme values."
+ },
+ {
+  "id": "stats-016",
+  "topic": "Session 3 Quantitative data I",
+  "difficulty": 2,
+  "q": "Hourly wages all rise by 15%. The old variance was 400. What is the new variance?",
+  "choices": [
+   "460",
+   "415",
+   "529",
+   "400"
+  ],
+  "answer": 2,
+  "explain": "Variance scales by the square of the factor: 400 x 1.15^2 = 400 x 1.3225 = 529."
+ },
+ {
+  "id": "stats-017",
+  "topic": "Session 3 Quantitative data I",
+  "difficulty": 2,
+  "q": "Quantity 1, 2, 3, 4 occurs 8, 6, 5, 1 times. What is the mean?",
+  "choices": [
+   "2.5",
+   "1.95",
+   "2.0",
+   "1.5"
+  ],
+  "answer": 1,
+  "explain": "Sum = 8 + 12 + 15 + 4 = 39, n = 20, mean = 39 / 20 = 1.95."
+ },
+ {
+  "id": "stats-018",
+  "topic": "Session 3 Quantitative data I",
+  "difficulty": 3,
+  "q": "Grouped data: [0,10) 4 items, [10,20) 6 items, [20,30) 10 items. Using class midpoints, what is the mean?",
+  "choices": [
+   "18",
+   "15",
+   "20",
+   "17.5"
+  ],
+  "answer": 0,
+  "explain": "(5 x 4 + 15 x 6 + 25 x 10) / 20 = (20 + 90 + 250) / 20 = 18."
+ },
+ {
+  "id": "stats-019",
+  "topic": "Session 4 Quantitative data II",
+  "difficulty": 1,
+  "q": "A distribution has mean 52 and median 45. Which shape is most likely?",
+  "choices": [
+   "Left-skewed",
+   "Symmetric",
+   "Cannot tell",
+   "Right-skewed"
+  ],
+  "answer": 3,
+  "explain": "Large values pull the mean up above the median, so mean > median means right-skewed."
+ },
+ {
+  "id": "stats-020",
+  "topic": "Session 4 Quantitative data II",
+  "difficulty": 1,
+  "q": "Q1 = 28 and Q3 = 42. What is the IQR?",
+  "choices": [
+   "70",
+   "35",
+   "14",
+   "7"
+  ],
+  "answer": 2,
+  "explain": "IQR = Q3 - Q1 = 42 - 28 = 14."
+ },
+ {
+  "id": "stats-021",
+  "topic": "Session 4 Quantitative data II",
+  "difficulty": 2,
+  "q": "Q1 = 40 and Q3 = 58. What is the upper outlier cutoff using the 1.5 x IQR rule?",
+  "choices": [
+   "76",
+   "85",
+   "94",
+   "58"
+  ],
+  "answer": 1,
+  "explain": "IQR = 18, so cutoff = Q3 + 1.5 x 18 = 58 + 27 = 85."
+ },
+ {
+  "id": "stats-022",
+  "topic": "Session 4 Quantitative data II",
+  "difficulty": 1,
+  "q": "What is the median of 4, 7, 9, 12, 14, 18, 21, 30?",
+  "choices": [
+   "13",
+   "12",
+   "14",
+   "14.4"
+  ],
+  "answer": 0,
+  "explain": "Even sample size: average the two middle values, (12 + 14) / 2 = 13."
+ },
+ {
+  "id": "stats-023",
+  "topic": "Session 4 Quantitative data II",
+  "difficulty": 2,
+  "q": "In a boxplot, the median line is close to Q1 and the upper whisker is much longer than the lower one. What does it suggest?",
+  "choices": [
+   "Left-skewed data",
+   "Symmetric data",
+   "No outliers possible",
+   "Right-skewed data"
+  ],
+  "answer": 3,
+  "explain": "A long upper tail with the median near the bottom of the box indicates right skew."
+ },
+ {
+  "id": "stats-024",
+  "topic": "Session 4 Quantitative data II",
+  "difficulty": 3,
+  "q": "A boxplot shows several high outliers. If they are removed, what happens?",
+  "choices": [
+   "Mean falls, median falls a lot, SD rises",
+   "All three stay the same",
+   "Mean falls, median about the same, SD falls",
+   "Mean rises, median falls, SD falls"
+  ],
+  "answer": 2,
+  "explain": "The mean and SD are sensitive to extreme values and drop. The median is resistant and barely changes."
+ },
+ {
+  "id": "stats-025",
+  "topic": "Session 5 Relationships and regression",
+  "difficulty": 2,
+  "q": "Every x and y value is multiplied by 2. What happens to the correlation r?",
+  "choices": [
+   "It doubles",
+   "It is unchanged",
+   "It is multiplied by 4",
+   "It halves"
+  ],
+  "answer": 1,
+  "explain": "Correlation is unit-free and unaffected by rescaling, so r stays the same."
+ },
+ {
+  "id": "stats-026",
+  "topic": "Session 5 Relationships and regression",
+  "difficulty": 1,
+  "q": "Ice cream sales and drownings are strongly correlated. What is the best explanation?",
+  "choices": [
+   "A lurking variable such as hot weather drives both",
+   "Ice cream causes drownings",
+   "Drownings cause ice cream sales",
+   "Correlation proves causation"
+  ],
+  "answer": 0,
+  "explain": "Correlation does not imply causation. A confounder, temperature, raises both."
+ },
+ {
+  "id": "stats-027",
+  "topic": "Session 5 Relationships and regression",
+  "difficulty": 2,
+  "q": "Regression of consumption on income gives slope 0.781. What does it mean?",
+  "choices": [
+   "Consumption is 78.1% of income",
+   "Income explains 78.1% of consumption variance",
+   "Each euro of consumption raises income by 0.781 euros",
+   "On average, each extra euro of income goes with 0.781 euros more consumption"
+  ],
+  "answer": 3,
+  "explain": "The slope is the predicted change in y for a one-unit rise in x. R squared, not the slope, measures variance explained."
+ },
+ {
+  "id": "stats-028",
+  "topic": "Session 5 Relationships and regression",
+  "difficulty": 3,
+  "q": "Sum of (x - x̄)² = 400, sum of (x - x̄)(y - ȳ) = 300, x̄ = 20, ȳ = 50. What is the predicted y at x = 30?",
+  "choices": [
+   "50",
+   "75",
+   "57.5",
+   "65"
+  ],
+  "answer": 2,
+  "explain": "b1 = 300 / 400 = 0.75. b0 = 50 - 0.75 x 20 = 35. Prediction = 35 + 0.75 x 30 = 57.5."
+ },
+ {
+  "id": "stats-029",
+  "topic": "Session 5 Relationships and regression",
+  "difficulty": 2,
+  "q": "The correlation between x and y is r = -0.8. What is R² for the regression of y on x?",
+  "choices": [
+   "-0.64",
+   "0.64",
+   "0.8",
+   "0.2"
+  ],
+  "answer": 1,
+  "explain": "R² = r² = 0.64, so 64% of the variability in y is explained by x. R² cannot be negative."
+ },
+ {
+  "id": "stats-030",
+  "topic": "Session 5 Relationships and regression",
+  "difficulty": 3,
+  "q": "r = 0.6, sx = 5, sy = 10, x̄ = 20, ȳ = 50. What is the predicted y at x = 25?",
+  "choices": [
+   "56",
+   "53",
+   "59",
+   "50"
+  ],
+  "answer": 0,
+  "explain": "b1 = r x sy / sx = 0.6 x 10 / 5 = 1.2. b0 = 50 - 1.2 x 20 = 26. Prediction = 26 + 1.2 x 25 = 56."
+ }
+]

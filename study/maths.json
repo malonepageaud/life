@@ -1,0 +1,422 @@
+[
+  {
+    "id": "maths-001",
+    "topic": "Topic 1 Functions",
+    "difficulty": 1,
+    "q": "Solve 3^(x+1) = 27.",
+    "choices": [
+      "x = 3",
+      "x = 2",
+      "x = 8",
+      "x = 9"
+    ],
+    "answer": 1,
+    "explain": "27 = 3³, so x + 1 = 3 and x = 2."
+  },
+  {
+    "id": "maths-002",
+    "topic": "Topic 1 Functions",
+    "difficulty": 1,
+    "q": "Solve ln(x) + ln(3) = ln(12).",
+    "choices": [
+      "x = 4",
+      "x = 9",
+      "x = 36",
+      "x = 15"
+    ],
+    "answer": 0,
+    "explain": "ln(3x) = ln(12), so 3x = 12 and x = 4."
+  },
+  {
+    "id": "maths-003",
+    "topic": "Topic 1 Functions",
+    "difficulty": 1,
+    "q": "Solve x² - 5x + 6 = 0.",
+    "choices": [
+      "x = -2 or x = -3",
+      "x = 1 or x = 6",
+      "x = -1 or x = 6",
+      "x = 2 or x = 3"
+    ],
+    "answer": 3,
+    "explain": "(x - 2)(x - 3) = 0."
+  },
+  {
+    "id": "maths-004",
+    "topic": "Topic 2 Limits",
+    "difficulty": 1,
+    "q": "Compute lim (x→∞) (3x² + 1)/(x² - 5x).",
+    "choices": [
+      "0",
+      "∞",
+      "3",
+      "-5"
+    ],
+    "answer": 2,
+    "explain": "Highest powers dominate: 3x²/x² = 3."
+  },
+  {
+    "id": "maths-005",
+    "topic": "Topic 2 Limits",
+    "difficulty": 1,
+    "q": "Compute lim (x→2) (x² - 4)/(x - 2).",
+    "choices": [
+      "0",
+      "4",
+      "2",
+      "does not exist"
+    ],
+    "answer": 1,
+    "explain": "(x - 2)(x + 2)/(x - 2) = x + 2 → 4."
+  },
+  {
+    "id": "maths-006",
+    "topic": "Topic 3 Differentiation",
+    "difficulty": 1,
+    "q": "Differentiate f(x) = 5x³ - 2x.",
+    "choices": [
+      "15x² - 2",
+      "15x³ - 2",
+      "5x² - 2",
+      "15x²"
+    ],
+    "answer": 0,
+    "explain": "Power rule: 5·3x² - 2."
+  },
+  {
+    "id": "maths-007",
+    "topic": "Topic 3 Differentiation",
+    "difficulty": 1,
+    "q": "Differentiate f(x) = 3 ln(x) + eˣ.",
+    "choices": [
+      "3x + eˣ",
+      "3/x + xeˣ⁻¹",
+      "ln(3) + eˣ",
+      "3/x + eˣ"
+    ],
+    "answer": 3,
+    "explain": "d/dx ln x = 1/x and d/dx eˣ = eˣ."
+  },
+  {
+    "id": "maths-008",
+    "topic": "Topic 3 Differentiation",
+    "difficulty": 1,
+    "q": "If f(x) = x² + 3x, find f'(2).",
+    "choices": [
+      "10",
+      "4",
+      "7",
+      "5"
+    ],
+    "answer": 2,
+    "explain": "f'(x) = 2x + 3, so f'(2) = 7."
+  },
+  {
+    "id": "maths-009",
+    "topic": "Topic 5 Integration",
+    "difficulty": 1,
+    "q": "Compute ∫(6x² + 1) dx.",
+    "choices": [
+      "12x + C",
+      "2x³ + x + C",
+      "6x³ + x + C",
+      "2x³ + C"
+    ],
+    "answer": 1,
+    "explain": "Antiderivative of 6x² is 2x³; of 1 is x."
+  },
+  {
+    "id": "maths-010",
+    "topic": "Topic 5 Integration",
+    "difficulty": 1,
+    "q": "Compute the definite integral ∫ from 0 to 2 of 3x² dx.",
+    "choices": [
+      "8",
+      "12",
+      "4",
+      "6"
+    ],
+    "answer": 0,
+    "explain": "[x³] from 0 to 2 = 8."
+  },
+  {
+    "id": "maths-011",
+    "topic": "Topic 4 Optimization",
+    "difficulty": 1,
+    "q": "For f(x) = x² - 6x + 5, where is the minimum?",
+    "choices": [
+      "x = -3",
+      "x = 6",
+      "x = 5",
+      "x = 3"
+    ],
+    "answer": 3,
+    "explain": "f'(x) = 2x - 6 = 0 → x = 3, and f'' = 2 > 0."
+  },
+  {
+    "id": "maths-012",
+    "topic": "Topic 6 Several variables",
+    "difficulty": 1,
+    "q": "For f(x,y) = x²y + 3y, find ∂f/∂x.",
+    "choices": [
+      "x² + 3",
+      "2xy + 3",
+      "2xy",
+      "x²"
+    ],
+    "answer": 2,
+    "explain": "Treat y as a constant: derivative of x²y is 2xy; 3y vanishes."
+  },
+  {
+    "id": "maths-013",
+    "topic": "Topic 1 Functions",
+    "difficulty": 2,
+    "q": "Solve 2 ln(x³) + ln(x²) = 16.",
+    "choices": [
+      "x = e",
+      "x = e²",
+      "x = e⁸",
+      "x = 2"
+    ],
+    "answer": 1,
+    "explain": "6 ln x + 2 ln x = 8 ln x = 16 → ln x = 2 → x = e²."
+  },
+  {
+    "id": "maths-014",
+    "topic": "Topic 2 Limits",
+    "difficulty": 2,
+    "q": "Compute lim (x→-∞) (2x⁴ + x)/(-x⁴ + 3).",
+    "choices": [
+      "-2",
+      "2",
+      "0",
+      "-∞"
+    ],
+    "answer": 0,
+    "explain": "Leading terms: 2x⁴/(-x⁴) = -2."
+  },
+  {
+    "id": "maths-015",
+    "topic": "Topic 3 Tangent line",
+    "difficulty": 2,
+    "q": "Find the tangent line to f(x) = x² at x = 3.",
+    "choices": [
+      "y = 6x + 9",
+      "y = 3x - 9",
+      "y = 9x - 18",
+      "y = 6x - 9"
+    ],
+    "answer": 3,
+    "explain": "f(3) = 9, f'(3) = 6; y - 9 = 6(x - 3) → y = 6x - 9."
+  },
+  {
+    "id": "maths-016",
+    "topic": "Topic 3 Quotient rule",
+    "difficulty": 2,
+    "q": "For f(x) = x²/(x + 1), find f'(1).",
+    "choices": [
+      "1.5",
+      "0.5",
+      "0.75",
+      "1"
+    ],
+    "answer": 2,
+    "explain": "f' = (2x(x+1) - x²)/(x+1)² = (4 - 1)/4 = 3/4."
+  },
+  {
+    "id": "maths-017",
+    "topic": "Topic 3 Chain rule",
+    "difficulty": 2,
+    "q": "For f(x) = (3x + 1)⁴, find f'(0).",
+    "choices": [
+      "4",
+      "12",
+      "3",
+      "108"
+    ],
+    "answer": 1,
+    "explain": "f' = 4(3x+1)³·3 = 12(3x+1)³; at 0, 12."
+  },
+  {
+    "id": "maths-018",
+    "topic": "Topic 3 Product rule",
+    "difficulty": 2,
+    "q": "For f(x) = x·eˣ, find f'(1).",
+    "choices": [
+      "2e",
+      "e",
+      "e + 1",
+      "1"
+    ],
+    "answer": 0,
+    "explain": "f' = eˣ + x eˣ = (1 + x)eˣ; at 1, 2e."
+  },
+  {
+    "id": "maths-019",
+    "topic": "Topic 3 Applications (elasticity)",
+    "difficulty": 2,
+    "q": "Demand Q = 100 - 2P. Price elasticity of demand at P = 20?",
+    "choices": [
+      "-2",
+      "-1/3",
+      "+2/3",
+      "-2/3"
+    ],
+    "answer": 3,
+    "explain": "Q = 60; ε = (dQ/dP)(P/Q) = -2 × 20/60 = -2/3."
+  },
+  {
+    "id": "maths-020",
+    "topic": "Topic 3 Convexity",
+    "difficulty": 2,
+    "q": "f(x) = ax³ - ln(x). For which a is f convex at x = 1?",
+    "choices": [
+      "a > 1/6",
+      "a < -1/6",
+      "a > -1/6",
+      "a > 1/3"
+    ],
+    "answer": 2,
+    "explain": "f'' = 6ax + 1/x²; f''(1) = 6a + 1 > 0 → a > -1/6."
+  },
+  {
+    "id": "maths-021",
+    "topic": "Topic 4 Optimization",
+    "difficulty": 2,
+    "q": "On which interval is f(x) = x³ - 12x decreasing?",
+    "choices": [
+      "(-∞, -2)",
+      "(-2, 2)",
+      "(2, ∞)",
+      "(0, 4)"
+    ],
+    "answer": 1,
+    "explain": "f' = 3(x - 2)(x + 2) < 0 between -2 and 2."
+  },
+  {
+    "id": "maths-022",
+    "topic": "Topic 4 Profit maximization",
+    "difficulty": 2,
+    "q": "TC = Q² + 10 and P = 60 - 2Q. What is the maximum profit?",
+    "choices": [
+      "290",
+      "300",
+      "10",
+      "590"
+    ],
+    "answer": 0,
+    "explain": "Profit = 60Q - 2Q² - Q² - 10 = -3Q² + 60Q - 10; Q = 10; profit = -300 + 600 - 10 = 290."
+  },
+  {
+    "id": "maths-023",
+    "topic": "Topic 5 Substitution",
+    "difficulty": 2,
+    "q": "Compute ∫ 2x·e^(x²) dx.",
+    "choices": [
+      "2e^(x²) + C",
+      "x²e^(x²) + C",
+      "e^(2x) + C",
+      "e^(x²) + C"
+    ],
+    "answer": 3,
+    "explain": "Let u = x²; du = 2x dx; ∫eᵘ du = eᵘ + C."
+  },
+  {
+    "id": "maths-024",
+    "topic": "Topic 5 Area between curves",
+    "difficulty": 2,
+    "q": "Area between y = x and y = x² for x from 0 to 1.",
+    "choices": [
+      "1/2",
+      "1/3",
+      "1/6",
+      "5/6"
+    ],
+    "answer": 2,
+    "explain": "∫(x - x²)dx = 1/2 - 1/3 = 1/6."
+  },
+  {
+    "id": "maths-025",
+    "topic": "Topic 5 Integration by parts",
+    "difficulty": 3,
+    "q": "Compute ∫ x·eˣ dx.",
+    "choices": [
+      "(x + 1)eˣ + C",
+      "(x - 1)eˣ + C",
+      "x eˣ + C",
+      "x²eˣ/2 + C"
+    ],
+    "answer": 1,
+    "explain": "By parts: x eˣ - ∫eˣ dx = x eˣ - eˣ + C."
+  },
+  {
+    "id": "maths-026",
+    "topic": "Topic 5 Definite integrals",
+    "difficulty": 3,
+    "q": "Compute ∫ from 1 to e of ln(x) dx.",
+    "choices": [
+      "1",
+      "e",
+      "e - 1",
+      "0"
+    ],
+    "answer": 0,
+    "explain": "∫ln x = x ln x - x; at e: 0; at 1: -1; difference 0 - (-1) = 1."
+  },
+  {
+    "id": "maths-027",
+    "topic": "Topic 7 Hessian",
+    "difficulty": 3,
+    "q": "f(x,y) = x² + 4xy + y². The critical point (0,0) is:",
+    "choices": [
+      "A local minimum",
+      "A local maximum",
+      "Inconclusive",
+      "A saddle point"
+    ],
+    "answer": 3,
+    "explain": "fxx = 2, fyy = 2, fxy = 4; determinant 4 - 16 = -12 < 0, so saddle."
+  },
+  {
+    "id": "maths-028",
+    "topic": "Topic 7 Constrained optimization",
+    "difficulty": 3,
+    "q": "Maximize xy subject to x + y = 10 (Lagrange). Maximum value?",
+    "choices": [
+      "50",
+      "100",
+      "25",
+      "10"
+    ],
+    "answer": 2,
+    "explain": "Lagrange: y = λ, x = λ → x = y = 5; xy = 25."
+  },
+  {
+    "id": "maths-029",
+    "topic": "Topic 4 Local extrema",
+    "difficulty": 3,
+    "q": "f(x) = (x² - 3)eˣ, x > 0. Local minimum?",
+    "choices": [
+      "x = -3, f = 6e⁻³",
+      "x = 1, f = -2e",
+      "x = 1, f = -2",
+      "x = 3, f = 6e³"
+    ],
+    "answer": 1,
+    "explain": "f' = eˣ(x² + 2x - 3) = eˣ(x + 3)(x - 1); sign change - to + at x = 1; f(1) = -2e."
+  },
+  {
+    "id": "maths-030",
+    "topic": "Topic 7 Multivariable optimization",
+    "difficulty": 3,
+    "q": "π(x,y) = 20x + 16y - 2x² - y². What is the maximum profit?",
+    "choices": [
+      "114",
+      "100",
+      "128",
+      "64"
+    ],
+    "answer": 0,
+    "explain": "πx = 20 - 4x = 0 → x = 5; πy = 16 - 2y = 0 → y = 8; π = 100 + 128 - 50 - 64 = 114; Hessian is negative definite."
+  }
+]

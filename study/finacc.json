@@ -1,0 +1,492 @@
+[
+  {
+    "id": "finacc-001",
+    "topic": "S1 Profit vs cash",
+    "difficulty": 1,
+    "q": "A company sells goods on credit in November and the customer pays in January. Which statement is correct for the year-end?",
+    "choices": [
+      "Revenue is recognized in January when cash is received",
+      "Revenue is recognized in November, even though no cash is received yet",
+      "No revenue is recognized until the invoice is paid",
+      "Revenue is recognized when the goods are ordered"
+    ],
+    "answer": 1,
+    "explain": "Under accrual accounting, revenue is recognized when goods are delivered or the service is rendered, not when the customer pays."
+  },
+  {
+    "id": "finacc-002",
+    "topic": "S1 Purchases",
+    "difficulty": 1,
+    "q": "Under the three types of purchases, an electricity invoice is recorded as:",
+    "choices": [
+      "An expense upon receipt of the invoice",
+      "A fixed asset",
+      "Inventory, expensed when removed from stock",
+      "An expense only when it is paid in cash"
+    ],
+    "answer": 0,
+    "explain": "Services such as electricity are expenses, deemed consumed when the invoice is received."
+  },
+  {
+    "id": "finacc-003",
+    "topic": "S1 Sales and inventory",
+    "difficulty": 1,
+    "q": "A sale of merchandise on credit is recorded with two transactions. What are they?",
+    "choices": [
+      "Revenue and cash receipt only",
+      "Purchase of inventory and trade payable",
+      "Revenue and depreciation expense",
+      "The sale (revenue and trade receivable) and the inventory drawdown (cost of sales)"
+    ],
+    "answer": 3,
+    "explain": "A sale of goods creates revenue with a receivable, plus a cost of sales that reduces inventories."
+  },
+  {
+    "id": "finacc-004",
+    "topic": "S2 Account balance",
+    "difficulty": 1,
+    "q": "On 1 July the company borrows 10,000 from the bank. On 30 Dec it repays 3,000. What amount is still owed at 31 Dec?",
+    "choices": [
+      "13,000",
+      "3,000",
+      "7,000",
+      "10,000"
+    ],
+    "answer": 2,
+    "explain": "Balance = |debits - credits| = 10,000 - 3,000 = 7,000."
+  },
+  {
+    "id": "finacc-005",
+    "topic": "S2 Income tax",
+    "difficulty": 1,
+    "q": "A company has taxable profit of 200,000 and a tax rate of 17%. What is the income tax expense?",
+    "choices": [
+      "85,000",
+      "34,000",
+      "51,000",
+      "166,000"
+    ],
+    "answer": 1,
+    "explain": "Income tax = taxable profit x rate = 200,000 x 17% = 34,000 (166,000 would be profit after tax)."
+  },
+  {
+    "id": "finacc-006",
+    "topic": "S5 Acquisition cost",
+    "difficulty": 1,
+    "q": "Which cost is excluded from the acquisition cost of a machine and recorded as an expense?",
+    "choices": [
+      "Staff training on how to use the machine",
+      "Transportation to the site",
+      "Installation and assembly",
+      "Pre-commissioning safety tests"
+    ],
+    "answer": 0,
+    "explain": "Training, maintenance and administrative costs are expenses; transport, installation and tests make the asset ready for use."
+  },
+  {
+    "id": "finacc-007",
+    "topic": "S5 Depreciation",
+    "difficulty": 1,
+    "q": "Which fixed asset is NOT depreciated?",
+    "choices": [
+      "Industrial machinery",
+      "Delivery truck",
+      "Accounting software (amortized)",
+      "Land"
+    ],
+    "answer": 3,
+    "explain": "Land and non-current financial assets are not depreciated; they have no limited useful life."
+  },
+  {
+    "id": "finacc-008",
+    "topic": "S5 Depreciation",
+    "difficulty": 1,
+    "q": "Under straight-line depreciation, what is the annual depreciation rate for an asset with a 5-year useful life?",
+    "choices": [
+      "5%",
+      "25%",
+      "20%",
+      "50%"
+    ],
+    "answer": 2,
+    "explain": "Rate = 100% / useful life = 100% / 5 = 20%."
+  },
+  {
+    "id": "finacc-009",
+    "topic": "S6 Share capital",
+    "difficulty": 1,
+    "q": "A company has 5,000 shares with a par value of 8. What is its share capital?",
+    "choices": [
+      "5,008",
+      "40,000",
+      "625",
+      "8,000"
+    ],
+    "answer": 1,
+    "explain": "Share capital = number of shares x par value = 5,000 x 8 = 40,000."
+  },
+  {
+    "id": "finacc-010",
+    "topic": "S6 Equity",
+    "difficulty": 1,
+    "q": "Which equation correctly gives equity?",
+    "choices": [
+      "Equity = Assets - Liabilities",
+      "Equity = Assets + Liabilities",
+      "Equity = Liabilities - Assets",
+      "Equity = Revenue - Cash"
+    ],
+    "answer": 0,
+    "explain": "From Assets = Equity + Liabilities, Equity = Assets - Liabilities."
+  },
+  {
+    "id": "finacc-011",
+    "topic": "S8 Prepaid expenses",
+    "difficulty": 1,
+    "q": "On the balance sheet, prepaid expenses are presented as:",
+    "choices": [
+      "A liability",
+      "Equity",
+      "Income",
+      "An asset"
+    ],
+    "answer": 3,
+    "explain": "A prepaid expense is an asset: the company has paid for goods or services it will receive after the closing date."
+  },
+  {
+    "id": "finacc-012",
+    "topic": "S8 Deferred revenue",
+    "difficulty": 1,
+    "q": "On the balance sheet, deferred revenue is presented as:",
+    "choices": [
+      "An asset",
+      "Income of the current year",
+      "A liability",
+      "A reduction of equity"
+    ],
+    "answer": 2,
+    "explain": "The company has recorded income but still has to provide the service, so it is a liability."
+  },
+  {
+    "id": "finacc-013",
+    "topic": "S9 Cash flow statement",
+    "difficulty": 1,
+    "q": "A company has 25,000 in bank account A and an overdraft of 4,000 on account B. What is its net cash?",
+    "choices": [
+      "29,000",
+      "21,000",
+      "25,000",
+      "4,000"
+    ],
+    "answer": 1,
+    "explain": "Net cash = cash and cash equivalents - bank overdrafts = 25,000 - 4,000 = 21,000."
+  },
+  {
+    "id": "finacc-014",
+    "topic": "S7 Provisions",
+    "difficulty": 1,
+    "q": "Which is a condition for recognizing a provision at the closing date?",
+    "choices": [
+      "A present obligation arising from a past event",
+      "A management decision to renovate next year",
+      "Any possible loss, however unlikely",
+      "Cash already set aside to pay"
+    ],
+    "answer": 0,
+    "explain": "A provision requires an obligation from a past event, a probable outflow and a reliable estimate; future intentions do not qualify."
+  },
+  {
+    "id": "finacc-015",
+    "topic": "S5 Acquisition cost",
+    "difficulty": 2,
+    "q": "Machine: price 50,000, 10% discount, transport 1,500, installation 2,500, staff training 2,000. What is the acquisition cost?",
+    "choices": [
+      "51,000",
+      "54,000",
+      "47,000",
+      "49,000"
+    ],
+    "answer": 3,
+    "explain": "50,000 - 5,000 + 1,500 + 2,500 = 49,000; training (2,000) is an expense."
+  },
+  {
+    "id": "finacc-016",
+    "topic": "S5 Depreciation",
+    "difficulty": 2,
+    "q": "Cost 36,000, straight-line, 6-year life, available for use on 1 October X1. What is the X1 depreciation expense?",
+    "choices": [
+      "6,000",
+      "2,000",
+      "1,500",
+      "4,500"
+    ],
+    "answer": 2,
+    "explain": "36,000 x (1/6) x 3/12 = 1,500 (pro rata temporis of 3 months)."
+  },
+  {
+    "id": "finacc-017",
+    "topic": "S5 Depreciation",
+    "difficulty": 2,
+    "q": "Machine cost 24,000, 4-year life, straight-line, available 1 July X1. Carrying amount at 31/12/X2?",
+    "choices": [
+      "12,000",
+      "15,000",
+      "18,000",
+      "9,000"
+    ],
+    "answer": 1,
+    "explain": "X1: 24,000 x 25% x 6/12 = 3,000; X2: 6,000. Accumulated 9,000; carrying amount 24,000 - 9,000 = 15,000."
+  },
+  {
+    "id": "finacc-018",
+    "topic": "S1 Operating cycle",
+    "difficulty": 2,
+    "q": "Merchandise bought for 1,000 on credit (not yet sold). What is the immediate effect?",
+    "choices": [
+      "Inventories +1,000 and trade payables +1,000; no effect on profit",
+      "Expenses +1,000 and cash -1,000",
+      "Inventories +1,000 and cash -1,000",
+      "Expenses +1,000 and trade payables +1,000"
+    ],
+    "answer": 0,
+    "explain": "Merchandise is an inventory asset; it becomes an expense (cost of sales) only when removed from inventory."
+  },
+  {
+    "id": "finacc-019",
+    "topic": "S1 Sales and inventory",
+    "difficulty": 2,
+    "q": "Goods costing 600 are sold on credit for 900. What is the effect on profit?",
+    "choices": [
+      "+900",
+      "+600",
+      "0",
+      "+300"
+    ],
+    "answer": 3,
+    "explain": "Revenue 900 minus cost of sales 600 = +300."
+  },
+  {
+    "id": "finacc-020",
+    "topic": "S2 Income tax",
+    "difficulty": 2,
+    "q": "Income 900,000 and expenses 600,000; tax rate 20%. What is net profit after tax?",
+    "choices": [
+      "300,000",
+      "60,000",
+      "240,000",
+      "180,000"
+    ],
+    "answer": 2,
+    "explain": "Taxable profit 300,000; tax 20% = 60,000; net profit 300,000 - 60,000 = 240,000."
+  },
+  {
+    "id": "finacc-021",
+    "topic": "S6 Share premium",
+    "difficulty": 2,
+    "q": "Par value 10. The company issues 3,000 new shares at an issue price of 14. What is the share premium?",
+    "choices": [
+      "42,000",
+      "12,000",
+      "30,000",
+      "4,000"
+    ],
+    "answer": 1,
+    "explain": "Share premium = 3,000 x (14 - 10) = 12,000."
+  },
+  {
+    "id": "finacc-022",
+    "topic": "S6 Borrowing",
+    "difficulty": 2,
+    "q": "A 80,000 loan at 5% is repaid in equal principal of 16,000 per year, interest paid on the opening balance. Interest for year 2?",
+    "choices": [
+      "3,200",
+      "4,000",
+      "2,400",
+      "4,800"
+    ],
+    "answer": 0,
+    "explain": "Opening balance in year 2 = 80,000 - 16,000 = 64,000; 64,000 x 5% = 3,200."
+  },
+  {
+    "id": "finacc-023",
+    "topic": "S8 Accrued interest",
+    "difficulty": 2,
+    "q": "On 1 Nov the company borrows 120,000 at 6%, interest payable annually on 31 Oct. Accrued interest at 31 Dec?",
+    "choices": [
+      "7,200",
+      "6,000",
+      "600",
+      "1,200"
+    ],
+    "answer": 3,
+    "explain": "120,000 x 6% x 2/12 = 1,200."
+  },
+  {
+    "id": "finacc-024",
+    "topic": "S8 Prepaid expenses",
+    "difficulty": 2,
+    "q": "On 1 Oct the company pays 12,000 for 12 months of insurance, fully expensed. Prepaid expense at 31 Dec?",
+    "choices": [
+      "3,000",
+      "12,000",
+      "9,000",
+      "1,000"
+    ],
+    "answer": 2,
+    "explain": "9 months remain after 31 Dec: 12,000 x 9/12 = 9,000."
+  },
+  {
+    "id": "finacc-025",
+    "topic": "S8 Deferred revenue",
+    "difficulty": 2,
+    "q": "On 1 Nov a client pays 6,000 for 6 months of service, recorded as income. Deferred revenue at 31 Dec?",
+    "choices": [
+      "2,000",
+      "4,000",
+      "6,000",
+      "1,000"
+    ],
+    "answer": 1,
+    "explain": "4 of 6 months remain unprovided: 6,000 x 4/6 = 4,000."
+  },
+  {
+    "id": "finacc-026",
+    "topic": "S7 Impairment of inventory",
+    "difficulty": 2,
+    "q": "Inventory cost 5,000, net realizable value 4,200, accumulated impairment already 300. What is the impairment loss for the year?",
+    "choices": [
+      "500",
+      "800",
+      "300",
+      "1,300"
+    ],
+    "answer": 0,
+    "explain": "Required accumulated impairment = 5,000 - 4,200 = 800; loss = 800 - 300 = 500."
+  },
+  {
+    "id": "finacc-027",
+    "topic": "S7 Impairment of receivables",
+    "difficulty": 2,
+    "q": "A trade receivable of 10,000 is expected to be only 60% collected. Required impairment?",
+    "choices": [
+      "6,000",
+      "10,000",
+      "1,000",
+      "4,000"
+    ],
+    "answer": 3,
+    "explain": "Expected collection 6,000; required impairment = 10,000 - 6,000 = 4,000."
+  },
+  {
+    "id": "finacc-028",
+    "topic": "S9 Cash flow statement",
+    "difficulty": 2,
+    "q": "Opening cash 20,000; operating cash flow -5,000; investing -12,000; financing +30,000. Closing cash?",
+    "choices": [
+      "13,000",
+      "37,000",
+      "33,000",
+      "53,000"
+    ],
+    "answer": 2,
+    "explain": "Change in cash = -5,000 - 12,000 + 30,000 = 13,000; closing = 20,000 + 13,000 = 33,000."
+  },
+  {
+    "id": "finacc-029",
+    "topic": "S5 Depreciation",
+    "difficulty": 3,
+    "q": "Machine cost 24,000, 4-year life, straight-line, available 1 April X1. What is the carrying amount at 31/12/X3?",
+    "choices": [
+      "6,000",
+      "7,500",
+      "10,500",
+      "12,000"
+    ],
+    "answer": 1,
+    "explain": "X1: 24,000 x 25% x 9/12 = 4,500; X2 and X3: 6,000 each. Accumulated 16,500; carrying amount 7,500."
+  },
+  {
+    "id": "finacc-030",
+    "topic": "S7 Provisions",
+    "difficulty": 3,
+    "q": "A 6,000 provision was set up for a lawsuit. The company is ordered to pay 7,500. Effect on the next year's profit?",
+    "choices": [
+      "Decrease of 1,500",
+      "Decrease of 7,500",
+      "Decrease of 1,500 in cash only, no profit effect",
+      "Increase of 1,500"
+    ],
+    "answer": 0,
+    "explain": "The provision of 6,000 is used; the extra 7,500 - 6,000 = 1,500 is a new expense."
+  },
+  {
+    "id": "finacc-031",
+    "topic": "S8 Period-end cut-off",
+    "difficulty": 3,
+    "q": "Profit before adjustments 50,000. Unbilled electricity 500; prepaid expense 1,000 (already expensed); accrued interest 625; unbilled consulting revenue 2,000. Adjusted profit?",
+    "choices": [
+      "49,875",
+      "47,875",
+      "54,125",
+      "51,875"
+    ],
+    "answer": 3,
+    "explain": "50,000 - 500 (expense) + 1,000 (expense removed) - 625 (interest) + 2,000 (revenue) = 51,875."
+  },
+  {
+    "id": "finacc-032",
+    "topic": "S6 Equity and shares",
+    "difficulty": 3,
+    "q": "Capital 100,000 (10,000 shares, par 10). 2,000 shares issued at 15; year profit 8,000. Book value per share?",
+    "choices": [
+      "10.83",
+      "11.00",
+      "11.50",
+      "12.00"
+    ],
+    "answer": 2,
+    "explain": "Equity = 100,000 + 30,000 + 8,000 = 138,000; 12,000 shares; 138,000 / 12,000 = 11.50."
+  },
+  {
+    "id": "finacc-033",
+    "topic": "S2 Income tax",
+    "difficulty": 3,
+    "q": "Profit before tax 400,000, tax rate 25%, tax paid next year. At year-end, net profit and tax liability?",
+    "choices": [
+      "Net profit 400,000; tax liability 100,000",
+      "Net profit 300,000; tax liability 100,000",
+      "Net profit 300,000; no liability",
+      "Net profit 300,000; cash decreases by 100,000"
+    ],
+    "answer": 1,
+    "explain": "Tax expense 100,000 is a liability until paid; net profit = 400,000 - 100,000 = 300,000; no cash moves this year."
+  },
+  {
+    "id": "finacc-034",
+    "topic": "S7 Impairment of fixed assets",
+    "difficulty": 3,
+    "q": "Asset carrying amount 18,000; fair value less costs of disposal 12,000; value in use 15,000. Impairment loss?",
+    "choices": [
+      "3,000",
+      "6,000",
+      "0",
+      "12,000"
+    ],
+    "answer": 0,
+    "explain": "Recoverable amount = max(12,000; 15,000) = 15,000; loss = 18,000 - 15,000 = 3,000."
+  },
+  {
+    "id": "finacc-035",
+    "topic": "S5 Profit vs cash",
+    "difficulty": 3,
+    "q": "Year 1: a machine costing 24,000 is paid in cash on 1 Jan; 4-year life, straight-line. Effect on profit and cash in year 1 (nothing else)?",
+    "choices": [
+      "Profit -24,000; cash -6,000",
+      "Profit -24,000; cash -24,000",
+      "Profit -6,000; cash -6,000",
+      "Profit -6,000; cash -24,000"
+    ],
+    "answer": 3,
+    "explain": "Depreciation 24,000 x 25% = 6,000 hits profit; the full 24,000 paid is an investing cash outflow."
+  }
+]

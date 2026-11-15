@@ -1,0 +1,282 @@
+[
+ {
+  "id": "geo-001",
+  "topic": "Four Paradigms",
+  "difficulty": 1,
+  "q": "In the four paradigms table, which core actor is linked to classical geopolitics?",
+  "choices": [
+   "Multinational firms",
+   "Sovereign nation-states",
+   "Individuals and communities",
+   "Political elites and media"
+  ],
+  "answer": 1,
+  "explain": "Classical geopolitics treats sovereign nation-states as the core actor."
+ },
+ {
+  "id": "geo-002",
+  "topic": "Four Paradigms",
+  "difficulty": 1,
+  "q": "Which paradigm focuses on human security, bottom-up agency and local community protection?",
+  "choices": [
+   "Feminist",
+   "Classical",
+   "Critical",
+   "Business"
+  ],
+  "answer": 0,
+  "explain": "Feminist geopolitics centres individuals and communities and everyday lived sites."
+ },
+ {
+  "id": "geo-003",
+  "topic": "Four Paradigms",
+  "difficulty": 2,
+  "q": "Which paradigm views space as a subjective, discursively built representation and aims to deconstruct narratives and weaponized maps?",
+  "choices": [
+   "Classical",
+   "Business",
+   "Feminist",
+   "Critical"
+  ],
+  "answer": 3,
+  "explain": "Critical geopolitics targets how elites and media construct representations of space."
+ },
+ {
+  "id": "geo-004",
+  "topic": "Four Paradigms",
+  "difficulty": 2,
+  "q": "A multinational firm assesses sovereignty risk and border changes affecting its supply chain. Which paradigm is this?",
+  "choices": [
+   "Classical geopolitics",
+   "Feminist geopolitics",
+   "Business geopolitics",
+   "Critical geopolitics"
+  ],
+  "answer": 2,
+  "explain": "Business geopolitics sees corridors and supply chains, with MNCs mitigating sovereignty risk and capturing value chains."
+ },
+ {
+  "id": "geo-005",
+  "topic": "Four Paradigms",
+  "difficulty": 2,
+  "q": "Classical geopolitics views physical geography as what?",
+  "choices": [
+   "A discursive construction",
+   "Static destiny",
+   "Everyday lived sites",
+   "Commercial corridors"
+  ],
+  "answer": 1,
+  "explain": "The classical view treats geography as fixed destiny, shaping military containment and expansion."
+ },
+ {
+  "id": "geo-006",
+  "topic": "Feminist Geopolitics Concepts",
+  "difficulty": 1,
+  "q": "Cynthia Enloe's guiding question for feminist curiosity is which?",
+  "choices": [
+   "Where are the women?",
+   "Who controls the heartland?",
+   "Who writes the maps?",
+   "What is the state's interest?"
+  ],
+  "answer": 0,
+  "explain": "Enloe developed 'feminist curiosity' to ask where the women are in international politics."
+ },
+ {
+  "id": "geo-007",
+  "topic": "Feminist Geopolitics Concepts",
+  "difficulty": 1,
+  "q": "Which slogan is associated with Cynthia Enloe?",
+  "choices": [
+   "The map is not the territory",
+   "Deeds, not words",
+   "One is not born a woman",
+   "The personal is international"
+  ],
+  "answer": 3,
+  "explain": "Enloe connects private life to statecraft: the personal is international (and geopolitical)."
+ },
+ {
+  "id": "geo-008",
+  "topic": "Feminist Geopolitics Concepts",
+  "difficulty": 2,
+  "q": "In the high vs low politics divide, which topics count as 'high politics'?",
+  "choices": [
+   "Healthcare, education and welfare",
+   "Human rights and household labor",
+   "Military strategy, national security and elite diplomacy",
+   "Public health clinics"
+  ],
+  "answer": 2,
+  "explain": "High politics covers matters seen as vital to state survival; social welfare and healthcare are coded low politics."
+ },
+ {
+  "id": "geo-009",
+  "topic": "Feminist Geopolitics Concepts",
+  "difficulty": 2,
+  "q": "How does the feminist critique describe the high/low politics binary?",
+  "choices": [
+   "It is a neutral description of reality",
+   "It codes high politics as rational and masculine and low politics as emotional and feminine",
+   "It treats low politics as more important",
+   "It was invented by Enloe"
+  ],
+  "answer": 1,
+  "explain": "Feminist geopolitics shows the hierarchy is not neutral and privileges hegemonic masculinity."
+ },
+ {
+  "id": "geo-010",
+  "topic": "Feminist Geopolitics Concepts",
+  "difficulty": 2,
+  "q": "What does 'rescaling' geopolitical inquiry from the state scale to the human scale mean?",
+  "choices": [
+   "Analyzing homes, clinics and migration corridors and effects on bodies",
+   "Studying only treaties and borders",
+   "Focusing on global markets",
+   "Mapping physical terrain"
+  ],
+  "answer": 0,
+  "explain": "The human scale zooms into micro sites instead of treating the state as a unified actor."
+ },
+ {
+  "id": "geo-011",
+  "topic": "Thinkers and Works",
+  "difficulty": 1,
+  "q": "Which thinker wrote 'The Second Sex' (1949) and said 'One is not born, but rather becomes, a woman'?",
+  "choices": [
+   "Christine de Pizan",
+   "Clara Zetkin",
+   "Marguerite Yourcenar",
+   "Simone de Beauvoir"
+  ],
+  "answer": 3,
+  "explain": "Beauvoir defined gender as a social construct and founded modern second-wave feminism."
+ },
+ {
+  "id": "geo-012",
+  "topic": "Thinkers and Works",
+  "difficulty": 1,
+  "q": "Who founded International Women's Day in 1911, linking women's rights to the class struggle?",
+  "choices": [
+   "Emmeline Pankhurst",
+   "Rosa Parks",
+   "Clara Zetkin",
+   "Christine de Pizan"
+  ],
+  "answer": 2,
+  "explain": "Zetkin organized the first International Women's Day in 1911 within socialist feminism."
+ },
+ {
+  "id": "geo-013",
+  "topic": "Thinkers and Works",
+  "difficulty": 2,
+  "q": "Which thinker's 'Gender in International Relations' (1992) argued IR is a gendered discipline and reframed power as collective agency 'with'?",
+  "choices": [
+   "Donna Haraway",
+   "J. Ann Tickner",
+   "Jennifer Hyndman",
+   "Virginie Mamadouh"
+  ],
+  "answer": 1,
+  "explain": "Tickner redefined security at the individual and community level and power as 'agency with' rather than domination over."
+ },
+ {
+  "id": "geo-014",
+  "topic": "Thinkers and Works",
+  "difficulty": 2,
+  "q": "Donna Haraway's 'Situated Knowledges' argues against the 'God trick'. What does that mean?",
+  "choices": [
+   "Scholars cannot claim a neutral, universal view and must account for their position",
+   "Religion explains geopolitics",
+   "Only states produce knowledge",
+   "Maps are always accurate"
+  ],
+  "answer": 0,
+  "explain": "Haraway demands partial, located perspectives instead of a view from nowhere."
+ },
+ {
+  "id": "geo-015",
+  "topic": "Thinkers and Works",
+  "difficulty": 2,
+  "q": "Jennifer Hyndman's work on humanitarian aid and displaced persons shows that 'high' geopolitics is lived at which scale?",
+  "choices": [
+   "The global market scale",
+   "The continental scale",
+   "The interstate scale",
+   "The low scale of the body"
+  ],
+  "answer": 3,
+  "explain": "Hyndman centres the body as the starting scale for security analysis, in 'Managing Displacement'."
+ },
+ {
+  "id": "geo-016",
+  "topic": "Thinkers and Works",
+  "difficulty": 3,
+  "q": "Which thinker asks 'Can the Subaltern Speak?' and discusses strategic essentialism?",
+  "choices": [
+   "Qin Yaqing",
+   "Keiko Sakai",
+   "Gayatri Spivak",
+   "Maria Tanyag"
+  ],
+  "answer": 2,
+  "explain": "Spivak's postcolonial critique covers subalternity and the pragmatic use of minority identities for political goals."
+ },
+ {
+  "id": "geo-017",
+  "topic": "Thinkers and Works",
+  "difficulty": 3,
+  "q": "Qin Yaqing proposes a 'Logic of Relationality' to challenge which Western assumption?",
+  "choices": [
+   "The Logic of Sovereignty",
+   "The Logic of Rationality",
+   "The Logic of Geography",
+   "The Logic of Markets"
+  ],
+  "answer": 1,
+  "explain": "Qin frames identities as produced through ongoing relationships (guanxi), not fixed rational actors."
+ },
+ {
+  "id": "geo-018",
+  "topic": "Where Are The Women Examples",
+  "difficulty": 1,
+  "q": "Katherine Johnson is cited in the slides for which contribution?",
+  "choices": [
+   "Orbital mechanics calculations over a 33-year NASA career",
+   "Leading the British suffragettes",
+   "Winning the Nobel in Chemistry",
+   "Founding Women's Day"
+  ],
+  "answer": 0,
+  "explain": "Johnson is an example of women whose work was historically invisible."
+ },
+ {
+  "id": "geo-019",
+  "topic": "Where Are The Women Examples",
+  "difficulty": 2,
+  "q": "Why does the slide on Lise Meitner and Otto Hahn matter for feminist geopolitics?",
+  "choices": [
+   "Meitner won the 1944 Nobel alone",
+   "Hahn was denied the prize",
+   "Both shared the prize equally",
+   "Hahn alone received the 1944 Nobel for fission while Meitner was repeatedly nominated but not awarded"
+  ],
+  "answer": 3,
+  "explain": "It illustrates the invisibility of women's contributions to science, a 'Where are the women?' case."
+ },
+ {
+  "id": "geo-020",
+  "topic": "Feminist Geopolitics Concepts",
+  "difficulty": 3,
+  "q": "New Zealand recognising Te Urewera (2014) and the Whanganui River (2017) as legal persons is used to illustrate which feminist geopolitics theme?",
+  "choices": [
+   "Classical territorial expansion",
+   "Business sovereignty risk",
+   "Questioning who or what counts as an individual or minority subject",
+   "Military containment"
+  ],
+  "answer": 2,
+  "explain": "The slides use it to show how non-traditional subjects can gain recognition, widening who counts in politics."
+ }
+]

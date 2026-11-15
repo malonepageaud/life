@@ -1,0 +1,422 @@
+[
+ {
+  "id": "marketing-001",
+  "topic": "Session 1 Marketing Process",
+  "difficulty": 1,
+  "q": "Which simplified definition of marketing is used in Session 1?",
+  "choices": [
+   "Advertising + selling + discounting",
+   "Creating + communicating + delivering value",
+   "Producing + storing + shipping goods",
+   "Researching + forecasting + budgeting"
+  ],
+  "answer": 1,
+  "explain": "The course defines marketing as creating, communicating and delivering value, and stresses that marketing is not just advertising."
+ },
+ {
+  "id": "marketing-002",
+  "topic": "Session 1 4Cs",
+  "difficulty": 1,
+  "q": "Which set matches the 4 Cs of marketing analysis in the lecture notes?",
+  "choices": [
+   "Company, competitors, collaborators, customers",
+   "Cost, convenience, communication, customer",
+   "Cash, capacity, culture, competitors",
+   "Climate, culture, creativity, customers"
+  ],
+  "answer": 0,
+  "explain": "The 4 Cs listed are Company, Competitors, Collaborators and Customers."
+ },
+ {
+  "id": "marketing-003",
+  "topic": "Session 1 Value Proposition",
+  "difficulty": 2,
+  "q": "A brand promises a set of benefits to satisfy needs, then designs product, price, place and promotion to deliver it. What is that promise called?",
+  "choices": [
+   "Break-even point",
+   "Perceptual map",
+   "Gatekeeper role",
+   "Value proposition"
+  ],
+  "answer": 3,
+  "explain": "The value proposition is the set of benefits the brand promises; the 4 Ps are how it delivers on it."
+ },
+ {
+  "id": "marketing-004",
+  "topic": "Session 2 Buying Roles (DMU)",
+  "difficulty": 1,
+  "q": "In a family choosing a phone plan, a teenager researches the options but does not pay. Which DMU role is the teenager?",
+  "choices": [
+   "Decider",
+   "Buyer",
+   "Information gatherer",
+   "Gatekeeper"
+  ],
+  "answer": 2,
+  "explain": "The information gatherer researches options. The decider chooses and the buyer executes the purchase."
+ },
+ {
+  "id": "marketing-005",
+  "topic": "Session 2 Buying Roles (DMU)",
+  "difficulty": 2,
+  "q": "An office assistant controls which sales reps can reach the manager who picks software. Which DMU role is the assistant?",
+  "choices": [
+   "Initiator",
+   "Gatekeeper",
+   "User",
+   "Decider"
+  ],
+  "answer": 1,
+  "explain": "The gatekeeper controls access to decision makers, so marketers must tailor messages to such actors."
+ },
+ {
+  "id": "marketing-006",
+  "topic": "Session 2 Consumer Decision Models",
+  "difficulty": 1,
+  "q": "Which model assumes consumers are rational and maximise utility while minimising money, time and effort costs?",
+  "choices": [
+   "Economic model",
+   "Learning model",
+   "Maslow model",
+   "Gatekeeper model"
+  ],
+  "answer": 0,
+  "explain": "The economic model treats buyers as rational, with perceived value = perceived benefits minus perceived sacrifice."
+ },
+ {
+  "id": "marketing-007",
+  "topic": "Session 2 Consumer Decision Models",
+  "difficulty": 2,
+  "q": "A shopper keeps buying the same bubble tea brand because earlier good experiences were reinforced. Which model explains this best?",
+  "choices": [
+   "Economic model",
+   "EKB model only at the information search stage",
+   "Maslow hierarchy",
+   "Learning model"
+  ],
+  "answer": 3,
+  "explain": "The learning model links drives, cues, responses and reinforcement, building brand preference and loyalty."
+ },
+ {
+  "id": "marketing-008",
+  "topic": "Session 2 EKB Model",
+  "difficulty": 1,
+  "q": "What is the correct order of the 5 EKB stages?",
+  "choices": [
+   "Information search, need recognition, purchase, evaluation, reaction",
+   "Need recognition, purchase, information search, reaction, evaluation",
+   "Need recognition, information search, evaluation of alternatives, purchase, reaction",
+   "Evaluation, need recognition, search, reaction, purchase"
+  ],
+  "answer": 2,
+  "explain": "EKB runs: need recognition, information search, evaluation of alternatives, purchase, then reaction (post-purchase behaviour)."
+ },
+ {
+  "id": "marketing-009",
+  "topic": "Session 2 Decision Biases",
+  "difficulty": 2,
+  "q": "A shop advertises 'S$10 early-bird discount' while a rival adds a 'S$10 late-booking surcharge'. Final prices are equal. Which bias explains why the discount feels better?",
+  "choices": [
+   "Anchoring",
+   "Framing (loss aversion)",
+   "Availability",
+   "Confirmation"
+  ],
+  "answer": 1,
+  "explain": "Losses loom larger than equivalent gains, so the surcharge frame feels worse than the discount frame."
+ },
+ {
+  "id": "marketing-010",
+  "topic": "Session 2 Decision Biases",
+  "difficulty": 2,
+  "q": "People guess a car costs more after first seeing an irrelevant, very high number. This is an example of which bias?",
+  "choices": [
+   "Anchoring",
+   "Availability",
+   "Framing",
+   "Halo effect"
+  ],
+  "answer": 0,
+  "explain": "Anchoring means relying heavily on specific, sometimes irrelevant, information such as the exchange rate example in class."
+ },
+ {
+  "id": "marketing-011",
+  "topic": "Session 3 Market Research",
+  "difficulty": 1,
+  "q": "Which method is qualitative market research?",
+  "choices": [
+   "Likert survey",
+   "Experimentation",
+   "Secondary data analysis",
+   "Focus group"
+  ],
+  "answer": 3,
+  "explain": "Focus groups, interviews and direct observation are qualitative; surveys, experiments and secondary data are quantitative."
+ },
+ {
+  "id": "marketing-012",
+  "topic": "Session 3 Market Research",
+  "difficulty": 2,
+  "q": "Which is the correct first step in the market research process?",
+  "choices": [
+   "Collect the data",
+   "Analyze the data",
+   "Define the research problem",
+   "Report and present findings"
+  ],
+  "answer": 2,
+  "explain": "The steps start with defining the problem, then research design, information needs, data collection, analysis and reporting."
+ },
+ {
+  "id": "marketing-013",
+  "topic": "Session 3 Survey Questions",
+  "difficulty": 2,
+  "q": "'You have 100 points to allocate across price, quality, service and design.' Which closed-ended question type is this?",
+  "choices": [
+   "Rank order",
+   "Constant sum",
+   "Paired comparison",
+   "Semantic differential"
+  ],
+  "answer": 1,
+  "explain": "Constant sum forces respondents to split a fixed total, here 100 points, across features."
+ },
+ {
+  "id": "marketing-014",
+  "topic": "Session 3 Survey Questions",
+  "difficulty": 1,
+  "q": "'I find this class engaging: 1 Strongly Disagree to 5 Strongly Agree.' Which question type is this?",
+  "choices": [
+   "Likert scale",
+   "Dichotomous",
+   "Paired comparison",
+   "Constant sum"
+  ],
+  "answer": 0,
+  "explain": "A Likert item measures agreement along an ordered scale from strongly disagree to strongly agree."
+ },
+ {
+  "id": "marketing-015",
+  "topic": "Session 4 Segmentation",
+  "difficulty": 1,
+  "q": "Which are the four bases of segmentation used in the Session 4 grocery store exercise?",
+  "choices": [
+   "Product, price, place, promotion",
+   "Strengths, weaknesses, opportunities, threats",
+   "Political, economic, social, technological",
+   "Demographic, geographic, psychographic, behavioral"
+  ],
+  "answer": 3,
+  "explain": "The four bases are demographic, geographic, psychographic and behavioral."
+ },
+ {
+  "id": "marketing-016",
+  "topic": "Session 4 Segmentation",
+  "difficulty": 2,
+  "q": "A Singapore gym groups members by visits per week and loyalty to the brand. Which basis is this?",
+  "choices": [
+   "Demographic",
+   "Geographic",
+   "Behavioral",
+   "Psychographic"
+  ],
+  "answer": 2,
+  "explain": "Usage rate and loyalty are behavioral variables."
+ },
+ {
+  "id": "marketing-017",
+  "topic": "Session 4 Segmentation",
+  "difficulty": 2,
+  "q": "In the Netflix example, why is marketing analytics preferred to surveys for behavioral segmentation?",
+  "choices": [
+   "Surveys are illegal for streaming platforms",
+   "Behavioral data already exists in logs and shows real behavior without recall bias",
+   "Analytics works only for demographics",
+   "Logs cannot show what viewers actually watch"
+  ],
+  "answer": 1,
+  "explain": "When behavioral data is already available, real behavior beats stated preference and needs no sampling."
+ },
+ {
+  "id": "marketing-018",
+  "topic": "Session 4 Segmentation",
+  "difficulty": 3,
+  "q": "Netflix profiles segments by behavior and then notes that a segment skews 25-34. How should demographics be used?",
+  "choices": [
+   "Only to describe segments after they are built from behavior",
+   "As the primary basis to build segments",
+   "They should replace behavior entirely",
+   "They should be ignored and never reported"
+  ],
+  "answer": 0,
+  "explain": "Session 4 says demographics can describe a behavioral segment after the fact, not define it, partly for fairness and privacy reasons."
+ },
+ {
+  "id": "marketing-019",
+  "topic": "Session 4 KNN",
+  "difficulty": 3,
+  "q": "After surveying a sample and plotting answers, how does KNN classify a new customer?",
+  "choices": [
+   "Assigns the customer to the largest segment",
+   "Picks a segment at random",
+   "Averages all respondents into one segment",
+   "Assigns the customer to the segment of the k nearest plotted respondents"
+  ],
+  "answer": 3,
+  "explain": "KNN looks at the k closest respondents on the plot and gives the new customer their majority segment."
+ },
+ {
+  "id": "marketing-020",
+  "topic": "Session 5 Positioning",
+  "difficulty": 1,
+  "q": "The lecture says good positioning needs to be which three things?",
+  "choices": [
+   "Cheap, fast and popular",
+   "Loud, frequent and viral",
+   "Clear, credible and coherent",
+   "Local, global and digital"
+  ],
+  "answer": 2,
+  "explain": "Positioning must be clear, credible and coherent."
+ },
+ {
+  "id": "marketing-021",
+  "topic": "Session 5 Positioning Maps",
+  "difficulty": 2,
+  "q": "In the car positioning study, how is a respondent matched to a brand on the map?",
+  "choices": [
+   "The brand with the highest ad spend",
+   "The brand with the smallest distance to their ideal point",
+   "The brand rated safest",
+   "The brand they bought last"
+  ],
+  "answer": 1,
+  "explain": "The ideal-point model assumes consumers prefer the closest brand, using Euclidean distance on the map."
+ },
+ {
+  "id": "marketing-022",
+  "topic": "Session 5 Positioning Maps",
+  "difficulty": 3,
+  "q": "Toyota and Honda sit at virtually the same point on the map. What should a marketer conclude?",
+  "choices": [
+   "They are perceived almost identically, so a split of matches is not a meaningful signal",
+   "Toyota clearly beats Honda",
+   "Both brands have zero share",
+   "The map must be wrong"
+  ],
+  "answer": 0,
+  "explain": "Near-identical positions mean consumers see them as the same; differences in matches were just noise."
+ },
+ {
+  "id": "marketing-023",
+  "topic": "Session 7 Product Levels",
+  "difficulty": 1,
+  "q": "Free scheduled maintenance and a concierge service on a premium car belong to which product level?",
+  "choices": [
+   "Core benefit",
+   "Expected benefits",
+   "Price level",
+   "Augmented benefits"
+  ],
+  "answer": 3,
+  "explain": "Augmented benefits are extras beyond expectations that differentiate the brand."
+ },
+ {
+  "id": "marketing-024",
+  "topic": "Session 7 Product Levels",
+  "difficulty": 2,
+  "q": "Airbags and a warranty on a new car are what level of the product, and what is their role?",
+  "choices": [
+   "Core benefit; main differentiator",
+   "Augmented benefits; main differentiator",
+   "Expected benefits; table stakes that lose the sale if missing but rarely win it",
+   "Core benefit; optional extras"
+  ],
+  "answer": 2,
+  "explain": "Expected attributes are baseline assumptions: falling short loses the sale, exceeding them rarely wins it."
+ },
+ {
+  "id": "marketing-025",
+  "topic": "Session 7 Conjoint Analysis",
+  "difficulty": 2,
+  "q": "Why is conjoint analysis preferred to asking 'How important is price?'",
+  "choices": [
+   "It is cheaper than any survey",
+   "It forces trade-offs and avoids the say/do gap",
+   "It removes the need for consumers",
+   "It only measures brand awareness"
+  ],
+  "answer": 1,
+  "explain": "Direct questions make everything 'important'; conjoint reveals true priorities through trade-offs."
+ },
+ {
+  "id": "marketing-026",
+  "topic": "Session 7 Conjoint Analysis",
+  "difficulty": 3,
+  "q": "A laptop has 3 prices, 2 battery levels and 2 brand levels. How many profiles in a full factorial design?",
+  "choices": [
+   "12",
+   "7",
+   "10",
+   "6"
+  ],
+  "answer": 0,
+  "explain": "Full factorial multiplies the levels: 3 x 2 x 2 = 12."
+ },
+ {
+  "id": "marketing-027",
+  "topic": "Session 8 Pricing",
+  "difficulty": 3,
+  "q": "A product costs S$6 and sells at S$10. What are the markup percentage and margin percentage?",
+  "choices": [
+   "Markup 40%, margin 66.7%",
+   "Markup 40%, margin 40%",
+   "Markup 60%, margin 66.7%",
+   "Markup 66.7%, margin 40%"
+  ],
+  "answer": 3,
+  "explain": "Markup = (10-6)/6 = 66.7% on cost; margin = (10-6)/10 = 40% on selling price."
+ },
+ {
+  "id": "marketing-028",
+  "topic": "Session 8 Distribution",
+  "difficulty": 1,
+  "q": "Which reason favours an indirect channel over a direct one?",
+  "choices": [
+   "The sales process is very complex",
+   "Customers insist on buying direct",
+   "Access to new markets and handling small purchases",
+   "The manufacturer wants a larger margin"
+  ],
+  "answer": 2,
+  "explain": "Indirect channels give market access, small-order handling and assortment; direct fits large customers and complex sales."
+ },
+ {
+  "id": "marketing-029",
+  "topic": "Session 9 SWOT",
+  "difficulty": 2,
+  "q": "Singapore's bubble tea market is growing fast for every brand. In a brand's SWOT, where does this belong?",
+  "choices": [
+   "Strength",
+   "Opportunity",
+   "Weakness",
+   "Threat"
+  ],
+  "answer": 1,
+  "explain": "Market growth applies to competitors too, so it is an external opportunity, not a strength."
+ },
+ {
+  "id": "marketing-030",
+  "topic": "Session 8 Pricing",
+  "difficulty": 2,
+  "q": "A plant pays S$5 per O-ring changed every 2 months; a new one lasts 4 months. Which idea does the 'value-in-use' exercise test?",
+  "choices": [
+   "Value to the customer from savings, such as fewer changes and shutdowns",
+   "Competitor pricing only",
+   "The seller's cost plus markup",
+   "Brand awareness"
+  ],
+  "answer": 0,
+  "explain": "Value-in-use estimates the customer's economic benefit, including fewer replacements and shutdown costs avoided."
+ }
+]
