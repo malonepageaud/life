@@ -431,6 +431,7 @@ function render() {
   header(ROUTES.find(x => x[0] === r)[1]);
   renderNav();
   $('#view').innerHTML = V[r]();
+  renderChat();
   const f = $('#addTodo');
   if (f) f.addEventListener('submit', (e) => { e.preventDefault(); const v = $('#todoText').value.trim(); if (!v) return; S.custom.unshift({ id: 'u' + Date.now(), text: v }); save(); render(); });
 }
@@ -444,6 +445,7 @@ document.addEventListener('click', (e) => {
   else if (a === 'reset') { (S.reset[dk] ||= {})[el.dataset.i] = !S.reset[dk]?.[el.dataset.i]; }
   else if (a === 'sport') { S.sports[dk] = !S.sports[dk]; if (S.sports[dk]) toast('Session logged. Keep the streak.'); }
   else if (a === 'sportday') { const k = el.dataset.k; if (k <= dk) S.sports[k] = !S.sports[k]; }
+  else if (a === 'askopt') { (S.asked ||= {})[el.dataset.ask] = el.dataset.opt; save(); sendText(`[ask ${el.dataset.ask}] ${el.dataset.opt}`); return; }
   else if (a === 'aebook') { aeBook(el.dataset.id); return; }
   else if (a === 'quizgo') { startQuiz(el.dataset.k); return; }
   else if (a === 'quizmix') { startMix(); return; }
@@ -496,15 +498,27 @@ async function flushPending() {
 }
 function renderChat() {
   const box = $('#chat'); if (!box || $('#sheet').classList.contains('hidden')) return;
-  const items = [...(D?.log || []).map(l => ({ t: new Date(l.time).getTime(), text: l.text, applied: l.applied || [] })), ...pending().map(m => ({ t: m.t, text: m.text, status: m.status }))].sort((a, b) => a.t - b.t).slice(-40);
-  box.innerHTML = items.map(x => `<div class="bubble"><div>${esc(x.text)}</div><div class="meta">${fmt(x.t, { weekday: 'short', hour: '2-digit', minute: '2-digit' })}${x.status ? ' · ' + (x.status === 'sent' ? 'sent, handled within 15 min' : x.status === 'failed' ? 'not sent yet, will retry' : 'sending…') : ''}</div>${x.applied?.length ? `<div class="applied">${x.applied.map(a => '✓ ' + esc(a)).join('<br>')}</div>` : ''}</div>`).join('') || '<div class="empty">Nothing yet. Tap the mic and talk.</div>';
+  const logged = (D?.log || []).map(l => ({ t: new Date(l.time).getTime(), text: l.text, reply: l.reply || (l.applied || []).join('. '), applied: l.reply ? (l.applied || []) : [], ask: l.ask, rt: l.repliedAt ? new Date(l.repliedAt).getTime() : null }));
+  const pend = pending().map(m => ({ t: m.t, text: m.text, status: m.status }));
+  const items = [...logged, ...pend].sort((x, y) => x.t - y.t).slice(-40);
+  const bubbleMe = (x) => `<div class="bubble me"><div>${esc(x.text)}</div><div class="meta">${fmt(x.t, { weekday: 'short', hour: '2-digit', minute: '2-digit' })}${x.status === 'failed' ? ' · not sent yet, will retry' : ''}</div></div>`;
+  const askCard = (k) => !k ? '' : `<div class="askcard">${k.question ? `<div style="font-weight:650;margin-bottom:6px">${esc(k.question)}</div>` : ''}${k.draft ? `<div class="draft"><div class="small muted">To: ${esc(k.draft.to || '')}${k.draft.box ? ' · from ' + esc(k.draft.box) : ''}</div>${k.draft.subject ? `<div style="font-weight:650;margin:4px 0">${esc(k.draft.subject)}</div>` : ''}<div class="small" style="white-space:pre-wrap">${esc(k.draft.body || '')}</div></div>` : ''}
+    ${k.status ? `<div class="small" style="margin-top:8px;color:var(--mut)">${k.status === 'sent' ? '✓ Sent' : k.status === 'cancelled' ? 'Cancelled' : '✓ Done'}</div>` : (S.asked || {})[k.id] ? `<div class="small muted" style="margin-top:8px">You chose: ${esc(S.asked[k.id])}</div>` : `<div class="row" style="gap:6px;flex-wrap:wrap;margin-top:10px">${(k.options || ['Yes', 'No']).map((o, i) => `<button class="btn ${i === 0 ? 'pri' : ''}" data-act="askopt" data-ask="${esc(k.id)}" data-opt="${esc(o)}">${esc(o)}</button>`).join('')}</div>`}</div>`;
+  const bubbleBot = (x) => `<div class="bubble bot"><div>${esc(x.reply)}</div>${x.applied?.length ? `<div class="applied">${x.applied.map(a => '✓ ' + esc(a)).join('<br>')}</div>` : ''}${askCard(x.ask)}${x.rt ? `<div class="meta">${fmt(x.rt, { hour: '2-digit', minute: '2-digit' })}</div>` : ''}</div>`;
+  const typing = `<div class="bubble bot typing"><span></span><span></span><span></span><div class="meta" style="margin-top:6px">On it. Back in a few minutes.</div></div>`;
+  box.innerHTML = items.map(x => x.reply !== undefined ? bubbleMe(x) + (x.reply ? bubbleBot(x) : '') : bubbleMe(x) + (x.status !== 'failed' ? typing : '')).join('') || `<div class="bubble bot"><div>Hey Malone. Tell me what you did or what you need: log food, mark stuff done, book a room or an Aentry night, add to your calendar, draft or send an email. I'll handle it and reply here.</div></div>`;
   box.scrollTop = box.scrollHeight;
 }
-function openSheet() { $('#sheet').classList.remove('hidden'); renderChat(); flushPending(); }
-function closeSheet() { stopMic(); $('#sheet').classList.add('hidden'); }
+let chatPoll = null;
+function openSheet() { $('#sheet').classList.remove('hidden'); renderChat(); flushPending(); clearInterval(chatPoll); chatPoll = setInterval(() => { if (pending().some(m => m.status === 'sent')) load().then(() => { flushPending(); }).catch(() => {}); }, 40000); }
+function closeSheet() { stopMic(); clearInterval(chatPoll); $('#sheet').classList.add('hidden'); }
 $('#fab').addEventListener('click', openSheet);
 $('#sheetClose').addEventListener('click', closeSheet);
 $('#sheet').addEventListener('click', (e) => { if (e.target.id === 'sheet') closeSheet(); });
+async function sendText(text) {
+  const m = { id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6), t: Date.now(), time: new Date().toISOString(), text, status: 'sending' };
+  setPending([...pending(), m]); renderChat(); await flushPending(); return pending().find(x => x.id === m.id)?.status === 'sent';
+}
 $('#send').addEventListener('click', async () => {
   stopMic();
   const text = $('#msg').value.trim(); if (!text) return;

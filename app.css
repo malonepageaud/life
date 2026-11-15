@@ -184,3 +184,11 @@ details summary::-webkit-details-marker{display:none}
 .evimg{height:150px;border-radius:14px;background-size:cover;background-position:center;margin:-4px -4px 0}
 .ev:not(.evbig) .evimg{height:110px}
 .tonight{border-color:rgba(255,61,154,.3);background:linear-gradient(140deg,rgba(255,61,154,.12),rgba(255,255,255,.03))}
+.bubble.me{align-self:flex-end}
+.bubble.bot{align-self:flex-start;background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:18px 18px 18px 6px}
+.bubble.bot .applied{color:#7cf0bb}
+.askcard{margin-top:10px;border-top:1px solid var(--line);padding-top:10px}
+.draft{background:rgba(0,0,0,.25);border:1px solid var(--line);border-radius:12px;padding:10px;margin-top:4px;max-height:220px;overflow:auto}
+.typing span{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--mut);margin-right:4px;animation:blink 1.2s infinite}
+.typing span:nth-child(2){animation-delay:.2s}.typing span:nth-child(3){animation-delay:.4s}
+@keyframes blink{0%,80%,100%{opacity:.25}40%{opacity:1}}
