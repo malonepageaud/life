@@ -202,7 +202,7 @@ V.grades = () => {
     ${c.components.length ? `<table class="comp">${c.components.map(x => `<tr><td>${esc(x.name)}${x.detail ? `<div class="dim small">${esc(x.detail)}</div>` : ''}</td><td class="muted">${x.weight}%</td><td><b style="color:${color(x.grade)}">${x.grade != null ? x.grade : '–'}</b></td></tr>`).join('')}</table>` : '<div class="small dim" style="margin-top:8px">Weighting not found yet.</div>'}
     ${c.items.length ? `<details><summary>${c.items.length} Moodle items ▾</summary><table class="comp">${c.items.map(i => `<tr><td>${esc(i.name)}</td><td></td><td>${esc(i.grade)}</td></tr>`).join('')}</table></details>` : ''}
   </div>`).join('') + `</div>`;
-  if (g.gradeMail?.length) html += `<div class="card"><h2>Grade emails</h2><div class="list">${g.gradeMail.map(m => `<div class="item"><div class="main"><a class="t" href="${esc(m.url)}" target="_blank" rel="noopener">${esc(m.subject)}</a><div class="m">${esc(m.from)} · ${rel(m.time)}</div><div class="d">${esc(m.snippet)}</div></div></div>`).join('')}</div></div>`;
+  if (g.gradeMail?.length) html += `<div class="card"><h2>Grade emails</h2><div class="list">${g.gradeMail.map(m => `<div class="item"><div class="main"><a class="t" href="${esc(m.url)}" target="_blank" rel="noopener">${esc(m.subject)}</a><div class="m">${esc(m.from)} · ${m.time ? rel(m.time) : esc((m.timeText || '').toLowerCase())}</div>${m.snippet ? `<div class="d">${esc(m.snippet)}</div>` : ''}</div></div>`).join('')}</div></div>`;
   return html;
 };
 
@@ -282,6 +282,7 @@ V.business = () => {
   <div class="card"><h2>Key dates</h2><div class="list">${(B.keyDates || []).map(k => { const t = new Date(k.date + 'T09:00:00+08:00').getTime(); const d = Math.ceil((t - now) / DAY); return `<div class="item"><div class="main"><div class="row between"><div class="t">${esc(k.label)}</div><span class="pill ${d <= 3 ? 'warn' : 'acc'}">${d < 0 ? 'done' : d === 0 ? 'today' : d + 'd'}</span></div><div class="m">${dayName(t)}${k.end ? ' to ' + fmt(new Date(k.end + 'T09:00:00+08:00').getTime(), { day: 'numeric', month: 'short' }) : ''}</div></div></div>`; }).join('')}</div></div>
   <div class="card"><h2>Tasks</h2><div class="list">${tasks.map(todoRow).join('') || '<div class="empty">No open tasks</div>'}</div></div>
   <div class="card"><h2>Where it stands</h2><ul class="bul">${(B.status || []).map(s => `<li>${esc(s)}</li>`).join('')}${B.note ? `<li>${esc(B.note)}</li>` : ''}</ul>${B.team ? `<div class="small dim" style="margin-top:8px">Team: ${esc(B.team)}</div>` : ''}</div>
+  ${D.shopify ? `<div class="card"><h2>Fennly (Shopify) <a class="small muted" href="${esc(D.shopify.admin || '#')}" target="_blank" rel="noopener">admin ↗</a></h2><div class="row" style="gap:22px"><div><div class="tag">Orders 7d</div><div style="font-size:22px;font-weight:750">${D.shopify.orders7 ?? '–'}</div></div><div><div class="tag">Sales 7d</div><div style="font-size:22px;font-weight:750">${D.shopify.revenue7 != null ? D.shopify.revenue7 + ' ' + (D.shopify.currency || '') : '–'}</div></div><div><div class="tag">All time</div><div style="font-size:22px;font-weight:750">${D.shopify.orders ?? '–'}</div></div></div>${D.shopify.note ? `<div class="small muted" style="margin-top:8px">${esc(D.shopify.note)}</div>` : ''}</div>` : ''}
   ${ideas.length ? `<div class="sec">Ideas</div><div class="ideas">${ideas.map(ideaCard).join('')}</div>` : ''}
   ${(B.links || []).length ? `<div class="small" style="text-align:center">${B.links.map(l => `<a class="muted" href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.label)} ↗</a>`).join(' · ')}</div>` : ''}`;
 };
@@ -301,16 +302,17 @@ V.ideas = () => `<div class="sec">Today</div>${(D.ideas || []).map(ideaCard).joi
   <div class="sec">Saved ideas</div>${S.saved.length ? S.saved.map(ideaCard).join('') : '<div class="card"><div class="empty">Tap ☆ on an idea to keep it here.</div></div>'}`;
 
 let mailBox = 'essec';
+const BOXES = [['essec', 'ESSEC'], ['epe', 'EPE'], ['personal', 'Personal'], ['fennly', 'Fennly'], ['charette', 'Other']];
 V.inbox = () => {
   const box = D.mail?.[mailBox] || { items: [], unread: 0 };
   const imp = box.items.filter(m => !m.muted), rest = box.items.filter(m => m.muted);
   const act = (D.actionMail || []).filter(a => a.box === mailBox);
-  return `<div class="seg"><button class="${mailBox === 'essec' ? 'on' : ''}" data-act="box" data-v="essec">ESSEC</button><button class="${mailBox === 'personal' ? 'on' : ''}" data-act="box" data-v="personal">Personal</button></div>
+  return `<div class="seg" style="overflow-x:auto">${BOXES.filter(([k]) => D.mail?.[k]).map(([k, l]) => `<button class="${mailBox === k ? 'on' : ''}" data-act="box" data-v="${k}">${l}</button>`).join('')}</div>
   ${act.length ? `<div class="card"><h2>Needs action</h2><div class="list">${act.map(mailRow).join('')}</div></div>` : ''}
-  <div class="card"><h2>Important · last 4 days</h2><div class="list">${imp.map(mailRow).join('') || '<div class="empty">Nothing important</div>'}</div>
+  <div class="card"><h2>${mailBox === 'epe' ? 'EPE inbox (Zoho)' : 'Important · last 4 days'}</h2><div class="list">${imp.map(mailRow).join('') || '<div class="empty">Nothing important</div>'}</div>
   ${rest.length ? `<details><summary>${rest.length} newsletters / noise ▾</summary><div class="list" style="margin-top:6px">${rest.map(mailRow).join('')}</div></details>` : ''}</div>`;
 };
-const mailRow = (m) => `<div class="item"><span class="cdot" style="background:${m.unread ? 'var(--acc2)' : 'transparent'}"></span><div class="main"><a class="t" href="${esc(m.url)}" target="_blank" rel="noopener" style="font-weight:${m.unread ? 700 : 550}">${esc(m.subject || '(no subject)')}</a><div class="m">${esc(m.from)} · ${rel(m.time)}</div><div class="d">${esc(m.snippet)}</div></div></div>`;
+const mailRow = (m) => `<div class="item"><span class="cdot" style="background:${m.unread ? 'var(--acc2)' : 'transparent'}"></span><div class="main"><a class="t" href="${esc(m.url)}" target="_blank" rel="noopener" style="font-weight:${m.unread ? 700 : 550}">${esc(m.subject || '(no subject)')}</a><div class="m">${esc(m.from)} · ${m.time ? rel(m.time) : esc((m.timeText || '').toLowerCase())}</div>${m.snippet ? `<div class="d">${esc(m.snippet)}</div>` : ''}</div></div>`;
 
 // ---------- render + actions ----------
 function render() {
@@ -378,7 +380,7 @@ async function flushPending() {
 function renderChat() {
   const box = $('#chat'); if (!box || $('#sheet').classList.contains('hidden')) return;
   const items = [...(D?.log || []).map(l => ({ t: new Date(l.time).getTime(), text: l.text, applied: l.applied || [] })), ...pending().map(m => ({ t: m.t, text: m.text, status: m.status }))].sort((a, b) => a.t - b.t).slice(-40);
-  box.innerHTML = items.map(x => `<div class="bubble"><div>${esc(x.text)}</div><div class="meta">${fmt(x.t, { weekday: 'short', hour: '2-digit', minute: '2-digit' })}${x.status ? ' · ' + (x.status === 'sent' ? 'sent, applies at next sync' : x.status === 'failed' ? 'not sent yet, will retry' : 'sending…') : ''}</div>${x.applied?.length ? `<div class="applied">${x.applied.map(a => '✓ ' + esc(a)).join('<br>')}</div>` : ''}</div>`).join('') || '<div class="empty">Nothing yet. Tap the mic and talk.</div>';
+  box.innerHTML = items.map(x => `<div class="bubble"><div>${esc(x.text)}</div><div class="meta">${fmt(x.t, { weekday: 'short', hour: '2-digit', minute: '2-digit' })}${x.status ? ' · ' + (x.status === 'sent' ? 'sent, handled within 15 min' : x.status === 'failed' ? 'not sent yet, will retry' : 'sending…') : ''}</div>${x.applied?.length ? `<div class="applied">${x.applied.map(a => '✓ ' + esc(a)).join('<br>')}</div>` : ''}</div>`).join('') || '<div class="empty">Nothing yet. Tap the mic and talk.</div>';
   box.scrollTop = box.scrollHeight;
 }
 function openSheet() { $('#sheet').classList.remove('hidden'); renderChat(); flushPending(); }
