@@ -516,3 +516,4 @@ main{padding-left:18px;padding-right:18px}
 .bubble{font-size:15.5px;line-height:1.5;padding:12px 14px}
 /* hide secondary clutter in lists */
 .todo-meta-tag{display:none}
+.pushcard{border-color:rgba(217,180,90,.5);background:linear-gradient(155deg,rgba(217,180,90,.18),#0b0a10 70%)}

@@ -1,4 +1,4 @@
-const CACHE = 'life-v26';
+const CACHE = 'life-v27';
 const SHELL = ['./', 'index.html', 'app.css', 'app.js', 'features.js', 'manifest.webmanifest', 'icons/icon-192.png', 'icons/icon-180.png', 'fonts/rajdhani-500.woff2', 'fonts/rajdhani-600.woff2', 'fonts/rajdhani-700.woff2'];
 self.addEventListener('install', e => { e.waitUntil(caches.open(CACHE).then(c => c.addAll(SHELL)).then(() => self.skipWaiting())); });
 self.addEventListener('activate', e => { e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k !== CACHE).map(k => caches.delete(k)))).then(() => self.clients.claim())); });
@@ -21,4 +21,14 @@ self.addEventListener('fetch', e => {
   }
   // versioned static files: cache first, refresh in background
   e.respondWith(caches.match(e.request).then(hit => { const net = fetch(e.request).then(r => put(e.request, r)).catch(() => hit); return hit || net; }));
+});
+
+self.addEventListener('push', e => {
+  let d = {}; try { d = e.data ? e.data.json() : {}; } catch { d = { title: 'J.A.R.V.I.S.', body: e.data ? e.data.text() : '' }; }
+  e.waitUntil(self.registration.showNotification(d.title || 'J.A.R.V.I.S.', { body: d.body || '', tag: d.tag || undefined, icon: 'icons/icon-192.png', badge: 'icons/icon-192.png', data: { url: d.url || './#home' }, renotify: !!d.tag }));
+});
+self.addEventListener('notificationclick', e => {
+  e.notification.close();
+  const url = new URL(e.notification.data?.url || './#home', self.registration.scope).href;
+  e.waitUntil(self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then(cs => { for (const c of cs) { if ('focus' in c) { c.navigate(url).catch(() => {}); return c.focus(); } } return self.clients.openWindow(url); }));
 });
