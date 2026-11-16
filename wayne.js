@@ -238,7 +238,7 @@
   const prevToday = V.today;
   V.today = () => {
     applyNight();
-    if (document.body.classList.contains('night')) return nightView();
+    if (document.body.classList.contains('night')) return F.facecard() + nightView();
     let h = prevToday();
     h = h.replace('<div class="card hero hud-hero">', F.facecard() + '<div class="card hero hud-hero">');
     h = h.replace('<div class="weather" id="wx">', '<button class="cinebtn" data-act="cine">▶ Briefing</button><div class="weather" id="wx">');
@@ -277,7 +277,7 @@
 
   // system panel additions
   const prevSystem = V.system;
-  V.system = () => prevSystem().replace('<div class="card"><h2>Home layout</h2>', `<div class="card"><h2>J.A.R.V.I.S.</h2>
+  V.system = () => `<div class="card"><h2>Security</h2><div class="chartrow"><span>Face ID lock</span><span class="small dim">${setting('faceid', false) ? 'on' : 'off'}</span><button class="btn ${setting('faceid', false) ? '' : 'pri'}" data-act="faceid">${setting('faceid', false) ? 'Turn off' : 'Enable'}</button></div></div>` + prevSystem().replace('<div class="card"><h2>Home layout</h2>', `<div class="card"><h2>J.A.R.V.I.S.</h2>
     <div class="chartrow"><span>"Hey Jarvis" (app open)</span><span class="small dim">${SR ? '' : 'not supported'}</span><button class="btn ${setting('wake', false) ? 'pri' : ''}" data-act="wake">${setting('wake', false) ? 'on' : 'off'}</button></div>
     <div class="chartrow"><span>Night mode (Batcave)</span><span></span><span class="row" style="gap:6px">${['auto', 'on', 'off'].map(v => `<button class="btn ${setting('night', 'auto') === v ? 'pri' : ''}" data-act="night" data-v="${v}">${v}</button>`).join('')}</span></div>
     <div class="chartrow"><span>Voice</span><span class="small dim">best British voice on your phone</span><button class="btn" data-act="cine">test</button></div>
@@ -317,6 +317,19 @@
   // ---------- Face ID: easy to turn back on ----------
   F.facecard = () => (setting('faceid', false) || S._faceDismiss || !window.PublicKeyCredential) ? '' : `<div class="card pushcard"><div class="row between"><div><div style="font-weight:700">Face ID lock</div><div class="small muted">Lock Jarvis behind Face ID, like before.</div></div><div class="row" style="gap:6px"><button class="btn" data-act="facedismiss">Later</button><button class="btn pri" data-act="faceid">Enable</button></div></div></div>`;
   ACT.facedismiss = () => { S._faceDismiss = true; };
+  // Face ID setup prompt on launch (shown until enabled; "Not now" hides it for the day)
+  function facePrompt() {
+    if (setting('faceid', false) || !window.PublicKeyCredential || S._faceLater === today() || document.querySelector('.faceprompt')) return;
+    const el = document.createElement('div'); el.className = 'cine faceprompt';
+    el.innerHTML = `<div class="cine-top"><span>Security</span><span>J.A.R.V.I.S.</span></div><div class="cine-core">${reactor(100, 'SECURE')}</div>
+      <div style="text-align:center;max-width:340px"><div class="hl" style="font-size:24px">Face ID lock</div><div class="small muted" style="margin-top:8px">Protect Jarvis with your face, like before. You will be asked for Face ID each time you open the app.</div></div>
+      <button class="btn pri cine-go" data-fp="on">Enable Face ID</button><button class="btn" data-fp="later">Not now</button>`;
+    document.body.appendChild(el);
+    el.querySelector('[data-fp=on]').onclick = () => { ACT.faceid(); el.remove(); };
+    el.querySelector('[data-fp=later]').onclick = () => { S._faceLater = today(); save(); el.remove(); };
+  }
+  setTimeout(facePrompt, 4500);
+
 
   // ---------- auto cinematic briefing: first open before 11am ----------
   setTimeout(() => (() => {
