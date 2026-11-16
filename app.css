@@ -637,3 +637,21 @@ body.night .orb{background:radial-gradient(circle,#ffd6da 0%,#ff4d5e 35%,#5a0610
 .jline.out{opacity:0;transform:translate(-50%,-12px)}
 @keyframes jin{from{opacity:0;transform:translate(-50%,-16px) scale(.97)}to{opacity:1;transform:translate(-50%,0) scale(1)}}
 body.night .jline{border-color:rgba(255,77,94,.5);box-shadow:0 10px 40px -10px rgba(255,60,80,.45)}
+
+/* ================= AI mist (v38) ================= */
+canvas.mist{display:block;width:100%;height:100%}
+.cine-core{width:min(78vw,340px);height:min(78vw,340px);margin:-10px auto 0}
+.cine-offer{display:flex;gap:10px;justify-content:center;min-height:10px}
+.cine-offer .btn{padding:12px 20px!important;font-size:14px!important}
+.mistdock{position:fixed;left:50%;bottom:calc(var(--safe-b) + 78px);width:190px;height:190px;transform:translateX(-50%) scale(.6);opacity:0;pointer-events:none;z-index:140;transition:opacity .45s,transform .55s cubic-bezier(.2,.9,.3,1.2)}
+.mistdock.on{opacity:1;transform:translateX(-50%) scale(1)}
+.vmode{position:fixed;inset:0;z-index:160;display:flex;flex-direction:column;align-items:center;padding:calc(var(--safe-t) + 14px) 22px calc(var(--safe-b) + 26px);background:radial-gradient(520px 420px at 50% 38%,rgba(70,120,255,.10),transparent 70%),#020205;animation:fadein .3s ease-out;transition:opacity .35s}
+body.night .vmode{background:radial-gradient(520px 420px at 50% 38%,rgba(255,50,70,.10),transparent 70%),#050203}
+.vmode.out{opacity:0}
+.vm-top{width:100%;display:flex;justify-content:space-between;align-items:center;font-family:var(--hud);letter-spacing:.35em;font-size:12px;color:var(--gold)}
+.vm-x{font-family:var(--hud);letter-spacing:.2em;font-size:11px;color:var(--mut);text-transform:uppercase;padding:8px 12px;border:1px solid rgba(255,255,255,.12);border-radius:999px;background:none}
+.vm-stage{width:min(88vw,400px);height:min(88vw,400px);margin-top:4vh;cursor:pointer}
+.vm-status{font-family:var(--hud);letter-spacing:.3em;text-transform:uppercase;font-size:11px;color:var(--mut);min-height:16px;margin-top:6px}
+.vm-you{margin-top:14px;font-size:16px;color:#aab3c5;text-align:center;max-width:440px;min-height:22px}
+.vm-say{margin-top:12px;font-family:var(--hud);font-weight:600;font-size:21px;line-height:1.35;color:#f4ead0;text-align:center;max-width:440px;overflow:auto;max-height:28vh}
+.vm-hint{margin-top:auto;font-family:var(--hud);letter-spacing:.25em;text-transform:uppercase;font-size:11px;color:var(--gold);transition:opacity .3s}

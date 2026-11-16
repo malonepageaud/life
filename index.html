@@ -14,7 +14,7 @@
 <link rel="icon" href="icons/icon2-192.png">
 <link rel="apple-touch-icon" href="icons/icon2-180.png">
 <link rel="preload" href="fonts/rajdhani-700.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="app.css?v=36">
+<link rel="stylesheet" href="app.css?v=38">
 </head>
 <body>
 <div class="bg"><i class="b1"></i><i class="b2"></i><i class="b3"></i></div>
@@ -49,7 +49,7 @@
 </div>
 <button id="fab" class="fab hidden" aria-label="Jarvis"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
 <div id="sheet" class="sheet hidden"><div class="sheet-card">
-  <div class="sheet-head"><div><b>J.A.R.V.I.S.</b><div class="small muted">Talk or type. I do it and reply here (usually 2 to 4 min).</div></div><div class="row" style="gap:8px"><button id="voiceToggle" class="iconbtn" aria-label="Voice replies"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14"/></svg></button><button id="sheetClose" class="btn">Done</button></div></div>
+  <div class="sheet-head"><div><b>J.A.R.V.I.S.</b><div class="small muted">Talk or type. I do it and reply here (usually 1 to 3 min).</div></div><div class="row" style="gap:8px"><button id="voiceToggle" class="iconbtn" aria-label="Voice replies"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14"/></svg></button><button id="sheetClose" class="btn">Done</button></div></div>
   <div id="chat" class="chat"></div>
   <div class="composer"><textarea id="msg" rows="2" placeholder="e.g. Book a room Wed 2-4pm. Email Paolo to move lunch to 12."></textarea>
     <div class="comp-row"><button id="lang" class="chip" type="button">EN</button><span id="micState" class="small muted"></span><span id="wave" class="wave"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><span style="flex:1"></span>
@@ -60,6 +60,7 @@
 <script>window.FEATURES_WILL_BOOT = true;</script>
 <script src="app.js?v=31"></script>
 <script src="features.js?v=37"></script>
-<script src="wayne.js?v=37"></script>
+<script src="mist.js?v=39"></script>
+<script src="wayne.js?v=39"></script>
 </body>
 </html>

@@ -59,7 +59,13 @@
   // ---------- neural voice: encrypted MP3 made on the Mac (briefing + latest reply) ----------
   const voiceEl = new Audio(); voiceEl.preload = 'auto'; let voiceUnlocked = false;
   document.addEventListener('pointerdown', () => { if (voiceUnlocked) return; voiceUnlocked = true; try { voiceEl.src = 'data:audio/mpeg;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4Ljc2LjEwMAAAAAAAAAAAAAAA//tQxAADB8AhSmxhIIEVCSiJrDCQBTcu3UrAIwUdkRgQbFAZC1CQEwTJ9mjRvBA4UOLD8nKVOWfh+UlK3z/177OXrfOdKl7pyn3Xf//WreyTRUoAWgBgkOAGbZHBgG1OF6zM82DWbZaUmMBptgQhGjsyYqc9ae9XFz280948NMBWInljyzsNRFLPWdnZGWrddDsjK1unuSrVN9jJsK8KuQtQCtMBjCEtImISdNKJOopIpBFpNSMbIHCSRpRR5iakjTiyzLhchUUBwCgyKiweBv/7UsQbg8isVNoMPMjAAAA0gAAABEVFGmgqK////9bP/6XCykxBTUUzLjEwMKqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq'; voiceEl.play().then(() => voiceEl.pause()).catch(() => { }); } catch { } }, { capture: true });
-  const audioCache = {};
+  const audioCache = {}, audioEnv = {}; let curFile = null, lastSaid = '';
+  async function computeEnv(file, buf) {
+    try { const ac = new OfflineAudioContext(1, 1, 24000); const ab = await ac.decodeAudioData(buf); const d = ab.getChannelData(0), step = Math.floor(ab.sampleRate / 30), out = new Float32Array(Math.ceil(d.length / step)); let mx = 1e-4;
+      for (let i = 0; i < out.length; i++) { let s = 0; const e = Math.min(d.length, (i + 1) * step); for (let j = i * step; j < e; j += 4) s += d[j] * d[j]; out[i] = Math.sqrt(s / (step / 4)); if (out[i] > mx) mx = out[i]; }
+      for (let i = 0; i < out.length; i++) out[i] = Math.min(1, Math.pow(out[i] / mx, 0.7) * 1.1); audioEnv[file] = out; } catch (e) { }
+  }
+  function voiceLevel() { if (voiceEl.paused || voiceEl.ended) return 0; const e = audioEnv[curFile]; if (!e) return 0.45 + 0.25 * Math.sin(performance.now() / 90); return e[Math.min(e.length - 1, Math.floor(voiceEl.currentTime * 30))] || 0; }
   const sha12 = async (t) => [...new Uint8Array(await crypto.subtle.digest('SHA-1', new TextEncoder().encode(String(t).trim())))].map(x => x.toString(16).padStart(2, '0')).join('').slice(0, 12);
   async function clipUrl(file) {
     if (audioCache[file]) return audioCache[file];
@@ -67,6 +73,7 @@
     const buf = new Uint8Array(await r.arrayBuffer());
     const key = await getKey(localStorage.getItem('life:pass'), D.voice.salt);
     const pt = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: buf.slice(0, 12) }, key, buf.slice(12));
+    computeEnv(file, pt.slice(0));
     return (audioCache[file] = URL.createObjectURL(new Blob([pt], { type: 'audio/mpeg' })));
   }
   const reqd = {};
@@ -74,7 +81,7 @@
   async function say(text, opt = {}) {
     if (!text || (!opt.force && !voiceOn())) return false;
     const k = await sha12(text), file = D?.voice?.clips?.[k];
-    if (file) { try { const url = await clipUrl(file); speechSynthesis?.cancel(); voiceEl.src = url; await voiceEl.play(); return true; } catch (e) { console.warn('clip failed', e); } }
+    if (file) { try { const url = await clipUrl(file); speechSynthesis?.cancel(); curFile = file; lastSaid = String(text); voiceEl.src = url; await Promise.race([voiceEl.play(), new Promise((_, rej) => setTimeout(() => rej(new Error('play timeout')), 3000))]); onSpeakStart(String(text)); return true; } catch (e) { console.warn('clip failed', e); } }
     if (!reqd[k]) { reqd[k] = 1; postMsg({ id: 'tts' + Date.now(), t: Date.now(), time: new Date().toISOString(), text: '[tts] ' + String(text).trim() }).catch(() => { }); }
     if (opt.force && !opt.quiet) toast('Jarvis is preparing this in his voice. Ready in about 3 minutes.');
     return false;
@@ -103,7 +110,7 @@
     if (!opt.always && Date.now() - lastReact < 12000) return false; lastReact = Date.now();
     const used = (S._rx ||= {})[kind] || []; const fresh = pool.filter(t => !used.includes(t)); const text = (fresh.length ? fresh : pool)[Math.floor(Math.random() * (fresh.length || pool.length))];
     S._rx[kind] = [text, ...used].slice(0, Math.min(3, pool.length - 1)); save();
-    jarvisLine(text); if (setting('talk', true)) say(text, { force: true, quiet: true });
+    if (!vm) jarvisLine(text); if (setting('talk', true)) say(text, { force: true, quiet: true });
     return true;
   }
   window.jarvisReact = react;
@@ -129,6 +136,40 @@
   setTimeout(onOpen, 5200);
 
 
+
+  // ---------- AI mist: the living voice of Jarvis ----------
+  const mists = new Set();
+  function mkMist(canvas) { if (!window.Mist) return null; const m = new Mist(canvas).start(); mists.add(m); return m; }
+  function dropMist(m) { if (m) { m.stop(); mists.delete(m); } }
+  (function lvLoop() { const lv = voiceLevel(); for (const m of mists) if (m.mode === 'speak') m.level = lv; requestAnimationFrame(lvLoop); })();
+  let dock = null, dockMist = null, vm = null, vmMist = null, vmIdleT = null;
+  function showDock() {
+    if (vm || document.querySelector('.cine')) return;
+    if (!dock) { dock = document.createElement('div'); dock.className = 'mistdock'; dock.innerHTML = '<canvas class="mist"></canvas>'; document.body.appendChild(dock); dockMist = mkMist(dock.querySelector('canvas')); }
+    dock.classList.add('on'); if (dockMist) { dockMist.mode = 'speak'; if (!dockMist.on) { dockMist.start(); mists.add(dockMist); } }
+  }
+  function hideDock() { if (dock) dock.classList.remove('on'); if (dockMist) setTimeout(() => { if (!dock?.classList.contains('on')) { dockMist.stop(); mists.delete(dockMist); } }, 700); }
+  function onSpeakStart(text) { if (vm) { vmSet('speak', 'Jarvis'); vm.querySelector('.vm-say').textContent = text; } else showDock(); }
+  voiceEl.addEventListener('ended', () => { hideDock(); if (vm) afterSpeak(); });
+  voiceEl.addEventListener('pause', () => { if (voiceEl.ended) return; hideDock(); });
+  function vmOpen() {
+    if (vm) return vm;
+    vm = document.createElement('div'); vm.className = 'vmode';
+    vm.innerHTML = `<div class="vm-top"><span>J.A.R.V.I.S.</span><button class="vm-x">Close</button></div><div class="vm-stage"><canvas class="mist"></canvas></div><div class="vm-status"></div><div class="vm-you"></div><div class="vm-say"></div><div class="vm-hint">Tap the mist to talk</div>`;
+    document.body.appendChild(vm); vmMist = mkMist(vm.querySelector('canvas'));
+    vm.querySelector('.vm-x').onclick = vmClose;
+    vm.querySelector('.vm-stage').onclick = () => { if (listening) { stopMic(); vmSet('idle', ''); } else { try { voiceEl.pause(); } catch { } startMic({ quiet: true }); } };
+    hideDock(); return vm;
+  }
+  function vmClose() { stopMic(); try { voiceEl.pause(); } catch { } if (!vm) return; const el = vm; vm = null; dropMist(vmMist); vmMist = null; el.classList.add('out'); setTimeout(() => el.remove(), 350); }
+  function vmSet(mode, status) { if (!vm) return; if (vmMist) vmMist.mode = mode; vm.dataset.mode = mode; vm.querySelector('.vm-status').textContent = status ?? ''; vm.querySelector('.vm-hint').style.opacity = (mode === 'idle') ? 1 : 0; }
+  function afterSpeak() {
+    if (!vm) return;
+    const waiting = pending().some(m => m.status === 'sent');
+    if (waiting) { vmSet('think', 'Working on it, sir…'); return; }
+    vmSet('idle', ''); clearTimeout(vmIdleT); vmIdleT = setTimeout(() => { if (vm && !listening && voiceEl.paused) startMic({ quiet: true, followUp: true }); }, 450);
+  }
+
   // ---------- Talk to Jarvis: tap the mic, speak, he answers out loud ----------
   const pick = (a) => a[Math.floor(Math.random() * a.length)];
   const isFr = () => (localStorage.getItem('life:lang') || 'en-US').startsWith('fr');
@@ -149,16 +190,16 @@
   }
   let convoUntil = 0, convoPoll = null;
   async function handleUtterance(text) {
-    text = text.trim(); if (!text) return;
-    $('#msg').value = '';
+    text = text.trim(); if (!text) { if (vm) vmSet('idle', ''); return; }
+    $('#msg').value = ''; vmOpen(); vm.querySelector('.vm-you').textContent = '“' + text + '”'; vm.querySelector('.vm-say').textContent = ''; vmSet('think', 'Thinking…');
     const it = localIntent(text);
-    if (it === 'brief') { closeSheet(); cinematic(false); return; }
-    if (it === 'report') { location.hash = 'home/report'; setTimeout(() => ACT.playreport(), 900); return; }
+    if (it === 'brief') { vmClose(); closeSheet(); cinematic(false); return; }
+    if (it === 'report') { vmClose(); closeSheet(); location.hash = 'home/report'; setTimeout(() => ACT.playreport(), 900); return; }
     const ans = it && D.voice?.answers?.[it];
-    if (ans) { jarvisLine(ans); await playAndWait(ans); return; }
+    if (ans) { const ok = await playAndWait(ans); if (!ok && vm) { vm.querySelector('.vm-say').textContent = ans; vmSet('idle', ''); } return; }
     sendText(text);
     const ack = isFr() ? pick(D.voice?.acks?.filter(a => /monsieur/.test(a)) || []) : pick(D.voice?.acks?.filter(a => !/monsieur/.test(a)) || []);
-    if (ack) say(ack, { force: true, quiet: true });
+    if (ack) say(ack, { force: true, quiet: true }).then(ok => { if (!ok && vm) { vm.querySelector('.vm-say').textContent = ack; vmSet('think', 'Working on it, sir…'); } });
     convoUntil = Date.now() + 12 * 60000;
     clearInterval(convoPoll); convoPoll = setInterval(() => { if (Date.now() > convoUntil) return clearInterval(convoPoll); if (document.visibilityState === 'visible') load().catch(() => { }); }, 12000);
   }
@@ -169,35 +210,35 @@
     const last = +(localStorage.getItem('life:spoken') || 0);
     const fresh = (D?.log || []).filter(l => l.reply && l.repliedAt && new Date(l.repliedAt).getTime() > last).sort((a, b) => new Date(a.repliedAt) - new Date(b.repliedAt));
     if (last && fresh.length && (Date.now() < convoUntil || !$('#sheet').classList.contains('hidden'))) {
-      const r = fresh.at(-1).reply; if ($('#sheet').classList.contains('hidden')) jarvisLine(r);
+      const r = fresh.at(-1).reply; if ($('#sheet').classList.contains('hidden') && !vm) jarvisLine(r);
       say(r, { force: true, quiet: true }); localStorage.setItem('life:spoken', String(new Date(fresh.at(-1).repliedAt).getTime()));
       if (!pending().some(m => m.status === 'sent')) convoUntil = Math.min(convoUntil, Date.now() + 60000);
       return;
     }
     origSpeakNew();
   };
-  // conversational mic: "Yes, sir?", listen, auto-send when you stop talking
+  // conversational mic: voice mode, "Yes, sir?", listen, auto-send when you stop talking, follow-ups
   const SRx = window.SpeechRecognition || window.webkitSpeechRecognition;
+  let holdingMic = false;
+  document.addEventListener('pointerdown', (e) => { if (e.target.closest('.orb')) holdingMic = true; }, true);
+  document.addEventListener('pointerup', () => { holdingMic = false; }, true);
   if (SRx) {
-    let crec = null, silence = null, heard = '';
-    const stopC = () => { listening = false; clearTimeout(silence); if (crec) { try { crec.onend = null; crec.stop(); } catch { } crec = null; } $('#mic')?.classList.remove('on'); $('#micState') && ($('#micState').textContent = ''); $('#wave')?.classList.remove('on'); };
+    let crec = null, silence = null, noWords = null, heard = '';
+    const stopC = () => { listening = false; clearTimeout(silence); clearTimeout(noWords); if (crec) { try { crec.onend = null; crec.stop(); } catch { } crec = null; } $('#mic')?.classList.remove('on'); $('#micState') && ($('#micState').textContent = ''); $('#wave')?.classList.remove('on'); };
     stopMic = stopC;
-    startMic = async function () {
+    startMic = async function (opt = {}) {
       if (listening) return;
-      listening = true; $('#mic')?.classList.add('on'); $('#wave')?.classList.add('on'); $('#micState') && ($('#micState').textContent = 'Jarvis is listening…');
-      if (D?.voice?.hellos?.length && !holdingMic) await playAndWait(pick(D.voice.hellos));
-      if (!listening) return;
+      vmOpen(); listening = true; $('#mic')?.classList.add('on');
+      if (!opt.quiet && D?.voice?.hellos?.length && !holdingMic) { vmSet('speak', 'Jarvis'); vm.querySelector('.vm-you').textContent = ''; vm.querySelector('.vm-say').textContent = ''; await playAndWait(pick(D.voice.hellos)); }
+      if (!listening || !vm) return;
+      vmSet('listen', 'Listening…'); if (!opt.followUp) vm.querySelector('.vm-you').textContent = '';
       heard = ''; crec = new SRx(); crec.lang = localStorage.getItem('life:lang') || 'en-US'; crec.continuous = true; crec.interimResults = true;
-      crec.onresult = (e) => { let fin = '', int = ''; for (let i = 0; i < e.results.length; i++) { const r = e.results[i]; if (r.isFinal) fin += r[0].transcript; else int += r[0].transcript; } heard = (fin + int).replace(/\s+/g, ' ').trim(); $('#msg').value = heard; clearTimeout(silence); if (!holdingMic) silence = setTimeout(() => { const t = heard; stopC(); handleUtterance(t); }, 1700); };
-      crec.onerror = (e) => { if (e.error === 'not-allowed') toast('Microphone blocked. Allow it in Settings > Safari > Microphone.'); stopC(); };
+      clearTimeout(noWords); noWords = setTimeout(() => { if (!heard) { stopC(); vmSet('idle', ''); } }, opt.followUp ? 6000 : 9000);
+      crec.onresult = (e) => { let fin = '', int = ''; for (let i = 0; i < e.results.length; i++) { const r = e.results[i]; if (r.isFinal) fin += r[0].transcript; else int += r[0].transcript; } heard = (fin + int).replace(/\s+/g, ' ').trim(); $('#msg').value = heard; if (vm) vm.querySelector('.vm-you').textContent = heard; clearTimeout(silence); if (!holdingMic) silence = setTimeout(() => { const t = heard; stopC(); handleUtterance(t); }, 1600); };
+      crec.onerror = (e) => { if (e.error === 'not-allowed') toast('Microphone blocked. Allow it in Settings > Safari > Microphone.'); stopC(); vmSet('idle', ''); };
       crec.onend = () => { if (listening && crec) { try { crec.start(); } catch { stopC(); } } };
-      try { crec.start(); } catch { stopC(); toast('Mic unavailable'); }
+      try { crec.start(); } catch { stopC(); vmSet('idle', ''); toast('Mic unavailable'); }
     };
-    // hold-to-talk on the orb: send when released
-    let holdingMic = false;
-    document.addEventListener('pointerdown', (e) => { if (e.target.closest('.orb')) holdingMic = true; }, true);
-    document.addEventListener('pointerup', () => { if (holdingMic) { holdingMic = false; } }, true);
-    const sendBtn = $('#send'); sendBtn?.addEventListener('click', () => { clearTimeout(silence); }, true);
   }
   // typed messages also get the acknowledgment + spoken reply
   $('#send')?.addEventListener('click', () => { if (!$('#msg').value.trim()) return; const t = $('#msg').value.trim(); convoUntil = Date.now() + 12 * 60000; clearInterval(convoPoll); convoPoll = setInterval(() => { if (Date.now() > convoUntil) return clearInterval(convoPoll); if (document.visibilityState === 'visible') load().catch(() => { }); }, 12000); }, true);
@@ -258,9 +299,10 @@
     const neural = !!D?.voice?.briefing;
     const lines = neural ? D.voice.briefing.lines : cineLines();
     const el = document.createElement('div'); el.className = 'cine';
-    el.innerHTML = `<div class="cine-top"><span>Pageaud Industries</span><span>${fmt(Date.now(), { weekday: 'long', day: 'numeric', month: 'long' })}</span></div><div class="cine-core">${reactor(lifeIndex().v, 'INDEX')}</div><div class="cine-lines"></div>${auto ? '<button class="btn pri cine-go">Begin briefing</button>' : ''}<button class="cine-x">Skip</button>`;
-    document.body.appendChild(el);
-    const close = () => { speechSynthesis?.cancel(); try { voiceEl.pause(); } catch { } el.classList.add('out'); setTimeout(() => el.remove(), 400); };
+    el.innerHTML = `<div class="cine-top"><span>Pageaud Industries</span><span>${fmt(Date.now(), { weekday: 'long', day: 'numeric', month: 'long' })}</span></div><div class="cine-core"><canvas class="mist cine-mist"></canvas></div><div class="cine-lines"></div><div class="cine-offer"></div>${auto ? '<button class="btn pri cine-go">Begin briefing</button>' : ''}<button class="cine-x">Skip</button>`;
+    document.body.appendChild(el); hideDock();
+    const cm = mkMist(el.querySelector('.cine-mist')); if (cm) cm.mode = 'idle';
+    const close = () => { speechSynthesis?.cancel(); try { voiceEl.pause(); } catch { } dropMist(cm); el.classList.add('out'); setTimeout(() => el.remove(), 400); };
     el.querySelector('.cine-x').onclick = close;
     const play = () => {
       el.querySelector('.cine-go')?.remove(); chime([523, 784, 1046], 0.8, 0.035); hap('success');
@@ -271,10 +313,26 @@
       if (!neural) return fallback();
       setTimeout(() => playNeural('briefing').then(ok => {
         if (!ok) return fallback();
-        const B = D.voice.briefing; let shown0 = false; const tick = () => { if (!document.body.contains(el)) { voiceEl.pause(); return; } const d = Math.max(1, (voiceEl.duration || 1) - (B.intro || 0) - (B.tail || 0)); const prog = Math.max(0, (voiceEl.currentTime - (B.intro || 0)) / d); if (!shown0) { if (voiceEl.currentTime < (B.intro || 0) - 0.2) return requestAnimationFrame(tick); shown0 = true; } let acc = 0; for (let j = 0; j < i; j++) acc += lines[j].length; while (i < lines.length && prog >= acc / total) { show(); acc += lines[i - 1].length; } if (!voiceEl.ended) requestAnimationFrame(tick); else { while (i < lines.length) show(); setTimeout(close, 2200); } };
+        const B = D.voice.briefing; let shown0 = false; const tick = () => { if (!document.body.contains(el)) { voiceEl.pause(); return; } if (cm) cm.mode = voiceEl.currentTime < (B.intro || 0) - 0.1 ? 'think' : 'speak'; const d = Math.max(1, (voiceEl.duration || 1) - (B.intro || 0) - (B.tail || 0)); const prog = Math.max(0, (voiceEl.currentTime - (B.intro || 0)) / d); if (!shown0) { if (voiceEl.currentTime < (B.intro || 0) - 0.2) return requestAnimationFrame(tick); shown0 = true; } let acc = 0; for (let j = 0; j < i; j++) acc += lines[j].length; while (i < lines.length && prog >= acc / total) { show(); acc += lines[i - 1].length; } if (!voiceEl.ended) requestAnimationFrame(tick); else { while (i < lines.length) show(); if (cm) cm.mode = 'idle'; if (B.offer) offer(B.offer); else setTimeout(close, 2200); } };
         requestAnimationFrame(tick);
       }), 650);
     };
+    function offer(o) {
+      const box = el.querySelector('.cine-offer');
+      box.innerHTML = `<button class="btn pri" data-o="y">Yes, please</button><button class="btn" data-o="n">Not now</button>`;
+      let done = false, rec = null;
+      const finish = (yes) => {
+        if (done) return; done = true; try { rec && rec.stop(); } catch { } box.innerHTML = '';
+        if (cm) cm.mode = 'speak';
+        if (yes) { say(o.yesSay || 'Very good, sir.', { force: true, quiet: true }); if (o.local === 'focus') ACT.focusgo({ dataset: { m: 50 } }); else if (o.yes) { sendText(o.yes); convoUntil = Date.now() + 12 * 60000; clearInterval(convoPoll); convoPoll = setInterval(() => { if (Date.now() > convoUntil) return clearInterval(convoPoll); if (document.visibilityState === 'visible') load().catch(() => { }); }, 12000); } }
+        else say('As you wish, sir.', { force: true, quiet: true });
+        setTimeout(close, 2600);
+      };
+      box.querySelector('[data-o=y]').onclick = () => finish(true); box.querySelector('[data-o=n]').onclick = () => finish(false);
+      if (SRx) { try { rec = new SRx(); rec.lang = /monsieur|oui/i.test(o.q || '') ? 'fr-FR' : 'en-US'; rec.interimResults = true; if (cm) cm.mode = 'listen';
+        rec.onresult = (e) => { const t = [...e.results].map(r => r[0].transcript).join(' ').toLowerCase(); if (/(yes|yeah|yep|sure|please|go ahead|do it|absolutely|of course|oui|vas-y|ok|okay)/.test(t)) finish(true); else if (/(no|nope|not now|later|non|pas)/.test(t)) finish(false); };
+        rec.onend = () => { if (!done && cm) cm.mode = 'idle'; }; rec.start(); setTimeout(() => { try { rec.stop(); } catch { } }, 8000); } catch { } }
+    }
     if (auto) el.querySelector('.cine-go').onclick = play; else play();
   }
   ACT.cine = () => { cinematic(false); return false; };
