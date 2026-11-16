@@ -141,7 +141,7 @@ function badges() {
 const MIC_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>';
 function renderNav() {
   const b = badges(), { g: cg, s: cs } = route();
-  const tab = (g) => `<a href="#${g}" class="${cg === g ? 'on' : ''}">${I[GROUPS[g].icon]}<span>${GROUPS[g].label}</span>${b[g] ? `<span class="dot">${b[g] > 9 ? '9+' : b[g]}</span>` : ''}</a>`;
+  const tab = (g) => `<a href="#${g}" data-g="${g}" class="${cg === g ? 'on' : ''}">${I[GROUPS[g].icon]}<span>${GROUPS[g].label}</span>${b[g] ? `<span class="dot">${b[g] > 9 ? '9+' : b[g]}</span>` : ''}</a>`;
   $('#tabbar').innerHTML = tab('home') + tab('school') + `<button class="orb" data-act="orb" aria-label="Jarvis">${MIC_SVG}</button>` + tab('life') + tab('work');
   $('#sideNav').innerHTML = `<button class="agentbtn" data-act="orb">${MIC_SVG.replace('<svg', '<svg width="20"')} Talk to Jarvis</button>` + Object.entries(GROUPS).map(([g, v]) => `<a href="#${g}" class="${cg === g ? 'on' : ''}">${I[v.icon]}<span>${v.label}</span>${b[g] ? `<span class="dot">${b[g]}</span>` : ''}</a>` + (v.segs.length > 1 ? v.segs.map(([s, l]) => `<a class="sub ${cg === g && cs === s ? 'on' : ''}" href="#${g}/${s}">${l}</a>`).join('') : '')).join('');
 }
@@ -172,11 +172,11 @@ let _ticks = '';
 function reactor(score, label) {
   if (!_ticks) { for (let i = 0; i < 60; i++) { const a = i * 6 * Math.PI / 180, r1 = i % 5 ? 88 : 84, r2 = 94; _ticks += `<line x1="${100 + r1 * Math.sin(a)}" y1="${100 - r1 * Math.cos(a)}" x2="${100 + r2 * Math.sin(a)}" y2="${100 - r2 * Math.cos(a)}"/>`; } }
   const C = 2 * Math.PI * 66, off = C * (1 - Math.max(0, Math.min(100, score)) / 100);
-  return `<svg class="reactor" viewBox="0 0 200 200" aria-label="Day score ${score}%"><defs><radialGradient id="rg" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#f2ffff"/><stop offset=".35" stop-color="#41e9ff"/><stop offset=".75" stop-color="#1366ff" stop-opacity=".55"/><stop offset="1" stop-color="#021022" stop-opacity="0"/></radialGradient></defs>
+  return `<svg class="reactor" viewBox="0 0 200 200" aria-label="Day score ${score}%"><defs><linearGradient id="arcg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#41e9ff"/><stop offset=".5" stop-color="#a78bfa"/><stop offset="1" stop-color="#ff5f8a"/></linearGradient><radialGradient id="rg" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#f2ffff"/><stop offset=".35" stop-color="#41e9ff"/><stop offset=".7" stop-color="#7c5cff" stop-opacity=".6"/><stop offset="1" stop-color="#021022" stop-opacity="0"/></radialGradient></defs>
     <g class="r-ticks" stroke="rgba(65,233,255,.55)" stroke-width="1.4">${_ticks}</g>
     <circle class="r-dash" cx="100" cy="100" r="77" fill="none" stroke="rgba(65,233,255,.35)" stroke-width="1.2" stroke-dasharray="3 7"/>
     <circle cx="100" cy="100" r="66" fill="none" stroke="rgba(255,255,255,.07)" stroke-width="7"/>
-    <circle class="r-arc" cx="100" cy="100" r="66" fill="none" stroke="#3dffb0" stroke-width="7" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${off}" transform="rotate(-90 100 100)" style="filter:drop-shadow(0 0 6px rgba(61,255,176,.7))"/>
+    <circle class="r-arc" cx="100" cy="100" r="66" fill="none" stroke="url(#arcg)" stroke-width="8" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${off}" transform="rotate(-90 100 100)" style="filter:drop-shadow(0 0 8px rgba(167,139,250,.8))"/>
     <circle class="r-core" cx="100" cy="100" r="46" fill="url(#rg)"/>
     <text x="100" y="104" text-anchor="middle" font-size="30">${score}%</text>
     <text x="100" y="124" text-anchor="middle" font-size="10" letter-spacing="3" fill="#9fe9f5">${label || 'DAY'}</text></svg>`;
@@ -500,7 +500,7 @@ const mailRow = (m) => `<div class="item"><span class="cdot" style="background:$
 // ---------- render + actions ----------
 function render() {
   if (!D) return;
-  const { g, s } = route(); (S.lastSeg ||= {})[g] = s;
+  const { g, s } = route(); (S.lastSeg ||= {})[g] = s; document.body.dataset.hub = g;
   header(g === 'home' ? 'J.A.R.V.I.S.' : GROUPS[g].label);
   renderNav();
   const segs = GROUPS[g].segs;

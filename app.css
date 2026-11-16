@@ -339,3 +339,74 @@ body.light .hero .hl,body.light .hud-hero .name,body.light .telemetry b,body.lig
 body.light .small[style*="cfe9f2"],body.light .hero p{color:#2a4351!important}
 body.light .telemetry,body.light .addrow input,body.light .liftform input,body.light .composer textarea{background:#fff;color:#06121a}
 body.light::after{display:none}
+
+/* ================= v5 COLOR: one accent per hub, aurora background ================= */
+:root{--c-home:#41e9ff;--c-home2:#8b5cff;--c-school:#b18cff;--c-school2:#ff6fb5;--c-life:#2ff5a0;--c-life2:#2ad4ff;--c-work:#ffbd4a;--c-work2:#ff6a6a;--hub:var(--c-home);--hub2:var(--c-home2)}
+body[data-hub=home]{--hub:var(--c-home);--hub2:var(--c-home2)}
+body[data-hub=school]{--hub:var(--c-school);--hub2:var(--c-school2)}
+body[data-hub=life]{--hub:var(--c-life);--hub2:var(--c-life2)}
+body[data-hub=work]{--hub:var(--c-work);--hub2:var(--c-work2)}
+body{background:radial-gradient(900px 520px at -10% -10%,rgba(139,92,255,.30),transparent 60%),radial-gradient(800px 520px at 110% 0%,rgba(65,233,255,.20),transparent 60%),radial-gradient(800px 700px at 50% 115%,rgba(255,95,150,.18),transparent 60%),#04030c;background-attachment:fixed}
+body::before{background-image:linear-gradient(color-mix(in srgb,var(--hub) 9%,transparent) 1px,transparent 1px),linear-gradient(90deg,color-mix(in srgb,var(--hub) 9%,transparent) 1px,transparent 1px)}
+.top h1{background:linear-gradient(90deg,#fff 0%,color-mix(in srgb,var(--hub) 70%,#fff) 60%,var(--hub2) 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.eyebrow{color:var(--hub)}
+.card{background:linear-gradient(160deg,color-mix(in srgb,var(--hub) 11%,#0b0c1a) 0%,#080914 55%,color-mix(in srgb,var(--hub2) 7%,#080914) 100%);border-color:color-mix(in srgb,var(--hub) 26%,transparent)}
+.card::before,.card::after{border-color:var(--hub)}
+.card::after{border-color:var(--hub2)}
+.card h2,.sec{color:var(--hub)}
+.hero{background:radial-gradient(500px 240px at 0% 0%,color-mix(in srgb,var(--hub) 28%,transparent),transparent 70%),radial-gradient(400px 240px at 100% 100%,color-mix(in srgb,var(--hub2) 24%,transparent),transparent 70%),#0a0a18;border-color:color-mix(in srgb,var(--hub) 40%,transparent);box-shadow:0 10px 40px -18px var(--hub)}
+.hud-hero .greet{color:var(--c-work)}
+.subnav a{background:rgba(10,10,24,.85);border-color:color-mix(in srgb,var(--hub) 30%,transparent);color:color-mix(in srgb,var(--hub) 60%,#cfd8e3)}
+.subnav a.on{background:linear-gradient(135deg,var(--hub),var(--hub2));color:#090912;border-color:transparent;box-shadow:0 0 18px color-mix(in srgb,var(--hub) 55%,transparent)}
+.btn{border-color:color-mix(in srgb,var(--hub) 40%,transparent);background:color-mix(in srgb,var(--hub) 8%,transparent)}
+.btn.pri{background:linear-gradient(135deg,var(--hub),var(--hub2));color:#090912;box-shadow:0 0 18px color-mix(in srgb,var(--hub) 45%,transparent)}
+.bar i{background:linear-gradient(90deg,var(--hub),var(--hub2));box-shadow:0 0 10px color-mix(in srgb,var(--hub) 60%,transparent)}
+.pill.acc{background:color-mix(in srgb,var(--hub) 16%,transparent);color:var(--hub)}
+.chip b{color:var(--hub)}
+.chip{border-color:color-mix(in srgb,var(--hub) 25%,transparent)}
+.mini,.qchips button{color:var(--hub);border-color:color-mix(in srgb,var(--hub) 40%,transparent)}
+.tl .now{color:var(--hub);text-shadow:0 0 8px var(--hub)}
+.vbars i{background:linear-gradient(180deg,var(--hub2),var(--hub))}
+.ring{--c:var(--hub)}
+/* colorful telemetry */
+.telemetry{background:rgba(8,8,20,.9);border-color:color-mix(in srgb,var(--hub) 25%,transparent)}
+.telemetry a:nth-child(1) b{color:#ffbd4a}.telemetry a:nth-child(2) b{color:#ff6fb5}.telemetry a:nth-child(3) b{color:#2ff5a0}.telemetry a:nth-child(4) b{color:#b18cff}
+.telemetry a:nth-child(1){box-shadow:inset 0 -2px 0 #ffbd4a}.telemetry a:nth-child(2){box-shadow:inset 0 -2px 0 #ff6fb5}.telemetry a:nth-child(3){box-shadow:inset 0 -2px 0 #2ff5a0}.telemetry a:nth-child(4){box-shadow:inset 0 -2px 0 #b18cff}
+/* tiles get a color each */
+.tiles .tile:nth-child(4n+1){--g1:#ffbd4a}.tiles .tile:nth-child(4n+2){--g1:#ff6fb5}.tiles .tile:nth-child(4n+3){--g1:#2ff5a0}.tiles .tile:nth-child(4n+4){--g1:#b18cff}
+.tile{background:linear-gradient(160deg,color-mix(in srgb,var(--g1,var(--hub)) 14%,#0b0c1a),#080914)}
+.tile::after{background:var(--g1,var(--hub));opacity:.9}
+.tile .v{color:var(--g1,#fff)}
+/* tab bar: each hub lights up in its own color */
+.tabbar{background:rgba(8,7,20,.94);border-color:color-mix(in srgb,var(--hub) 35%,transparent)}
+.tabbar a[data-g=home].on{color:var(--c-home)}.tabbar a[data-g=school].on{color:var(--c-school)}.tabbar a[data-g=life].on{color:var(--c-life)}.tabbar a[data-g=work].on{color:var(--c-work)}
+.tabbar a.on svg{filter:drop-shadow(0 0 6px currentColor)}
+.orb{background:radial-gradient(circle at 30% 25%,#fff 0%,#7ff3ff 18%,#41e9ff 35%,#8b5cff 70%,#ff5f9a 100%);box-shadow:0 0 0 6px #04030c,0 0 30px rgba(139,92,255,.7),0 0 60px rgba(255,95,154,.25)}
+.orb::after{border-color:rgba(177,140,255,.6)}
+.micbtn{background:radial-gradient(circle at 30% 25%,#fff 0%,#41e9ff 35%,#8b5cff 75%,#ff5f9a 100%)}
+/* chat colors */
+.sheet-card{background:radial-gradient(500px 300px at 0% 0%,rgba(139,92,255,.18),transparent 70%),radial-gradient(500px 300px at 100% 100%,rgba(255,95,154,.12),transparent 70%),#05040e}
+.sheet-head b{background:linear-gradient(90deg,#41e9ff,#b18cff,#ff6fb5);-webkit-background-clip:text;background-clip:text;color:transparent}
+.bubble.me{background:linear-gradient(135deg,rgba(139,92,255,.30),rgba(255,95,154,.22));border:1px solid rgba(177,140,255,.4);border-right:2px solid #ff6fb5}
+.bubble.bot{background:linear-gradient(135deg,rgba(65,233,255,.10),rgba(10,12,26,.95));border-left:2px solid #41e9ff}
+/* course dots glow in their own colors; course cards tinted */
+.cdot{box-shadow:0 0 10px currentColor,0 0 2px #fff inset}
+.subj{border-left:3px solid var(--hub)}
+/* alerts stand out */
+.alerts{background:linear-gradient(160deg,rgba(255,106,106,.12),#0a0914 60%);border-color:rgba(255,106,106,.35)}
+.study-card{background:linear-gradient(160deg,rgba(177,140,255,.16),#0a0914 70%);border-color:rgba(177,140,255,.4)}
+.biz{background:linear-gradient(160deg,rgba(255,189,74,.14),#0a0914 70%);border-color:rgba(255,189,74,.4)}
+.tonight{background:linear-gradient(160deg,rgba(255,95,154,.18),#0a0914 70%);border-color:rgba(255,95,154,.45)}
+.nextup .mins{background:linear-gradient(135deg,var(--hub),var(--hub2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.gradebig{background:linear-gradient(135deg,var(--hub),var(--hub2));-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:none}
+.focusclock{color:var(--hub)}
+/* v5b: stronger color */
+body{background:radial-gradient(900px 600px at -10% -10%,rgba(139,92,255,.42),transparent 60%),radial-gradient(800px 560px at 110% 5%,rgba(65,233,255,.30),transparent 60%),radial-gradient(900px 700px at 50% 120%,rgba(255,95,150,.28),transparent 60%),#050414}
+.card{background:linear-gradient(155deg,color-mix(in srgb,var(--hub) 20%,#0d0c22) 0%,color-mix(in srgb,var(--hub) 6%,#0a0918) 55%,color-mix(in srgb,var(--hub2) 16%,#0a0918) 100%);border-color:color-mix(in srgb,var(--hub) 38%,transparent)}
+.hero{background:radial-gradient(520px 260px at 0% 0%,color-mix(in srgb,var(--hub) 45%,transparent),transparent 70%),radial-gradient(420px 260px at 100% 100%,color-mix(in srgb,var(--hub2) 40%,transparent),transparent 70%),#0d0b22}
+.check{border-color:color-mix(in srgb,var(--hub) 70%,transparent);background:color-mix(in srgb,var(--hub) 8%,transparent)}
+.item{border-top-color:color-mix(in srgb,var(--hub) 16%,transparent)}
+.bar{background:color-mix(in srgb,var(--hub) 14%,transparent)}
+.chip{background:color-mix(in srgb,var(--hub) 10%,#0a0918)}
+.tabbar{background:linear-gradient(90deg,rgba(20,14,48,.96),rgba(10,10,30,.96))}
+.alerts{background:linear-gradient(155deg,rgba(255,106,106,.26),rgba(255,189,74,.10) 60%,#0d0b1e)}
