@@ -76,7 +76,7 @@
     const k = await sha12(text), file = D?.voice?.clips?.[k];
     if (file) { try { const url = await clipUrl(file); speechSynthesis?.cancel(); voiceEl.src = url; await voiceEl.play(); return true; } catch (e) { console.warn('clip failed', e); } }
     if (!reqd[k]) { reqd[k] = 1; postMsg({ id: 'tts' + Date.now(), t: Date.now(), time: new Date().toISOString(), text: '[tts] ' + String(text).trim() }).catch(() => { }); }
-    if (opt.force) toast('Jarvis is preparing this in his voice. Ready in about 3 minutes.');
+    if (opt.force && !opt.quiet) toast('Jarvis is preparing this in his voice. Ready in about 3 minutes.');
     return false;
   }
   // prefetch so playback starts instantly
@@ -89,6 +89,44 @@
   setTimeout(() => { if (D?.voice?.briefing) prefetch(D.voice.briefing.lines.join(' ')); }, 5000);
   ACT.vtest = () => { say('At your service, Mr. Pageaud. All systems are online.', { force: true }); return false; };
   ACT.setvoice = (el) => { postMsg({ id: 'vc' + Date.now(), t: Date.now(), time: new Date().toISOString(), text: '[voice] ' + el.dataset.v }); S._voicePending = el.dataset.v; toast('Switching voice. Ready in about 3 minutes.'); };
+
+
+  // ---------- Jarvis reacts to what you do (lines written daily by Jarvis, see brain.jarvis) ----------
+  let lastReact = 0;
+  function jarvisLine(text) {
+    document.querySelector('.jline')?.remove();
+    const el = document.createElement('div'); el.className = 'jline'; el.innerHTML = `<span>J.A.R.V.I.S.</span>${esc(text)}`;
+    document.body.appendChild(el); setTimeout(() => el.classList.add('out'), 5200); setTimeout(() => el.remove(), 5800);
+  }
+  function react(kind, opt = {}) {
+    const pool = D?.jarvis?.reactions?.[kind]; if (!pool?.length) return false;
+    if (!opt.always && Date.now() - lastReact < 12000) return false; lastReact = Date.now();
+    const used = (S._rx ||= {})[kind] || []; const fresh = pool.filter(t => !used.includes(t)); const text = (fresh.length ? fresh : pool)[Math.floor(Math.random() * (fresh.length || pool.length))];
+    S._rx[kind] = [text, ...used].slice(0, Math.min(3, pool.length - 1)); save();
+    jarvisLine(text); if (setting('talk', true)) say(text, { force: true, quiet: true });
+    return true;
+  }
+  window.jarvisReact = react;
+  // check-offs
+  window.addEventListener('click', (e) => {
+    const el = e.target.closest('[data-act]'); if (!el) return; const a = el.dataset.act;
+    const wasOn = el.closest('.item, .row, li')?.querySelector('.check')?.classList.contains('on') || el.classList.contains('on');
+    if ((a === 'todo' || a === 'ms') && !wasOn) setTimeout(() => react('todo'), 250);
+    if (a === 'habit' && !wasOn) setTimeout(() => react('habit'), 250);
+  }, true);
+  const origLift = ACT.liftsave; if (origLift) ACT.liftsave = (el) => { const r = origLift(el); setTimeout(() => react('gym', { always: true }), 300); return r; };
+  const origQF = quizFinish; quizFinish = function () { const r = origQF.apply(this, arguments); try { const n = quiz?.qs?.length || 0, sc = quiz?.score || 0; if (n >= 3) setTimeout(() => react(sc / n >= 0.8 ? 'quizGood' : sc / n >= 0.5 ? 'quizMid' : 'quizBad', { always: true }), 600); } catch { } return r; };
+  // opening the app
+  function onOpen() {
+    const h = sgH(), now = Date.now();
+    if (document.querySelector('.cine')) return;
+    if (h < 4) { if (S._lateDay !== today()) { S._lateDay = today(); save(); react('late', { always: true }); } return; }
+    if (h >= 5 && h < 11 && S.cineDay !== today()) return;  // morning briefing takes over
+    if (now - (S._openAt || 0) > 3 * 3600000 && Math.random() < 0.5) { S._openAt = now; save(); react('open', { always: true }); }
+  }
+  let hiddenAt = 0;
+  document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') hiddenAt = Date.now(); else if (hiddenAt && Date.now() - hiddenAt > 20 * 60000) setTimeout(onOpen, 1200); });
+  setTimeout(onOpen, 5200);
 
   // ---------- 6. Life Index ----------
   function lifeIndex() {
@@ -159,8 +197,7 @@
       if (!neural) return fallback();
       setTimeout(() => playNeural('briefing').then(ok => {
         if (!ok) return fallback();
-        show();
-        const tick = () => { if (!document.body.contains(el)) { voiceEl.pause(); return; } const d = voiceEl.duration || 1; const prog = voiceEl.currentTime / d; let acc = 0; for (let j = 0; j < i; j++) acc += lines[j].length; while (i < lines.length && prog >= acc / total) { show(); acc += lines[i - 1].length; } if (!voiceEl.ended) requestAnimationFrame(tick); else { while (i < lines.length) show(); setTimeout(close, 2200); } };
+        const B = D.voice.briefing; let shown0 = false; const tick = () => { if (!document.body.contains(el)) { voiceEl.pause(); return; } const d = Math.max(1, (voiceEl.duration || 1) - (B.intro || 0) - (B.tail || 0)); const prog = Math.max(0, (voiceEl.currentTime - (B.intro || 0)) / d); if (!shown0) { if (voiceEl.currentTime < (B.intro || 0) - 0.2) return requestAnimationFrame(tick); shown0 = true; } let acc = 0; for (let j = 0; j < i; j++) acc += lines[j].length; while (i < lines.length && prog >= acc / total) { show(); acc += lines[i - 1].length; } if (!voiceEl.ended) requestAnimationFrame(tick); else { while (i < lines.length) show(); setTimeout(close, 2200); } };
         requestAnimationFrame(tick);
       }), 650);
     };
@@ -288,6 +325,7 @@
   const prevSystem = V.system;
   V.system = () => `<div class="card"><h2>Security</h2><div class="chartrow"><span>Face ID lock</span><span class="small dim">${setting('faceid', false) ? 'on' : 'off'}</span><button class="btn ${setting('faceid', false) ? '' : 'pri'}" data-act="faceid">${setting('faceid', false) ? 'Turn off' : 'Enable'}</button></div></div>` + prevSystem().replace('<div class="card"><h2>Home layout</h2>', `<div class="card"><h2>J.A.R.V.I.S.</h2>
     <div class="chartrow"><span>"Hey Jarvis" (app open)</span><span class="small dim">${SR ? '' : 'not supported'}</span><button class="btn ${setting('wake', false) ? 'pri' : ''}" data-act="wake">${setting('wake', false) ? 'on' : 'off'}</button></div>
+    <div class="chartrow"><span>Jarvis comments on what you do</span><span></span><button class="btn ${setting('talk', true) ? 'pri' : ''}" data-act="toggleset" data-k="talk">${setting('talk', true) ? 'on' : 'off'}</button></div>
     <div class="chartrow"><span>Night mode (Batcave)</span><span></span><span class="row" style="gap:6px">${['auto', 'on', 'off'].map(v => `<button class="btn ${setting('night', 'auto') === v ? 'pri' : ''}" data-act="night" data-v="${v}">${v}</button>`).join('')}</span></div>
     <div class="chartrow"><span>Voice</span><span class="small dim">${esc(D.voice?.label || '')}</span><button class="btn" data-act="vtest">test</button></div>
     <div class="row" style="gap:6px;flex-wrap:wrap;margin-top:8px">${Object.entries(D.voice?.voices || {}).map(([k, l]) => `<button class="btn ${D.voice.id === k ? 'pri' : ''}" data-act="setvoice" data-v="${k}">${esc(l.split(' (')[0])}${S._voicePending === k && D.voice.id !== k ? ' …' : ''}</button>`).join('')}</div>
