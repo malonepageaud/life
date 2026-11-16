@@ -1,5 +1,5 @@
-const CACHE = 'life-v28';
-const SHELL = ['./', 'index.html', 'app.css', 'app.js', 'features.js', 'manifest.webmanifest', 'icons/icon-192.png', 'icons/icon-180.png', 'fonts/rajdhani-500.woff2', 'fonts/rajdhani-600.woff2', 'fonts/rajdhani-700.woff2'];
+const CACHE = 'life-v29';
+const SHELL = ['./', 'index.html', 'app.css', 'app.js', 'features.js', 'manifest.webmanifest', 'icons/icon2-192.png', 'icons/icon2-180.png', 'fonts/rajdhani-500.woff2', 'fonts/rajdhani-600.woff2', 'fonts/rajdhani-700.woff2'];
 self.addEventListener('install', e => { e.waitUntil(caches.open(CACHE).then(c => c.addAll(SHELL)).then(() => self.skipWaiting())); });
 self.addEventListener('activate', e => { e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k !== CACHE).map(k => caches.delete(k)))).then(() => self.clients.claim())); });
 const put = (req, res) => { if (res && res.ok) { const copy = res.clone(); caches.open(CACHE).then(c => c.put(req, copy)); } return res; };
@@ -25,7 +25,7 @@ self.addEventListener('fetch', e => {
 
 self.addEventListener('push', e => {
   let d = {}; try { d = e.data ? e.data.json() : {}; } catch { d = { title: 'J.A.R.V.I.S.', body: e.data ? e.data.text() : '' }; }
-  e.waitUntil(self.registration.showNotification(d.title || 'J.A.R.V.I.S.', { body: d.body || '', tag: d.tag || undefined, icon: 'icons/icon-192.png', badge: 'icons/icon-192.png', data: { url: d.url || './#home' }, renotify: !!d.tag }));
+  e.waitUntil(self.registration.showNotification(d.title || 'J.A.R.V.I.S.', { body: d.body || '', tag: d.tag || undefined, icon: 'icons/icon2-192.png', badge: 'icons/icon2-192.png', data: { url: d.url || './#home' }, renotify: !!d.tag }));
 });
 self.addEventListener('notificationclick', e => {
   e.notification.close();
