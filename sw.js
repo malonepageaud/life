@@ -1,4 +1,4 @@
-const CACHE = 'life-v39';
+const CACHE = 'life-v40';
 const SHELL = ['./', 'index.html', 'app.css', 'app.js', 'features.js', 'wayne.js', 'mist.js', 'manifest.webmanifest', 'icons/icon2-192.png', 'icons/icon2-180.png', 'fonts/rajdhani-500.woff2', 'fonts/rajdhani-600.woff2', 'fonts/rajdhani-700.woff2'];
 self.addEventListener('install', e => { e.waitUntil(caches.open(CACHE).then(c => c.addAll(SHELL)).then(() => self.skipWaiting())); });
 self.addEventListener('activate', e => { e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k !== CACHE).map(k => caches.delete(k)))).then(() => self.clients.claim())); });

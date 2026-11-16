@@ -472,7 +472,7 @@
   async function gunz(b64) { const u = Uint8Array.from(atob(b64), c => c.charCodeAt(0)); return await new Response(new Blob([u]).stream().pipeThrough(new DecompressionStream('gzip'))).text(); }
   let lastUp = 0, lastHash = '';
   async function backup(force) {
-    try {
+    try { if (!localStorage.getItem('life:pass')) return;
       const snap = snapshot(); delete snap.lastSync; const str = JSON.stringify(snap); if (!force && str === lastHash) return; if (!force && Date.now() - lastUp < 90000) return;
       const z = await gz(str); await postMsg({ id: 'st' + Date.now(), t: Date.now(), time: new Date().toISOString(), text: '[state] ' + z });
       lastHash = str; lastUp = Date.now(); S.lastSync = Date.now(); localStorage.setItem('life:v1', JSON.stringify(S));
