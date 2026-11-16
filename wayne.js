@@ -128,6 +128,80 @@
   document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') hiddenAt = Date.now(); else if (hiddenAt && Date.now() - hiddenAt > 20 * 60000) setTimeout(onOpen, 1200); });
   setTimeout(onOpen, 5200);
 
+
+  // ---------- Talk to Jarvis: tap the mic, speak, he answers out loud ----------
+  const pick = (a) => a[Math.floor(Math.random() * a.length)];
+  const isFr = () => (localStorage.getItem('life:lang') || 'en-US').startsWith('fr');
+  function playAndWait(text) { return say(text, { force: true, quiet: true }).then(ok => ok ? new Promise(r => { const done = () => { voiceEl.removeEventListener('ended', done); r(true); }; voiceEl.addEventListener('ended', done); setTimeout(done, 4000); }) : false); }
+  function localIntent(t) {
+    const s = t.toLowerCase();
+    if (/\b(book|add|send|email|mail|remind|reserve|cancel|buy|create|schedule|move|delete|write|draft|réserve|ajoute|envoie|rappelle|annule|achète|crée|écris|mets)\b/.test(s)) return null;
+    if (/brief(ing)?|résumé de (la|ma) journée|morning report/.test(s)) return 'brief';
+    if (/weekly report|my week|ma semaine|rapport/.test(s)) return 'report';
+    if (/what('s| is)? next|next (class|event|thing)|prochain|c'est quoi après|après quoi/.test(s)) return 'next';
+    if (/tomorrow|demain/.test(s)) return 'tomorrow';
+    if (/homework|due|deadline|devoirs?|à rendre|assignments?/.test(s)) return 'due';
+    if (/grades?|average|moyenne|notes?\b|gpa/.test(s)) return 'grades';
+    if (/exams?|partiels?|finals?\b|examens?/.test(s)) return 'exam';
+    if (/weather|météo|temperature|il fait (beau|chaud)|rain|pluie/.test(s)) return 'weather';
+    if (/today|my day|schedule|agenda|aujourd'hui|ma journée|planning/.test(s)) return 'today';
+    return null;
+  }
+  let convoUntil = 0, convoPoll = null;
+  async function handleUtterance(text) {
+    text = text.trim(); if (!text) return;
+    $('#msg').value = '';
+    const it = localIntent(text);
+    if (it === 'brief') { closeSheet(); cinematic(false); return; }
+    if (it === 'report') { location.hash = 'home/report'; setTimeout(() => ACT.playreport(), 900); return; }
+    const ans = it && D.voice?.answers?.[it];
+    if (ans) { jarvisLine(ans); await playAndWait(ans); return; }
+    sendText(text);
+    const ack = isFr() ? pick(D.voice?.acks?.filter(a => /monsieur/.test(a)) || []) : pick(D.voice?.acks?.filter(a => !/monsieur/.test(a)) || []);
+    if (ack) say(ack, { force: true, quiet: true });
+    convoUntil = Date.now() + 12 * 60000;
+    clearInterval(convoPoll); convoPoll = setInterval(() => { if (Date.now() > convoUntil) return clearInterval(convoPoll); if (document.visibilityState === 'visible') load().catch(() => { }); }, 12000);
+  }
+  window.jarvisHandle = handleUtterance;
+  // replies from the agent are spoken as soon as they land, even with the chat closed
+  const origSpeakNew = speakNew;
+  speakNew = function () {
+    const last = +(localStorage.getItem('life:spoken') || 0);
+    const fresh = (D?.log || []).filter(l => l.reply && l.repliedAt && new Date(l.repliedAt).getTime() > last).sort((a, b) => new Date(a.repliedAt) - new Date(b.repliedAt));
+    if (last && fresh.length && (Date.now() < convoUntil || !$('#sheet').classList.contains('hidden'))) {
+      const r = fresh.at(-1).reply; if ($('#sheet').classList.contains('hidden')) jarvisLine(r);
+      say(r, { force: true, quiet: true }); localStorage.setItem('life:spoken', String(new Date(fresh.at(-1).repliedAt).getTime()));
+      if (!pending().some(m => m.status === 'sent')) convoUntil = Math.min(convoUntil, Date.now() + 60000);
+      return;
+    }
+    origSpeakNew();
+  };
+  // conversational mic: "Yes, sir?", listen, auto-send when you stop talking
+  const SRx = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (SRx) {
+    let crec = null, silence = null, heard = '';
+    const stopC = () => { listening = false; clearTimeout(silence); if (crec) { try { crec.onend = null; crec.stop(); } catch { } crec = null; } $('#mic')?.classList.remove('on'); $('#micState') && ($('#micState').textContent = ''); $('#wave')?.classList.remove('on'); };
+    stopMic = stopC;
+    startMic = async function () {
+      if (listening) return;
+      listening = true; $('#mic')?.classList.add('on'); $('#wave')?.classList.add('on'); $('#micState') && ($('#micState').textContent = 'Jarvis is listening…');
+      if (D?.voice?.hellos?.length && !holdingMic) await playAndWait(pick(D.voice.hellos));
+      if (!listening) return;
+      heard = ''; crec = new SRx(); crec.lang = localStorage.getItem('life:lang') || 'en-US'; crec.continuous = true; crec.interimResults = true;
+      crec.onresult = (e) => { let fin = '', int = ''; for (let i = 0; i < e.results.length; i++) { const r = e.results[i]; if (r.isFinal) fin += r[0].transcript; else int += r[0].transcript; } heard = (fin + int).replace(/\s+/g, ' ').trim(); $('#msg').value = heard; clearTimeout(silence); if (!holdingMic) silence = setTimeout(() => { const t = heard; stopC(); handleUtterance(t); }, 1700); };
+      crec.onerror = (e) => { if (e.error === 'not-allowed') toast('Microphone blocked. Allow it in Settings > Safari > Microphone.'); stopC(); };
+      crec.onend = () => { if (listening && crec) { try { crec.start(); } catch { stopC(); } } };
+      try { crec.start(); } catch { stopC(); toast('Mic unavailable'); }
+    };
+    // hold-to-talk on the orb: send when released
+    let holdingMic = false;
+    document.addEventListener('pointerdown', (e) => { if (e.target.closest('.orb')) holdingMic = true; }, true);
+    document.addEventListener('pointerup', () => { if (holdingMic) { holdingMic = false; } }, true);
+    const sendBtn = $('#send'); sendBtn?.addEventListener('click', () => { clearTimeout(silence); }, true);
+  }
+  // typed messages also get the acknowledgment + spoken reply
+  $('#send')?.addEventListener('click', () => { if (!$('#msg').value.trim()) return; const t = $('#msg').value.trim(); convoUntil = Date.now() + 12 * 60000; clearInterval(convoPoll); convoPoll = setInterval(() => { if (Date.now() > convoUntil) return clearInterval(convoPoll); if (document.visibilityState === 'visible') load().catch(() => { }); }, 12000); }, true);
+
   // ---------- 6. Life Index ----------
   function lifeIndex() {
     const g = D.grades.average ? Math.min(1, D.grades.average / 18) : 0.5;

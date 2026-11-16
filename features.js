@@ -371,7 +371,7 @@ ACT.qchip = (el) => { if (el.dataset.s === '1') { sendText(el.dataset.t); } else
 ACT.undo = (el) => { if (!confirm('Undo this action?')) return false; sendText(`Undo this: ${el.dataset.r}`); toast('Undo requested'); return false; };
 let holdT = null, holding = false, swallowClick = false;
 document.addEventListener('pointerdown', (e) => { const orb = e.target.closest('.orb'); if (!orb) return; holdT = setTimeout(() => { holding = true; swallowClick = true; openSheet(false); startMic(); beep(660, 0.06); buzz(20); }, 320); });
-document.addEventListener('pointerup', () => { clearTimeout(holdT); if (holding) { holding = false; stopMic(); setTimeout(() => { const t = $('#msg').value.trim(); if (t) { $('#msg').value = ''; sendText(t); beep(880, 0.06); } }, 350); } });
+document.addEventListener('pointerup', () => { clearTimeout(holdT); if (holding) { holding = false; stopMic(); setTimeout(() => { const t = $('#msg').value.trim(); if (t) { $('#msg').value = ''; (window.jarvisHandle ? window.jarvisHandle(t) : sendText(t)); beep(880, 0.06); } }, 350); } });
 document.addEventListener('click', (e) => { if (swallowClick && e.target.closest('.orb')) { e.stopPropagation(); e.preventDefault(); swallowClick = false; } }, true);
 let briefPending = false;
 function maybeBrief() { const h = sgParts(Date.now()).h; if (!setting('brief', true) || h >= 11 || h < 5 || S.briefedDay === today() || !D) return; briefPending = true; }
