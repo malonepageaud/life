@@ -50,10 +50,35 @@
     try {
       const vs = speechSynthesis.getVoices();
       const pick = vs.find(v => /Daniel.*(Enhanced|Premium)/i.test(v.name)) || vs.find(v => /Arthur|Jamie.*Enhanced|Oliver/i.test(v.name) && /en-GB/i.test(v.lang)) || vs.find(v => /Daniel/i.test(v.name)) || vs.find(v => /en-GB/i.test(v.lang)) || null;
-      const chunks = String(text).match(/[^.!?]+[.!?]*/g) || [text];
       speechSynthesis.cancel();
-      for (const c of chunks) { const u = new SpeechSynthesisUtterance(c.trim()); u.voice = pick; u.rate = 1.0; u.pitch = 0.92; speechSynthesis.speak(u); }
+      const u = new SpeechSynthesisUtterance(String(text)); u.voice = pick; u.rate = 1.05; u.pitch = 1.0; speechSynthesis.speak(u);
     } catch { }
+  };
+
+
+  // ---------- neural voice: encrypted MP3 made on the Mac (briefing + latest reply) ----------
+  const voiceEl = new Audio(); voiceEl.preload = 'auto'; let voiceUnlocked = false;
+  document.addEventListener('pointerdown', () => { if (voiceUnlocked) return; voiceUnlocked = true; try { voiceEl.src = 'data:audio/mpeg;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4Ljc2LjEwMAAAAAAAAAAAAAAA//tQxAADB8AhSmxhIIEVCSiJrDCQBTcu3UrAIwUdkRgQbFAZC1CQEwTJ9mjRvBA4UOLD8nKVOWfh+UlK3z/177OXrfOdKl7pyn3Xf//WreyTRUoAWgBgkOAGbZHBgG1OF6zM82DWbZaUmMBptgQhGjsyYqc9ae9XFz280948NMBWInljyzsNRFLPWdnZGWrddDsjK1unuSrVN9jJsK8KuQtQCtMBjCEtImISdNKJOopIpBFpNSMbIHCSRpRR5iakjTiyzLhchUUBwCgyKiweBv/7UsQbg8isVNoMPMjAAAA0gAAABEVFGmgqK////9bP/6XCykxBTUUzLjEwMKqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq'; voiceEl.play().then(() => voiceEl.pause()).catch(() => { }); } catch { } }, { capture: true });
+  const audioCache = {};
+  async function fetchVoice(file, h) {
+    const k = file + h; if (audioCache[k]) return audioCache[k];
+    const r = await fetch(file + '?h=' + h, { cache: 'no-store' }); if (!r.ok) throw new Error('no audio');
+    const buf = new Uint8Array(await r.arrayBuffer());
+    const key = await getKey(localStorage.getItem('life:pass'), D.voice.salt);
+    const pt = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: buf.slice(0, 12) }, key, buf.slice(12));
+    return (audioCache[k] = URL.createObjectURL(new Blob([pt], { type: 'audio/mpeg' })));
+  }
+  async function playNeural(kind) {
+    const v = D?.voice?.[kind]; if (!v) return false;
+    try { const url = await fetchVoice(v.file, v.hash); speechSynthesis?.cancel(); voiceEl.src = url; await voiceEl.play(); return true; } catch (e) { console.warn('neural voice failed', e); return false; }
+  }
+  window.playNeural = playNeural;
+  const deviceSpeak = speak;
+  speak = function (text) {
+    if (!voiceOn() || !text) return;
+    const rep = D?.voice?.reply;
+    if (rep && rep.text === text) { playNeural('reply').then(ok => { if (!ok) deviceSpeak(text); }); return; }
+    deviceSpeak(text);
   };
 
   // ---------- 6. Life Index ----------
@@ -109,18 +134,26 @@
     return lines;
   }
   function cinematic(auto) {
-    const lines = cineLines();
+    const neural = !!D?.voice?.briefing;
+    const lines = neural ? D.voice.briefing.lines : cineLines();
     const el = document.createElement('div'); el.className = 'cine';
     el.innerHTML = `<div class="cine-top"><span>Pageaud Industries</span><span>${fmt(Date.now(), { weekday: 'long', day: 'numeric', month: 'long' })}</span></div><div class="cine-core">${reactor(lifeIndex().v, 'INDEX')}</div><div class="cine-lines"></div>${auto ? '<button class="btn pri cine-go">Begin briefing</button>' : ''}<button class="cine-x">Skip</button>`;
     document.body.appendChild(el);
-    const close = () => { speechSynthesis?.cancel(); el.classList.add('out'); setTimeout(() => el.remove(), 400); };
+    const close = () => { speechSynthesis?.cancel(); try { voiceEl.pause(); } catch { } el.classList.add('out'); setTimeout(() => el.remove(), 400); };
     el.querySelector('.cine-x').onclick = close;
     const play = () => {
       el.querySelector('.cine-go')?.remove(); chime([523, 784, 1046], 0.8, 0.035); hap('success');
-      speak(lines.join(' '));
       const box = el.querySelector('.cine-lines'); let i = 0;
-      const step = () => { if (!document.body.contains(el)) return; if (i < lines.length) { box.insertAdjacentHTML('beforeend', `<div>${esc(lines[i])}</div>`); box.scrollTop = box.scrollHeight; i++; setTimeout(step, Math.max(1400, lines[i - 1].length * 62)); } else setTimeout(close, 2600); };
-      step();
+      const total = lines.reduce((a, l) => a + l.length, 0);
+      const show = () => { box.insertAdjacentHTML('beforeend', `<div>${esc(lines[i])}</div>`); box.scrollTop = box.scrollHeight; i++; };
+      const fallback = () => { deviceSpeak(lines.join(' ')); const step = () => { if (!document.body.contains(el)) return; if (i < lines.length) { show(); setTimeout(step, Math.max(1400, lines[i - 1].length * 62)); } else setTimeout(close, 2600); }; step(); };
+      if (!neural) return fallback();
+      setTimeout(() => playNeural('briefing').then(ok => {
+        if (!ok) return fallback();
+        show();
+        const tick = () => { if (!document.body.contains(el)) { voiceEl.pause(); return; } const d = voiceEl.duration || 1; const prog = voiceEl.currentTime / d; let acc = 0; for (let j = 0; j < i; j++) acc += lines[j].length; while (i < lines.length && prog >= acc / total) { show(); acc += lines[i - 1].length; } if (!voiceEl.ended) requestAnimationFrame(tick); else { while (i < lines.length) show(); setTimeout(close, 2200); } };
+        requestAnimationFrame(tick);
+      }), 650);
     };
     if (auto) el.querySelector('.cine-go').onclick = play; else play();
   }
