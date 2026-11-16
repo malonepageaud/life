@@ -410,3 +410,5 @@ body{background:radial-gradient(900px 600px at -10% -10%,rgba(139,92,255,.42),tr
 .chip{background:color-mix(in srgb,var(--hub) 10%,#0a0918)}
 .tabbar{background:linear-gradient(90deg,rgba(20,14,48,.96),rgba(10,10,30,.96))}
 .alerts{background:linear-gradient(155deg,rgba(255,106,106,.26),rgba(255,189,74,.10) 60%,#0d0b1e)}
+.todocard{border-color:color-mix(in srgb,var(--c-work) 45%,transparent);background:linear-gradient(155deg,rgba(255,189,74,.14),#0c0a1e 65%)}
+.todocard h2{color:var(--c-work)}
