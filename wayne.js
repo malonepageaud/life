@@ -60,26 +60,35 @@
   const voiceEl = new Audio(); voiceEl.preload = 'auto'; let voiceUnlocked = false;
   document.addEventListener('pointerdown', () => { if (voiceUnlocked) return; voiceUnlocked = true; try { voiceEl.src = 'data:audio/mpeg;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4Ljc2LjEwMAAAAAAAAAAAAAAA//tQxAADB8AhSmxhIIEVCSiJrDCQBTcu3UrAIwUdkRgQbFAZC1CQEwTJ9mjRvBA4UOLD8nKVOWfh+UlK3z/177OXrfOdKl7pyn3Xf//WreyTRUoAWgBgkOAGbZHBgG1OF6zM82DWbZaUmMBptgQhGjsyYqc9ae9XFz280948NMBWInljyzsNRFLPWdnZGWrddDsjK1unuSrVN9jJsK8KuQtQCtMBjCEtImISdNKJOopIpBFpNSMbIHCSRpRR5iakjTiyzLhchUUBwCgyKiweBv/7UsQbg8isVNoMPMjAAAA0gAAABEVFGmgqK////9bP/6XCykxBTUUzLjEwMKqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq'; voiceEl.play().then(() => voiceEl.pause()).catch(() => { }); } catch { } }, { capture: true });
   const audioCache = {};
-  async function fetchVoice(file, h) {
-    const k = file + h; if (audioCache[k]) return audioCache[k];
-    const r = await fetch(file + '?h=' + h, { cache: 'no-store' }); if (!r.ok) throw new Error('no audio');
+  const sha12 = async (t) => [...new Uint8Array(await crypto.subtle.digest('SHA-1', new TextEncoder().encode(String(t).trim())))].map(x => x.toString(16).padStart(2, '0')).join('').slice(0, 12);
+  async function clipUrl(file) {
+    if (audioCache[file]) return audioCache[file];
+    const r = await fetch(file, { cache: 'force-cache' }); if (!r.ok) throw new Error('no audio');
     const buf = new Uint8Array(await r.arrayBuffer());
     const key = await getKey(localStorage.getItem('life:pass'), D.voice.salt);
     const pt = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: buf.slice(0, 12) }, key, buf.slice(12));
-    return (audioCache[k] = URL.createObjectURL(new Blob([pt], { type: 'audio/mpeg' })));
+    return (audioCache[file] = URL.createObjectURL(new Blob([pt], { type: 'audio/mpeg' })));
   }
-  async function playNeural(kind) {
-    const v = D?.voice?.[kind]; if (!v) return false;
-    try { const url = await fetchVoice(v.file, v.hash); speechSynthesis?.cancel(); voiceEl.src = url; await voiceEl.play(); return true; } catch (e) { console.warn('neural voice failed', e); return false; }
+  const reqd = {};
+  // say(text, {force}) : plays Jarvis' studio voice for this exact text. If the clip is not made yet, asks the Mac to make it.
+  async function say(text, opt = {}) {
+    if (!text || (!opt.force && !voiceOn())) return false;
+    const k = await sha12(text), file = D?.voice?.clips?.[k];
+    if (file) { try { const url = await clipUrl(file); speechSynthesis?.cancel(); voiceEl.src = url; await voiceEl.play(); return true; } catch (e) { console.warn('clip failed', e); } }
+    if (!reqd[k]) { reqd[k] = 1; postMsg({ id: 'tts' + Date.now(), t: Date.now(), time: new Date().toISOString(), text: '[tts] ' + String(text).trim() }).catch(() => { }); }
+    if (opt.force) toast('Jarvis is preparing this in his voice. Ready in about 3 minutes.');
+    return false;
   }
-  window.playNeural = playNeural;
-  const deviceSpeak = speak;
-  speak = function (text) {
-    if (!voiceOn() || !text) return;
-    const rep = D?.voice?.reply;
-    if (rep && rep.text === text) { playNeural('reply').then(ok => { if (!ok) deviceSpeak(text); }); return; }
-    deviceSpeak(text);
-  };
+  // prefetch so playback starts instantly
+  async function prefetch(text) { try { const f = D?.voice?.clips?.[await sha12(text)]; if (f) clipUrl(f); } catch { } }
+  async function playNeural(kind) { if (kind === 'briefing' && D?.voice?.briefing) return say(D.voice.briefing.lines.join(' '), { force: true }); return false; }
+  window.playNeural = playNeural; window.jarvisSay = say;
+  window.playBriefingAudio = () => playNeural('briefing');
+  const deviceSpeak = () => { };  // device robot voice retired
+  speak = function (text) { say(text); };
+  setTimeout(() => { if (D?.voice?.briefing) prefetch(D.voice.briefing.lines.join(' ')); }, 5000);
+  ACT.vtest = () => { say('At your service, Mr. Pageaud. All systems are online.', { force: true }); return false; };
+  ACT.setvoice = (el) => { postMsg({ id: 'vc' + Date.now(), t: Date.now(), time: new Date().toISOString(), text: '[voice] ' + el.dataset.v }); S._voicePending = el.dataset.v; toast('Switching voice. Ready in about 3 minutes.'); };
 
   // ---------- 6. Life Index ----------
   function lifeIndex() {
@@ -146,7 +155,7 @@
       const box = el.querySelector('.cine-lines'); let i = 0;
       const total = lines.reduce((a, l) => a + l.length, 0);
       const show = () => { box.insertAdjacentHTML('beforeend', `<div>${esc(lines[i])}</div>`); box.scrollTop = box.scrollHeight; i++; };
-      const fallback = () => { deviceSpeak(lines.join(' ')); const step = () => { if (!document.body.contains(el)) return; if (i < lines.length) { show(); setTimeout(step, Math.max(1400, lines[i - 1].length * 62)); } else setTimeout(close, 2600); }; step(); };
+      const fallback = () => { const step = () => { if (!document.body.contains(el)) return; if (i < lines.length) { show(); setTimeout(step, Math.max(1400, lines[i - 1].length * 62)); } else setTimeout(close, 2600); }; step(); };
       if (!neural) return fallback();
       setTimeout(() => playNeural('briefing').then(ok => {
         if (!ok) return fallback();
@@ -200,7 +209,7 @@
       ${g.nextStep ? `<div class="mnext"><span>Next</span> ${esc(g.nextStep)}</div>` : ''}
       ${g.milestones?.length ? `<div class="list" style="margin-top:6px">${g.milestones.map((m, i) => `<div class="item ${ms[i] ? 'done' : ''}"><button class="check ${ms[i] ? 'on' : ''}" data-act="ms" data-g="${esc(g.id)}" data-i="${i}"></button><div class="main"><div class="t" style="font-weight:500">${esc(m)}</div></div></div>`).join('')}</div>` : ''}</div>`;
   }).join('');
-  function accomplished(title) { chime([523, 659, 784, 1046], 1.1, 0.05); hap('success'); const el = document.createElement('div'); el.className = 'cine accomplished'; el.innerHTML = `<div class="cine-core">${reactor(100, 'DONE')}</div><div class="welcome">Mission accomplished</div><div class="small" style="color:#e8dcc0;text-align:center;max-width:300px">${esc(title)}</div>`; document.body.appendChild(el); speak('Mission accomplished, sir.'); el.onclick = () => el.remove(); setTimeout(() => { el.classList.add('out'); setTimeout(() => el.remove(), 400); }, 3200); }
+  function accomplished(title) { chime([523, 659, 784, 1046], 1.1, 0.05); hap('success'); const el = document.createElement('div'); el.className = 'cine accomplished'; el.innerHTML = `<div class="cine-core">${reactor(100, 'DONE')}</div><div class="welcome">Mission accomplished</div><div class="small" style="color:#e8dcc0;text-align:center;max-width:300px">${esc(title)}</div>`; document.body.appendChild(el); say('Mission accomplished, sir.', { force: true }); el.onclick = () => el.remove(); setTimeout(() => { el.classList.add('out'); setTimeout(() => el.remove(), 400); }, 3200); }
 
   // ---------- 11. Do not disturb, sir ----------
   const origFocusGo = ACT.focusgo, origFocusStop = ACT.focusstop;
@@ -223,14 +232,14 @@
     if (gym < D.sports.weeklyTarget) slips.push(`${D.sports.weeklyTarget - gym} gym sessions short of target`);
     const nextEx = (D.exams || []).filter(e => e.t - Date.now() < 14 * DAY).slice(0, 3);
     const text = `Weekly report. Score ${s} out of 100, ${s >= last ? 'up' : 'down'} ${Math.abs(s - last)} from last week. Wins: ${wins.join(', ') || 'none yet'}. To fix: ${slips.join(', ') || 'nothing major'}. ${nextEx.length ? 'Coming up: ' + nextEx.map(e => e.course.split(' (')[0].split(':')[0]).join(', ') + '.' : ''}`;
-    S._reportText = text;
+    S._reportText = text; setTimeout(() => sha12(text).then(k => { if (!D.voice?.clips?.[k] && !reqd[k]) { reqd[k] = 1; postMsg({ id: 'tts' + Date.now(), t: Date.now(), time: new Date().toISOString(), text: '[tts] ' + text.trim() }).catch(() => { }); } else prefetch(text); }), 800);
     return `<div class="card hero"><div class="row between"><div><div class="tag">Week of ${fmt(ws + 3600000, { day: 'numeric', month: 'short' })}</div><div class="idxv">${s}<span>/100</span> <em style="color:${s >= last ? 'var(--ok)' : 'var(--bad)'}">${s >= last ? '▲' : '▼'} ${Math.abs(s - last)}</em></div></div><div class="ring big" style="--p:${s}"><span>${s}</span></div></div><button class="btn pri" style="margin-top:12px" data-act="playreport">▶ Play report</button></div>
     <div class="card"><h2>Wins</h2><ul class="bul">${wins.map(w => `<li>${esc(w)}</li>`).join('') || '<li>Nothing logged yet this week</li>'}</ul></div>
     <div class="card"><h2>To fix</h2><ul class="bul">${slips.map(w => `<li>${esc(w)}</li>`).join('') || '<li>Clean week</li>'}</ul></div>
     ${nextEx.length ? `<div class="card"><h2>Next 14 days</h2>${nextEx.map(e => `<div class="chartrow"><span>${esc(e.course.split(' (')[0].split(':')[0])}</span><span></span><b>${Math.ceil((e.t - Date.now()) / DAY)}d</b></div>`).join('')}</div>` : ''}
     ${idxCard()}`;
   };
-  ACT.playreport = () => { speak(S._reportText || ''); return false; };
+  ACT.playreport = () => { say(S._reportText || '', { force: true }); return false; };
   GROUPS.home.segs = [['home', 'Today'], ['command', 'Command'], ['todo', 'To-do'], ['report', 'Report']];
   for (const [g, v] of Object.entries(GROUPS)) for (const [s] of v.segs) SEG2GROUP[s] = g;
 
@@ -280,8 +289,9 @@
   V.system = () => `<div class="card"><h2>Security</h2><div class="chartrow"><span>Face ID lock</span><span class="small dim">${setting('faceid', false) ? 'on' : 'off'}</span><button class="btn ${setting('faceid', false) ? '' : 'pri'}" data-act="faceid">${setting('faceid', false) ? 'Turn off' : 'Enable'}</button></div></div>` + prevSystem().replace('<div class="card"><h2>Home layout</h2>', `<div class="card"><h2>J.A.R.V.I.S.</h2>
     <div class="chartrow"><span>"Hey Jarvis" (app open)</span><span class="small dim">${SR ? '' : 'not supported'}</span><button class="btn ${setting('wake', false) ? 'pri' : ''}" data-act="wake">${setting('wake', false) ? 'on' : 'off'}</button></div>
     <div class="chartrow"><span>Night mode (Batcave)</span><span></span><span class="row" style="gap:6px">${['auto', 'on', 'off'].map(v => `<button class="btn ${setting('night', 'auto') === v ? 'pri' : ''}" data-act="night" data-v="${v}">${v}</button>`).join('')}</span></div>
-    <div class="chartrow"><span>Voice</span><span class="small dim">best British voice on your phone</span><button class="btn" data-act="cine">test</button></div>
-    <div class="small dim" style="margin-top:6px">For a cinema-grade Jarvis voice, add an ElevenLabs API key (ask Jarvis).</div></div>
+    <div class="chartrow"><span>Voice</span><span class="small dim">${esc(D.voice?.label || '')}</span><button class="btn" data-act="vtest">test</button></div>
+    <div class="row" style="gap:6px;flex-wrap:wrap;margin-top:8px">${Object.entries(D.voice?.voices || {}).map(([k, l]) => `<button class="btn ${D.voice.id === k ? 'pri' : ''}" data-act="setvoice" data-v="${k}">${esc(l.split(' (')[0])}${S._voicePending === k && D.voice.id !== k ? ' …' : ''}</button>`).join('')}</div>
+    <div class="small dim" style="margin-top:6px">Studio neural voices, British accent, your name said in French.</div></div>
     <div class="card"><h2>Backup</h2><div class="chartrow"><span>Last backup</span><span class="small dim">${S.lastSync ? rel(S.lastSync) : 'never'}</span><button class="btn" data-act="backupnow">Back up now</button></div><div class="chartrow"><span>Restore from server</span><span class="small dim">${D.devState?.at ? rel(D.devState.at) : 'no backup yet'}</span><button class="btn" data-act="restore">Restore</button></div><div class="small dim" style="margin-top:6px">Everything you do in the app is backed up encrypted every few minutes and restored automatically after a reinstall.</div></div><div class="card"><h2>Home layout</h2>`);
 
 
