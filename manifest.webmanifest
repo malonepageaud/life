@@ -1,7 +1,7 @@
 {
-  "name": "Life",
-  "short_name": "Life",
-  "description": "Malone's life dashboard: homework, grades, calendar, sports, goals.",
+  "name": "Jarvis",
+  "short_name": "Jarvis",
+  "description": "Jarvis, Malone's dashboard: homework, grades, calendar, sports, goals.",
   "start_url": "./#today",
   "scope": "./",
   "display": "standalone",

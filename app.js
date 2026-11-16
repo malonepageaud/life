@@ -37,7 +37,7 @@ const I = {
 };
 const GROUPS = {
   home: { label: 'Home', icon: 'today', segs: [['home', 'Today']] },
-  school: { label: 'School', icon: 'study', segs: [['homework', 'Homework'], ['study', 'Study'], ['grades', 'Grades']] },
+  school: { label: 'School', icon: 'study', segs: [['homework', 'Homework'], ['classes', 'Classes'], ['study', 'Study'], ['grades', 'Grades']] },
   life: { label: 'Life', icon: 'sports', segs: [['sports', 'Gym'], ['calendar', 'Calendar'], ['out', 'Going out'], ['goals', 'Goals']] },
   work: { label: 'Work', icon: 'business', segs: [['business', 'Business'], ['inbox', 'Inbox'], ['ideas', 'Ideas']] },
 };
@@ -116,8 +116,8 @@ const MIC_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stro
 function renderNav() {
   const b = badges(), { g: cg, s: cs } = route();
   const tab = (g) => `<a href="#${g}" class="${cg === g ? 'on' : ''}">${I[GROUPS[g].icon]}<span>${GROUPS[g].label}</span>${b[g] ? `<span class="dot">${b[g] > 9 ? '9+' : b[g]}</span>` : ''}</a>`;
-  $('#tabbar').innerHTML = tab('home') + tab('school') + `<button class="orb" data-act="orb" aria-label="Agent">${MIC_SVG}</button>` + tab('life') + tab('work');
-  $('#sideNav').innerHTML = `<button class="agentbtn" data-act="orb">${MIC_SVG.replace('<svg', '<svg width="20"')} Talk to your agent</button>` + Object.entries(GROUPS).map(([g, v]) => `<a href="#${g}" class="${cg === g ? 'on' : ''}">${I[v.icon]}<span>${v.label}</span>${b[g] ? `<span class="dot">${b[g]}</span>` : ''}</a>` + (v.segs.length > 1 ? v.segs.map(([s, l]) => `<a class="sub ${cg === g && cs === s ? 'on' : ''}" href="#${g}/${s}">${l}</a>`).join('') : '')).join('');
+  $('#tabbar').innerHTML = tab('home') + tab('school') + `<button class="orb" data-act="orb" aria-label="Jarvis">${MIC_SVG}</button>` + tab('life') + tab('work');
+  $('#sideNav').innerHTML = `<button class="agentbtn" data-act="orb">${MIC_SVG.replace('<svg', '<svg width="20"')} Talk to Jarvis</button>` + Object.entries(GROUPS).map(([g, v]) => `<a href="#${g}" class="${cg === g ? 'on' : ''}">${I[v.icon]}<span>${v.label}</span>${b[g] ? `<span class="dot">${b[g]}</span>` : ''}</a>` + (v.segs.length > 1 ? v.segs.map(([s, l]) => `<a class="sub ${cg === g && cs === s ? 'on' : ''}" href="#${g}/${s}">${l}</a>`).join('') : '')).join('');
 }
 function header(title) {
   $('#title').textContent = title;
@@ -209,12 +209,23 @@ V.homework = () => {
   return html;
 };
 
+V.classes = () => {
+  const R = D.registration; if (!R) return '<div class="card"><div class="empty">No class list yet.</div></div>';
+  const gc = Object.fromEntries((D.grades.courses || []).filter(c => c.code).map(c => [c.code, c]));
+  const credit = R.items.filter(i => i.credits > 0), zero = R.items.filter(i => !i.credits);
+  const tot = credit.reduce((s, i) => s + i.credits, 0);
+  const row = (i) => { const c = gc[i.code]; return `<div class="item"><span class="cdot" style="background:${esc(c?.color || '#8b93a7')}"></span><div class="main"><div class="row between"><div class="t">${esc(i.title)}</div>${i.credits ? `<span class="pill acc">${i.credits} ECTS</span>` : ''}</div><div class="m">${esc([i.code, i.teacher, 'CRN ' + i.crn].filter(Boolean).join(' · '))}</div>${c && c.current != null ? `<div class="d">Current grade ${c.current.toFixed(2)} on ${c.gradedShare}% graded</div>` : ''}</div></div>`; };
+  return `<div class="card hero"><div class="eyebrow">Semester 1 classes</div><div class="gradebig">${credit.length}</div><div class="small muted" style="margin-top:6px">${tot} ECTS attempted · ${esc(R.source)}</div></div>
+  <div class="card"><h2>Credit courses <span class="pill">${credit.length}</span></h2><div class="list">${credit.map(row).join('')}</div>${R.note ? `<div class="small dim" style="margin-top:8px">${esc(R.note)}</div>` : ''}</div>
+  <div class="card"><h2>Exam sections & 0-credit sessions <span class="pill">${zero.length}</span></h2><div class="list">${zero.map(row).join('')}</div></div>`;
+};
 V.grades = () => {
   const g = D.grades;
   const color = (x) => x == null ? 'var(--dim)' : x >= 16 ? 'var(--ok)' : x >= 12 ? 'var(--warn)' : 'var(--bad)';
   let html = `<div class="card hero"><div class="row between"><div><div class="eyebrow">Current average</div><div class="gradebig">${g.average != null ? g.average.toFixed(2) : '–'}</div><div class="small muted" style="margin-top:6px">${esc(g.note)}</div></div></div></div>`;
   const cs = [...g.courses].sort((a, b) => (b.gradedShare - a.gradedShare));
   html += `<div class="grid2">` + cs.map(c => `<div class="card"><div class="row between"><div class="row"><span class="cdot" style="background:${esc(c.color)};margin:0"></span><b>${esc(c.name)}</b></div><b style="font-size:22px;color:${color(c.current)}">${c.current != null ? c.current.toFixed(2) : '–'}</b></div>
+    ${c.code || c.teacher ? `<div class="small dim" style="margin-top:4px">${esc([c.code, c.teacher].filter(Boolean).join(' · '))}</div>` : ''}
     <div class="row between small muted" style="margin-top:8px"><span>${c.gradedShare}% of the course graded${c.ects != null ? ` · ${c.ects} ECTS` : ""}</span>${c.moodleTotal && c.moodleTotal !== '-' ? `<span>Moodle total ${esc(c.moodleTotal)}</span>` : ''}</div>
     <div class="bar" style="margin-top:6px"><i style="width:${c.gradedShare}%"></i></div>
     ${c.components.length ? `<table class="comp">${c.components.map(x => `<tr><td>${esc(x.name)}${x.detail ? `<div class="dim small">${esc(x.detail)}</div>` : ''}</td><td class="muted">${x.weight}%</td><td><b style="color:${color(x.grade)}">${x.grade != null ? x.grade : '–'}</b></td></tr>`).join('')}</table>` : '<div class="small dim" style="margin-top:8px">Weighting not found yet.</div>'}
