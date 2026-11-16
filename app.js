@@ -176,7 +176,7 @@ V.today = () => {
   </div>
   ${tonightCard()}
   ${studyCard()}
-  ${biz.length ? `<div class="card biz"><h2>Money moves <a class="small muted" href="#business">${esc(D.business.name || 'Business')} →</a></h2><div class="list">${biz.map((b, i) => `<div class="item ${bd[i] ? 'done' : ''}"><button class="check ${bd[i] ? 'on' : ''}" data-act="biz" data-i="${i}"></button><div class="main"><div class="t">${esc(b)}</div></div></div>`).join('')}</div></div>` : ''}
+  ${biz.length ? `<div class="card biz"><h2>Money moves <a class="small muted" href="#business">Business →</a></h2><div class="list">${biz.map((b, i) => `<div class="item ${bd[i] ? 'done' : ''}"><button class="check ${bd[i] ? 'on' : ''}" data-act="biz" data-i="${i}"></button><div class="main"><div class="t">${esc(b)}</div></div></div>`).join('')}</div></div>` : ''}
   ${newCh.length ? `<div class="card feed"><h2>New <button class="btn" data-act="seen">Seen</button></h2><div class="list">${newCh.map(c => `<div class="item"><span class="k-ico" style="background:${kindColor(c.kind)}22;color:${kindColor(c.kind)}">${kindLetter(c.kind)}</span><div class="main"><div class="t">${c.url ? `<a href="${esc(c.url)}" target="_blank" rel="noopener">${esc(c.text)}</a>` : esc(c.text)}</div><div class="d">${rel(c.time)}</div></div></div>`).join('')}</div></div>` : ''}
   <div class="sec">Ideas today</div>
   <div class="ideas">${(D.ideas || []).map(ideaCard).join('')}</div>
@@ -393,20 +393,32 @@ async function aeBook(id) {
 }
 
 V.business = () => {
-  const B = D.business || {}, now = Date.now(), dk = dayKey();
+  const B = D.business || {}, NV = D.newVenture || {}, F = D.fennly || {}, now = Date.now(), dk = dayKey();
   const g = D.goals.find(x => x.id === 'money'); const gp = g ? Math.round(100 * (goalProgress(g) || 0)) : 0;
   const bd = S.biz?.[dk] || {};
-  const tasks = (D.todos || []).filter(t => t.tag === 'business');
-  const ideas = (D.ideas || []).filter(i => i.type === 'business');
-  return `<div class="card hero"><div class="row between"><div style="flex:1;min-width:0"><div class="eyebrow">${esc(B.role || '')} · ${esc(B.full || '')}</div><div class="hl" style="margin:4px 0 6px">${esc(B.name || 'Business')}</div><p class="small">${esc(B.pitch || '')}</p></div>
-    <div class="ring" style="--p:${gp}"><span>${gp}%</span></div></div></div>
+  const all = (D.todos || []).filter(t => t.tag === 'business');
+  const tNew = all.filter(t => t.group === 'new' || !t.group), tFen = all.filter(t => t.group === 'fennly'), tAa = all.filter(t => t.group === 'aaiel');
+  const niches = B.niches || [];
+  const dates = (arr) => (arr || []).map(k => { const t = new Date(k.date + 'T09:00:00+08:00').getTime(); const d = Math.ceil((t - now) / DAY); return `<div class="item"><div class="main"><div class="row between"><div class="t">${esc(k.label)}</div><span class="pill ${d <= 3 ? 'warn' : 'acc'}">${d < 0 ? 'done' : d === 0 ? 'today' : d + 'd'}</span></div><div class="m">${dayName(t)}${k.end ? ' to ' + fmt(new Date(k.end + 'T09:00:00+08:00').getTime(), { day: 'numeric', month: 'short' }) : ''}</div></div></div>`; }).join('');
+  const SH = D.shopify;
+  return `<div class="card hero"><div class="row between"><div style="flex:1;min-width:0"><div class="eyebrow">${esc(NV.role || 'Main priority')}</div><div class="hl" style="margin:4px 0 6px">${esc(NV.name || 'New business')}</div><p class="small">${esc(NV.pitch || '')}</p></div>
+    <div class="ring" style="--p:${gp}"><span>${gp}%</span></div></div>
+    ${(NV.status || []).length ? `<ul class="bul" style="margin-top:10px">${NV.status.map(s => `<li>${esc(s)}</li>`).join('')}</ul>` : ''}</div>
   ${(B.today || []).length ? `<div class="card"><h2>Today's money moves</h2><div class="list">${B.today.map((b, i) => `<div class="item ${bd[i] ? 'done' : ''}"><button class="check ${bd[i] ? 'on' : ''}" data-act="biz" data-i="${i}"></button><div class="main"><div class="t">${esc(b)}</div></div></div>`).join('')}</div></div>` : ''}
-  <div class="card"><h2>Key dates</h2><div class="list">${(B.keyDates || []).map(k => { const t = new Date(k.date + 'T09:00:00+08:00').getTime(); const d = Math.ceil((t - now) / DAY); return `<div class="item"><div class="main"><div class="row between"><div class="t">${esc(k.label)}</div><span class="pill ${d <= 3 ? 'warn' : 'acc'}">${d < 0 ? 'done' : d === 0 ? 'today' : d + 'd'}</span></div><div class="m">${dayName(t)}${k.end ? ' to ' + fmt(new Date(k.end + 'T09:00:00+08:00').getTime(), { day: 'numeric', month: 'short' }) : ''}</div></div></div>`; }).join('')}</div></div>
-  <div class="card"><h2>Tasks</h2><div class="list">${tasks.map(todoRow).join('') || '<div class="empty">No open tasks</div>'}</div></div>
-  <div class="card"><h2>Where it stands</h2><ul class="bul">${(B.status || []).map(s => `<li>${esc(s)}</li>`).join('')}${B.note ? `<li>${esc(B.note)}</li>` : ''}</ul>${B.team ? `<div class="small dim" style="margin-top:8px">Team: ${esc(B.team)}</div>` : ''}</div>
-  ${D.shopify ? `<div class="card"><h2>Fennly (Shopify) <a class="small muted" href="${esc(D.shopify.admin || '#')}" target="_blank" rel="noopener">admin ↗</a></h2><div class="row" style="gap:22px"><div><div class="tag">Orders 7d</div><div style="font-size:22px;font-weight:750">${D.shopify.orders7 ?? '–'}</div></div><div><div class="tag">Sales 7d</div><div style="font-size:22px;font-weight:750">${D.shopify.revenue7 != null ? D.shopify.revenue7 + ' ' + (D.shopify.currency || '') : '–'}</div></div><div><div class="tag">All time</div><div style="font-size:22px;font-weight:750">${D.shopify.orders ?? '–'}</div></div></div>${D.shopify.note ? `<div class="small muted" style="margin-top:8px">${esc(D.shopify.note)}</div>` : ''}</div>` : ''}
-  ${ideas.length ? `<div class="sec">Ideas</div><div class="ideas">${ideas.map(ideaCard).join('')}</div>` : ''}
-  ${(B.links || []).length ? `<div class="small" style="text-align:center">${B.links.map(l => `<a class="muted" href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.label)} ↗</a>`).join(' · ')}</div>` : ''}`;
+  ${tNew.length ? `<div class="card"><h2>Next steps</h2><div class="list">${tNew.map(todoRow).join('')}</div></div>` : ''}
+  ${niches.length ? `<div class="sec">Niche shortlist (AI-agent run)</div><div class="ideas">${niches.map(ideaCard).join('')}</div>` : ''}
+  <div class="sec">Fennly</div>
+  <div class="card"><h2>${esc(F.name || 'Fennly')} ${SH ? `<a class="small muted" href="${esc(SH.admin || '#')}" target="_blank" rel="noopener">admin ↗</a>` : ''}</h2>${F.pitch ? `<p class="small">${esc(F.pitch)}</p>` : ''}
+    ${SH ? `<div class="row" style="gap:22px;margin:8px 0"><div><div class="tag">Orders 7d</div><div style="font-size:22px;font-weight:750">${SH.orders7 ?? '–'}</div></div><div><div class="tag">Sales 7d</div><div style="font-size:22px;font-weight:750">${SH.revenue7 != null ? SH.revenue7 + ' ' + (SH.currency || '') : '–'}</div></div><div><div class="tag">All time</div><div style="font-size:22px;font-weight:750">${SH.orders ?? '–'}</div></div></div>` : ''}
+    ${(F.status || []).length ? `<ul class="bul">${F.status.map(s => `<li>${esc(s)}</li>`).join('')}</ul>` : ''}
+    ${(F.keyDates || []).length ? `<div class="list" style="margin-top:8px">${dates(F.keyDates)}</div>` : ''}
+    ${tFen.length ? `<div class="list" style="margin-top:8px">${tFen.map(todoRow).join('')}</div>` : ''}</div>
+  <div class="sec">${esc(B.name || 'AAIEL')} (side project)</div>
+  <div class="card"><h2>${esc(B.name || 'AAIEL')} <span class="small muted">${esc(B.role || '')}</span></h2><p class="small">${esc(B.pitch || '')}</p>
+    <div class="list" style="margin-top:8px">${dates(B.keyDates)}</div>
+    ${tAa.length ? `<div class="list" style="margin-top:8px">${tAa.map(todoRow).join('')}</div>` : ''}
+    <ul class="bul" style="margin-top:8px">${(B.status || []).map(s => `<li>${esc(s)}</li>`).join('')}${B.note ? `<li>${esc(B.note)}</li>` : ''}</ul>${B.team ? `<div class="small dim" style="margin-top:8px">Team: ${esc(B.team)}</div>` : ''}
+    ${(B.links || []).length ? `<div class="small" style="margin-top:8px">${B.links.map(l => `<a class="muted" href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.label)} ↗</a>`).join(' · ')}</div>` : ''}</div>`;
 };
 
 V.goals = () => D.goals.map(g => {
