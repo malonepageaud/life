@@ -1,0 +1,259 @@
+'use strict';
+// Wayne pack: cinematic briefing, Batcave night mode, Command Center, better voice, haptics, Life Index,
+// dossiers (LinkedIn), missions, luxury sounds, DND, weekly report, gold particles, "Hey Jarvis".
+(function () {
+  const sgH = () => sgParts(Date.now()).h;
+
+  // ---------- 5. haptics (iOS 18 switch trick + Android vibrate) ----------
+  let hapEl = null;
+  function hap(kind = 'light') {
+    if (!setting('sounds', true)) return;
+    const pulses = kind === 'success' ? 2 : kind === 'alert' ? 3 : 1;
+    try { if (navigator.vibrate) { navigator.vibrate(kind === 'success' ? [12, 60, 18] : kind === 'alert' ? [20, 50, 20, 50, 30] : 10); return; } } catch { }
+    try {
+      if (!hapEl) { hapEl = document.createElement('label'); hapEl.style.cssText = 'position:fixed;left:-99px;top:0;opacity:0'; hapEl.innerHTML = '<input type="checkbox" switch>'; document.body.appendChild(hapEl); }
+      for (let i = 0; i < pulses; i++) setTimeout(() => hapEl.click(), i * 90);
+    } catch { }
+  }
+  window.hap = hap;
+
+  // ---------- 10. luxury sounds (FM chime) ----------
+  let ac = null;
+  function chime(notes = [880, 1318], dur = 0.5, vol = 0.05) {
+    if (!setting('sounds', true)) return;
+    try {
+      ac ||= new (window.AudioContext || window.webkitAudioContext)();
+      notes.forEach((f, i) => {
+        const t0 = ac.currentTime + i * 0.09;
+        const car = ac.createOscillator(), mod = ac.createOscillator(), mg = ac.createGain(), g = ac.createGain();
+        car.type = 'sine'; car.frequency.value = f; mod.type = 'sine'; mod.frequency.value = f * 2.76; mg.gain.value = f * 0.9;
+        mod.connect(mg); mg.connect(car.frequency); car.connect(g); g.connect(ac.destination);
+        g.gain.setValueAtTime(0.0001, t0); g.gain.exponentialRampToValueAtTime(vol, t0 + 0.01); g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+        mg.gain.exponentialRampToValueAtTime(1, t0 + dur);
+        car.start(t0); mod.start(t0); car.stop(t0 + dur + 0.05); mod.stop(t0 + dur + 0.05);
+      });
+    } catch { }
+  }
+  let muteUntil = 0;
+  beep = function (f = 880, d = 0.06) { if (Date.now() < muteUntil) return; chime([f], Math.max(0.18, d * 3), 0.035); };
+  window.chime = chime;
+  window.addEventListener('click', (e) => {
+    const a = e.target.closest('[data-act]')?.dataset.act; if (!a) return; muteUntil = Date.now() + 120;
+    if (/^(todo|focus|biz|ex|ms|habit|pack|shop|rev|rate)$/.test(a)) { const on = !e.target.closest('.check')?.classList.contains('on'); if (on) { chime([1046, 1568], 0.45, 0.04); hap('success'); } else hap(); }
+    else if (/send|orb|askopt|qchip/.test(a)) hap();
+  }, true);
+  let opened = false; document.addEventListener('pointerdown', () => { if (opened) return; opened = true; chime([523, 784, 1046], 0.7, 0.03); }, { once: true, capture: true });
+
+  // ---------- 4. better Jarvis voice ----------
+  speak = function (text) {
+    if (!voiceOn() || !('speechSynthesis' in window) || !text) return;
+    try {
+      const vs = speechSynthesis.getVoices();
+      const pick = vs.find(v => /Daniel.*(Enhanced|Premium)/i.test(v.name)) || vs.find(v => /Arthur|Jamie.*Enhanced|Oliver/i.test(v.name) && /en-GB/i.test(v.lang)) || vs.find(v => /Daniel/i.test(v.name)) || vs.find(v => /en-GB/i.test(v.lang)) || null;
+      const chunks = String(text).match(/[^.!?]+[.!?]*/g) || [text];
+      speechSynthesis.cancel();
+      for (const c of chunks) { const u = new SpeechSynthesisUtterance(c.trim()); u.voice = pick; u.rate = 1.0; u.pitch = 0.92; speechSynthesis.speak(u); }
+    } catch { }
+  };
+
+  // ---------- 6. Life Index ----------
+  function lifeIndex() {
+    const g = D.grades.average ? Math.min(1, D.grades.average / 18) : 0.5;
+    let gym = 0; for (let w = 0; w < 4; w++) gym += Math.min(D.sports.weeklyTarget, sportsWeek(Date.now() - w * 7 * DAY).done); gym /= 4 * (D.sports.weeklyTarget || 6);
+    const money = ((D.goals || []).find(x => x.id === 'money')?.current || 0) / 100;
+    const st = (D.study || []).map(s => mastery(s.key, s.count || 30)); const study = st.length ? st.reduce((a, b) => a + b, 0) / st.length / 100 : 0;
+    const ppl = peopleAll(); const overdue = ppl.filter(p => p.next && p.next < today()).length; const net = Math.max(0, 1 - overdue / Math.max(1, ppl.length)) * 0.7 + Math.min(1, ((D.linkedin?.inbox || []).filter(c => !c.fromMe).length) / 5) * 0.3;
+    const v = Math.round(100 * (0.30 * g + 0.25 * gym + 0.20 * money + 0.15 * study + 0.10 * net));
+    const hist = (S.lifeIdx ||= {}); hist[today()] = v;
+    return { v, parts: { School: Math.round(g * 100), Body: Math.round(gym * 100), Business: Math.round(money * 100), Study: Math.round(study * 100), Network: Math.round(net * 100) }, hist };
+  }
+  window.lifeIndex = lifeIndex;
+  function idxCard() {
+    const L = lifeIndex(); const days = Object.keys(L.hist).sort().slice(-30); const pts = days.map(d => ({ t: new Date(d).getTime(), v: L.hist[d] }));
+    const prevV = days.length > 1 ? L.hist[days[days.length - 2]] : L.v; const delta = L.v - prevV;
+    return `<a class="card idx" href="#home/command"><div class="row between"><div><div class="tag">Life Index</div><div class="idxv">${L.v}<span>/100</span> <em style="color:${delta >= 0 ? 'var(--ok)' : 'var(--bad)'}">${delta >= 0 ? '▲' : '▼'} ${Math.abs(delta)}</em></div></div><div class="idxbars">${Object.entries(L.parts).map(([k, v]) => `<div title="${k}"><i style="height:${Math.max(6, v)}%"></i><span>${k[0]}</span></div>`).join('')}</div></div>${pts.length > 1 ? spark(pts) : '<div class="small dim">Your index builds a curve day by day.</div>'}</a>`;
+  }
+
+  // ---------- 3. Command Center ----------
+  V.command = () => {
+    const L = lifeIndex(), now = Date.now();
+    const li = (D.linkedin?.inbox || []).filter(c => c.unread && !c.fromMe).length;
+    const fu = peopleAll().filter(p => p.next && p.next <= today()).length;
+    const nodes = [
+      ['School', D.grades.average != null ? D.grades.average.toFixed(1) : '–', 'avg /20', '#school/grades', 'var(--c-school)'],
+      ['Body', `${sportsWeek().done}/${D.sports.weeklyTarget}`, 'gym this week', '#life/sports', 'var(--c-life)'],
+      ['Business', `${(D.goals || []).find(x => x.id === 'money')?.current || 0}%`, 'mission', '#work/business', 'var(--c-work)'],
+      ['Network', `${li + fu}`, li ? 'unread LinkedIn' : 'follow-ups', '#work/people', 'var(--c-home)'],
+    ];
+    const ex = (D.exams || [])[0], nx = D.calendar.events.find(e => !e.allDay && e.end > now);
+    return `<div class="cc"><div class="cc-ring"></div><div class="cc-core">${reactor(L.v, 'INDEX')}</div>${nodes.map((n, i) => `<a class="cc-node n${i}" href="${n[3]}" style="--nc:${n[4]}"><b>${esc(n[1])}</b><span>${esc(n[0])}</span><em>${esc(n[2])}</em></a>`).join('')}</div>
+    <div class="card"><h2>Status</h2>
+      <div class="chartrow"><span>Next</span><span class="small dim">${nx ? hm(nx.start) : ''}</span><b>${nx ? esc(nx.title.slice(0, 26)) : '–'}</b></div>
+      <div class="chartrow"><span>Next exam</span><span class="small dim">${ex ? Math.ceil((ex.t - now) / DAY) + 'd' : ''}</span><b>${ex ? esc(ex.course.split(' (')[0].split(':')[0].slice(0, 22)) : '–'}</b></div>
+      <div class="chartrow"><span>Weekly score</span><span></span><b>${weekScore()}/100</b></div>
+      <div class="chartrow"><span>Systems</span><span></span><b style="color:${Date.now() - D.updatedAt > 75 * 60000 ? 'var(--bad)' : 'var(--ok)'}">${Date.now() - D.updatedAt > 75 * 60000 ? 'MAC OFFLINE' : 'ONLINE'}</b></div></div>
+    <button class="btn pri" style="width:100%;justify-content:center;padding:14px" data-act="cine">▶ Briefing</button>`;
+  };
+
+  // ---------- 1. cinematic briefing ----------
+  function cineLines() {
+    const now = Date.now(), f = (D.briefing.focus || []).slice(0, 3), nx = D.calendar.events.find(e => !e.allDay && e.start > now && e.start < sgMidnight() + DAY + 6 * 3600000);
+    const w = JSON.parse(localStorage.getItem('life:wx') || 'null'); const ex = (D.exams || [])[0];
+    const lines = [`${greetWord()}, Mr. Pageaud.`];
+    if (w) lines.push(`Singapore, ${w.temp} degrees. ${w.txt}.`);
+    if (D.briefing.headline) lines.push(D.briefing.headline);
+    if (nx) lines.push(`First up: ${nx.title} at ${hm(nx.start)}.`);
+    f.forEach((x, i) => lines.push(`Priority ${i + 1}: ${x}.`));
+    if (ex) lines.push(`${ex.course.split(' (')[0].split(':')[0]} exam in ${Math.ceil((ex.t - now) / DAY)} days.`);
+    lines.push('Systems green. Have a productive day, sir.');
+    return lines;
+  }
+  function cinematic(auto) {
+    const lines = cineLines();
+    const el = document.createElement('div'); el.className = 'cine';
+    el.innerHTML = `<div class="cine-top"><span>Pageaud Industries</span><span>${fmt(Date.now(), { weekday: 'long', day: 'numeric', month: 'long' })}</span></div><div class="cine-core">${reactor(lifeIndex().v, 'INDEX')}</div><div class="cine-lines"></div>${auto ? '<button class="btn pri cine-go">Begin briefing</button>' : ''}<button class="cine-x">Skip</button>`;
+    document.body.appendChild(el);
+    const close = () => { speechSynthesis?.cancel(); el.classList.add('out'); setTimeout(() => el.remove(), 400); };
+    el.querySelector('.cine-x').onclick = close;
+    const play = () => {
+      el.querySelector('.cine-go')?.remove(); chime([523, 784, 1046], 0.8, 0.035); hap('success');
+      speak(lines.join(' '));
+      const box = el.querySelector('.cine-lines'); let i = 0;
+      const step = () => { if (!document.body.contains(el)) return; if (i < lines.length) { box.insertAdjacentHTML('beforeend', `<div>${esc(lines[i])}</div>`); box.scrollTop = box.scrollHeight; i++; setTimeout(step, Math.max(1400, lines[i - 1].length * 62)); } else setTimeout(close, 2600); };
+      step();
+    };
+    if (auto) el.querySelector('.cine-go').onclick = play; else play();
+  }
+  ACT.cine = () => { cinematic(false); return false; };
+
+  // ---------- 2. Batcave night mode ----------
+  const isNight = () => { const m = setting('night', 'auto'); const h = sgH(); return m === 'on' || (m === 'auto' && (h >= 22 || h < 5)); };
+  function applyNight() { document.body.classList.toggle('night', isNight() && !S._nightOff); }
+  function nightView() {
+    const t0 = sgMidnight() + (sgH() >= 5 ? DAY : 0), t1 = t0 + DAY;
+    const ev = D.calendar.events.filter(e => !e.allDay && e.start >= t0 && e.start < t1).slice(0, 5);
+    const top = todoItems().filter(t => !isDone(t.id)).sort((a, b) => (a.priority - b.priority) || ((a.due ?? 9e15) - (b.due ?? 9e15))).slice(0, 3);
+    const first = ev[0];
+    return `<div class="card hero bat"><div class="tag">Batcave · night mode</div><div class="hl">Tomorrow, ${fmt(t0 + 3600000, { weekday: 'long' })}</div><div class="small" style="color:#e9c9c9">${first ? `First: ${esc(first.title)} at ${hm(first.start)}. ` : 'Nothing early. '}Lights out by 1am.</div></div>
+    <div class="card"><h2>Tomorrow</h2><div class="tl">${ev.map(e => `<div class="item"><div class="time">${hm(e.start)}</div><div class="main"><div class="t">${esc(e.title)}</div></div></div>`).join('') || '<div class="empty">Free day</div>'}</div></div>
+    <div class="card"><h2>Top 3</h2><div class="list">${top.map(todoRow).join('') || '<div class="empty">All clear</div>'}</div></div>
+    <button class="btn" style="width:100%;justify-content:center" data-act="nightoff">Full dashboard</button>`;
+  }
+  ACT.nightoff = () => { S._nightOff = true; applyNight(); };
+  setInterval(() => { const before = document.body.classList.contains('night'); applyNight(); if (before !== document.body.classList.contains('night') && route().g === 'home') render(); }, 60000);
+
+  // ---------- 7. dossiers (LinkedIn) ----------
+  V.people = () => {
+    const L = D.linkedin || {}, inbox = L.inbox || [];
+    const ppl = peopleAll();
+    const conv = inbox.slice(0, 8);
+    return `<div class="card"><h2>LinkedIn <span class="small muted">${inbox.filter(c => c.unread && !c.fromMe).length} unread</span></h2>${conv.map(c => `<a class="item" href="${esc(c.url)}" target="_blank" rel="noopener"><span class="cdot" style="background:${c.unread && !c.fromMe ? 'var(--c-home)' : 'transparent'};color:var(--c-home)"></span><div class="main"><div class="t">${esc(c.name)}</div><div class="m">${c.fromMe ? 'You: ' : ''}${esc(c.text)}</div></div><span class="small dim">${c.time ? rel(new Date(c.time).getTime()) : ''}</span></a>`).join('') || '<div class="empty">No conversations synced yet</div>'}</div>
+    <div class="sec">Dossiers</div>
+    ${ppl.map((p, i) => { const li = (L.people || {})[p.name] || {}; const last = inbox.find(c => c.name && p.name && c.name.toLowerCase().includes(p.name.split(' ')[0].toLowerCase())); return `<div class="card dossier"><div class="row">${li.photo ? `<img class="dphoto" src="${esc(li.photo)}" alt="" loading="lazy" referrerpolicy="no-referrer">` : `<div class="dphoto dinit">${esc(p.name.split(' ').map(x => x[0]).join('').slice(0, 2))}</div>`}<div style="flex:1;min-width:0"><div class="dname">${esc(p.name)}</div><div class="small muted dclamp">${esc(li.headline || p.role || '')}</div></div>${li.url ? `<a class="mini" href="${esc(li.url)}" target="_blank" rel="noopener">in</a>` : ''}</div>
+      <div class="dgrid"><div><span>Role</span><b>${esc(p.role || '–')}</b></div><div><span>Next</span><b style="color:${p.next && p.next <= today() ? 'var(--warn)' : 'inherit'}">${esc(p.next || '–')}</b></div></div>
+      ${last ? `<div class="small dim dclamp" style="margin-top:8px">Last: ${esc(last.text)}</div>` : ''}${p.notes ? `<div class="small dclamp" style="margin-top:6px;color:#e8dcc0">${esc(p.notes)}</div>` : ''}
+      <details><summary>Edit ▾</summary><div class="addrow" style="margin-top:8px"><input id="pn${i}" value="${esc(p.notes || '')}" placeholder="Notes"></div><div class="addrow"><input id="pd${i}" type="date" value="${esc(p.next || '')}"><input id="pb${i}" placeholder="Birthday MM-DD" value="${esc(p.birthday || '')}"><button class="btn pri" data-act="psave" data-i="${i}" data-name="${esc(p.name)}">Save</button></div></details></div>`; }).join('')}
+    <div class="card"><h2>Add a dossier</h2><div class="addrow"><input id="npn" placeholder="Name"><input id="npr" placeholder="Role"><button class="btn pri" data-act="padd">+</button></div></div>`;
+  };
+  GROUPS.work.segs = GROUPS.work.segs.map(s => s[0] === 'people' ? ['people', 'Network'] : s);
+
+  // ---------- 8. missions ----------
+  V.goals = () => (D.goals || []).map((g, gi) => {
+    const p = goalProgress(g); const pc = p == null ? 0 : Math.round(p * 100); const ms = S.ms[g.id] || {};
+    const done = g.milestones?.length && g.milestones.every((_, i) => ms[i]);
+    if (done && !(S.missionDone ||= {})[g.id]) { S.missionDone[g.id] = Date.now(); save(); setTimeout(() => accomplished(g.title), 300); }
+    return `<div class="card mission ${done ? 'complete' : ''}"><div class="row between"><div class="tag">Mission ${String(gi + 1).padStart(2, '0')} · ${esc(g.area || '')}</div><span class="pill ${done ? 'ok' : 'acc'}">${done ? 'COMPLETE' : 'ACTIVE'}</span></div>
+      <div class="row" style="margin-top:10px"><div class="ring" style="--p:${pc}"><span>${pc}%</span></div><div style="flex:1;min-width:0"><div class="mtitle">${esc(g.title)}</div><div class="small muted">${g.daysLeft >= 0 ? g.daysLeft + ' days left' : 'deadline passed'}</div></div></div>
+      ${g.nextStep ? `<div class="mnext"><span>Next</span> ${esc(g.nextStep)}</div>` : ''}
+      ${g.milestones?.length ? `<div class="list" style="margin-top:6px">${g.milestones.map((m, i) => `<div class="item ${ms[i] ? 'done' : ''}"><button class="check ${ms[i] ? 'on' : ''}" data-act="ms" data-g="${esc(g.id)}" data-i="${i}"></button><div class="main"><div class="t" style="font-weight:500">${esc(m)}</div></div></div>`).join('')}</div>` : ''}</div>`;
+  }).join('');
+  function accomplished(title) { chime([523, 659, 784, 1046], 1.1, 0.05); hap('success'); const el = document.createElement('div'); el.className = 'cine accomplished'; el.innerHTML = `<div class="cine-core">${reactor(100, 'DONE')}</div><div class="welcome">Mission accomplished</div><div class="small" style="color:#e8dcc0;text-align:center;max-width:300px">${esc(title)}</div>`; document.body.appendChild(el); speak('Mission accomplished, sir.'); el.onclick = () => el.remove(); setTimeout(() => { el.classList.add('out'); setTimeout(() => el.remove(), 400); }, 3200); }
+
+  // ---------- 11. Do not disturb, sir ----------
+  const origFocusGo = ACT.focusgo, origFocusStop = ACT.focusstop;
+  const dndPost = (until) => postMsg({ id: 'dnd' + Date.now(), t: Date.now(), time: new Date().toISOString(), text: `[dnd] until=${until}` }).catch(() => { });
+  ACT.focusgo = (el) => { origFocusGo(el); dndPost(S.focusTimer.end); toast(`Do not disturb, sir. Urgent alerts only until ${hm(S.focusTimer.end)}.`); speak('Do not disturb engaged.'); };
+  ACT.focusstop = (el) => { origFocusStop(el); dndPost(0); toast('Do not disturb off'); };
+
+  // ---------- 12. weekly report ----------
+  V.report = () => {
+    const ws = weekStart(), s = weekScore(), last = weekScore(Date.now() - 7 * DAY);
+    const days = [...Array(7)].map((_, i) => dayKey(ws + i * DAY + 3600000));
+    const gym = sportsWeek().done; let qs = 0; for (const k in SST()) for (const x of SST()[k].sessions || []) if (x.t >= ws) qs += x.n;
+    const md = days.reduce((a, k) => a + Object.values(S.focus?.[k] || {}).filter(Boolean).length, 0);
+    const todosDone = Object.keys(S.todosDone || {}).length;
+    const fh = Math.round(focusWeekMin() / 6) / 10;
+    const wins = [], slips = [];
+    if (gym) wins.push(`${gym} gym session${gym > 1 ? 's' : ''}`); else slips.push('No gym logged yet');
+    if (qs) wins.push(`${qs} study questions`); else slips.push('No study questions');
+    if (md) wins.push(`${md} must-dos done`); if (fh) wins.push(`${fh}h deep focus`);
+    if (gym < D.sports.weeklyTarget) slips.push(`${D.sports.weeklyTarget - gym} gym sessions short of target`);
+    const nextEx = (D.exams || []).filter(e => e.t - Date.now() < 14 * DAY).slice(0, 3);
+    const text = `Weekly report. Score ${s} out of 100, ${s >= last ? 'up' : 'down'} ${Math.abs(s - last)} from last week. Wins: ${wins.join(', ') || 'none yet'}. To fix: ${slips.join(', ') || 'nothing major'}. ${nextEx.length ? 'Coming up: ' + nextEx.map(e => e.course.split(' (')[0].split(':')[0]).join(', ') + '.' : ''}`;
+    S._reportText = text;
+    return `<div class="card hero"><div class="row between"><div><div class="tag">Week of ${fmt(ws + 3600000, { day: 'numeric', month: 'short' })}</div><div class="idxv">${s}<span>/100</span> <em style="color:${s >= last ? 'var(--ok)' : 'var(--bad)'}">${s >= last ? '▲' : '▼'} ${Math.abs(s - last)}</em></div></div><div class="ring big" style="--p:${s}"><span>${s}</span></div></div><button class="btn pri" style="margin-top:12px" data-act="playreport">▶ Play report</button></div>
+    <div class="card"><h2>Wins</h2><ul class="bul">${wins.map(w => `<li>${esc(w)}</li>`).join('') || '<li>Nothing logged yet this week</li>'}</ul></div>
+    <div class="card"><h2>To fix</h2><ul class="bul">${slips.map(w => `<li>${esc(w)}</li>`).join('') || '<li>Clean week</li>'}</ul></div>
+    ${nextEx.length ? `<div class="card"><h2>Next 14 days</h2>${nextEx.map(e => `<div class="chartrow"><span>${esc(e.course.split(' (')[0].split(':')[0])}</span><span></span><b>${Math.ceil((e.t - Date.now()) / DAY)}d</b></div>`).join('')}</div>` : ''}
+    ${idxCard()}`;
+  };
+  ACT.playreport = () => { speak(S._reportText || ''); return false; };
+  GROUPS.home.segs = [['home', 'Today'], ['command', 'Command'], ['todo', 'To-do'], ['report', 'Report']];
+  for (const [g, v] of Object.entries(GROUPS)) for (const [s] of v.segs) SEG2GROUP[s] = g;
+
+  // ---------- home wiring: night mode, Life Index card, briefing button ----------
+  const prevToday = V.today;
+  V.today = () => {
+    applyNight();
+    if (document.body.classList.contains('night')) return nightView();
+    let h = prevToday();
+    h = h.replace('<div class="weather" id="wx">', '<button class="cinebtn" data-act="cine">▶ Briefing</button><div class="weather" id="wx">');
+    const cut = h.indexOf('<div class="telemetry">'); const end = cut >= 0 ? h.indexOf('</a></div>', cut) : -1;
+    if (end > 0) { const pos = end + '</a></div>'.length; h = h.slice(0, pos) + idxCard() + h.slice(pos); }
+    return h;
+  };
+
+  // ---------- 13. gold particles ----------
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const layer = document.createElement('div'); layer.className = 'particles';
+    layer.innerHTML = [...Array(18)].map((_, i) => `<i style="left:${Math.round(Math.random() * 100)}%;animation-duration:${18 + Math.round(Math.random() * 22)}s;animation-delay:-${Math.round(Math.random() * 30)}s;width:${2 + (i % 3)}px;height:${2 + (i % 3)}px"></i>`).join('');
+    document.body.prepend(layer);
+  }
+
+  // ---------- 14. "Hey Jarvis" (while the app is open) ----------
+  let wake = null, wakeOn = false, capture = false, capText = '', capTimer = null;
+  function startWake() {
+    if (!SR || wakeOn || !setting('wake', false)) return;
+    try {
+      wake = new SR(); wake.lang = lang || 'en-US'; wake.continuous = true; wake.interimResults = true; wakeOn = true;
+      wake.onresult = (e) => {
+        const r = e.results[e.results.length - 1]; const t = r[0].transcript.toLowerCase();
+        if (!capture && /\bjarvis\b/.test(t)) { capture = true; capText = ''; openSheet(false); chime([880, 1318], 0.35, 0.04); hap(); }
+        if (capture) { capText = t.split(/\bjarvis\b/).pop().replace(/^[\s,.]+/, ''); $('#msg').value = capText; clearTimeout(capTimer); capTimer = setTimeout(() => { if (capText.trim().length > 2) { sendText(capText.trim()); $('#msg').value = ''; chime([1046, 1568], 0.4, 0.04); } capture = false; }, 1600); }
+      };
+      wake.onend = () => { wakeOn = false; if (setting('wake', false) && document.visibilityState === 'visible' && !listening) setTimeout(startWake, 400); };
+      wake.onerror = () => { wakeOn = false; };
+      wake.start();
+    } catch { wakeOn = false; }
+  }
+  function stopWake() { try { wake && wake.stop(); } catch { } wakeOn = false; }
+  document.addEventListener('visibilitychange', () => document.visibilityState === 'visible' ? startWake() : stopWake());
+  ACT.wake = () => { (S.set ||= {}).wake = !setting('wake', false); save(); if (setting('wake', false)) { startWake(); toast('Say "Jarvis" followed by your request'); } else { stopWake(); toast('Hey Jarvis off'); } };
+  ACT.night = (el) => { (S.set ||= {}).night = el.dataset.v; S._nightOff = false; applyNight(); };
+
+  // system panel additions
+  const prevSystem = V.system;
+  V.system = () => prevSystem().replace('<div class="card"><h2>Home layout</h2>', `<div class="card"><h2>J.A.R.V.I.S.</h2>
+    <div class="chartrow"><span>"Hey Jarvis" (app open)</span><span class="small dim">${SR ? '' : 'not supported'}</span><button class="btn ${setting('wake', false) ? 'pri' : ''}" data-act="wake">${setting('wake', false) ? 'on' : 'off'}</button></div>
+    <div class="chartrow"><span>Night mode (Batcave)</span><span></span><span class="row" style="gap:6px">${['auto', 'on', 'off'].map(v => `<button class="btn ${setting('night', 'auto') === v ? 'pri' : ''}" data-act="night" data-v="${v}">${v}</button>`).join('')}</span></div>
+    <div class="chartrow"><span>Voice</span><span class="small dim">best British voice on your phone</span><button class="btn" data-act="cine">test</button></div>
+    <div class="small dim" style="margin-top:6px">For a cinema-grade Jarvis voice, add an ElevenLabs API key (ask Jarvis).</div></div><div class="card"><h2>Home layout</h2>`);
+
+  // ---------- auto cinematic briefing: first open before 11am ----------
+  setTimeout(() => (() => {
+    if (!D || !setting('brief', true)) return; const h = sgH();
+    if (h >= 5 && h < 11 && S.cineDay !== today()) { S.cineDay = today(); S.briefedDay = today(); save(); cinematic(true); }
+  })(), 2600);
+  setTimeout(startWake, 2500);
+  if (typeof D !== 'undefined' && D) render();
+})();

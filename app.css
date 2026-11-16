@@ -573,3 +573,60 @@ main{padding-left:18px;padding-right:18px}
 .ev .small.dim{display:none}
 /* calendar list breathing */
 [data-view=calendar] .tl .item{padding:12px 0}
+
+/* ================= v10 WAYNE PACK ================= */
+/* gold particles */
+.particles{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.particles i{position:absolute;bottom:-10px;border-radius:50%;background:radial-gradient(circle,#fff1c1,#d9b45a 60%,transparent 70%);opacity:.0;animation:rise linear infinite}
+@keyframes rise{0%{transform:translateY(0) translateX(0);opacity:0}10%{opacity:.55}90%{opacity:.35}100%{transform:translateY(-110vh) translateX(30px);opacity:0}}
+.shell{position:relative;z-index:1}
+/* life index */
+.idx{display:block}
+.idxv{font-family:var(--hud);font-weight:700;font-size:38px;line-height:1;background:var(--metal);-webkit-background-clip:text;background-clip:text;color:transparent}
+.idxv span{font-size:16px;opacity:.7}.idxv em{font-style:normal;font-size:14px;-webkit-text-fill-color:currentColor}
+.idxbars{display:flex;gap:6px;height:56px;align-items:flex-end}
+.idxbars div{display:flex;flex-direction:column;align-items:center;gap:3px;height:100%;justify-content:flex-end;width:14px}
+.idxbars i{display:block;width:10px;border-radius:6px;background:linear-gradient(180deg,#fff1c1,#d9b45a)}
+.idxbars span{font-family:var(--hud);font-size:9px;color:var(--mut)}
+/* command center */
+.cc{position:relative;height:380px;margin:4px 0 18px}
+.cc-ring{position:absolute;left:50%;top:50%;width:300px;height:300px;margin:-150px 0 0 -150px;border-radius:50%;border:1px dashed rgba(217,180,90,.35);animation:spin 60s linear infinite}
+.cc-core{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%)}
+.cc-core .reactor{width:170px;height:170px}
+.cc-node{position:absolute;width:110px;height:110px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;background:radial-gradient(circle at 30% 25%,color-mix(in srgb,var(--nc) 30%,#14121a),#0a0a0e 70%);border:1px solid color-mix(in srgb,var(--nc) 60%,transparent);box-shadow:0 0 24px -6px var(--nc);transition:transform .15s}
+.cc-node:active{transform:scale(.95)}
+.cc-node b{font-family:var(--hud);font-size:24px;font-weight:700;color:#fff}
+.cc-node span{font-family:var(--hud);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--nc)}
+.cc-node em{font-style:normal;font-size:10px;color:var(--mut)}
+.cc-node.n0{left:0;top:0}.cc-node.n1{right:0;top:0}.cc-node.n2{left:0;bottom:0}.cc-node.n3{right:0;bottom:0}
+/* cinematic briefing */
+.cine{position:fixed;inset:0;z-index:120;background:radial-gradient(600px 400px at 50% 35%,rgba(90,200,255,.12),transparent 70%),radial-gradient(500px 300px at 50% 100%,rgba(217,180,90,.12),transparent 70%),#020203;display:flex;flex-direction:column;align-items:center;padding:calc(var(--safe-t) + 18px) 22px calc(var(--safe-b) + 22px);gap:18px;animation:fadein .3s ease-out;transition:opacity .35s}
+.cine.out{opacity:0}
+.cine-top{width:100%;display:flex;justify-content:space-between;font-family:var(--hud);font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:#bfae84}
+.cine-core .reactor{width:190px;height:190px}
+.cine-lines{flex:1;width:100%;max-width:420px;overflow:auto;display:flex;flex-direction:column;gap:12px}
+.cine-lines div{font-family:var(--hud);font-size:21px;font-weight:600;line-height:1.3;color:#f4ead0;animation:enter .5s ease-out both}
+.cine-lines div:first-child{background:var(--metal);-webkit-background-clip:text;background-clip:text;color:transparent;font-size:26px;font-weight:700}
+.cine-go{padding:14px 26px!important;font-size:15px!important}
+.cine-x{position:absolute;top:calc(var(--safe-t) + 46px);right:18px;font-family:var(--hud);letter-spacing:.2em;font-size:11px;color:var(--mut);text-transform:uppercase}
+.cinebtn{margin:4px 0 6px;border:1px solid rgba(217,180,90,.45);border-radius:999px;padding:4px 12px;font-family:var(--hud);font-weight:700;letter-spacing:.14em;font-size:11px;color:var(--gold-hi);background:rgba(217,180,90,.08)}
+.accomplished{justify-content:center}.accomplished .welcome{font-family:var(--hud);font-weight:700;font-size:30px;letter-spacing:.12em;text-transform:uppercase;background:var(--metal);-webkit-background-clip:text;background-clip:text;color:transparent;text-align:center}
+/* night mode: Batcave red */
+body.night{--c-home:#ff4d5e;--c-home2:#8a0f1f;--hub:#ff4d5e;--hub2:#8a0f1f;background:radial-gradient(800px 500px at 50% -10%,rgba(255,40,60,.14),transparent 60%),#050203}
+body.night .particles{display:none}
+body.night .hero.bat{background:radial-gradient(500px 260px at 0% 0%,rgba(255,40,60,.25),transparent 70%),#0c0405;border-color:rgba(255,77,94,.4)}
+body.night .orb{background:radial-gradient(circle,#ffd6da 0%,#ff4d5e 35%,#5a0610 80%);box-shadow:0 0 0 3px #7a1c24,0 0 0 6px #050203,0 0 30px rgba(255,60,80,.6)}
+/* dossiers */
+.dossier .dphoto{width:56px;height:56px;border-radius:18px;object-fit:cover;border:1px solid rgba(217,180,90,.5);flex:none}
+.dinit{display:grid;place-items:center;font-family:var(--hud);font-weight:700;font-size:20px;color:var(--gold-hi);background:rgba(217,180,90,.1)}
+.dname{font-family:var(--hud);font-weight:700;font-size:19px;letter-spacing:.04em}
+.dclamp{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.dgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.dgrid div{background:rgba(255,255,255,.03);border:1px solid rgba(217,180,90,.15);border-radius:14px;padding:8px 10px}
+.dgrid span{display:block;font-family:var(--hud);font-size:10px;letter-spacing:.16em;color:var(--mut);text-transform:uppercase}
+.dgrid b{font-size:14px;font-weight:600}
+/* missions */
+.mission .mtitle{font-family:var(--hud);font-weight:700;font-size:20px;line-height:1.2}
+.mission .mnext{margin-top:12px;padding:10px 12px;border-radius:14px;background:rgba(217,180,90,.08);border:1px solid rgba(217,180,90,.25);font-size:14px}
+.mission .mnext span{font-family:var(--hud);font-size:10px;letter-spacing:.18em;color:var(--gold);text-transform:uppercase;margin-right:6px}
+.mission.complete{border-color:rgba(61,255,176,.45);box-shadow:0 0 30px -12px rgba(61,255,176,.6)}
