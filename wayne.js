@@ -207,6 +207,7 @@
     applyNight();
     if (document.body.classList.contains('night')) return nightView();
     let h = prevToday();
+    h = h.replace('<div class="card hero hud-hero">', F.facecard() + '<div class="card hero hud-hero">');
     h = h.replace('<div class="weather" id="wx">', '<button class="cinebtn" data-act="cine">▶ Briefing</button><div class="weather" id="wx">');
     const cut = h.indexOf('<div class="telemetry">'); const end = cut >= 0 ? h.indexOf('</a></div>', cut) : -1;
     if (end > 0) { const pos = end + '</a></div>'.length; h = h.slice(0, pos) + idxCard() + h.slice(pos); }
@@ -247,7 +248,42 @@
     <div class="chartrow"><span>"Hey Jarvis" (app open)</span><span class="small dim">${SR ? '' : 'not supported'}</span><button class="btn ${setting('wake', false) ? 'pri' : ''}" data-act="wake">${setting('wake', false) ? 'on' : 'off'}</button></div>
     <div class="chartrow"><span>Night mode (Batcave)</span><span></span><span class="row" style="gap:6px">${['auto', 'on', 'off'].map(v => `<button class="btn ${setting('night', 'auto') === v ? 'pri' : ''}" data-act="night" data-v="${v}">${v}</button>`).join('')}</span></div>
     <div class="chartrow"><span>Voice</span><span class="small dim">best British voice on your phone</span><button class="btn" data-act="cine">test</button></div>
-    <div class="small dim" style="margin-top:6px">For a cinema-grade Jarvis voice, add an ElevenLabs API key (ask Jarvis).</div></div><div class="card"><h2>Home layout</h2>`);
+    <div class="small dim" style="margin-top:6px">For a cinema-grade Jarvis voice, add an ElevenLabs API key (ask Jarvis).</div></div>
+    <div class="card"><h2>Backup</h2><div class="chartrow"><span>Last backup</span><span class="small dim">${S.lastSync ? rel(S.lastSync) : 'never'}</span><button class="btn" data-act="backupnow">Back up now</button></div><div class="chartrow"><span>Restore from server</span><span class="small dim">${D.devState?.at ? rel(D.devState.at) : 'no backup yet'}</span><button class="btn" data-act="restore">Restore</button></div><div class="small dim" style="margin-top:6px">Everything you do in the app is backed up encrypted every few minutes and restored automatically after a reinstall.</div></div><div class="card"><h2>Home layout</h2>`);
+
+
+  // ---------- device-state backup + restore (survives reinstalls, syncs devices) ----------
+  const TRANSIENT = ['_liftform', '_nightOff', '_reportText', '_mcat'];
+  const snapshot = () => { const o = {}; for (const k in S) if (!TRANSIENT.includes(k)) o[k] = S[k]; return o; };
+  async function gz(str) { const b = await new Response(new Blob([str]).stream().pipeThrough(new CompressionStream('gzip'))).arrayBuffer(); let s = ''; const u = new Uint8Array(b); for (let i = 0; i < u.length; i += 0x8000) s += String.fromCharCode.apply(null, u.subarray(i, i + 0x8000)); return btoa(s); }
+  async function gunz(b64) { const u = Uint8Array.from(atob(b64), c => c.charCodeAt(0)); return await new Response(new Blob([u]).stream().pipeThrough(new DecompressionStream('gzip'))).text(); }
+  let lastUp = 0, lastHash = '';
+  async function backup(force) {
+    try {
+      const snap = snapshot(); delete snap.lastSync; const str = JSON.stringify(snap); if (!force && str === lastHash) return; if (!force && Date.now() - lastUp < 90000) return;
+      const z = await gz(str); await postMsg({ id: 'st' + Date.now(), t: Date.now(), time: new Date().toISOString(), text: '[state] ' + z });
+      lastHash = str; lastUp = Date.now(); S.lastSync = Date.now(); localStorage.setItem('life:v1', JSON.stringify(S));
+    } catch (e) { console.warn('backup failed', e); }
+  }
+  async function restore(manual) {
+    try {
+      if (!D?.devState?.z) { if (manual) toast('No backup on the server yet'); return false; }
+      const srv = JSON.parse(await gunz(D.devState.z));
+      const isEmpty = (v) => v == null || (typeof v === 'object' && !Array.isArray(v) && !Object.keys(v).length) || (Array.isArray(v) && !v.length);
+      let n = 0;
+      for (const k in srv) { if (TRANSIENT.includes(k)) continue; if (manual || isEmpty(S[k])) { S[k] = srv[k]; n++; } else if (typeof S[k] === 'object' && !Array.isArray(S[k]) && typeof srv[k] === 'object' && !Array.isArray(srv[k])) { S[k] = { ...srv[k], ...S[k] }; n++; } }
+      S.lastSync = Date.now(); save(); applyTheme && applyTheme(); render();
+      if (n) toast(manual ? 'Restored from backup' : 'Your data is back'); return true;
+    } catch (e) { console.warn('restore failed', e); if (manual) toast('Restore failed'); return false; }
+  }
+  ACT.restore = () => { if (confirm('Replace this device data with the server backup?')) restore(true); return false; };
+  ACT.backupnow = () => { backup(true).then(() => toast('Backed up')); return false; };
+  setTimeout(async () => { if (!S.lastSync && D?.devState?.z) await restore(false); setInterval(() => { if (document.visibilityState === 'visible') backup(false); }, 30000); }, 3500);
+  document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') backup(false); });
+
+  // ---------- Face ID: easy to turn back on ----------
+  F.facecard = () => (setting('faceid', false) || S._faceDismiss || !window.PublicKeyCredential) ? '' : `<div class="card pushcard"><div class="row between"><div><div style="font-weight:700">Face ID lock</div><div class="small muted">Lock Jarvis behind Face ID, like before.</div></div><div class="row" style="gap:6px"><button class="btn" data-act="facedismiss">Later</button><button class="btn pri" data-act="faceid">Enable</button></div></div></div>`;
+  ACT.facedismiss = () => { S._faceDismiss = true; };
 
   // ---------- auto cinematic briefing: first open before 11am ----------
   setTimeout(() => (() => {
