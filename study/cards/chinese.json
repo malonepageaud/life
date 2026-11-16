@@ -1,0 +1,828 @@
+[
+ {
+  "id": "zh-001",
+  "front": "很高兴认识你",
+  "back": "hěn gāoxìng rènshi nǐ - Nice to meet you",
+  "tag": "Lessons 1-2",
+  "noPinyinList": false
+ },
+ {
+  "id": "zh-002",
+  "front": "谢谢",
+  "back": "xièxie - Thank you",
+  "tag": "Lessons 1-2",
+  "noPinyinList": false
+ },
+ {
+  "id": "zh-003",
+  "front": "没关系",
+  "back": "méiguānxi - It doesn't matter",
+  "tag": "Lessons 1-2",
+  "noPinyinList": false
+ },
+ {
+  "id": "zh-004",
+  "front": "我",
+  "back": "wǒ - I, me",
+  "tag": "Lessons 1-2",
+  "noPinyinList": true
+ },
+ {
+  "id": "zh-005",
+  "front": "你",
+  "back": "nǐ - you",
+  "tag": "Lessons 1-2",
+  "noPinyinList": true
+ },
+ {
+  "id": "zh-006",
+  "front": "您",
+  "back": "nín - you (polite form)",
+  "tag": "Lessons 1-2",
+  "noPinyinList": false
+ },
+ {
+  "id": "zh-007",
+  "front": "他",
+  "back": "tā - he, him",
+  "tag": "Lessons 1-2",
+  "noPinyinList": true
+ },
+ {
+  "id": "zh-008",
+  "front": "她",
+  "back": "tā - she, her",
+  "tag": "Lessons 1-2",
+  "noPinyinList": true
+ },
+ {
+  "id": "zh-009",
+  "front": "们",
+  "back": "men - plural suffix for pronouns (as in 我们, 你们, 他们)",
+  "tag": "Lessons 1-2",
+  "noPinyinList": true
+ },
+ {
+  "id": "zh-010",
+  "front": "我们",
+  "back": "wǒmen - we, us (the list prints wǒmén; neutral tone is standard)",
+  "tag": "Lessons 1-2",
+  "noPinyinList": false
+ },
+ {
+  "id": "zh-011",
+  "front": "她们",
+  "back": "tāmen - they, them (female)",
+  "tag": "Lessons 1-2",
+  "noPinyinList": false
+ },
+ {
+  "id": "zh-012",
+  "front": "这",
+  "back": "zhè - this",
+  "tag": "Lessons 1-2",
+  "noPinyinList": true
+ },
+ {
+  "id": "zh-013",
+  "front": "那",
+  "back": "nà - that",
+  "tag": "Lessons 1-2",
+  "noPinyinList": true
+ },
+ {
+  "id": "zh-014",
+  "front": "和",
+  "back": "hé - and",
+  "tag": "Lessons 1-2",
+  "noPinyinList": false
+ },
+ {
+  "id": "zh-015",
+  "front": "什么",
+  "back": "shénme - what",
+  "tag": "Lessons 1-2",
+  "noPinyinList": true
+ },
+ {
+  "id": "zh-016",
+  "front": "谁",
+  "back": "shéi - who",
+  "tag": "Lessons 1-2",
+  "noPinyinList": true
+ },
+ {
+  "id": "zh-017",
+  "front": "哪",
+  "back": "nǎ - which",
+  "tag": "Lessons 1-2",
+  "noPinyinList": true
+ },
+ {
+  "id": "zh-018",
+  "front": "几",
+  "back": "jǐ - how many",
+  "tag": "Lessons 1-2",
+  "noPinyinList": true
+ },
+ {
+  "id": "zh-019",
+  "front": "多大",
+  "back": "duōdà - how old",
+  "tag": "Lessons 1-2",
+  "noPinyinList": false
+ },
+ {
+  "id": "zh-020",
+  "front": "多少",
+  "back": "duōshǎo - how many, how much",
+  "tag": "Lessons 1-2",
+  "noPinyinList": true
+ },
+ {
+  "id": "zh-021",
+  "front": "二",
+  "back": "èr - two",
+  "tag": "Lessons 1-2",
+  "noPinyinList": false
+ },
+ {
+  "id": "zh-022",
+  "front": "三",
+  "back": "sān - three",
+  "tag": "Lessons 1-2",
+  "noPinyinList": false
+ },
+ {
+  "id": "zh-023",
+  "front": "四",
+  "back": "sì - four",
+  "tag": "Lessons 1-2",
+  "noPinyinList": true
+ },
+ {
+  "id": "zh-024",
+  "front": "五",
+  "back": "wǔ - five",
+  "tag": "Lessons 1-2",
+  "noPinyinList": true
+ },
+ {
+  "id": "zh-025",
+  "front": "六",
+  "back": "liù - six",
+  "tag": "Lessons 1-2",
+  "noPinyinList": true
+ },
+ {
+  "id": "zh-026",
+  "front": "七",
+  "back": "qī - seven",
+  "tag": "Lessons 1-2",
+  "noPinyinList": true
+ },
+ {
+  "id": "zh-027",
+  "front": "八",
+  "back": "bā - eight",
+  "tag": "Lessons 1-2",
+  "noPinyinList": true
+ },
+ {
+  "id": "zh-028",
+  "front": "九",
+  "back": "jiǔ - nine",
+  "tag": "Lessons 1-2",
+  "noPinyinList": true
+ },
+ {
+  "id": "zh-029",
+  "front": "十",
+  "back": "shí - ten",
+  "tag": "Lessons 1-2",
+  "noPinyinList": true
+ },
+ {
+  "id": "zh-030",
+  "front": "两",
+  "back": "liǎng - two (of something)",
+  "tag": "Lessons 1-2",
+  "noPinyinList": true
+ },
+ {
+  "id": "zh-031",
+  "front": "位",
+  "back": "wèi - measure word for people (polite)",
+  "tag": "Lessons 1-2",
+  "noPinyinList": false
+ },
+ {
+  "id": "zh-032",
+  "front": "口",
+  "back": "kǒu - mouth; measure word for family members",
+  "tag": "Lessons 1-2",
+  "noPinyinList": true
+ },
+ {
+  "id": "zh-033",
+  "front": "个",
+  "back": "gè - one, a, an; general measure word",
+  "tag": "Lessons 1-2",
+  "noPinyinList": true
+ },
+ {
+  "id": "zh-034",
+  "front": "本",
+  "back": "běn - volume; measure word for books",
+  "tag": "Lessons 1-2",
+  "noPinyinList": true
+ },
+ {
+  "id": "zh-035",
+  "front": "岁",
+  "back": "suì - years old; measure word for age",
+  "tag": "Lessons 1-2",
+  "noPinyinList": true
+ },
+ {
+  "id": "zh-036",
+  "front": "不",
+  "back": "bù - not, no",
+  "tag": "Lessons 1-2",
+  "noPinyinList": true
+ },
+ {
+  "id": "zh-037",
+  "front": "也",
+  "back": "yě - also, too",
+  "tag": "Lessons 1-2",
+  "noPinyinList": true
+ },
+ {
+  "id": "zh-038",
+  "front": "很",
+  "back": "hěn - very, quite",
+  "tag": "Lessons 1-2",
+  "noPinyinList": true
+ },
+ {
+  "id": "zh-039",
+  "front": "没",
+  "back": "méi - used to negate 有",
+  "tag": "Lessons 1-2",
+  "noPinyinList": false
+ },
+ {
+  "id": "zh-040",
+  "front": "好",
+  "back": "hǎo - good",
+  "tag": "Lessons 1-2",
+  "noPinyinList": true
+ },
+ {
+  "id": "zh-041",
+  "front": "高兴",
+  "back": "gāoxìng - glad, happy",
+  "tag": "Lessons 1-2",
+  "noPinyinList": false
+ },
+ {
+  "id": "zh-042",
+  "front": "贵",
+  "back": "guì - honorable; expensive",
+  "tag": "Lessons 1-2",
+  "noPinyinList": false
+ },
+ {
+  "id": "zh-043",
+  "front": "大",
+  "back": "dà - big",
+  "tag": "Lessons 1-2",
+  "noPinyinList": true
+ },
+ {
+  "id": "zh-044",
+  "front": "小",
+  "back": "xiǎo - small, little",
+  "tag": "Lessons 1-2",
+  "noPinyinList": true
+ },
+ {
+  "id": "zh-045",
+  "front": "好吃",
+  "back": "hǎochī - delicious",
+  "tag": "Lessons 1-2",
+  "noPinyinList": true
+ },
+ {
+  "id": "zh-046",
+  "front": "美",
+  "back": "měi - beautiful",
+  "tag": "Lessons 1-2",
+  "noPinyinList": true
+ },
+ {
+  "id": "zh-047",
+  "front": "老",
+  "back": "lǎo - old",
+  "tag": "Lessons 1-2",
+  "noPinyinList": true
+ },
+ {
+  "id": "zh-048",
+  "front": "晚",
+  "back": "wǎn - late",
+  "tag": "Lessons 1-2",
+  "noPinyinList": false
+ },
+ {
+  "id": "zh-049",
+  "front": "忙",
+  "back": "máng - busy",
+  "tag": "Lessons 1-2",
+  "noPinyinList": false
+ },
+ {
+  "id": "zh-050",
+  "front": "的",
+  "back": "de - possession particle",
+  "tag": "Lessons 1-2",
+  "noPinyinList": true
+ },
+ {
+  "id": "zh-051",
+  "front": "了",
+  "back": "le - change of state / past tense particle",
+  "tag": "Lessons 1-2",
+  "noPinyinList": false
+ },
+ {
+  "id": "zh-052",
+  "front": "吗",
+  "back": "ma - yes-or-no question particle",
+  "tag": "Lessons 1-2",
+  "noPinyinList": true
+ },
+ {
+  "id": "zh-053",
+  "front": "今年",
+  "back": "jīnnián - this year",
+  "tag": "Lessons 1-2",
+  "noPinyinList": false
+ },
+ {
+  "id": "zh-054",
+  "front": "今天",
+  "back": "jīntiān - today",
+  "tag": "Lessons 1-2",
+  "noPinyinList": true
+ },
+ {
+  "id": "zh-055",
+  "front": "明年",
+  "back": "míngnián - next year",
+  "tag": "Lessons 1-2",
+  "noPinyinList": false
+ },
+ {
+  "id": "zh-056",
+  "front": "明天",
+  "back": "míngtiān - tomorrow",
+  "tag": "Lessons 1-2",
+  "noPinyinList": false
+ },
+ {
+  "id": "zh-057",
+  "front": "下午",
+  "back": "xiàwǔ - afternoon",
+  "tag": "Lessons 1-2",
+  "noPinyinList": false
+ },
+ {
+  "id": "zh-058",
+  "front": "年",
+  "back": "nián - year",
+  "tag": "Lessons 1-2",
+  "noPinyinList": true
+ },
+ {
+  "id": "zh-059",
+  "front": "月",
+  "back": "yuè - month",
+  "tag": "Lessons 1-2",
+  "noPinyinList": true
+ },
+ {
+  "id": "zh-060",
+  "front": "日",
+  "back": "rì - day",
+  "tag": "Lessons 1-2",
+  "noPinyinList": true
+ },
+ {
+  "id": "zh-061",
+  "front": "号",
+  "back": "hào - day (of the month)",
+  "tag": "Lessons 1-2",
+  "noPinyinList": false
+ },
+ {
+  "id": "zh-062",
+  "front": "天",
+  "back": "tiān - sky, day",
+  "tag": "Lessons 1-2",
+  "noPinyinList": true
+ },
+ {
+  "id": "zh-063",
+  "front": "星期",
+  "back": "xīngqī - week",
+  "tag": "Lessons 1-2",
+  "noPinyinList": true
+ },
+ {
+  "id": "zh-064",
+  "front": "上",
+  "back": "shàng - up, above",
+  "tag": "Lessons 1-2",
+  "noPinyinList": true
+ },
+ {
+  "id": "zh-065",
+  "front": "下",
+  "back": "xià - down, below",
+  "tag": "Lessons 1-2",
+  "noPinyinList": true
+ },
+ {
+  "id": "zh-066",
+  "front": "中国",
+  "back": "zhōngguó - China",
+  "tag": "Lessons 1-2",
+  "noPinyinList": true
+ },
+ {
+  "id": "zh-067",
+  "front": "法国",
+  "back": "fǎguó - France",
+  "tag": "Lessons 1-2",
+  "noPinyinList": true
+ },
+ {
+  "id": "zh-068",
+  "front": "美国",
+  "back": "měiguó - U.S.",
+  "tag": "Lessons 1-2",
+  "noPinyinList": false
+ },
+ {
+  "id": "zh-069",
+  "front": "中文",
+  "back": "zhōngwén - Chinese language",
+  "tag": "Lessons 1-2",
+  "noPinyinList": false
+ },
+ {
+  "id": "zh-070",
+  "front": "汉语",
+  "back": "hànyǔ - Chinese language",
+  "tag": "Lessons 1-2",
+  "noPinyinList": true
+ },
+ {
+  "id": "zh-071",
+  "front": "法语",
+  "back": "fǎyǔ - French language",
+  "tag": "Lessons 1-2",
+  "noPinyinList": false
+ },
+ {
+  "id": "zh-072",
+  "front": "英语",
+  "back": "yīngyǔ - English language",
+  "tag": "Lessons 1-2",
+  "noPinyinList": false
+ },
+ {
+  "id": "zh-073",
+  "front": "小姐",
+  "back": "xiǎojiě - Miss",
+  "tag": "Lessons 1-2",
+  "noPinyinList": false
+ },
+ {
+  "id": "zh-074",
+  "front": "晚上",
+  "back": "wǎnshang - evening",
+  "tag": "Lessons 1-2",
+  "noPinyinList": false
+ },
+ {
+  "id": "zh-075",
+  "front": "公司",
+  "back": "gōngsī - company",
+  "tag": "Lessons 1-2",
+  "noPinyinList": false
+ },
+ {
+  "id": "zh-076",
+  "front": "名字",
+  "back": "míngzi - name",
+  "tag": "Lessons 1-2",
+  "noPinyinList": false
+ },
+ {
+  "id": "zh-077",
+  "front": "经理",
+  "back": "jīnglǐ - manager",
+  "tag": "Lessons 1-2",
+  "noPinyinList": false
+ },
+ {
+  "id": "zh-078",
+  "front": "同事",
+  "back": "tóngshì - colleague",
+  "tag": "Lessons 1-2",
+  "noPinyinList": false
+ },
+ {
+  "id": "zh-079",
+  "front": "老师",
+  "back": "lǎoshī - teacher",
+  "tag": "Lessons 1-2",
+  "noPinyinList": true
+ },
+ {
+  "id": "zh-080",
+  "front": "朋友",
+  "back": "péngyou - friend",
+  "tag": "Lessons 1-2",
+  "noPinyinList": true
+ },
+ {
+  "id": "zh-081",
+  "front": "孩子",
+  "back": "háizi - kid, child",
+  "tag": "Lessons 1-2",
+  "noPinyinList": false
+ },
+ {
+  "id": "zh-082",
+  "front": "儿子",
+  "back": "érzi - son",
+  "tag": "Lessons 1-2",
+  "noPinyinList": false
+ },
+ {
+  "id": "zh-083",
+  "front": "女儿",
+  "back": "nǚ'ér - daughter",
+  "tag": "Lessons 1-2",
+  "noPinyinList": false
+ },
+ {
+  "id": "zh-084",
+  "front": "家",
+  "back": "jiā - family, house",
+  "tag": "Lessons 1-2",
+  "noPinyinList": true
+ },
+ {
+  "id": "zh-085",
+  "front": "菜",
+  "back": "cài - cuisine, food, dish",
+  "tag": "Lessons 1-2",
+  "noPinyinList": false
+ },
+ {
+  "id": "zh-086",
+  "front": "学校",
+  "back": "xuéxiào - school",
+  "tag": "Lessons 1-2",
+  "noPinyinList": true
+ },
+ {
+  "id": "zh-087",
+  "front": "公园",
+  "back": "gōngyuán - park",
+  "tag": "Lessons 1-2",
+  "noPinyinList": false
+ },
+ {
+  "id": "zh-088",
+  "front": "书",
+  "back": "shū - book",
+  "tag": "Lessons 1-2",
+  "noPinyinList": true
+ },
+ {
+  "id": "zh-089",
+  "front": "米饭",
+  "back": "mǐfàn - rice",
+  "tag": "Lessons 1-2",
+  "noPinyinList": false
+ },
+ {
+  "id": "zh-090",
+  "front": "杯子",
+  "back": "bēizi - cup",
+  "tag": "Lessons 1-2",
+  "noPinyinList": false
+ },
+ {
+  "id": "zh-091",
+  "front": "钱",
+  "back": "qián - money",
+  "tag": "Lessons 1-2",
+  "noPinyinList": true
+ },
+ {
+  "id": "zh-092",
+  "front": "是",
+  "back": "shì - to be",
+  "tag": "Lessons 1-2",
+  "noPinyinList": true
+ },
+ {
+  "id": "zh-093",
+  "front": "来",
+  "back": "lái - to come",
+  "tag": "Lessons 1-2",
+  "noPinyinList": false
+ },
+ {
+  "id": "zh-094",
+  "front": "进",
+  "back": "jìn - to enter",
+  "tag": "Lessons 1-2",
+  "noPinyinList": false
+ },
+ {
+  "id": "zh-095",
+  "front": "介绍",
+  "back": "jièshào - to introduce",
+  "tag": "Lessons 1-2",
+  "noPinyinList": false
+ },
+ {
+  "id": "zh-096",
+  "front": "有",
+  "back": "yǒu - to have",
+  "tag": "Lessons 1-2",
+  "noPinyinList": true
+ },
+ {
+  "id": "zh-097",
+  "front": "叫",
+  "back": "jiào - to be called, to call",
+  "tag": "Lessons 1-2",
+  "noPinyinList": true
+ },
+ {
+  "id": "zh-098",
+  "front": "说",
+  "back": "shuō - to speak",
+  "tag": "Lessons 1-2",
+  "noPinyinList": true
+ },
+ {
+  "id": "zh-099",
+  "front": "会",
+  "back": "huì - can, to have the capacity to",
+  "tag": "Lessons 1-2",
+  "noPinyinList": true
+ },
+ {
+  "id": "zh-100",
+  "front": "做",
+  "back": "zuò - to do",
+  "tag": "Lessons 1-2",
+  "noPinyinList": true
+ },
+ {
+  "id": "zh-101",
+  "front": "写",
+  "back": "xiě - to write",
+  "tag": "Lessons 1-2",
+  "noPinyinList": false
+ },
+ {
+  "id": "zh-102",
+  "front": "读",
+  "back": "dú - to read (aloud)",
+  "tag": "Lessons 1-2",
+  "noPinyinList": false
+ },
+ {
+  "id": "zh-103",
+  "front": "学",
+  "back": "xué - to study, to learn",
+  "tag": "Lessons 1-2",
+  "noPinyinList": true
+ },
+ {
+  "id": "zh-104",
+  "front": "问",
+  "back": "wèn - to ask",
+  "tag": "Lessons 1-2",
+  "noPinyinList": false
+ },
+ {
+  "id": "zh-105",
+  "front": "知道",
+  "back": "zhīdào - to know (a fact)",
+  "tag": "Lessons 1-2",
+  "noPinyinList": false
+ },
+ {
+  "id": "zh-106",
+  "front": "可以",
+  "back": "kěyǐ - can, may",
+  "tag": "Lessons 1-2",
+  "noPinyinList": false
+ },
+ {
+  "id": "zh-107",
+  "front": "去",
+  "back": "qù - to go",
+  "tag": "Lessons 1-2",
+  "noPinyinList": true
+ },
+ {
+  "id": "zh-108",
+  "front": "看",
+  "back": "kàn - to look, to see",
+  "tag": "Lessons 1-2",
+  "noPinyinList": true
+ },
+ {
+  "id": "zh-109",
+  "front": "看书",
+  "back": "kànshū - to read",
+  "tag": "Lessons 1-2",
+  "noPinyinList": false
+ },
+ {
+  "id": "zh-110",
+  "front": "想",
+  "back": "xiǎng - to want",
+  "tag": "Lessons 1-2",
+  "noPinyinList": true
+ },
+ {
+  "id": "zh-111",
+  "front": "喝",
+  "back": "hē - to drink",
+  "tag": "Lessons 1-2",
+  "noPinyinList": false
+ },
+ {
+  "id": "zh-112",
+  "front": "吃",
+  "back": "chī - to eat",
+  "tag": "Lessons 1-2",
+  "noPinyinList": true
+ },
+ {
+  "id": "zh-113",
+  "front": "买",
+  "back": "mǎi - to buy",
+  "tag": "Lessons 1-2",
+  "noPinyinList": true
+ },
+ {
+  "id": "zh-114",
+  "front": "休息",
+  "back": "xiūxi - to take a rest",
+  "tag": "Lessons 1-2",
+  "noPinyinList": false
+ },
+ {
+  "id": "zh-115",
+  "front": "中",
+  "back": "zhōng - middle, China (as in 中国)",
+  "tag": "Lessons 1-2",
+  "noPinyinList": true
+ },
+ {
+  "id": "zh-116",
+  "front": "生",
+  "back": "shēng - to be born; life (as in 学生)",
+  "tag": "Lessons 1-2",
+  "noPinyinList": true
+ },
+ {
+  "id": "zh-117",
+  "front": "文",
+  "back": "wén - language, writing (as in 中文)",
+  "tag": "Lessons 1-2",
+  "noPinyinList": true
+ },
+ {
+  "id": "zh-118",
+  "front": "人",
+  "back": "rén - person",
+  "tag": "Lessons 1-2",
+  "noPinyinList": true
+ }
+]

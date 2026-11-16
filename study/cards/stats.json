@@ -1,0 +1,182 @@
+[
+ {
+  "id": "stats-c01",
+  "front": "Statistic vs parameter",
+  "back": "A parameter describes a population (often unknown). A statistic is calculated from a sample to estimate it.",
+  "tag": "Session 1"
+ },
+ {
+  "id": "stats-c02",
+  "front": "Categorical vs quantitative variable",
+  "back": "Categorical: groups (nominal or ordinal). Quantitative: numerical values (discrete or continuous).",
+  "tag": "Session 1"
+ },
+ {
+  "id": "stats-c03",
+  "front": "Nominal vs ordinal",
+  "back": "Nominal: category order does not matter (payment method). Ordinal: order matters (satisfaction level).",
+  "tag": "Session 1"
+ },
+ {
+  "id": "stats-c04",
+  "front": "Discrete vs continuous",
+  "back": "Discrete: specific set of values (number of apps). Continuous: any value in a range (screen time).",
+  "tag": "Session 1"
+ },
+ {
+  "id": "stats-c05",
+  "front": "Good sample properties",
+  "back": "Representative, randomly selected and large enough. Larger samples tend to have smaller sampling error.",
+  "tag": "Session 1"
+ },
+ {
+  "id": "stats-c06",
+  "front": "Four random sampling methods",
+  "back": "Simple random, systematic (every nth), stratified (random from each subgroup), cluster (random clusters, sample all).",
+  "tag": "Session 1"
+ },
+ {
+  "id": "stats-c07",
+  "front": "Stratified vs cluster sample",
+  "back": "Stratified: sample within every subgroup. Cluster: pick some clusters and sample every member in them.",
+  "tag": "Session 1"
+ },
+ {
+  "id": "stats-c08",
+  "front": "Non-sampling biases",
+  "back": "Nonresponse bias (many fail to respond) and response bias (anything in the survey that influences answers).",
+  "tag": "Session 1"
+ },
+ {
+  "id": "stats-c09",
+  "front": "Survey question pitfalls",
+  "back": "Complicated (double-barreled), vague, leading, central tendency bias, error-prone options, voluntary response.",
+  "tag": "Session 1"
+ },
+ {
+  "id": "stats-c10",
+  "front": "Proportion and percentage",
+  "back": "Proportion = count / total (0 to 1). Percentage = proportion × 100%. Sample p̂, population p.",
+  "tag": "Session 2"
+ },
+ {
+  "id": "stats-c11",
+  "front": "Pie chart vs bar graph",
+  "back": "Pie: categories do not overlap and show parts of a whole (max ~6). Bar: overlap or partial categories allowed.",
+  "tag": "Session 2"
+ },
+ {
+  "id": "stats-c12",
+  "front": "Frequency table checks",
+  "back": "Counts sum to n. Relative frequencies sum to 1 (or 100%) when categories do not overlap.",
+  "tag": "Session 2"
+ },
+ {
+  "id": "stats-c13",
+  "front": "Sample mean",
+  "back": "x̄ = (x₁ + x₂ + ... + xₙ)/n. Estimates population mean μ. Example: 480/6 = 80.",
+  "tag": "Session 3"
+ },
+ {
+  "id": "stats-c14",
+  "front": "Sample standard deviation",
+  "back": "s = √[Σ(x − x̄)²/(n − 1)]. Estimates σ. Example profits 65 to 97 give s ≈ 11.8.",
+  "tag": "Session 3"
+ },
+ {
+  "id": "stats-c15",
+  "front": "Variance",
+  "back": "s² = Σ(x − x̄)²/(n − 1). Squared units, so use the standard deviation to interpret.",
+  "tag": "Session 3"
+ },
+ {
+  "id": "stats-c16",
+  "front": "Z-score",
+  "back": "Z = (x − x̄)/s. Number of standard deviations from the mean. Positive: above mean; negative: below.",
+  "tag": "Session 3"
+ },
+ {
+  "id": "stats-c17",
+  "front": "Effect of linear changes",
+  "back": "Multiply data by a: mean and s multiply by a. Add a: mean shifts by a; s is unchanged.",
+  "tag": "Session 3"
+ },
+ {
+  "id": "stats-c18",
+  "front": "Coefficient of variation",
+  "back": "C_V = s/|x̄|. Heterogeneous if above 30%. Used to compare spread across different scales.",
+  "tag": "Session 3"
+ },
+ {
+  "id": "stats-c19",
+  "front": "Outlier rule of thumb #1",
+  "back": "More than 3 standard deviations from the mean (Z-score beyond ±3).",
+  "tag": "Session 3"
+ },
+ {
+  "id": "stats-c20",
+  "front": "Resistant vs sensitive statistics",
+  "back": "Resistant: little affected by extremes (median, IQR). Sensitive: mean and standard deviation.",
+  "tag": "Session 3"
+ },
+ {
+  "id": "stats-c21",
+  "front": "Histogram description",
+  "back": "Shape (symmetric, right or left skewed), modality (unimodal, bimodal, uniform) and outliers. Normal: bell-shaped.",
+  "tag": "Session 3"
+ },
+ {
+  "id": "stats-c22",
+  "front": "Percentile",
+  "back": "q_a = x₍ₐ·ₙ₎, rounding a·n up when it is not an integer. Example: 0.25 × 19 = 4.75, so use x₍₅₎.",
+  "tag": "Session 4"
+ },
+ {
+  "id": "stats-c23",
+  "front": "Median (q₀.₅)",
+  "back": "Odd n: x₍(n+1)/2₎. Even n: average of x₍n/2₎ and x₍n/2+1₎. Example: 20 wages give 77.5.",
+  "tag": "Session 4"
+ },
+ {
+  "id": "stats-c24",
+  "front": "Range and IQR",
+  "back": "Range = max − min. IQR = Q₃ − Q₁ (spread of the middle 50%). Example: 99 − 32 = 67; 84 − 66 = 18.",
+  "tag": "Session 4"
+ },
+ {
+  "id": "stats-c25",
+  "front": "Outlier rule of thumb #2",
+  "back": "Outlier if below Q₁ − 1.5 × IQR or above Q₃ + 1.5 × IQR. Example: cutoffs 39 and 111 flag 32.",
+  "tag": "Session 4"
+ },
+ {
+  "id": "stats-c26",
+  "front": "Five number summary and boxplot",
+  "back": "Min, Q₁, median, Q₃, max. Box from Q₁ to Q₃, line at median, whiskers to the extreme non-outliers.",
+  "tag": "Session 4"
+ },
+ {
+  "id": "stats-c27",
+  "front": "Correlation coefficient",
+  "back": "r = s_xy/√(s²ₓ·s²_y). Near +1 or −1 is a strong linear link; correlation is not causation.",
+  "tag": "Review problem"
+ },
+ {
+  "id": "stats-c28",
+  "front": "Sample covariance",
+  "back": "s_xy = Σ(x − x̄)(y − ȳ)/(n − 1).",
+  "tag": "Review problem"
+ },
+ {
+  "id": "stats-c29",
+  "front": "Regression line (y on x)",
+  "back": "b₁ = s_xy/s²ₓ = r·s_y/sₓ; b₀ = ȳ − b₁x̄; prediction ŷ = b₀ + b₁x.",
+  "tag": "Review problem"
+ },
+ {
+  "id": "stats-c30",
+  "front": "Coefficient of determination",
+  "back": "R² = r² in simple regression: share of the variability in y explained by x.",
+  "tag": "Review problem"
+ }
+]

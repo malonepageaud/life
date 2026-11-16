@@ -1,0 +1,206 @@
+[
+ {
+  "id": "fa-c01",
+  "front": "Accounting equation",
+  "back": "Assets = Equity + Liabilities. Every transaction keeps the balance sheet balanced.",
+  "tag": "Session 1"
+ },
+ {
+  "id": "fa-c02",
+  "front": "Net income formula",
+  "back": "Net income = Income − Expenses. Expenses + Profit = Income. Profit goes to equity (net income for the year).",
+  "tag": "Session 1"
+ },
+ {
+  "id": "fa-c03",
+  "front": "Equity as a measure",
+  "back": "Equity = Assets − Liabilities = the company's book value. It is other financial resources, not repayable.",
+  "tag": "Session 1"
+ },
+ {
+  "id": "fa-c04",
+  "front": "Three financial statements",
+  "back": "Balance sheet (position), income statement (performance), statement of cash flows (cash movements).",
+  "tag": "Session 1"
+ },
+ {
+  "id": "fa-c05",
+  "front": "Net cash",
+  "back": "Net cash = cash and cash equivalents − bank overdrafts.",
+  "tag": "Session 1"
+ },
+ {
+  "id": "fa-c06",
+  "front": "Cash flow reconciliation",
+  "back": "Change in cash + opening cash balance = closing cash balance.",
+  "tag": "Session 1 / 9"
+ },
+ {
+  "id": "fa-c07",
+  "front": "Debit and credit rule",
+  "back": "Assets and expenses increase on the left (debit). Equity, liabilities and income increase on the right (credit).",
+  "tag": "Session 2"
+ },
+ {
+  "id": "fa-c08",
+  "front": "Account balance",
+  "back": "Balance = |Σ debits − Σ credits|. Σ debits larger: debit balance. Σ credits larger: credit balance.",
+  "tag": "Session 2"
+ },
+ {
+  "id": "fa-c09",
+  "front": "Income tax",
+  "back": "Income tax = taxable profit × tax rate. Taxable profit is not always equal to accounting profit.",
+  "tag": "Session 2"
+ },
+ {
+  "id": "fa-c10",
+  "front": "Profit after tax",
+  "back": "Profit (loss) for the year = accounting profit − income tax. Tax payable is a liability until paid.",
+  "tag": "Session 2"
+ },
+ {
+  "id": "fa-c11",
+  "front": "Retained earnings",
+  "back": "Profits kept in the company. Retained earnings are not cash.",
+  "tag": "Session 2"
+ },
+ {
+  "id": "fa-c12",
+  "front": "Dividends",
+  "back": "Not an expense. Paid out of distributable profit (retained earnings + profit for the year > 0); a financing cash flow.",
+  "tag": "Session 2"
+ },
+ {
+  "id": "fa-c13",
+  "front": "Credit purchase and sale",
+  "back": "Credit sale creates trade receivables. Credit purchase creates trade payables. Cash moves later.",
+  "tag": "Session 3"
+ },
+ {
+  "id": "fa-c14",
+  "front": "Cost of sales",
+  "back": "Operating expense for inventory used when a sale occurs. Sale gives revenue; the drawdown cuts inventory and adds cost of sales.",
+  "tag": "Session 3"
+ },
+ {
+  "id": "fa-c15",
+  "front": "Accrual accounting",
+  "back": "Record revenues and expenses when earned or incurred, not when cash moves.",
+  "tag": "Session 3"
+ },
+ {
+  "id": "fa-c16",
+  "front": "Cost to company of an employee",
+  "back": "Cost to the company = gross salary + employer's social security contributions.",
+  "tag": "Session 3"
+ },
+ {
+  "id": "fa-c17",
+  "front": "Net salary",
+  "back": "Net salary = gross salary − employee's social security contributions.",
+  "tag": "Session 3"
+ },
+ {
+  "id": "fa-c18",
+  "front": "Fixed assets definition",
+  "back": "Assets used for more than one year by the company (e.g. machinery, delivery trucks).",
+  "tag": "Session 5"
+ },
+ {
+  "id": "fa-c19",
+  "front": "Straight-line depreciation rate",
+  "back": "Rate = 100% / expected useful life. Useful life of 4 years gives 25%.",
+  "tag": "Session 5"
+ },
+ {
+  "id": "fa-c20",
+  "front": "Depreciation expense",
+  "back": "Gross carrying amount × rate × pro rata temporis. 24,000 × 25% × 9/12 = 4,500 for a machine used 9 months.",
+  "tag": "Session 5"
+ },
+ {
+  "id": "fa-c21",
+  "front": "Depreciation vs amortization",
+  "back": "IFRS: depreciation for property, plant and equipment; amortization for intangibles (e.g. a patent).",
+  "tag": "Session 5"
+ },
+ {
+  "id": "fa-c22",
+  "front": "Net carrying amount",
+  "back": "Gross carrying amount − accumulated depreciation. 24,000 − 4,500 = 19,500 after the first year.",
+  "tag": "Session 5"
+ },
+ {
+  "id": "fa-c23",
+  "front": "Share capital",
+  "back": "Share capital = number of shares × par value. 10,000 shares × 10 = 100,000.",
+  "tag": "Session 6"
+ },
+ {
+  "id": "fa-c24",
+  "front": "Share premium",
+  "back": "Number of new shares × (issue price − par value). 2,000 × (15 − 10) = 10,000.",
+  "tag": "Session 6"
+ },
+ {
+  "id": "fa-c25",
+  "front": "Equity per share",
+  "back": "Equity / number of shares (book value per share), calculated from the balance sheet.",
+  "tag": "Session 6"
+ },
+ {
+  "id": "fa-c26",
+  "front": "Loan annual installment",
+  "back": "Annual installment = principal repayment + interest.",
+  "tag": "Session 6"
+ },
+ {
+  "id": "fa-c27",
+  "front": "Loan interest",
+  "back": "Interest = principal outstanding at beginning of year × rate (5% in the slides), paid 31 December.",
+  "tag": "Session 6"
+ },
+ {
+  "id": "fa-c28",
+  "front": "Loan with constant repayments",
+  "back": "Principal repaid = 50,000 / 5 = 10,000 a year. Interest falls each year, so installments fall.",
+  "tag": "Session 6"
+ },
+ {
+  "id": "fa-c29",
+  "front": "Loan with constant annuities",
+  "back": "Installment fixed (11,549). Principal repayment = installment − interest.",
+  "tag": "Session 6"
+ },
+ {
+  "id": "fa-c30",
+  "front": "Impairment loss",
+  "back": "Recognized if carrying amount > recoverable amount. Loss = carrying amount − recoverable amount (e.g. 42,000 − 33,000 = 9,000).",
+  "tag": "Session 7"
+ },
+ {
+  "id": "fa-c31",
+  "front": "Provision",
+  "back": "Recognized under the prudence principle for a probable outflow from a past event (e.g. lawsuit, warranty), at the estimated amount.",
+  "tag": "Session 7"
+ },
+ {
+  "id": "fa-c32",
+  "front": "Prepaid expense",
+  "back": "Exclude the part relating to next year. 3,000 for 3 months starting Jan X3: remove 3,000 × 1/3 = 1,000 from X2 expenses.",
+  "tag": "Session 8"
+ },
+ {
+  "id": "fa-c33",
+  "front": "Deferred revenue",
+  "back": "Exclude revenue for next year. 12,000 with 3 of 12 months in X3: revenue X2 = 12,000 − 3,000 = 9,000.",
+  "tag": "Session 8"
+ },
+ {
+  "id": "fa-c34",
+  "front": "Accrued expense",
+  "back": "Expense incurred but unpaid. Interest on 50,000 at 5% for 3 months: 50,000 × 5% × 3/12 = 625.",
+  "tag": "Session 8"
+ }
+]

@@ -1,0 +1,212 @@
+[
+ {
+  "id": "macro-c01",
+  "front": "Nominal vs real GDP",
+  "back": "Nominal GDP uses current prices; real GDP uses constant prices, so it measures output only.",
+  "tag": "Session 1"
+ },
+ {
+  "id": "macro-c02",
+  "front": "GDP deflator",
+  "back": "Deflator = nominal GDP / real GDP × 100. Measures the price level. Nominal 110 and real 100 gives 110.",
+  "tag": "Session 1"
+ },
+ {
+  "id": "macro-c03",
+  "front": "Inflation from growth rates",
+  "back": "Inflation ≈ nominal growth − real growth. Example: 5% − 2% ≈ 3% (exactly 1.05/1.02 − 1 = 2.9%).",
+  "tag": "Session 1"
+ },
+ {
+  "id": "macro-c04",
+  "front": "Who counts as unemployed?",
+  "back": "Someone with no job who is looking for one. Not looking means not in the labour force.",
+  "tag": "Session 1"
+ },
+ {
+  "id": "macro-c05",
+  "front": "Labour force and unemployment rate",
+  "back": "L = N + U and u = U/L. Example: N = 1,395, U = 105 gives L = 1,500 and u = 7%.",
+  "tag": "Session 1"
+ },
+ {
+  "id": "macro-c06",
+  "front": "Consumption function",
+  "back": "C = c₀ + c₁(Y − T). c₁ is the marginal propensity to consume; it applies to disposable income Y_D = Y − T.",
+  "tag": "Session 2"
+ },
+ {
+  "id": "macro-c07",
+  "front": "Spending multiplier (closed economy)",
+  "back": "1/(1 − c₁). With c₁ = 0.6 it is 2.5; with c₁ = 0.75 it is 4. A change in I or G raises Y by Δ × multiplier.",
+  "tag": "Session 2"
+ },
+ {
+  "id": "macro-c08",
+  "front": "Multiplier vs multiplier effect",
+  "back": "The multiplier is a pure number (2.5). The effect on output is in dollars (e.g. $250). Do not confuse them.",
+  "tag": "Session 2"
+ },
+ {
+  "id": "macro-c09",
+  "front": "Investment function",
+  "back": "I = I₀ − e·r: investment falls when the real rate r rises. Example: I = 200 − 20r gives 120 at r = 4%.",
+  "tag": "Session 2"
+ },
+ {
+  "id": "macro-c10",
+  "front": "Goods market equilibrium",
+  "back": "Y = Z, where Z = C + I + G (closed economy). Output equals demand. Y = Z is an equilibrium condition, not an identity.",
+  "tag": "Session 3"
+ },
+ {
+  "id": "macro-c11",
+  "front": "Solving for equilibrium output",
+  "back": "Z = 400 + 0.5Y: Y = 400 + 0.5Y so 0.5Y = 400 and Y = 800. In general Y = autonomous spending / (1 − c₁).",
+  "tag": "Session 3"
+ },
+ {
+  "id": "macro-c12",
+  "front": "Tax multiplier",
+  "back": "−c₁/(1 − c₁). With c₁ = 0.5 it is −1: a tax cut starts smaller than a spending rise since households save part of it.",
+  "tag": "Session 3"
+ },
+ {
+  "id": "macro-c13",
+  "front": "Closing an output gap with G",
+  "back": "ΔG = gap / multiplier. Gap 200 and multiplier 2 gives ΔG = 100. For taxes use the tax multiplier instead.",
+  "tag": "Session 3"
+ },
+ {
+  "id": "macro-c14",
+  "front": "Private saving and the saving identity",
+  "back": "S = Y − T − C. Investment equals S + (T − G): private saving plus public saving funds I.",
+  "tag": "Session 3"
+ },
+ {
+  "id": "macro-c15",
+  "front": "c₁ and saving rate",
+  "back": "c₁ + s₁ = 1. A higher saving rate means lower c₁, a flatter demand line and a smaller multiplier.",
+  "tag": "Session 3"
+ },
+ {
+  "id": "macro-c16",
+  "front": "When does the debt ratio rise?",
+  "back": "Debt/GDP rises when the interest rate r is above the growth rate g (r − g > 0), other things equal.",
+  "tag": "Session 3"
+ },
+ {
+  "id": "macro-c17",
+  "front": "What counts as money?",
+  "back": "Banknotes and bank balances usable to pay today. Bonds are wealth, and income is a flow, not money.",
+  "tag": "Session 4"
+ },
+ {
+  "id": "macro-c18",
+  "front": "Bond price and interest rate",
+  "back": "Price of a one-year bond paying $100 = 100/(1 + i). At i = 9%, price = $91.74. Prices and rates move inversely.",
+  "tag": "Session 4"
+ },
+ {
+  "id": "macro-c19",
+  "front": "Yield from bond price",
+  "back": "i = (100 − price)/price. A bond paying $100 that sells at $94 yields 6/94 = 6.38%.",
+  "tag": "Session 4"
+ },
+ {
+  "id": "macro-c20",
+  "front": "Money demand",
+  "back": "M = $Y × L(i), where $Y = P × Y is nominal income. L falls when i rises; a rise in $Y shifts the line right.",
+  "tag": "Session 4"
+ },
+ {
+  "id": "macro-c21",
+  "front": "Shift vs movement in money market",
+  "back": "i is on the axis, so a change in i moves along the demand line. A change in $Y shifts the line.",
+  "tag": "Session 4"
+ },
+ {
+  "id": "macro-c22",
+  "front": "Central bank sells bonds",
+  "back": "M falls, people sell bonds to get money, bond prices fall, and the interest rate rises (same event).",
+  "tag": "Session 4"
+ },
+ {
+  "id": "macro-c23",
+  "front": "Liquidity trap",
+  "back": "At the floor (i ≈ 0), extra money is simply held instead of bonds, so more money does not lower the interest rate.",
+  "tag": "Session 4"
+ },
+ {
+  "id": "macro-c24",
+  "front": "Wage setting (WS)",
+  "back": "W = Pᵉ·F(u, z). With Pᵉ = P: W/P = 1 − αu + z. Lower u gives a higher real wage. Example: 1 − 5u + z.",
+  "tag": "Session 5"
+ },
+ {
+  "id": "macro-c25",
+  "front": "Price setting (PS)",
+  "back": "P = (1 + m)·W, so W/P = 1/(1 + m). Flat line. Example: m = 0.25 gives W/P = 0.8.",
+  "tag": "Session 5"
+ },
+ {
+  "id": "macro-c26",
+  "front": "Natural rate of unemployment",
+  "back": "Where WS crosses PS: 1 − αu + z = 1/(1 + m). Example: 1.2 − 5u = 0.8 gives u = 8%.",
+  "tag": "Session 5"
+ },
+ {
+  "id": "macro-c27",
+  "front": "Natural level of employment and output",
+  "back": "Nₙ = L(1 − uₙ) and Yₙ = Nₙ (one worker, one unit). L = 1,250, uₙ = 8% gives Yₙ = 1,150.",
+  "tag": "Session 5"
+ },
+ {
+  "id": "macro-c28",
+  "front": "Effect of higher z or higher markup m",
+  "back": "Higher z shifts WS up; higher m lowers PS (W/P = 1/(1 + m)). Both raise the natural rate of unemployment.",
+  "tag": "Session 5"
+ },
+ {
+  "id": "macro-c29",
+  "front": "Phillips curve with expectations",
+  "back": "π = πᵉ + (m + z) − αu, or π − πᵉ = −α(u − uₙ). At u = uₙ, inflation equals expected inflation.",
+  "tag": "Session 6"
+ },
+ {
+  "id": "macro-c30",
+  "front": "Phillips curve numeric example",
+  "back": "uₙ = 6%, α = 0.5, πᵉ = 2%, u = 4%: π = 2% − 0.5 × (−2%) = 3%.",
+  "tag": "Session 6"
+ },
+ {
+  "id": "macro-c31",
+  "front": "Expectations formation",
+  "back": "πᵉₜ = (1 − θ)π̄ + θπₜ₋₁. θ = 0: anchored at π̄. θ = 1: people expect last year's inflation.",
+  "tag": "Session 6"
+ },
+ {
+  "id": "macro-c32",
+  "front": "Accelerationist form (θ = 1)",
+  "back": "πₜ − πₜ₋₁ = −α(uₜ − uₙ). Unemployment below uₙ makes inflation rise every year (NAIRU logic).",
+  "tag": "Session 6"
+ },
+ {
+  "id": "macro-c33",
+  "front": "Real interest rate",
+  "back": "r = i − πᵉ (Fisher, approximate). A loan at 6% with expected inflation 1.5% has r = 4.5%.",
+  "tag": "Session 7"
+ },
+ {
+  "id": "macro-c34",
+  "front": "IS relation",
+  "back": "Y = C + I(r) + G, so Y = [c₀ − c₁T + I₀ + G − e·r]/(1 − c₁). Example: Y = 1,200 − 50r (slope 2.5 × 20).",
+  "tag": "Session 7"
+ },
+ {
+  "id": "macro-c35",
+  "front": "Four-step shock protocol",
+  "back": "Which market? Shift or movement along? Which direction? New equilibrium? Then read Y, u, π and r.",
+  "tag": "Course handout"
+ }
+]

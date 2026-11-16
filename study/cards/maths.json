@@ -1,0 +1,176 @@
+[
+ {
+  "id": "maths-c01",
+  "front": "Quadratic formula",
+  "back": "For ax² + bx + c = 0: x = [−b ± √(b² − 4ac)]/(2a). Example: x² + 2x − 8 = 0 gives x = 2 or −4.",
+  "tag": "Topic 1"
+ },
+ {
+  "id": "maths-c02",
+  "front": "Equal-base exponential equation",
+  "back": "If aᶠ⁽ˣ⁾ = aᵍ⁽ˣ⁾ then f(x) = g(x). Example: 5^(x²+2x−6) = 25 gives x² + 2x − 8 = 0.",
+  "tag": "Topic 1"
+ },
+ {
+  "id": "maths-c03",
+  "front": "Log rules",
+  "back": "ln(xᵏ) = k·ln x; ln(ab) = ln a + ln b; ln(a/b) = ln a − ln b.",
+  "tag": "Topic 1"
+ },
+ {
+  "id": "maths-c04",
+  "front": "Solving a log equation",
+  "back": "3ln(x⁴) + 3ln(x²) = 54 gives 18 ln x = 54, so ln x = 3 and x = e³.",
+  "tag": "Topic 1"
+ },
+ {
+  "id": "maths-c05",
+  "front": "Exp and ln are inverses",
+  "back": "e^(ln x) = x (x > 0) and ln(eˣ) = x. Use one to undo the other.",
+  "tag": "Topic 1"
+ },
+ {
+  "id": "maths-c06",
+  "front": "Limit at infinity of a rational function",
+  "back": "Compare the highest powers. (x⁴ + ...)/(−4x⁴ + ...) tends to 1/(−4) = −1/4 as x → ±∞.",
+  "tag": "Topic 2"
+ },
+ {
+  "id": "maths-c07",
+  "front": "Derivative of a power",
+  "back": "d/dx xⁿ = n·xⁿ⁻¹. Example: √(x³) = x^(3/2) has derivative (3/2)x^(1/2).",
+  "tag": "Topic 3"
+ },
+ {
+  "id": "maths-c08",
+  "front": "Tangent line equation",
+  "back": "y − f(a) = f′(a)(x − a). For f = √(x³) at x = 16: f = 64, f′ = 6, so y = 6x − 32.",
+  "tag": "Topic 3"
+ },
+ {
+  "id": "maths-c09",
+  "front": "Product rule",
+  "back": "(u·v)′ = u′v + uv′. Example: (x² − 15)eˣ has derivative eˣ(x² + 2x − 15).",
+  "tag": "Topic 3"
+ },
+ {
+  "id": "maths-c10",
+  "front": "Quotient rule",
+  "back": "(u/v)′ = (u′v − uv′)/v². Example: f = (2x − 5)/ln x gives f′(2) ≈ 3.926.",
+  "tag": "Topic 3"
+ },
+ {
+  "id": "maths-c11",
+  "front": "Chain rule",
+  "back": "[f(g(x))]′ = f′(g(x))·g′(x): differentiate the outer function, then multiply by the inner derivative.",
+  "tag": "Topic 3"
+ },
+ {
+  "id": "maths-c12",
+  "front": "Derivatives of eˣ and ln x",
+  "back": "(eˣ)′ = eˣ and (ln x)′ = 1/x.",
+  "tag": "Topic 3"
+ },
+ {
+  "id": "maths-c13",
+  "front": "Second derivative and convexity",
+  "back": "f″(x) > 0: convex (curving up). f″(x) < 0: concave. For ax³ + ln x at x = 1, f″ = 6a − 1 > 0 gives a > 1/6.",
+  "tag": "Topic 3"
+ },
+ {
+  "id": "maths-c14",
+  "front": "Price elasticity of demand",
+  "back": "ε = (dQ/dP)·(P/Q). With P = 400 − 4Q at P = 200: Q = 50 and ε = −1/4 × 200/50 = −1.",
+  "tag": "Topic 3"
+ },
+ {
+  "id": "maths-c15",
+  "front": "Total, average and marginal revenue",
+  "back": "TR = P·Q, MR = dTR/dQ, AR = TR/Q (equals P). With P = 400 − 4Q: MR = 400 − 8Q.",
+  "tag": "Topic 3"
+ },
+ {
+  "id": "maths-c16",
+  "front": "Increasing or decreasing function",
+  "back": "f′ > 0: increasing. f′ < 0: decreasing. Check the sign of f′ between its roots.",
+  "tag": "Topic 4"
+ },
+ {
+  "id": "maths-c17",
+  "front": "First-derivative test",
+  "back": "f′ changes + to −: local max. f′ changes − to +: local min. Example: eˣ(x + 5)(x − 3) has max at x = −5, min at x = 3.",
+  "tag": "Topic 4"
+ },
+ {
+  "id": "maths-c18",
+  "front": "Second-derivative test",
+  "back": "f′(x*) = 0 and f″(x*) < 0: local max; f″(x*) > 0: local min.",
+  "tag": "Topic 4"
+ },
+ {
+  "id": "maths-c19",
+  "front": "Profit maximization",
+  "back": "TP = TR − TC; set TP′ = 0 and check TP″ < 0. TP = −5Q² + 100Q − 72 gives Q = 10 and TP = 428.",
+  "tag": "Topic 4"
+ },
+ {
+  "id": "maths-c20",
+  "front": "Extreme value theorem",
+  "back": "A continuous function on a closed bounded interval [a, b] attains a maximum and a minimum.",
+  "tag": "Topic 4"
+ },
+ {
+  "id": "maths-c21",
+  "front": "Inflection point",
+  "back": "A point where concavity changes: f″ changes sign.",
+  "tag": "Topic 4"
+ },
+ {
+  "id": "maths-c22",
+  "front": "Antiderivative rules",
+  "back": "∫xⁿdx = xⁿ⁺¹/(n + 1) + C (n ≠ −1); ∫eˣdx = eˣ + C; ∫(1/x)dx = ln|x| + C.",
+  "tag": "Topic 5"
+ },
+ {
+  "id": "maths-c23",
+  "front": "Integration by parts",
+  "back": "∫u dv = uv − ∫v du. Choose u to be a function that gets simpler when differentiated.",
+  "tag": "Topic 5"
+ },
+ {
+  "id": "maths-c24",
+  "front": "Definite integral and area",
+  "back": "∫ₐᵇ f(x)dx = F(b) − F(a): area under the curve if f ≥ 0. Area between curves: ∫(upper − lower)dx.",
+  "tag": "Topic 5"
+ },
+ {
+  "id": "maths-c25",
+  "front": "Partial derivative",
+  "back": "∂f/∂x: differentiate with respect to x, treating the other variables as constants.",
+  "tag": "Topic 6"
+ },
+ {
+  "id": "maths-c26",
+  "front": "Gradient",
+  "back": "∇f = (∂f/∂x, ∂f/∂y): points in the direction of steepest increase of f.",
+  "tag": "Topic 6"
+ },
+ {
+  "id": "maths-c27",
+  "front": "Critical points of f(x, y)",
+  "back": "Solve fₓ = 0 and f_y = 0 together. Classify with the Hessian (second-order partials).",
+  "tag": "Topic 7"
+ },
+ {
+  "id": "maths-c28",
+  "front": "Lagrange multiplier method",
+  "back": "Optimize f(x, y) subject to g(x, y) = c with L = f − λ(g − c). Set partials of L to 0. λ is the shadow price.",
+  "tag": "Topic 8"
+ },
+ {
+  "id": "maths-c29",
+  "front": "Permutations and combinations",
+  "back": "n! orders n items. Arrangements: n!/(n − k)!. Combinations: C(n, k) = n!/[k!(n − k)!].",
+  "tag": "Topic 9"
+ }
+]

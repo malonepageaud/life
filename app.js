@@ -202,23 +202,23 @@ V.today = () => {
   const newCh = D.changes.filter(c => c.time > (S.seenChanges || 0)).slice(0, 4);
   const biz = D.business?.today || [];
   const bd = S.biz?.[dk] || {};
-  return `
+  return `<!--blk:top-->
   <div class="card hero hud-hero"><div class="scan"></div>${reactor(score)}<div style="flex:1;min-width:0">
     <div class="greet">${greetWord()}</div><div class="name">${esc(D.owner || 'Malone')}</div>
     ${(Date.now() - D.updatedAt) > 75 * 60000 ? `<div class="status" style="color:var(--bad)"><b style="color:var(--bad)">●</b> COMPUTER OFFLINE · ${rel(D.updatedAt)}</div>` : `<div class="status"><b>●</b> ALL SYSTEMS ONLINE</div>`}
     <div class="small" style="color:#cfe9f2;margin-top:8px;line-height:1.35">${esc(D.briefing.headline)}</div></div></div>
   ${(() => { const due = D.homework.filter(x => x.due && x.due > now && x.due - now < 7 * DAY).length; const ex = (D.exams || [])[0]; const exd = ex ? Math.max(0, Math.ceil((ex.t - now) / DAY)) : null; const g = sportsWeek().done; return `<div class="telemetry"><a href="#school/homework" class="${due ? 'warn' : 'good'}"><b>${due}</b><span>Due</span></a><a href="#school/homework" class="${exd != null && exd <= 7 ? 'warn' : ''}"><b>${exd != null ? exd + 'd' : '–'}</b><span>Exam</span></a><a href="#life/sports" class="${g >= D.sports.weeklyTarget ? 'good' : ''}"><b>${g}/${D.sports.weeklyTarget}</b><span>Gym</span></a><a href="#school/grades"><b>${D.grades.average != null ? D.grades.average.toFixed(1) : '–'}</b><span>Avg</span></a></div>`; })()}
-  ${(() => { const nx = D.calendar.events.find(e => !e.allDay && e.end > now && e.start < end + 6 * 3600000); if (!nx) return ''; const mins = Math.round((nx.start - now) / 60000); return `<div class="card nextup"><div class="mins">${mins <= 0 ? 'NOW' : mins < 60 ? mins + 'm' : Math.floor(mins / 60) + 'h' + String(mins % 60).padStart(2, '0')}</div><div style="flex:1;min-width:0"><div class="tag">Next up</div><div style="font-weight:700">${esc(nx.title)}</div><div class="small muted">${hm(nx.start)}–${hm(nx.end)}${nx.location ? ' · ' + esc(nx.location) : ''}</div></div></div>`; })()}
-  <div class="chips">${(D.countdowns || []).map(c => { const d = Math.ceil((new Date(c.date).getTime() - now) / DAY); return d >= 0 ? `<span class="chip">${esc(c.label)} <b>${d === 0 ? 'today' : d + 'd'}</b></span>` : ''; }).join('')}</div>
-  <div class="card"><h2>Must do <span class="pill ${got === parts && parts ? 'ok' : ''}">${focus.filter((_, i) => fd[i]).length}/${focus.length}</span></h2><div class="list">${focus.map((f, i) => `<div class="item ${fd[i] ? 'done' : ''}"><button class="check ${fd[i] ? 'on' : ''}" data-act="focus" data-i="${i}"></button><div class="main"><div class="t">${esc(f)}</div></div></div>`).join('') || '<div class="empty">Nothing set</div>'}</div></div>
-  <div class="card"><h2>Today</h2><div class="tl">${sched.map(s => `<div class="item"><div class="time ${s.t <= now && (s.end || s.t + 3600000) > now ? 'now' : ''}" style="${s.kind === 'due' ? 'color:var(--warn)' : ''}">${hm(s.t)}</div><div class="main"><div class="t" style="${s.kind === 'plan' ? 'font-weight:500;color:#c9cde0' : ''}">${esc(s.text)}</div>${s.loc ? `<div class="m">${esc(s.loc)}</div>` : ''}</div></div>`).join('') || '<div class="empty">Nothing left today</div>'}</div></div>
-  ${tonightCard()}
-  ${studyCard()}
-  ${biz.length ? `<div class="card biz"><h2>Money moves <a class="small muted" href="#business">Business →</a></h2><div class="list">${biz.map((b, i) => `<div class="item ${bd[i] ? 'done' : ''}"><button class="check ${bd[i] ? 'on' : ''}" data-act="biz" data-i="${i}"></button><div class="main"><div class="t">${esc(b)}</div></div></div>`).join('')}</div></div>` : ''}
-  ${newCh.length ? `<div class="card feed"><h2>New <button class="btn" data-act="seen">Seen</button></h2><div class="list">${newCh.map(c => `<div class="item"><span class="k-ico" style="background:${kindColor(c.kind)}22;color:${kindColor(c.kind)}">${kindLetter(c.kind)}</span><div class="main"><div class="t">${c.url ? `<a href="${esc(c.url)}" target="_blank" rel="noopener">${esc(c.text)}</a>` : esc(c.text)}</div><div class="d">${rel(c.time)}</div></div></div>`).join('')}</div></div>` : ''}
-  <div class="sec">Ideas today</div>
+<!--blk:next-->  ${(() => { const nx = D.calendar.events.find(e => !e.allDay && e.end > now && e.start < end + 6 * 3600000); if (!nx) return ''; const mins = Math.round((nx.start - now) / 60000); return `<div class="card nextup"><div class="mins">${mins <= 0 ? 'NOW' : mins < 60 ? mins + 'm' : Math.floor(mins / 60) + 'h' + String(mins % 60).padStart(2, '0')}</div><div style="flex:1;min-width:0"><div class="tag">Next up</div><div style="font-weight:700">${esc(nx.title)}</div><div class="small muted">${hm(nx.start)}–${hm(nx.end)}${nx.location ? ' · ' + esc(nx.location) : ''}</div></div></div>`; })()}
+<!--blk:chips-->  <div class="chips">${(D.countdowns || []).map(c => { const d = Math.ceil((new Date(c.date).getTime() - now) / DAY); return d >= 0 ? `<span class="chip">${esc(c.label)} <b>${d === 0 ? 'today' : d + 'd'}</b></span>` : ''; }).join('')}</div>
+<!--blk:mustdo-->  <div class="card"><h2>Must do <span class="pill ${got === parts && parts ? 'ok' : ''}">${focus.filter((_, i) => fd[i]).length}/${focus.length}</span></h2><div class="list">${focus.map((f, i) => `<div class="item ${fd[i] ? 'done' : ''}"><button class="check ${fd[i] ? 'on' : ''}" data-act="focus" data-i="${i}"></button><div class="main"><div class="t">${esc(f)}</div></div></div>`).join('') || '<div class="empty">Nothing set</div>'}</div></div>
+<!--blk:schedule-->  <div class="card"><h2>Today</h2><div class="tl">${sched.map(s => `<div class="item"><div class="time ${s.t <= now && (s.end || s.t + 3600000) > now ? 'now' : ''}" style="${s.kind === 'due' ? 'color:var(--warn)' : ''}">${hm(s.t)}</div><div class="main"><div class="t" style="${s.kind === 'plan' ? 'font-weight:500;color:#c9cde0' : ''}">${esc(s.text)}</div>${s.loc ? `<div class="m">${esc(s.loc)}</div>` : ''}</div></div>`).join('') || '<div class="empty">Nothing left today</div>'}</div></div>
+<!--blk:tonight-->  ${tonightCard()}
+<!--blk:study-->  ${studyCard()}
+<!--blk:moneymoves-->  ${biz.length ? `<div class="card biz"><h2>Money moves <a class="small muted" href="#business">Business →</a></h2><div class="list">${biz.map((b, i) => `<div class="item ${bd[i] ? 'done' : ''}"><button class="check ${bd[i] ? 'on' : ''}" data-act="biz" data-i="${i}"></button><div class="main"><div class="t">${esc(b)}</div></div></div>`).join('')}</div></div>` : ''}
+<!--blk:new-->  ${newCh.length ? `<div class="card feed"><h2>New <button class="btn" data-act="seen">Seen</button></h2><div class="list">${newCh.map(c => `<div class="item"><span class="k-ico" style="background:${kindColor(c.kind)}22;color:${kindColor(c.kind)}">${kindLetter(c.kind)}</span><div class="main"><div class="t">${c.url ? `<a href="${esc(c.url)}" target="_blank" rel="noopener">${esc(c.text)}</a>` : esc(c.text)}</div><div class="d">${rel(c.time)}</div></div></div>`).join('')}</div></div>` : ''}
+<!--blk:ideas-->  <div class="sec">Ideas today</div>
   <div class="ideas">${(D.ideas || []).map(ideaCard).join('')}</div>
-  ${D.errors?.length ? `<div class="small dim" style="text-align:center">Sync issue: ${D.errors.map(esc).join(' · ')}</div>` : ''}`;
+<!--blk:errors-->  ${D.errors?.length ? `<div class="small dim" style="text-align:center">Sync issue: ${D.errors.map(esc).join(' · ')}</div>` : ''}`;
 };
 const kindColor = (k) => ({ homework: '#ffb547', grade: '#8b7cff', moodle: '#3fd8ff', mail: '#ff7aa8' }[k] || '#9aa1b5');
 const kindLetter = (k) => ({ homework: 'H', grade: 'G', moodle: 'M', mail: '@' }[k] || '•');
@@ -516,6 +516,7 @@ function render() {
 function greetWord() { const h = sgParts(Date.now()).h; return h < 5 ? 'Up late' : h < 12 ? 'Good morning' : h < 18 ? 'Good afternoon' : 'Good evening'; }
 document.addEventListener('click', (e) => {
   const el = e.target.closest('[data-act]'); if (!el) return;
+  if (window.ACT && ACT[el.dataset.act]) { e.preventDefault(); const r = ACT[el.dataset.act](el, e); save(); if (r !== false) render(); return; }
   const a = el.dataset.act, dk = dayKey();
   if (a !== 'none') e.preventDefault();
   if (a === 'todo') { S.todosDone[el.dataset.id] = !S.todosDone[el.dataset.id]; }
@@ -584,7 +585,7 @@ function renderChat() {
   const bubbleMe = (x) => `<div class="bubble me"><div>${esc(String(x.text).replace(/^\[ask [^\]]+\]\s*/, ''))}</div><div class="meta">${fmt(x.t, { weekday: 'short', hour: '2-digit', minute: '2-digit' })}${x.status === 'failed' ? ' · not sent yet, will retry' : ''}</div></div>`;
   const askCard = (k) => !k ? '' : `<div class="askcard">${k.question ? `<div style="font-weight:650;margin-bottom:6px">${esc(k.question)}</div>` : ''}${k.draft ? `<div class="draft"><div class="small muted">To: ${esc(k.draft.to || '')}${k.draft.box ? ' · from ' + esc(k.draft.box) : ''}</div>${k.draft.subject ? `<div style="font-weight:650;margin:4px 0">${esc(k.draft.subject)}</div>` : ''}<div class="small" style="white-space:pre-wrap">${esc(k.draft.body || '')}</div></div>` : ''}
     ${k.status ? `<div class="small" style="margin-top:8px;color:var(--mut)">${k.status === 'sent' ? '✓ Sent' : k.status === 'cancelled' ? 'Cancelled' : '✓ Done'}</div>` : (S.asked || {})[k.id] ? `<div class="small muted" style="margin-top:8px">You chose: ${esc(S.asked[k.id])}</div>` : `<div class="row" style="gap:6px;flex-wrap:wrap;margin-top:10px">${(k.options || ['Yes', 'No']).map((o, i) => `<button class="btn ${i === 0 ? 'pri' : ''}" data-act="askopt" data-ask="${esc(k.id)}" data-opt="${esc(o)}">${esc(o)}</button>`).join('')}</div>`}</div>`;
-  const bubbleBot = (x) => `<div class="bubble bot"><div>${esc(x.reply)}</div>${x.applied?.length ? `<div class="applied">${x.applied.map(a => '✓ ' + esc(a)).join('<br>')}</div>` : ''}${askCard(x.ask)}${x.rt ? `<div class="meta">${fmt(x.rt, { hour: '2-digit', minute: '2-digit' })}</div>` : ''}</div>`;
+  const bubbleBot = (x) => `<div class="bubble bot"><div>${esc(x.reply)}</div>${x.applied?.length ? `<div class="applied">${x.applied.map(a => '✓ ' + esc(a)).join('<br>')}</div><button class="undo" data-act="undo" data-r="${esc((x.applied || []).join('; ').slice(0, 200))}" data-t="${x.t}">Undo</button>` : ''}${askCard(x.ask)}${x.rt ? `<div class="meta">${fmt(x.rt, { hour: '2-digit', minute: '2-digit' })}</div>` : ''}</div>`;
   const typing = (x) => (Date.now() - x.t > 8 * 60000) ? `<div class="bubble bot"><div>Your computer looks offline (Aside closed or asleep). I'll handle this as soon as it's back on.</div></div>` : `<div class="bubble bot typing"><span></span><span></span><span></span><div class="meta" style="margin-top:6px">On it. Back in 2 to 4 minutes.</div></div>`;
   box.innerHTML = items.map(x => x.reply !== undefined ? bubbleMe(x) + (x.reply ? bubbleBot(x) : '') : bubbleMe(x) + (x.status !== 'failed' ? typing(x) : '')).join('') || `<div class="bubble bot"><div>Hey Malone. Tell me what you did or what you need: log food, mark stuff done, book a room or an Aentry night, add to your calendar, draft or send an email. I'll handle it and reply here.</div></div>`;
   box.scrollTop = box.scrollHeight;
@@ -644,4 +645,4 @@ $('#voiceToggle')?.addEventListener('click', () => { localStorage.setItem('life:
 setVoiceBtn();
 
 if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
-boot();
+if (!window.FEATURES_WILL_BOOT) boot();

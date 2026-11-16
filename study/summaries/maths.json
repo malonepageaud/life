@@ -1,0 +1,178 @@
+[
+  {
+    "session": "Topic 1 - Functions of one variable and graphs",
+    "bullets": [
+      "Focus on polynomial, exponential and logarithmic functions and their properties; also types of functions, graphs and inverse functions.",
+      "Quadratic ax²+bx+c=0: x = (-b ± √(b²-4ac)) / 2a (used in midterm Q1 and Q8).",
+      "Exponential equations: write both sides with the same base, then equate exponents. Midterm: 5^(x²+2x-6)=25=5² gives x²+2x-8=0, x=2 or -4.",
+      "Log rules: ln(x^k)=k·ln(x), and ln x = c means x = e^c. Midterm: 3ln(x⁴)+3ln(x²)=54 gives 18 ln x = 54, x = e³.",
+      "Inverse functions undo each other (exp and ln are inverses).",
+      "Applications are economic: demand P = 400 - 4Q can be inverted to Q = 100 - P/4."
+    ],
+    "keyTerms": [
+      "polynomial",
+      "quadratic formula",
+      "exponential",
+      "natural log (ln)",
+      "inverse function",
+      "demand function"
+    ],
+    "examTip": "Show every step (the midterm asked for clear steps, 3 decimals). Common slip: forgetting to bring the power down from ln(x^k) or dropping the second quadratic root."
+  },
+  {
+    "session": "Topic 2 - Limits",
+    "bullets": [
+      "Syllabus lists limits as a single topic; it feeds directly into the derivative definition.",
+      "Limit at infinity of a ratio of polynomials of equal degree = ratio of the leading coefficients.",
+      "Midterm Q3: lim x→-∞ (x⁴+20x²-600)/(-4x⁴+20x²+x) = 1/(-4) = -1/4.",
+      "Method: keep only the highest power in numerator and denominator when x→±∞ (or divide by the highest power).",
+      "Lower-order terms (20x², x, -600) become negligible as |x| grows."
+    ],
+    "keyTerms": [
+      "limit",
+      "x→-∞",
+      "leading term",
+      "ratio of polynomials"
+    ],
+    "examTip": "Likely a limit at infinity of a rational function. Common mistake: ignoring the sign of the leading coefficients (answer was negative)."
+  },
+  {
+    "session": "Topic 3 - Differentiation",
+    "bullets": [
+      "Syllabus: slopes and curves, tangents and derivatives, sum, product, ratio and composition (chain) rules, higher-order derivatives, derivatives of exp and ln.",
+      "Power rule: d/dx x^n = n·x^(n-1); √(x³)=x^(3/2) so f'(x)=(3/2)x^(1/2). Midterm Q4: f'(16)=6.",
+      "Tangent line at x=a: y - f(a) = f'(a)(x - a). Midterm: f(16)=64, slope 6, so y = 6x - 32.",
+      "Quotient rule: (u/v)' = (u'v - uv') / v². Midterm Q5: f(x)=(2x-5)/ln x, f'(2) ≈ 3.926.",
+      "Product rule: (uv)' = u'v + uv'. Midterm Q8: f=(x²-15)e^x gives f'=e^x(x²+2x-15).",
+      "d/dx e^x = e^x and d/dx ln x = 1/x. Second derivative f'' is the derivative of f'.",
+      "Economic use: elasticity εd = (dQ/dP)(P/Q); midterm Q6 gave εd = -1 at P=200 (Q=50)."
+    ],
+    "keyTerms": [
+      "derivative",
+      "tangent line",
+      "product rule",
+      "quotient rule",
+      "chain rule",
+      "second derivative",
+      "elasticity"
+    ],
+    "examTip": "Expect product/quotient rule calculations and a tangent line. Common mistake: wrong sign in the quotient rule numerator, or forgetting to evaluate at the given x."
+  },
+  {
+    "session": "Topic 4 - Optimization (univariate functions)",
+    "bullets": [
+      "Syllabus: simple tests for extreme points, extreme value theorem, local extreme points, inflection points, applications.",
+      "First-order condition: f'(x)=0 gives critical points. Midterm Q8: e^x(x+5)(x-3)=0 gives x=-5 or 3.",
+      "First-derivative test: f' changes + to - means local max; - to + means local min. Midterm: x=-5 local max, x=3 local min.",
+      "Second-derivative test: f''<0 means max (concave), f''>0 means min (convex). Midterm Q7: f''(1)=6a-1>0 so a>1/6.",
+      "Profit: TP = TR - TC. Midterm Q9: TP = -5Q²+100Q-72, TP'=0 gives Q=10, TP''=-10<0, max profit 428.",
+      "Revenue: TR = P·Q, MR = dTR/dQ, AR = TR/Q. Midterm Q6: TR=400Q-4Q², MR=400-8Q, AR=400-4Q.",
+      "Inflection points are where concavity changes (f'' changes sign)."
+    ],
+    "keyTerms": [
+      "critical point",
+      "first-derivative test",
+      "second-derivative test",
+      "convex / concave",
+      "inflection point",
+      "marginal revenue",
+      "profit maximisation"
+    ],
+    "examTip": "Applied profit/revenue maximisation is likely: derive TP, set TP'=0, justify with TP''. Common mistake: skipping the second-order justification or mixing up TR, MR and AR."
+  },
+  {
+    "session": "Topic 5 - Integration",
+    "bullets": [
+      "Syllabus: antiderivatives and the constant of integration, basic rules, polynomial/exponential/log integrals.",
+      "Also listed: integration by substitution, integration by parts, definite integrals.",
+      "Definite integrals give area under a curve and between curves; applications follow.",
+      "Integration reverses differentiation: if F'(x)=f(x) then ∫f dx = F(x) + C.",
+      "This topic starts the part of the final worth about 80% together with Topics 6-9 (final is ~20% Topics 1-4)."
+    ],
+    "keyTerms": [
+      "antiderivative",
+      "constant of integration",
+      "substitution",
+      "integration by parts",
+      "definite integral",
+      "area between curves"
+    ],
+    "examTip": "Not covered in the midterm material, so expect it on the final. Common mistake: forgetting +C on indefinite integrals or the limits on definite ones."
+  },
+  {
+    "session": "Topic 6 - Functions of several variables",
+    "bullets": [
+      "Syllabus motivation: production, profit, utility and cost functions depend on several variables.",
+      "Functions of two variables: domain and graph (surfaces).",
+      "Level curves (contour plots) show where f(x,y) is constant.",
+      "Partial derivatives: differentiate with respect to one variable, treat the others as constants; interpret as marginal effects.",
+      "Gradient: vector of partial derivatives, points in the direction of steepest increase.",
+      "Practical applications in economics and business."
+    ],
+    "keyTerms": [
+      "partial derivative",
+      "level curve",
+      "contour plot",
+      "gradient",
+      "surface",
+      "domain"
+    ],
+    "examTip": "Expect computing partial derivatives and gradients and interpreting them. Common mistake: differentiating the 'constant' variable too."
+  },
+  {
+    "session": "Topic 7 - Optimization (multivariate functions)",
+    "bullets": [
+      "Critical points of f(x,y): solve the system of first-order conditions f_x=0 and f_y=0.",
+      "Second-order partial derivatives are collected in the Hessian matrix.",
+      "Use the Hessian to classify critical points: local maximum, local minimum or saddle point.",
+      "Basic concepts of convexity and concavity for functions of several variables.",
+      "Applications in economics and business (e.g. profit with two products)."
+    ],
+    "keyTerms": [
+      "critical point",
+      "first-order conditions",
+      "Hessian matrix",
+      "saddle point",
+      "local max / min",
+      "convexity"
+    ],
+    "examTip": "Likely: solve the FOC system, build the Hessian and classify. Common mistake: solving the system wrongly or misreading the sign test."
+  },
+  {
+    "session": "Topic 8 - Constrained optimization",
+    "bullets": [
+      "Motivation: decisions face constraints (budget, resources).",
+      "Equality-constrained optimization can be solved by substitution (plug the constraint into the objective).",
+      "Lagrange multipliers: build the Lagrangian L = f - λ(g - c) and set all partial derivatives to zero.",
+      "The multiplier λ has an economic meaning: the shadow price of the constraint.",
+      "Applications: budget allocation, production planning, portfolio selection."
+    ],
+    "keyTerms": [
+      "constraint",
+      "substitution method",
+      "Lagrangian",
+      "Lagrange multiplier",
+      "shadow price",
+      "budget allocation"
+    ],
+    "examTip": "Expect a Lagrange or substitution problem plus interpretation of λ. Common mistake: forgetting to include the constraint equation in the system."
+  },
+  {
+    "session": "Topic 9 - Counting and sum calculus",
+    "bullets": [
+      "Syllabus: factorials, permutations, arrangements, combinations, and applications.",
+      "Factorial: n! = n(n-1)...1.",
+      "Order matters means permutation/arrangement; order does not matter means combination.",
+      "Choose the right counting tool before computing.",
+      "Also called elementary counting techniques and sequences in the course objectives."
+    ],
+    "keyTerms": [
+      "factorial",
+      "permutation",
+      "arrangement",
+      "combination",
+      "counting"
+    ],
+    "examTip": "Decide first whether order matters. Common mistake: using combinations when order matters (or the reverse)."
+  }
+]

@@ -1,0 +1,94 @@
+[
+  {
+    "session": "Session 1 - Interface, cells, formatting, tables",
+    "bullets": [
+      "Excel interface and spreadsheets: cells, constants and formulas.",
+      "Cell formatting and data formatting.",
+      "Data tables.",
+      "Sorting and filtering data in a table.",
+      "Course is online self-learning (about 25-30 hours); workshop attendance is mandatory."
+    ],
+    "keyTerms": [
+      "interface",
+      "cell",
+      "constant",
+      "formula",
+      "data table",
+      "sort",
+      "filter"
+    ],
+    "examTip": "Final: 30 questions in 1 hour on Moodle, in person with your own laptop and Excel. Syllabus gives topics only, so practise hands-on."
+  },
+  {
+    "session": "Session 2 - Addressing modes, names and functions",
+    "bullets": [
+      "Addressing modes (relative vs absolute references).",
+      "Naming a range of cells.",
+      "Data analysis functions: numerical, statistical, logical, conditional and lookup functions.",
+      "Syntax: separator can be comma or semicolon depending on system, e.g. =IF(B2>=10;\"success\";\"failure\") or with commas.",
+      "Decimal separator can be a period or a comma."
+    ],
+    "keyTerms": [
+      "relative reference",
+      "absolute reference",
+      "named range",
+      "logical functions",
+      "conditional functions",
+      "lookup functions",
+      "IF"
+    ],
+    "examTip": "Expect function-based questions. Common mistake: wrong separator or reference locking when copying a formula."
+  },
+  {
+    "session": "Session 3 - Charts and conditional formatting",
+    "bullets": [
+      "Charts: build and format charts from data.",
+      "Conditional formatting: format cells automatically based on rules.",
+      "Practise choosing a chart type that fits the data.",
+      "Course differences between Excel versions are minor (interface, shortcuts)."
+    ],
+    "keyTerms": [
+      "chart",
+      "chart type",
+      "conditional formatting",
+      "rule",
+      "data series"
+    ],
+    "examTip": "Likely practical: create a chart or rule from a dataset. Syllabus gives no further detail."
+  },
+  {
+    "session": "Session 4 - Decision-making with PivotTables",
+    "bullets": [
+      "PivotTables for decision-making: summarise and analyse data tables.",
+      "Practise grouping, summarising and filtering a data table.",
+      "Workshop session: instructor available for questions.",
+      "Syllabus gives the topic only (no detail on fields or settings)."
+    ],
+    "keyTerms": [
+      "PivotTable",
+      "summarise",
+      "group",
+      "data table",
+      "decision-making"
+    ],
+    "examTip": "Expect questions on building and reading PivotTables. Practise on a table of sales-style data."
+  },
+  {
+    "session": "Session 5 - Date and text functions, validation, protection",
+    "bullets": [
+      "Date functions.",
+      "Text functions.",
+      "Data validation.",
+      "Protect the worksheet/workbook.",
+      "Final exam is in December, in person; exact date TBA."
+    ],
+    "keyTerms": [
+      "date functions",
+      "text functions",
+      "data validation",
+      "protect worksheet",
+      "protect workbook"
+    ],
+    "examTip": "Practical function and settings questions likely. Do not guess syntax: practise in Excel before the exam."
+  }
+]
