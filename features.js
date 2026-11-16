@@ -42,7 +42,7 @@ function alerts() {
   try { navigator.setAppBadge && (out.length ? navigator.setAppBadge(out.length) : navigator.clearAppBadge()); } catch { }
   return out;
 }
-F.alerts = () => { const a = alerts(); return a.length ? `<div class="card alerts"><h2>Alerts <span class="pill bad">${a.length}</span></h2>${a.slice(0, 6).map(x => `<a class="alert ${x.lvl}" ${x.act ? `data-act="${x.act}"` : `href="${x.href}"`}><i></i>${esc(x.text)}</a>`).join('')}</div>` : ''; };
+F.alerts = () => { const a = alerts(); return a.length ? `<div class="card alerts"><h2>Alerts <span class="pill bad">${a.length}</span></h2>${a.slice(0, 3).map(x => `<a class="alert ${x.lvl}" ${x.act ? `data-act="${x.act}"` : `href="${x.href}"`}><i></i>${esc(x.text)}</a>`).join('')}</div>` : ''; };
 
 // ---------- 24. revision planner ----------
 function plan14() {
@@ -266,7 +266,7 @@ V.system = () => {
   return `<div class="card"><h2>Systems</h2>${row('Moodle', P.moodle, E.moodle, 180)}${row('Gmail', P.mail, E.mail, 120)}${row('Zoho · Shopify', P.biz, E.biz, 300)}${row('Calendar · Aentry', P.light, E.light, 120)}${row('Jarvis agent', st.agentLastReply, null, 24 * 60)}<div class="small dim" style="margin-top:8px">Data built ${rel(D.updatedAt)}. Everything runs on your Mac: keep it awake with Aside open.</div></div>
   <div class="card"><h2>Logins</h2>${[['Bookings ONE', 'essec.bookings.one'], ['Aentry', 'aentry.app'], ['Revolut', 'app.revolut.com'], ['Moodle', 'moodle.essec.fr']].map(([nm, u]) => { const s = (st.logins || {})[nm]; return `<div class="chartrow"><span>${nm}</span><span class="small dim">${esc(u)}</span><b style="color:${s === 'ok' ? 'var(--ok)' : s === 'out' ? 'var(--bad)' : 'var(--dim)'}">${s === 'ok' ? 'OK' : s === 'out' ? 'LOG IN' : '?'}</b></div>`; }).join('')}<div class="small dim" style="margin-top:6px">If one says LOG IN: open that site on your Mac and log in once with "Remember me".</div></div>
   <div class="card"><h2>Look & feel</h2><div class="chartrow"><span>Theme</span><span></span><span class="row" style="gap:6px">${['dark', 'light'].map(t => `<button class="btn ${setting('theme', 'dark') === t ? 'pri' : ''}" data-act="theme" data-t="${t}">${t}</button>`).join('')}</span></div><div class="chartrow"><span>Sounds & haptics</span><span></span><button class="btn ${setting('sounds', true) ? 'pri' : ''}" data-act="toggleset" data-k="sounds">${setting('sounds', true) ? 'on' : 'off'}</button></div><div class="chartrow"><span>Morning briefing (voice)</span><span></span><button class="btn ${setting('brief', true) ? 'pri' : ''}" data-act="toggleset" data-k="brief">${setting('brief', true) ? 'on' : 'off'}</button></div><div class="chartrow"><span>Face ID lock</span><span></span><button class="btn ${setting('faceid', false) ? 'pri' : ''}" data-act="faceid">${setting('faceid', false) ? 'on' : 'off'}</button></div></div>
-  <div class="card"><h2>Home layout</h2>${homeOrder().map((k, i) => { const nm = BLOCKS.find(b => b[0] === k)[1]; const hid = (S.homeHidden || {})[k]; return `<div class="chartrow"><span style="${hid ? 'opacity:.4' : ''}">${nm}</span><span class="row" style="gap:4px"><button class="mini" data-act="mv" data-i="${i}" data-d="-1">▲</button><button class="mini" data-act="mv" data-i="${i}" data-d="1">▼</button></span><button class="mini" data-act="hide" data-k="${k}">${hid ? 'show' : 'hide'}</button></div>`; }).join('')}</div>
+  <div class="card"><h2>Home layout</h2>${homeOrder().map((k, i) => { const nm = BLOCKS.find(b => b[0] === k)[1]; const hid = (S.homeHidden || { new: true, ideas: true, brief: true, errors: true, focus: true })[k]; return `<div class="chartrow"><span style="${hid ? 'opacity:.4' : ''}">${nm}</span><span class="row" style="gap:4px"><button class="mini" data-act="mv" data-i="${i}" data-d="-1">▲</button><button class="mini" data-act="mv" data-i="${i}" data-d="1">▼</button></span><button class="mini" data-act="hide" data-k="${k}">${hid ? 'show' : 'hide'}</button></div>`; }).join('')}</div>
   ${'' && `<div class="card"><h2>Home screen widget</h2><div class="small muted">Install the free <b>Scriptable</b> app, then ask Jarvis "send me the widget script". It shows your next event, homework and exam countdown on your iPhone home screen.</div></div>
   <div class="card"><h2>Online backup agent</h2><div class="small muted">Lets Jarvis answer and log things even when your Mac is off. Needs a Claude API key (console.anthropic.com, a few dollars a month). Not set up yet.</div></div>`}
   <div class="card"><h2>Jarvis remembers</h2>${Object.keys(D.prefs || {}).length ? `<ul class="bul">${Object.entries(D.prefs).map(([k, v]) => `<li>${esc(k)}: ${esc(String(v))}</li>`).join('')}</ul>` : '<div class="small muted">Nothing yet. Tell Jarvis things like "my usual room is 4M2" or "I train at 9pm".</div>'}</div>
@@ -275,7 +275,7 @@ V.system = () => {
 ACT.theme = (el) => { (S.set ||= {}).theme = el.dataset.t; applyTheme(); };
 ACT.toggleset = (el) => { (S.set ||= {})[el.dataset.k] = !setting(el.dataset.k, true); };
 ACT.mv = (el) => { const o = homeOrder(), i = +el.dataset.i, j = i + +el.dataset.d; if (j < 0 || j >= o.length) return false; [o[i], o[j]] = [o[j], o[i]]; S.homeOrder = o; };
-ACT.hide = (el) => { (S.homeHidden ||= {})[el.dataset.k] = !(S.homeHidden || {})[el.dataset.k]; };
+ACT.hide = (el) => { S.homeHidden ||= { new: true, ideas: true, brief: true, errors: true, focus: true }; S.homeHidden[el.dataset.k] = !S.homeHidden[el.dataset.k]; };
 
 // 48. Face ID (WebAuthn platform authenticator as a local gate)
 const b64u = (buf) => btoa(String.fromCharCode(...new Uint8Array(buf))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
@@ -291,7 +291,7 @@ function faceGate() { return new Promise(res => { if (!setting('faceid', false) 
 
 // ---------- to-do: one tap away (Home > To-do) ----------
 if (HIDE.food) foodCard = () => '';
-F.todo = () => { const open = todoItems().filter(t => !isDone(t.id)); return `<div class="card todocard"><h2>To-do <a class="small muted" href="#home/todo">${open.length} open →</a></h2><form class="addrow" id="addTodo"><input id="todoText" placeholder="Add a to-do…" autocomplete="off"><button class="btn pri">+</button></form><div class="list">${open.slice(0, 5).map(todoRow).join('') || '<div class="empty">All clear</div>'}</div></div>`; };
+F.todo = () => { const open = todoItems().filter(t => !isDone(t.id)); return `<div class="card todocard"><h2>To-do <a class="small muted" href="#home/todo">${open.length} open →</a></h2><form class="addrow" id="addTodo"><input id="todoText" placeholder="Add a to-do…" autocomplete="off"><button class="btn pri">+</button></form><div class="list">${open.slice(0, 3).map(todoRow).join('') || '<div class="empty">All clear</div>'}</div></div>`; };
 V.todo = () => { const items = todoItems(); const open = items.filter(t => !isDone(t.id)), done = items.filter(t => isDone(t.id)); const groups = [['Urgent', t => t.priority === 1], ['School', t => t.priority !== 1 && t.tag === 'school'], ['Business', t => t.priority !== 1 && t.tag === 'business'], ['Mine', t => t.priority !== 1 && t.tag === 'mine'], ['Other', t => t.priority !== 1 && !['school', 'business', 'mine'].includes(t.tag)]]; return `<div class="card hero"><form class="addrow" id="addTodo" style="margin:0"><input id="todoText" placeholder="Add a to-do…" autocomplete="off"><button class="btn pri">Add</button></form><div class="small muted" style="margin-top:8px">${open.length} open · or tell Jarvis "add to-do: ..."</div></div>${groups.map(([nm, fn]) => { const xs = open.filter(fn); return xs.length ? `<div class="card"><h2>${nm} <span class="pill">${xs.length}</span></h2><div class="list">${xs.map(todoRow).join('')}</div></div>` : ''; }).join('') || '<div class="card"><div class="empty">All clear</div></div>'}${done.length ? `<details class="card"><summary>${done.length} done ▾</summary><div class="list" style="margin-top:8px">${done.map(todoRow).join('')}</div></details>` : ''}`; };
 
 
@@ -341,7 +341,7 @@ V.today = () => {
   const html = origToday().replace(/<div class="name">[^<]*<\/div>/, '<div class="name">Mr. Pageaud</div><div class="weather" id="wx">Singapore</div>'); const parts = html.split(/<!--blk:(\w+)-->/); const blocks = {}; let top = parts[0];
   for (let i = 1; i < parts.length; i += 2) { if (parts[i] === 'top') top += parts[i + 1]; else blocks[parts[i]] = parts[i + 1]; }
   for (const k of ['alerts', 'todo', 'revision', 'focus', 'habits', 'score', 'brief']) blocks[k] = F[k]();
-  const hid = S.homeHidden || {};
+  const hid = S.homeHidden || { new: true, ideas: true, brief: true, errors: true, focus: true };
   return top + homeOrder().filter(k => !hid[k]).map(k => blocks[k] || '').join('') + `<div style="text-align:center;margin-top:8px"><a class="small dim" href="#work/system">Customise home · systems</a></div>`;
 };
 

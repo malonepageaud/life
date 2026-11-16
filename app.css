@@ -484,3 +484,35 @@ body::after{background:radial-gradient(ellipse at 50% 40%,transparent 55%,rgba(0
 .hud-hero .name{font-size:23px;white-space:nowrap}
 .eyebrow{white-space:nowrap}
 .hero::before{border-right:0!important;border-bottom:0!important;border-color:var(--gold)!important;width:14px;height:14px}
+
+/* ================= v7 READABILITY: more air, bigger type, less clutter ================= */
+html,body{font-size:16px;line-height:1.5}
+main{padding-left:18px;padding-right:18px}
+.card{padding:20px 18px;margin-bottom:16px}
+.card h2,.sec{font-size:12px;letter-spacing:.14em;margin-bottom:14px}
+.sec{margin:26px 4px 12px}
+.item{padding:14px 0;gap:14px}
+.item:first-child{padding-top:4px}
+.item .t{font-size:16px;line-height:1.38;font-weight:600}
+.item .m{font-size:13px;margin-top:5px;color:#a9a08a}
+.item .d{font-size:13px;margin-top:6px;line-height:1.45;color:#8f8775}
+.check{width:24px;height:24px;margin-top:0}
+.tl .item{padding:10px 0}
+.tl .time{width:54px;font-size:14px}
+.chartrow{padding:11px 0;font-size:15px}
+.hero .hl{font-size:21px;line-height:1.25}
+.hud-hero .small{font-size:14px!important;line-height:1.45!important}
+.status{font-size:11px;letter-spacing:.14em}
+.telemetry a{padding:14px 6px}
+.telemetry span{font-size:10px;letter-spacing:.18em}
+.subnav{gap:8px;margin-bottom:18px}
+.subnav a{padding:9px 15px}
+.chips{margin-bottom:16px}
+.alerts .alert{padding:12px 0;font-size:15px}
+.tag{font-size:10.5px;letter-spacing:.14em}
+.pill{font-size:11px;padding:3px 9px}
+.bul li{margin:8px 0;line-height:1.5}
+.idea p{line-height:1.5}
+.bubble{font-size:15.5px;line-height:1.5;padding:12px 14px}
+/* hide secondary clutter in lists */
+.todo-meta-tag{display:none}
