@@ -212,7 +212,7 @@ details summary::-webkit-details-marker{display:none}
 .study-card{border-color:rgba(56,232,255,.25)}
 .biz{border-color:rgba(61,255,176,.22)}
 .tonight{border-color:rgba(255,85,170,.3)}
-.evimg{height:150px;border-radius:13px;background-size:cover;background-position:center;margin:-4px -4px 0}
+.evimg{display:block;width:calc(100% + 8px);height:150px;object-fit:cover;border-radius:4px;margin:-4px -4px 0;background:#0a111a}
 .ev:not(.evbig) .evimg{height:110px}
 .today-hero .hl{font-size:21px}
 

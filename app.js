@@ -45,29 +45,40 @@ const SEG2GROUP = {}; for (const [g, v] of Object.entries(GROUPS)) for (const [s
 SEG2GROUP.today = 'home'; SEG2GROUP.more = 'home';
 const ROUTES = Object.values(GROUPS).flatMap(g => g.segs);
 
-// ---------- crypto ----------
+// ---------- crypto (cached key, gzip payload, instant boot from local copy) ----------
 const ub64 = (s) => Uint8Array.from(atob(s), c => c.charCodeAt(0));
-async function decrypt(enc, pass) {
+const keyCache = {};
+async function getKey(pass, salt) {
+  const k = salt + '|' + pass; if (keyCache[k]) return keyCache[k];
   const base = await crypto.subtle.importKey('raw', new TextEncoder().encode(pass), 'PBKDF2', false, ['deriveKey']);
-  const key = await crypto.subtle.deriveKey({ name: 'PBKDF2', salt: ub64(enc.salt), iterations: 150000, hash: 'SHA-256' }, base, { name: 'AES-GCM', length: 256 }, false, ['decrypt']);
-  const pt = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: ub64(enc.iv) }, key, ub64(enc.ct));
+  return (keyCache[k] = await crypto.subtle.deriveKey({ name: 'PBKDF2', salt: ub64(salt), iterations: 150000, hash: 'SHA-256' }, base, { name: 'AES-GCM', length: 256 }, false, ['decrypt']));
+}
+async function decrypt(enc, pass) {
+  const key = await getKey(pass, enc.salt);
+  let pt = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: ub64(enc.iv) }, key, ub64(enc.ct));
+  if (enc.z) pt = await new Response(new Blob([pt]).stream().pipeThrough(new DecompressionStream('gzip'))).arrayBuffer();
   return JSON.parse(new TextDecoder().decode(pt));
 }
+function savePlain(d) { try { localStorage.setItem('life:plain', JSON.stringify(d)); } catch { } }
+let loading = null;
 async function load(force) {
+  if (loading) return loading;
   const btn = $('#syncBtn'); btn.classList.add('spin');
-  try {
-    const r = await fetch('data.enc.json?t=' + Date.now(), { cache: 'no-store' });
-    const enc = await r.json();
-    const pass = localStorage.getItem('life:pass');
-    D = await decrypt(enc, pass);
-    localStorage.setItem('life:cache', JSON.stringify(enc));
-    if (force) toast('Up to date');
-  } catch (e) {
-    const c = localStorage.getItem('life:cache');
-    if (c && !D) { try { D = await decrypt(JSON.parse(c), localStorage.getItem('life:pass')); toast('Offline: showing last saved data'); } catch { } }
-    if (!D) throw e;
-  } finally { btn.classList.remove('spin'); }
-  render();
+  loading = (async () => {
+    try {
+      const r = await fetch('data.enc.json?t=' + Date.now(), { cache: 'no-store' });
+      const enc = await r.json();
+      if (D && enc.at && enc.at === D._at && !force) return; // unchanged: skip decrypt + render
+      const nd = await decrypt(enc, localStorage.getItem('life:pass'));
+      nd._at = enc.at; const changed = !D || nd.updatedAt !== D.updatedAt; D = nd; savePlain(D);
+      if (force) toast('Up to date');
+      if (changed || force) render();
+    } catch (e) {
+      if (!D) { const c = localStorage.getItem('life:plain'); if (c) { D = JSON.parse(c); render(); toast('Offline: showing last saved data'); } }
+      if (!D) throw e;
+    } finally { btn.classList.remove('spin'); loading = null; }
+  })();
+  return loading;
 }
 
 // ---------- lock ----------
@@ -75,14 +86,18 @@ async function unlock(pass) {
   const r = await fetch('data.enc.json?t=' + Date.now(), { cache: 'no-store' });
   const enc = await r.json();
   D = await decrypt(enc, pass); // throws if wrong
+  D._at = enc.at;
   localStorage.setItem('life:pass', pass);
-  localStorage.setItem('life:cache', JSON.stringify(enc));
+  savePlain(D); localStorage.removeItem('life:cache');
 }
 async function boot() {
   const m = location.hash.match(/k=([^&]+)/);
   if (m) { localStorage.setItem('life:pass', decodeURIComponent(m[1])); history.replaceState(null, '', location.pathname + '#today'); }
   if (!localStorage.getItem('life:pass')) return showLock();
-  try { await load(); showShell(); }
+  localStorage.removeItem('life:cache');
+  const c = localStorage.getItem('life:plain');
+  if (c) { try { D = JSON.parse(c); showShell(); render(); load().catch(() => {}); return; } catch { } }
+  try { await load(); showShell(); render(); }
   catch (e) { console.error(e); showLock('Could not unlock. Check the passcode.'); }
 }
 function showLock(err) {
@@ -95,7 +110,7 @@ function bootSeq() {
   document.body.appendChild(el);
   const lines = ['Initializing J.A.R.V.I.S.', 'Decrypting personal data', 'Syncing Moodle · Gmail · Calendar', 'All systems online'];
   const box = el.querySelector('.boot-lines'); let i = 0;
-  const step = () => { if (i < lines.length) { box.insertAdjacentHTML('beforeend', `<div>${lines[i++]}</div>`); setTimeout(step, 260); } else setTimeout(() => { el.classList.add('out'); setTimeout(() => el.remove(), 400); }, 300); };
+  const step = () => { if (i < lines.length) { box.insertAdjacentHTML('beforeend', `<div>${lines[i++]}</div>`); setTimeout(step, 170); } else setTimeout(() => { el.classList.add('out'); setTimeout(() => el.remove(), 350); }, 200); };
   el.addEventListener('click', () => { el.classList.add('out'); setTimeout(() => el.remove(), 400); });
   step();
 }
@@ -395,7 +410,7 @@ const cleanTitle = (t) => t.replace(/\s*\*.*$/, '').replace(/\s*\((Mon|Tue|Tues|
 const priceTag = (p) => p === 0 ? '<span class="pill ok">FREE</span>' : p != null ? `<span class="pill warn">$${p}</span>` : '';
 function eventCard(e, big) {
   const b = e.best; const cut = b?.salesEnd; const booked = (S.booked || {})[e.id];
-  return `<div class="card ev ${big ? 'evbig' : ''}">${e.image ? `<div class="evimg" style="background-image:url('${esc(e.image)}')"></div>` : ''}
+  return `<div class="card ev ${big ? 'evbig' : ''}">${e.image ? `<img class="evimg" src="${esc(e.image)}" loading="lazy" decoding="async" alt="">` : ''}
     <div class="row between" style="margin-top:${e.image ? 10 : 0}px"><div class="t" style="font-weight:750;font-size:16px">${esc(cleanTitle(e.title))}</div>${b ? priceTag(b.price) : ''}</div>
     <div class="m">${dayName(e.start)} · ${hm(e.start)} · <a href="${esc(e.map || '#')}" target="_blank" rel="noopener">${esc((e.location || '').split(',')[0])}</a></div>
     ${b ? `<div class="d" style="color:#c9cde0;margin-top:6px">${esc(b.title)}</div>` : ''}
@@ -530,7 +545,7 @@ document.addEventListener('click', (e) => {
 });
 function toast(msg) { const t = $('#toast'); t.textContent = msg; t.classList.add('on'); clearTimeout(toast._t); toast._t = setTimeout(() => t.classList.remove('on'), 2200); }
 
-document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible' && D && Date.now() - (load._last || 0) > 5 * 60000) { load._last = Date.now(); load().catch(() => {}); } });
+document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible' && D && Date.now() - (load._last || 0) > 2 * 60000) { load._last = Date.now(); load().catch(() => {}); } });
 setInterval(() => { if (D && document.visibilityState === 'visible') load().catch(() => {}); }, 15 * 60000);
 setInterval(() => { if (D) $('#syncText').textContent = 'synced ' + rel(D.updatedAt).replace(' ago', ''); }, 60000);
 
