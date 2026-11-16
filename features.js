@@ -142,7 +142,7 @@ V.sports = () => {
   const chart = `<div class="card"><h2>Sessions per week</h2><div class="vbars">${weeks.map((v, i) => `<div><i class="grow" style="height:${Math.min(100, v / (D.sports.weeklyTarget || 6) * 100)}%"></i><span>${v}</span></div>`).join('')}</div></div>`;
   const prs = Object.values(liftsAll().reduce((m, x) => { const k = exName(x.ex || ''); if (!m[k] || +x.kg > +m[k].kg) m[k] = { ...x, ex: k }; return m; }, {})).slice(0, 12);
   const prCard = prs.length ? `<div class="card"><h2>Personal records</h2>${prs.map(p => `<div class="chartrow"><span>${esc(p.ex)}</span><span class="small dim">${new Date(p.t).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })}</span><b>${p.kg} kg × ${p.reps}</b></div>`).join('')}</div>` : '';
-  return html + timer + chart + prCard;
+  return html + timer + (weeks.some(v => v > 0) ? chart : '') + prCard;
 };
 ACT.liftform = (el) => { S._liftform = S._liftform === el.dataset.ex ? null : el.dataset.ex; };
 ACT.liftsave = (el) => { const kg = parseFloat($('#lkg').value), reps = parseInt($('#lreps').value), sets = parseInt($('#lsets').value) || 1; if (!kg || !reps) { toast('Enter kg and reps'); return false; } L('lifts', []).push({ ex: el.dataset.ex, kg, reps, sets, t: Date.now() }); S._liftform = null; toast('Logged'); };
@@ -379,6 +379,8 @@ document.addEventListener('pointerdown', () => { if (!briefPending) return; brie
 
 // ---------- 19. steps via Shortcut deep link ----------
 (function stepsLink() { const m = location.hash.match(/steps=(\d+)/); if (m) { L('steps', []).push({ n: +m[1], t: Date.now() }); save(); history.replaceState(null, '', location.pathname + '#life/body'); setTimeout(() => toast(`Steps synced: ${(+m[1]).toLocaleString()}`), 800); } })();
+
+document.addEventListener('click', (e) => { const c = e.target.closest('.idea, .clamp-card'); if (c && !e.target.closest('[data-act], a, button')) c.classList.toggle('open'); });
 
 // ---------- render hooks ----------
 const origRender = render;

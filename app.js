@@ -506,6 +506,7 @@ function render() {
   const segs = GROUPS[g].segs;
   const sub = segs.length > 1 ? `<nav class="subnav">${segs.map(([k, l]) => `<a href="#${g}/${k}" class="${k === s ? 'on' : ''}">${l}</a>`).join('')}</nav>` : '';
   const v = $('#view');
+  v.dataset.view = s;
   v.innerHTML = sub + V[s === 'home' ? 'today' : s]();
   const key = g + '/' + s;
   if (key !== lastRouteKey) { v.classList.remove('anim'); void v.offsetWidth; v.classList.add('anim'); lastRouteKey = key; }
