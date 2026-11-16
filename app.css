@@ -517,3 +517,29 @@ main{padding-left:18px;padding-right:18px}
 /* hide secondary clutter in lists */
 .todo-meta-tag{display:none}
 .pushcard{border-color:rgba(217,180,90,.5);background:linear-gradient(155deg,rgba(217,180,90,.18),#0b0a10 70%)}
+
+/* ================= v8 ROUNDED: soft corners everywhere ================= */
+.card,.tile,.telemetry,.lock-card,.draft,.pipe>div,.explain,.flashcard{border-radius:22px}
+.card::before,.card::after,.hero::before{display:none!important}
+.hero{border-radius:26px}
+.hero::after{border-radius:26px}
+.btn,.btn.pri,.subnav a{clip-path:none!important;border-radius:14px}
+.subnav a{border-radius:999px}
+.chip,.pill,.qchips button,.restpill,.undo{border-radius:999px}
+.mini{border-radius:10px}
+.check{border-radius:8px}
+.choice{border-radius:16px}
+.addrow input,.liftform input,.composer textarea,.lock-card input,.lock-card button{border-radius:14px}
+.bubble{border-radius:20px!important}
+.bubble.me{border-radius:20px 20px 6px 20px!important;border-right-width:1px!important}
+.bubble.bot{border-radius:20px 20px 20px 6px!important;border-left-width:1px!important}
+.tabbar{border-radius:28px}
+.telemetry a:first-child{border-radius:22px 0 0 22px}.telemetry a:last-child{border-radius:0 22px 22px 0}
+.week button,.days .sq{border-radius:14px}
+.evimg{border-radius:16px}
+.thumbs img,.photos figure img{border-radius:12px}
+.iconbtn{border-radius:12px}
+.seg{border-radius:16px}.seg button{border-radius:12px}
+.pcard{border-radius:10px}
+.bar,.bar i{border-radius:999px}
+.vbars i{border-radius:8px 8px 3px 3px}
