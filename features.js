@@ -270,7 +270,7 @@ V.system = () => {
   ${'' && `<div class="card"><h2>Home screen widget</h2><div class="small muted">Install the free <b>Scriptable</b> app, then ask Jarvis "send me the widget script". It shows your next event, homework and exam countdown on your iPhone home screen.</div></div>
   <div class="card"><h2>Online backup agent</h2><div class="small muted">Lets Jarvis answer and log things even when your Mac is off. Needs a Claude API key (console.anthropic.com, a few dollars a month). Not set up yet.</div></div>`}
   <div class="card"><h2>Jarvis remembers</h2>${Object.keys(D.prefs || {}).length ? `<ul class="bul">${Object.entries(D.prefs).map(([k, v]) => `<li>${esc(k)}: ${esc(String(v))}</li>`).join('')}</ul>` : '<div class="small muted">Nothing yet. Tell Jarvis things like "my usual room is 4M2" or "I train at 9pm".</div>'}</div>
-  <div class="small dim" style="text-align:center">J.A.R.V.I.S. v19 · data ${Math.round(JSON.stringify(D).length / 1024)} KB</div>`;
+  <div class="small dim" style="text-align:center">J.A.R.V.I.S. v23 · data ${Math.round(JSON.stringify(D).length / 1024)} KB</div>`;
 };
 ACT.theme = (el) => { (S.set ||= {}).theme = el.dataset.t; applyTheme(); };
 ACT.toggleset = (el) => { (S.set ||= {})[el.dataset.k] = !setting(el.dataset.k, true); };
@@ -294,10 +294,51 @@ if (HIDE.food) foodCard = () => '';
 F.todo = () => { const open = todoItems().filter(t => !isDone(t.id)); return `<div class="card todocard"><h2>To-do <a class="small muted" href="#home/todo">${open.length} open →</a></h2><form class="addrow" id="addTodo"><input id="todoText" placeholder="Add a to-do…" autocomplete="off"><button class="btn pri">+</button></form><div class="list">${open.slice(0, 5).map(todoRow).join('') || '<div class="empty">All clear</div>'}</div></div>`; };
 V.todo = () => { const items = todoItems(); const open = items.filter(t => !isDone(t.id)), done = items.filter(t => isDone(t.id)); const groups = [['Urgent', t => t.priority === 1], ['School', t => t.priority !== 1 && t.tag === 'school'], ['Business', t => t.priority !== 1 && t.tag === 'business'], ['Mine', t => t.priority !== 1 && t.tag === 'mine'], ['Other', t => t.priority !== 1 && !['school', 'business', 'mine'].includes(t.tag)]]; return `<div class="card hero"><form class="addrow" id="addTodo" style="margin:0"><input id="todoText" placeholder="Add a to-do…" autocomplete="off"><button class="btn pri">Add</button></form><div class="small muted" style="margin-top:8px">${open.length} open · or tell Jarvis "add to-do: ..."</div></div>${groups.map(([nm, fn]) => { const xs = open.filter(fn); return xs.length ? `<div class="card"><h2>${nm} <span class="pill">${xs.length}</span></h2><div class="list">${xs.map(todoRow).join('')}</div></div>` : ''; }).join('') || '<div class="card"><div class="empty">All clear</div></div>'}${done.length ? `<details class="card"><summary>${done.length} done ▾</summary><div class="list" style="margin-top:8px">${done.map(todoRow).join('')}</div></details>` : ''}`; };
 
+
+// ---------- v6 Wayne × J.A.R.V.I.S. ----------
+let _ticks2 = '', _gold = '';
+reactor = function (score, label) {
+  if (!_ticks2) { for (let i = 0; i < 72; i++) { const a = i * 5 * Math.PI / 180, r1 = i % 6 ? 89 : 84, r2 = 94; _ticks2 += `<line x1="${100 + r1 * Math.sin(a)}" y1="${100 - r1 * Math.cos(a)}" x2="${100 + r2 * Math.sin(a)}" y2="${100 - r2 * Math.cos(a)}"/>`; } for (let i = 0; i < 12; i++) { const a0 = (i * 30 + 3) * Math.PI / 180, a1 = (i * 30 + 24) * Math.PI / 180, r = 80; _gold += `<path d="M${100 + r * Math.sin(a0)} ${100 - r * Math.cos(a0)} A${r} ${r} 0 0 1 ${100 + r * Math.sin(a1)} ${100 - r * Math.cos(a1)}"/>`; } }
+  const C = 2 * Math.PI * 64, off = C * (1 - Math.max(0, Math.min(100, score)) / 100);
+  return `<svg class="reactor" viewBox="0 0 200 200" aria-label="Day score ${score}%"><defs>
+    <linearGradient id="arcg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7fe9ff"/><stop offset=".55" stop-color="#5cc8ff"/><stop offset="1" stop-color="#f3c969"/></linearGradient>
+    <radialGradient id="rg" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#f6ffff"/><stop offset=".3" stop-color="#8eefff"/><stop offset=".62" stop-color="#2a8cff" stop-opacity=".7"/><stop offset="1" stop-color="#020814" stop-opacity="0"/></radialGradient>
+    <linearGradient id="goldg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff1c1"/><stop offset=".45" stop-color="#d9b45a"/><stop offset="1" stop-color="#8a6a1f"/></linearGradient>
+    <linearGradient id="sweepg" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#7fe9ff" stop-opacity="0"/><stop offset="1" stop-color="#7fe9ff" stop-opacity=".35"/></linearGradient></defs>
+    <g class="r-ticks" stroke="rgba(217,180,90,.55)" stroke-width="1.3">${_ticks2}</g>
+    <g class="r-gold" fill="none" stroke="url(#goldg)" stroke-width="2.4" stroke-linecap="round">${_gold}</g>
+    <circle cx="100" cy="100" r="64" fill="none" stroke="rgba(255,255,255,.06)" stroke-width="8"/>
+    <circle class="r-arc" cx="100" cy="100" r="64" fill="none" stroke="url(#arcg)" stroke-width="8" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${off}" transform="rotate(-90 100 100)" style="filter:drop-shadow(0 0 6px rgba(127,233,255,.7))"/>
+    <path class="r-sweep" d="M100 100 L100 40 A60 60 0 0 1 152 70 Z" fill="url(#sweepg)"/>
+    <circle class="r-core" cx="100" cy="100" r="44" fill="url(#rg)"/>
+    <circle cx="100" cy="100" r="44" fill="none" stroke="rgba(255,255,255,.25)" stroke-width=".8"/>
+    <text x="100" y="104" text-anchor="middle" font-size="30">${score}%</text>
+    <text x="100" y="124" text-anchor="middle" font-size="10" letter-spacing="3" fill="#e8d7a6">${label || 'DAY'}</text></svg>`;
+};
+bootSeq = function () {
+  if (sessionStorage.getItem('booted')) return; sessionStorage.setItem('booted', '1');
+  const el = document.createElement('div'); el.className = 'boot';
+  el.innerHTML = `<div class="brandline">Pageaud Industries · Private</div><div class="scanbox">${reactor(100, 'SCAN')}<div class="scanline"></div></div><div class="welcome"></div><div class="boot-lines"></div>`;
+  document.body.appendChild(el); beep(440, 0.08, 0.03);
+  const lines = ['Biometric match confirmed', 'Decrypting private data', 'Syncing Moodle · Mail · Calendar', 'J.A.R.V.I.S. online'];
+  const box = el.querySelector('.boot-lines'); let i = 0;
+  const done = () => { el.classList.add('out'); setTimeout(() => el.remove(), 380); };
+  setTimeout(() => { el.querySelector('.welcome').textContent = 'Welcome back, Mr. Pageaud'; beep(880, 0.07, 0.03); }, 420);
+  const step = () => { if (i < lines.length) { box.insertAdjacentHTML('beforeend', `<div>${lines[i++]}</div>`); setTimeout(step, 190); } else setTimeout(done, 380); };
+  setTimeout(step, 520); el.addEventListener('click', done);
+};
+const origHeader = header;
+header = function (t) { origHeader(t); const dl = $('#dateLine'); if (dl) dl.innerHTML = `${esc(fmt(Date.now(), { weekday: 'short', day: 'numeric', month: 'short' }))}<span class="clock" id="clk"></span>`; tickClock(); };
+function tickClock() { const c = document.getElementById('clk'); if (c) c.textContent = fmt(Date.now(), { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false }); }
+setInterval(tickClock, 1000);
+const WX = { 0: 'Clear', 1: 'Mostly clear', 2: 'Partly cloudy', 3: 'Overcast', 45: 'Fog', 48: 'Fog', 51: 'Drizzle', 53: 'Drizzle', 55: 'Drizzle', 61: 'Light rain', 63: 'Rain', 65: 'Heavy rain', 80: 'Showers', 81: 'Showers', 82: 'Heavy showers', 95: 'Thunderstorm', 96: 'Thunderstorm', 99: 'Thunderstorm' };
+async function weather() { try { const c = JSON.parse(localStorage.getItem('life:wx') || 'null'); if (c && Date.now() - c.t < 30 * 60000) return c; const r = await fetch('https://api.open-meteo.com/v1/forecast?latitude=1.284&longitude=103.842&current=temperature_2m,apparent_temperature,weather_code&timezone=Asia%2FSingapore'); const j = await r.json(); const w = { t: Date.now(), temp: Math.round(j.current.temperature_2m), feels: Math.round(j.current.apparent_temperature), txt: WX[j.current.weather_code] || '' }; localStorage.setItem('life:wx', JSON.stringify(w)); return w; } catch { return null; } }
+function paintWeather() { const el = document.getElementById('wx'); if (!el) return; weather().then(w => { if (w && document.getElementById('wx')) document.getElementById('wx').innerHTML = `Singapore <b>${w.temp}°C</b> · ${esc(w.txt)} · feels ${w.feels}°`; }); }
+
 // ---------- home composition (47) ----------
 const origToday = V.today;
 V.today = () => {
-  const html = origToday(); const parts = html.split(/<!--blk:(\w+)-->/); const blocks = {}; let top = parts[0];
+  const html = origToday().replace(/<div class="name">[^<]*<\/div>/, '<div class="name">Mr. Pageaud</div><div class="weather" id="wx">Singapore</div>'); const parts = html.split(/<!--blk:(\w+)-->/); const blocks = {}; let top = parts[0];
   for (let i = 1; i < parts.length; i += 2) { if (parts[i] === 'top') top += parts[i + 1]; else blocks[parts[i]] = parts[i + 1]; }
   for (const k of ['alerts', 'todo', 'revision', 'focus', 'habits', 'score', 'brief']) blocks[k] = F[k]();
   const hid = S.homeHidden || {};
@@ -323,7 +364,7 @@ document.addEventListener('pointerdown', () => { if (!briefPending) return; brie
 
 // ---------- render hooks ----------
 const origRender = render;
-render = function () { origRender(); if (route().s === 'body') paintPhotos(); };
+render = function () { origRender(); const r = route(); if (r.s === 'body') paintPhotos(); if (r.g === 'home') paintWeather(); };
 
 // ---------- boot ----------
 applyTheme();

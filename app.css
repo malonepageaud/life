@@ -412,3 +412,75 @@ body{background:radial-gradient(900px 600px at -10% -10%,rgba(139,92,255,.42),tr
 .alerts{background:linear-gradient(155deg,rgba(255,106,106,.26),rgba(255,189,74,.10) 60%,#0d0b1e)}
 .todocard{border-color:color-mix(in srgb,var(--c-work) 45%,transparent);background:linear-gradient(155deg,rgba(255,189,74,.14),#0c0a1e 65%)}
 .todocard h2{color:var(--c-work)}
+
+/* ================= v6 WAYNE × J.A.R.V.I.S. — obsidian, carbon, gold, jewel tones ================= */
+:root{--gold:#d9b45a;--gold-hi:#fff1c1;--gold-lo:#8a6a1f;--metal:linear-gradient(135deg,#fff3c8 0%,#e8c46a 28%,#a67c2e 52%,#f5d98a 72%,#b8892f 100%);
+--c-home:#5cc8ff;--c-home2:#3d6bff;--c-school:#b896ff;--c-school2:#7a4dff;--c-life:#3ee8a8;--c-life2:#0fb37a;--c-work:#f3c969;--c-work2:#d4952b}
+body{background:
+ radial-gradient(700px 380px at 50% -8%,rgba(217,180,90,.16),transparent 65%),
+ radial-gradient(900px 600px at -15% 10%,color-mix(in srgb,var(--hub) 16%,transparent),transparent 60%),
+ radial-gradient(900px 700px at 115% 100%,color-mix(in srgb,var(--hub2) 14%,transparent),transparent 60%),
+ repeating-linear-gradient(45deg,rgba(255,255,255,.018) 0 2px,transparent 2px 4px),
+ repeating-linear-gradient(-45deg,rgba(0,0,0,.35) 0 2px,transparent 2px 4px),
+ #050507;background-attachment:fixed}
+body::before{background-image:none}
+body::after{background:radial-gradient(ellipse at 50% 40%,transparent 55%,rgba(0,0,0,.55) 100%);mix-blend-mode:normal}
+/* typography: gold metallic */
+.top h1{background:var(--metal);-webkit-background-clip:text;background-clip:text;color:transparent;letter-spacing:.22em;font-size:24px;filter:drop-shadow(0 1px 0 rgba(0,0,0,.6))}
+.eyebrow{color:var(--gold);letter-spacing:.24em}
+.eyebrow .clock{color:#fff;opacity:.85;margin-left:8px}
+.hud-hero .greet{color:var(--gold);letter-spacing:.3em}
+.hud-hero .name{background:var(--metal);-webkit-background-clip:text;background-clip:text;color:transparent;font-size:28px;letter-spacing:.08em;text-transform:uppercase}
+.card h2,.sec{color:color-mix(in srgb,var(--hub) 75%,#fff);letter-spacing:.2em}
+/* obsidian glass cards with gold hairlines */
+.card{background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,0) 38%),linear-gradient(160deg,color-mix(in srgb,var(--hub) 9%,#0b0b10) 0%,#08080b 60%,color-mix(in srgb,var(--hub2) 7%,#08080b) 100%);border:1px solid rgba(217,180,90,.22);box-shadow:inset 0 1px 0 rgba(255,241,193,.07),0 18px 40px -24px rgba(0,0,0,.9)}
+.card::before{border-color:var(--gold);opacity:.9}
+.card::after{border-color:var(--hub);opacity:.9}
+.hero{background:radial-gradient(520px 260px at 0% 0%,color-mix(in srgb,var(--hub) 26%,transparent),transparent 70%),radial-gradient(420px 260px at 100% 100%,color-mix(in srgb,var(--hub2) 22%,transparent),transparent 70%),linear-gradient(180deg,rgba(255,255,255,.05),transparent 40%),#09090d;border-color:rgba(217,180,90,.38);box-shadow:inset 0 1px 0 rgba(255,241,193,.12),0 20px 60px -28px color-mix(in srgb,var(--hub) 70%,transparent)}
+.hero::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:linear-gradient(115deg,transparent 30%,rgba(255,241,193,.07) 45%,transparent 60%);background-size:250% 100%;animation:sheen 7s ease-in-out infinite}
+@keyframes sheen{0%,60%{background-position:120% 0}100%{background-position:-60% 0}}
+/* telemetry: gold frame, jewel numbers */
+.telemetry{background:linear-gradient(180deg,rgba(255,255,255,.04),transparent),#08080b;border-color:rgba(217,180,90,.3)}
+.telemetry a{border-left-color:rgba(217,180,90,.14)}
+.telemetry span{color:#bfae84}
+/* buttons, chips, subnav */
+.btn{border-color:rgba(217,180,90,.35);background:rgba(217,180,90,.05);color:#f4ead0}
+.btn.pri{background:var(--metal);color:#1a1205;box-shadow:0 0 18px rgba(217,180,90,.35),inset 0 1px 0 rgba(255,255,255,.5)}
+.subnav a{background:rgba(10,10,14,.9);border-color:rgba(217,180,90,.25);color:#cdbf98}
+.subnav a.on{background:linear-gradient(135deg,var(--hub),var(--hub2));color:#05060a;box-shadow:0 0 18px color-mix(in srgb,var(--hub) 50%,transparent),inset 0 1px 0 rgba(255,255,255,.35)}
+.chip{background:rgba(10,10,14,.85);border-color:rgba(217,180,90,.25);color:#cdbf98}
+.chip b{color:var(--gold-hi)}
+.sync{border-color:rgba(217,180,90,.3);color:#cdbf98;background:rgba(8,8,11,.8)}
+.check{border-color:rgba(217,180,90,.55);background:rgba(217,180,90,.05)}
+.item{border-top-color:rgba(217,180,90,.1)}
+.pill.acc{background:rgba(217,180,90,.14);color:var(--gold-hi)}
+/* tab bar: obsidian + gold, orb = arc reactor in a gold bezel */
+.tabbar{background:linear-gradient(180deg,rgba(22,20,16,.97),rgba(8,8,10,.97));border:1px solid rgba(217,180,90,.35);box-shadow:0 -10px 40px -20px rgba(0,0,0,.9),inset 0 1px 0 rgba(255,241,193,.08)}
+.tabbar a{color:#7c7464}
+.orb{background:radial-gradient(circle at 50% 50%,#f2ffff 0%,#7fe9ff 22%,#2aa8ff 45%,#0a2a66 72%,#05060a 100%);box-shadow:0 0 0 3px #b8892f,0 0 0 6px #050507,0 0 0 7px rgba(217,180,90,.5),0 0 34px rgba(90,200,255,.65)}
+.orb::after{border-color:rgba(217,180,90,.55)}
+.orb svg{color:#03121d}
+.micbtn{background:radial-gradient(circle at 50% 50%,#f2ffff 0%,#7fe9ff 25%,#2aa8ff 50%,#0a2a66 80%);box-shadow:0 0 0 3px #b8892f,0 0 26px rgba(90,200,255,.6)}
+/* reactor upgrades */
+.reactor .r-gold{transform-origin:100px 100px;animation:spin 60s linear infinite reverse}
+.reactor .r-sweep{transform-origin:100px 100px;animation:spin 4s linear infinite}
+/* boot: biometric */
+.boot{background:radial-gradient(600px 400px at 50% 40%,rgba(217,180,90,.10),transparent 70%),#030304}
+.boot .brandline{font-family:var(--hud);letter-spacing:.5em;font-size:11px;color:#bfae84;text-transform:uppercase}
+.boot .welcome{font-family:var(--hud);font-weight:700;font-size:22px;letter-spacing:.14em;text-transform:uppercase;background:var(--metal);-webkit-background-clip:text;background-clip:text;color:transparent;min-height:30px}
+.scanbox{position:relative;width:170px;height:170px}
+.scanbox .scanline{position:absolute;left:8%;right:8%;height:2px;background:linear-gradient(90deg,transparent,#7fe9ff,transparent);box-shadow:0 0 12px #7fe9ff;animation:bscan 1.1s ease-in-out infinite alternate;top:15%}
+@keyframes bscan{to{top:85%}}
+.boot-lines{color:#9fdcec}
+.boot-lines div:last-child{color:var(--gold-hi)}
+/* chat in gold */
+.sheet-card{background:radial-gradient(500px 300px at 50% 0%,rgba(217,180,90,.12),transparent 70%),#060608}
+.sheet-head b{background:var(--metal);-webkit-background-clip:text;background-clip:text;color:transparent}
+.bubble.me{background:linear-gradient(135deg,rgba(217,180,90,.18),rgba(217,180,90,.06));border:1px solid rgba(217,180,90,.35);border-right:2px solid var(--gold)}
+.bubble.bot{background:linear-gradient(135deg,rgba(92,200,255,.10),rgba(8,8,11,.95));border-left:2px solid var(--c-home)}
+.weather{font-family:var(--hud);letter-spacing:.14em;font-size:11.5px;color:#cdbf98;margin-top:3px;text-transform:uppercase}
+.weather b{color:#fff;font-weight:700}
+.card::before,.card::after{border-radius:0}
+.hud-hero .name{font-size:23px;white-space:nowrap}
+.eyebrow{white-space:nowrap}
+.hero::before{border-right:0!important;border-bottom:0!important;border-color:var(--gold)!important;width:14px;height:14px}
