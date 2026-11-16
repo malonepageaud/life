@@ -88,7 +88,18 @@ async function boot() {
 function showLock(err) {
   $('#shell').classList.add('hidden'); $('#lock').classList.remove('hidden'); $('#lockErr').textContent = err || '';
 }
-function showShell() { $('#lock').classList.add('hidden'); $('#shell').classList.remove('hidden'); $('#fab').classList.remove('hidden'); setTimeout(() => flushPending && flushPending(), 500); }
+function bootSeq() {
+  if (sessionStorage.getItem('booted')) return; sessionStorage.setItem('booted', '1');
+  const el = document.createElement('div'); el.className = 'boot';
+  el.innerHTML = reactor(100, 'ONLINE') + '<div class="boot-lines"></div>';
+  document.body.appendChild(el);
+  const lines = ['Initializing J.A.R.V.I.S.', 'Decrypting personal data', 'Syncing Moodle · Gmail · Calendar', 'All systems online'];
+  const box = el.querySelector('.boot-lines'); let i = 0;
+  const step = () => { if (i < lines.length) { box.insertAdjacentHTML('beforeend', `<div>${lines[i++]}</div>`); setTimeout(step, 260); } else setTimeout(() => { el.classList.add('out'); setTimeout(() => el.remove(), 400); }, 300); };
+  el.addEventListener('click', () => { el.classList.add('out'); setTimeout(() => el.remove(), 400); });
+  step();
+}
+function showShell() { bootSeq(); $('#lock').classList.add('hidden'); $('#shell').classList.remove('hidden'); $('#fab').classList.remove('hidden'); setTimeout(() => flushPending && flushPending(), 500); }
 $('#lockForm').addEventListener('submit', async (e) => {
   e.preventDefault(); $('#lockErr').textContent = 'Unlocking…';
   try { await unlock($('#pass').value.trim()); showShell(); render(); }
@@ -140,6 +151,22 @@ function todoRow(t) {
     <div class="main"><div class="t">${esc(t.text)}</div><div class="m">${t.due ? dueBadge(t) + ' ' : ''}<span class="tag">${esc(t.tag || '')}</span>${t.url ? ` · <a href="${esc(t.url)}" target="_blank" rel="noopener">open ↗</a>` : ''}${t.tag === 'mine' ? ` · <a href="#" data-act="deltodo" data-id="${esc(t.id)}">delete</a>` : ''}</div></div></div>`;
 }
 
+
+// ---------- HUD helpers ----------
+let _ticks = '';
+function reactor(score, label) {
+  if (!_ticks) { for (let i = 0; i < 60; i++) { const a = i * 6 * Math.PI / 180, r1 = i % 5 ? 88 : 84, r2 = 94; _ticks += `<line x1="${100 + r1 * Math.sin(a)}" y1="${100 - r1 * Math.cos(a)}" x2="${100 + r2 * Math.sin(a)}" y2="${100 - r2 * Math.cos(a)}"/>`; } }
+  const C = 2 * Math.PI * 66, off = C * (1 - Math.max(0, Math.min(100, score)) / 100);
+  return `<svg class="reactor" viewBox="0 0 200 200" aria-label="Day score ${score}%"><defs><radialGradient id="rg" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#f2ffff"/><stop offset=".35" stop-color="#41e9ff"/><stop offset=".75" stop-color="#1366ff" stop-opacity=".55"/><stop offset="1" stop-color="#021022" stop-opacity="0"/></radialGradient></defs>
+    <g class="r-ticks" stroke="rgba(65,233,255,.55)" stroke-width="1.4">${_ticks}</g>
+    <circle class="r-dash" cx="100" cy="100" r="77" fill="none" stroke="rgba(65,233,255,.35)" stroke-width="1.2" stroke-dasharray="3 7"/>
+    <circle cx="100" cy="100" r="66" fill="none" stroke="rgba(255,255,255,.07)" stroke-width="7"/>
+    <circle class="r-arc" cx="100" cy="100" r="66" fill="none" stroke="#3dffb0" stroke-width="7" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${off}" transform="rotate(-90 100 100)" style="filter:drop-shadow(0 0 6px rgba(61,255,176,.7))"/>
+    <circle class="r-core" cx="100" cy="100" r="46" fill="url(#rg)"/>
+    <text x="100" y="104" text-anchor="middle" font-size="30">${score}%</text>
+    <text x="100" y="124" text-anchor="middle" font-size="10" letter-spacing="3" fill="#9fe9f5">${label || 'DAY'}</text></svg>`;
+}
+
 V.today = () => {
   const now = Date.now(), dk = dayKey(), end = sgMidnight() + DAY;
   const h = sgParts(now).h;
@@ -161,19 +188,15 @@ V.today = () => {
   const biz = D.business?.today || [];
   const bd = S.biz?.[dk] || {};
   return `
-  <div class="card hero"><div class="jarvis"><div class="core"></div><div style="flex:1;min-width:0">${(Date.now() - D.updatedAt) > 75 * 60000 ? `<div class="status" style="color:var(--bad)"><b style="color:var(--bad)">●</b> COMPUTER OFFLINE · last sync ${rel(D.updatedAt)}</div>` : `<div class="status"><b>●</b> ONLINE</div>`}<div class="status">${D.homework.filter(x => x.due && x.due > now && x.due - now < 7 * DAY).length} due · ${(D.exams || [])[0] ? 'exam in ' + Math.max(0, Math.ceil(((D.exams[0].t) - now) / DAY)) + 'd' : ''}</div><div class="status">${sportsWeek().done}/${D.sports.weeklyTarget} gym · avg ${D.grades.average != null ? D.grades.average.toFixed(1) : '–'}</div></div>
-    <div class="ring" style="--p:${score};--c:var(--ok)" title="Day score"><span>${score}%</span></div></div>
-    <div class="hl" style="margin-top:14px">${esc(D.briefing.headline)}</div></div>
+  <div class="card hero hud-hero"><div class="scan"></div>${reactor(score)}<div style="flex:1;min-width:0">
+    <div class="greet">${greetWord()}</div><div class="name">${esc(D.owner || 'Malone')}</div>
+    ${(Date.now() - D.updatedAt) > 75 * 60000 ? `<div class="status" style="color:var(--bad)"><b style="color:var(--bad)">●</b> COMPUTER OFFLINE · ${rel(D.updatedAt)}</div>` : `<div class="status"><b>●</b> ALL SYSTEMS ONLINE</div>`}
+    <div class="small" style="color:#cfe9f2;margin-top:8px;line-height:1.35">${esc(D.briefing.headline)}</div></div></div>
+  ${(() => { const due = D.homework.filter(x => x.due && x.due > now && x.due - now < 7 * DAY).length; const ex = (D.exams || [])[0]; const exd = ex ? Math.max(0, Math.ceil((ex.t - now) / DAY)) : null; const g = sportsWeek().done; return `<div class="telemetry"><a href="#school/homework" class="${due ? 'warn' : 'good'}"><b>${due}</b><span>Due</span></a><a href="#school/homework" class="${exd != null && exd <= 7 ? 'warn' : ''}"><b>${exd != null ? exd + 'd' : '–'}</b><span>Exam</span></a><a href="#life/sports" class="${g >= D.sports.weeklyTarget ? 'good' : ''}"><b>${g}/${D.sports.weeklyTarget}</b><span>Gym</span></a><a href="#school/grades"><b>${D.grades.average != null ? D.grades.average.toFixed(1) : '–'}</b><span>Avg</span></a></div>`; })()}
   ${(() => { const nx = D.calendar.events.find(e => !e.allDay && e.end > now && e.start < end + 6 * 3600000); if (!nx) return ''; const mins = Math.round((nx.start - now) / 60000); return `<div class="card nextup"><div class="mins">${mins <= 0 ? 'NOW' : mins < 60 ? mins + 'm' : Math.floor(mins / 60) + 'h' + String(mins % 60).padStart(2, '0')}</div><div style="flex:1;min-width:0"><div class="tag">Next up</div><div style="font-weight:700">${esc(nx.title)}</div><div class="small muted">${hm(nx.start)}–${hm(nx.end)}${nx.location ? ' · ' + esc(nx.location) : ''}</div></div></div>`; })()}
   <div class="chips">${(D.countdowns || []).map(c => { const d = Math.ceil((new Date(c.date).getTime() - now) / DAY); return d >= 0 ? `<span class="chip">${esc(c.label)} <b>${d === 0 ? 'today' : d + 'd'}</b></span>` : ''; }).join('')}</div>
   <div class="card"><h2>Must do <span class="pill ${got === parts && parts ? 'ok' : ''}">${focus.filter((_, i) => fd[i]).length}/${focus.length}</span></h2><div class="list">${focus.map((f, i) => `<div class="item ${fd[i] ? 'done' : ''}"><button class="check ${fd[i] ? 'on' : ''}" data-act="focus" data-i="${i}"></button><div class="main"><div class="t">${esc(f)}</div></div></div>`).join('') || '<div class="empty">Nothing set</div>'}</div></div>
   <div class="card"><h2>Today</h2><div class="tl">${sched.map(s => `<div class="item"><div class="time ${s.t <= now && (s.end || s.t + 3600000) > now ? 'now' : ''}" style="${s.kind === 'due' ? 'color:var(--warn)' : ''}">${hm(s.t)}</div><div class="main"><div class="t" style="${s.kind === 'plan' ? 'font-weight:500;color:#c9cde0' : ''}">${esc(s.text)}</div>${s.loc ? `<div class="m">${esc(s.loc)}</div>` : ''}</div></div>`).join('') || '<div class="empty">Nothing left today</div>'}</div></div>
-  <div class="tiles">
-    <a class="tile" href="#homework" style="--glow:#ffb547"><span class="k">${I.homework.replace('<svg', '<svg width="15"')} Due this week</span><span class="v">${soon.length}</span><span class="s">${soon[0] ? esc(soon[0].title.slice(0, 28)) : 'clear'}</span></a>
-    <a class="tile" href="#homework" style="--glow:#ff5d7a"><span class="k">${I.calendar.replace('<svg', '<svg width="15"')} Next exam</span><span class="v">${nextExam ? Math.max(0, Math.ceil((nextExam.t - now) / DAY)) + 'd' : '–'}</span><span class="s">${nextExam ? esc(nextExam.course.split(' (')[0].split(':')[0]) : ''}</span></a>
-    <a class="tile" href="#sports" style="--glow:#46e39b"><span class="k">${I.sports.replace('<svg', '<svg width="15"')} Gym</span><span class="v">${gDone ? '✓' : t?.rest ? 'Rest' : esc((t?.name || '').split(' ')[0])}</span><span class="s">${sportsWeek().done}/${D.sports.weeklyTarget} this week</span></a>
-    <a class="tile" href="#grades" style="--glow:#8b7cff"><span class="k">${I.grades.replace('<svg', '<svg width="15"')} Average</span><span class="v">${D.grades.average != null ? D.grades.average.toFixed(2) : '–'}</span><span class="s">/20 so far</span></a>
-  </div>
   ${tonightCard()}
   ${studyCard()}
   ${biz.length ? `<div class="card biz"><h2>Money moves <a class="small muted" href="#business">Business →</a></h2><div class="list">${biz.map((b, i) => `<div class="item ${bd[i] ? 'done' : ''}"><button class="check ${bd[i] ? 'on' : ''}" data-act="biz" data-i="${i}"></button><div class="main"><div class="t">${esc(b)}</div></div></div>`).join('')}</div></div>` : ''}
@@ -463,7 +486,7 @@ const mailRow = (m) => `<div class="item"><span class="cdot" style="background:$
 function render() {
   if (!D) return;
   const { g, s } = route(); (S.lastSeg ||= {})[g] = s;
-  header(g === 'home' ? greetWord() + ', ' + (D.owner || 'Malone') : GROUPS[g].label);
+  header(g === 'home' ? 'J.A.R.V.I.S.' : GROUPS[g].label);
   renderNav();
   const segs = GROUPS[g].segs;
   const sub = segs.length > 1 ? `<nav class="subnav">${segs.map(([k, l]) => `<a href="#${g}/${k}" class="${k === s ? 'on' : ''}">${l}</a>`).join('')}</nav>` : '';
@@ -475,7 +498,7 @@ function render() {
   if (f) f.addEventListener('submit', (e) => { e.preventDefault(); const val = $('#todoText').value.trim(); if (!val) return; S.custom.unshift({ id: 'u' + Date.now(), text: val }); save(); render(); });
   renderChat();
 }
-function greetWord() { const h = sgParts(Date.now()).h; return h < 5 ? 'Up late' : h < 12 ? 'Morning' : h < 18 ? 'Afternoon' : 'Evening'; }
+function greetWord() { const h = sgParts(Date.now()).h; return h < 5 ? 'Up late' : h < 12 ? 'Good morning' : h < 18 ? 'Good afternoon' : 'Good evening'; }
 document.addEventListener('click', (e) => {
   const el = e.target.closest('[data-act]'); if (!el) return;
   const a = el.dataset.act, dk = dayKey();
@@ -543,15 +566,29 @@ function renderChat() {
   const logged = (D?.log || []).map(l => ({ t: new Date(l.time).getTime(), text: l.text, reply: l.reply || (l.applied || []).join('. '), applied: l.reply ? (l.applied || []) : [], ask: l.ask, rt: l.repliedAt ? new Date(l.repliedAt).getTime() : null }));
   const pend = pending().map(m => ({ t: m.t, text: m.text, status: m.status }));
   const items = [...logged, ...pend].sort((x, y) => x.t - y.t).slice(-40);
-  const bubbleMe = (x) => `<div class="bubble me"><div>${esc(x.text)}</div><div class="meta">${fmt(x.t, { weekday: 'short', hour: '2-digit', minute: '2-digit' })}${x.status === 'failed' ? ' · not sent yet, will retry' : ''}</div></div>`;
+  const bubbleMe = (x) => `<div class="bubble me"><div>${esc(String(x.text).replace(/^\[ask [^\]]+\]\s*/, ''))}</div><div class="meta">${fmt(x.t, { weekday: 'short', hour: '2-digit', minute: '2-digit' })}${x.status === 'failed' ? ' · not sent yet, will retry' : ''}</div></div>`;
   const askCard = (k) => !k ? '' : `<div class="askcard">${k.question ? `<div style="font-weight:650;margin-bottom:6px">${esc(k.question)}</div>` : ''}${k.draft ? `<div class="draft"><div class="small muted">To: ${esc(k.draft.to || '')}${k.draft.box ? ' · from ' + esc(k.draft.box) : ''}</div>${k.draft.subject ? `<div style="font-weight:650;margin:4px 0">${esc(k.draft.subject)}</div>` : ''}<div class="small" style="white-space:pre-wrap">${esc(k.draft.body || '')}</div></div>` : ''}
     ${k.status ? `<div class="small" style="margin-top:8px;color:var(--mut)">${k.status === 'sent' ? '✓ Sent' : k.status === 'cancelled' ? 'Cancelled' : '✓ Done'}</div>` : (S.asked || {})[k.id] ? `<div class="small muted" style="margin-top:8px">You chose: ${esc(S.asked[k.id])}</div>` : `<div class="row" style="gap:6px;flex-wrap:wrap;margin-top:10px">${(k.options || ['Yes', 'No']).map((o, i) => `<button class="btn ${i === 0 ? 'pri' : ''}" data-act="askopt" data-ask="${esc(k.id)}" data-opt="${esc(o)}">${esc(o)}</button>`).join('')}</div>`}</div>`;
   const bubbleBot = (x) => `<div class="bubble bot"><div>${esc(x.reply)}</div>${x.applied?.length ? `<div class="applied">${x.applied.map(a => '✓ ' + esc(a)).join('<br>')}</div>` : ''}${askCard(x.ask)}${x.rt ? `<div class="meta">${fmt(x.rt, { hour: '2-digit', minute: '2-digit' })}</div>` : ''}</div>`;
   const typing = (x) => (Date.now() - x.t > 8 * 60000) ? `<div class="bubble bot"><div>Your computer looks offline (Aside closed or asleep). I'll handle this as soon as it's back on.</div></div>` : `<div class="bubble bot typing"><span></span><span></span><span></span><div class="meta" style="margin-top:6px">On it. Back in 2 to 4 minutes.</div></div>`;
   box.innerHTML = items.map(x => x.reply !== undefined ? bubbleMe(x) + (x.reply ? bubbleBot(x) : '') : bubbleMe(x) + (x.status !== 'failed' ? typing(x) : '')).join('') || `<div class="bubble bot"><div>Hey Malone. Tell me what you did or what you need: log food, mark stuff done, book a room or an Aentry night, add to your calendar, draft or send an email. I'll handle it and reply here.</div></div>`;
   box.scrollTop = box.scrollHeight;
+  speakNew();
 }
 let chatPoll = null;
+const voiceOn = () => localStorage.getItem('life:voice') !== '0';
+function speak(text) {
+  if (!voiceOn() || !('speechSynthesis' in window) || !text) return;
+  try { const u = new SpeechSynthesisUtterance(text); const vs = speechSynthesis.getVoices(); u.voice = vs.find(v => /Daniel|Arthur|Oliver/i.test(v.name) && /en-GB/i.test(v.lang)) || vs.find(v => /en-GB/i.test(v.lang)) || null; u.rate = 1.04; u.pitch = 0.95; speechSynthesis.cancel(); speechSynthesis.speak(u); } catch { }
+}
+function speakNew() {
+  const last = +(localStorage.getItem('life:spoken') || 0);
+  const fresh = (D?.log || []).filter(l => l.reply && l.repliedAt && new Date(l.repliedAt).getTime() > last).sort((a, b) => new Date(a.repliedAt) - new Date(b.repliedAt));
+  const newest = Math.max(last, ...fresh.map(l => new Date(l.repliedAt).getTime()), 0);
+  if (!last) { localStorage.setItem('life:spoken', String(newest || Date.now())); return; }
+  if (fresh.length && !$('#sheet').classList.contains('hidden')) speak(fresh.at(-1).reply);
+  if (newest > last) localStorage.setItem('life:spoken', String(newest));
+}
 function openSheet(auto) { $('#sheet').classList.remove('hidden'); if (auto === true && SR && !listening) setTimeout(() => startMic(), 150); renderChat(); flushPending(); clearInterval(chatPoll); chatPoll = setInterval(() => { if (pending().some(m => m.status === 'sent')) load().then(() => { flushPending(); }).catch(() => {}); }, 40000); }
 function closeSheet() { stopMic(); clearInterval(chatPoll); $('#sheet').classList.add('hidden'); }
 $('#fab').addEventListener('click', openSheet);
@@ -583,10 +620,13 @@ function startMic() {
   rec.onresult = (e) => { let fin = '', int = ''; for (let i = 0; i < e.results.length; i++) { const r = e.results[i]; if (r.isFinal) fin += r[0].transcript; else int += r[0].transcript; } $('#msg').value = (baseText + fin + int).replace(/\s+/g, ' ').trimStart(); };
   rec.onerror = (e) => { $('#micState').textContent = e.error === 'not-allowed' ? 'Mic blocked: allow it in Settings' : ''; stopMic(); };
   rec.onend = () => { if (listening) { try { rec.start(); } catch { stopMic(); } } };
-  try { rec.start(); listening = true; $('#mic').classList.add('on'); $('#micState').textContent = 'Listening… tap again to stop'; } catch { toast('Mic unavailable, use keyboard dictation'); }
+  try { rec.start(); listening = true; $('#mic').classList.add('on'); $('#micState').textContent = ''; $('#wave').classList.add('on'); } catch { toast('Mic unavailable, use keyboard dictation'); }
 }
-function stopMic() { listening = false; if (rec) { try { rec.stop(); } catch { } rec = null; } $('#mic').classList.remove('on'); $('#micState').textContent = ''; }
+function stopMic() { listening = false; if (rec) { try { rec.stop(); } catch { } rec = null; } $('#mic').classList.remove('on'); $('#micState').textContent = ''; $('#wave')?.classList.remove('on'); }
 $('#mic').addEventListener('click', () => listening ? stopMic() : startMic());
+const setVoiceBtn = () => { const b = $('#voiceToggle'); if (b) b.classList.toggle('off', !voiceOn()); };
+$('#voiceToggle')?.addEventListener('click', () => { localStorage.setItem('life:voice', voiceOn() ? '0' : '1'); setVoiceBtn(); toast(voiceOn() ? 'Voice replies on' : 'Voice replies off'); if (voiceOn()) speak('Voice replies on.'); });
+setVoiceBtn();
 
 if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
 boot();

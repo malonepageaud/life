@@ -219,3 +219,71 @@ details summary::-webkit-details-marker{display:none}
 .jarvis{margin:6px 4px}
 .top h1{font-size:26px}
 .status{margin-top:2px}
+
+/* ================= v3 HUD layer: J.A.R.V.I.S. / Wayne Enterprises ================= */
+@font-face{font-family:Hud;src:url(fonts/rajdhani-500.woff2) format('woff2');font-weight:500;font-display:swap}
+@font-face{font-family:Hud;src:url(fonts/rajdhani-600.woff2) format('woff2');font-weight:600;font-display:swap}
+@font-face{font-family:Hud;src:url(fonts/rajdhani-700.woff2) format('woff2');font-weight:700;font-display:swap}
+:root{--hud:Hud,"Rajdhani",var(--mono);--gold:#f2c46d;--acc:#41e9ff;--bg:#010204;--card:#060a10;--card2:#0a111a}
+body{background:radial-gradient(1000px 600px at 50% -15%,rgba(65,233,255,.13),transparent 60%),radial-gradient(600px 400px at 110% 110%,rgba(242,196,109,.05),transparent 60%),var(--bg)}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:50;background:repeating-linear-gradient(0deg,rgba(255,255,255,.012) 0 1px,transparent 1px 3px);mix-blend-mode:overlay}
+.top h1{font-family:var(--hud);font-weight:700;text-transform:uppercase;letter-spacing:.12em;font-size:26px}
+.eyebrow,.card h2,.sec,.tag,.tile .k,.chip,.pill,.status,.subnav a,.tabbar a,.sync{font-family:var(--hud);letter-spacing:.14em}
+.card h2,.sec{font-size:13px;font-weight:700;color:#9fd9e6}
+.tile .v,.gradebig,.ring span,.nextup .mins,.tl .time,.week button b,.days div,table.comp td:nth-child(2),table.comp td:nth-child(3){font-family:var(--hud);font-weight:700}
+.tile .v{font-size:30px}
+.hero .hl,.qtext,.idea h3{font-family:var(--hud);font-weight:700;letter-spacing:.01em}
+.hero .hl{font-size:24px;line-height:1.15}
+/* HUD corner brackets */
+.card{position:relative;border-radius:6px;border-color:rgba(65,233,255,.13);background:linear-gradient(180deg,rgba(10,17,26,.96),rgba(5,9,14,.96))}
+.card::before,.card::after{content:"";position:absolute;width:12px;height:12px;border:1.5px solid var(--acc);opacity:.75;pointer-events:none}
+.card::before{top:-1px;left:-1px;border-right:0;border-bottom:0}
+.card::after{bottom:-1px;right:-1px;border-left:0;border-top:0}
+.tile{border-radius:6px;border-color:rgba(65,233,255,.13)}
+.btn{border-radius:4px;font-family:var(--hud);font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:13px}
+.btn.pri{clip-path:polygon(8px 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%,0 8px)}
+.subnav a{border-radius:3px;text-transform:uppercase;font-weight:700;font-size:13px;clip-path:polygon(6px 0,100% 0,100% calc(100% - 6px),calc(100% - 6px) 100%,0 100%,0 6px)}
+.check{border-radius:3px}
+.choice{border-radius:4px}
+.tabbar{border-radius:10px;background:rgba(2,5,9,.94)}
+.tabbar a{text-transform:uppercase;font-weight:700;font-size:10.5px}
+/* home hero: arc reactor */
+.hud-hero{display:flex;align-items:center;gap:16px;overflow:hidden}
+.hud-hero::selection{background:none}
+.reactor{width:132px;height:132px;flex:none}
+.reactor .r-ticks{transform-origin:100px 100px;animation:spin 40s linear infinite}
+.reactor .r-dash{transform-origin:100px 100px;animation:spin 14s linear infinite reverse}
+.reactor .r-core{animation:corepulse 2.8s ease-in-out infinite;transform-origin:100px 100px}
+.reactor .r-arc{transition:stroke-dashoffset .8s ease}
+@keyframes corepulse{0%,100%{opacity:.85;transform:scale(1)}50%{opacity:1;transform:scale(1.05)}}
+.reactor text{font-family:var(--hud);font-weight:700;fill:#eaffff}
+.hud-hero .greet{font-family:var(--hud);font-weight:600;letter-spacing:.18em;text-transform:uppercase;font-size:12px;color:var(--gold)}
+.hud-hero .name{font-family:var(--hud);font-weight:700;font-size:30px;letter-spacing:.04em;line-height:1;margin:2px 0 6px}
+.scan{position:absolute;left:0;right:0;top:0;height:40%;background:linear-gradient(180deg,transparent,rgba(65,233,255,.06),transparent);animation:scan 4.5s linear infinite;pointer-events:none}
+@keyframes scan{from{transform:translateY(-100%)}to{transform:translateY(260%)}}
+.telemetry{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin:0 0 12px;border:1px solid rgba(65,233,255,.13);border-radius:6px;background:rgba(5,9,14,.9)}
+.telemetry a{padding:10px 6px;text-align:center;border-left:1px solid rgba(65,233,255,.1)}
+.telemetry a:first-child{border-left:0}
+.telemetry b{display:block;font-family:var(--hud);font-weight:700;font-size:22px;color:#eaffff;line-height:1.1}
+.telemetry span{font-family:var(--hud);font-size:10.5px;letter-spacing:.16em;color:var(--mut);text-transform:uppercase}
+.telemetry a.warn b{color:var(--warn)} .telemetry a.good b{color:var(--ok)}
+/* boot sequence */
+.boot{position:fixed;inset:0;z-index:100;background:#010204;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;transition:opacity .35s}
+.boot.out{opacity:0;pointer-events:none}
+.boot .reactor{width:150px;height:150px}
+.boot-lines{font-family:var(--hud);letter-spacing:.22em;font-size:12.5px;color:#7fdcec;text-transform:uppercase;min-height:96px;text-align:center}
+.boot-lines div{animation:enter .25s ease-out both}
+.boot-lines div:last-child{color:var(--ok)}
+/* chat: J.A.R.V.I.S. */
+.sheet-head b{font-family:var(--hud);font-size:16px;letter-spacing:.4em;font-weight:700;color:var(--acc)}
+.bubble{border-radius:4px!important}
+.bubble.bot{border-left:2px solid var(--acc)}
+.bubble.me{border-right:2px solid var(--gold);background:rgba(242,196,109,.07);border-color:rgba(242,196,109,.25)}
+.wave{display:none;align-items:center;gap:3px;height:26px}
+.wave.on{display:flex}
+.wave i{width:3px;height:100%;background:var(--bad);border-radius:2px;animation:wave 0.9s ease-in-out infinite;transform-origin:center}
+.wave i:nth-child(2){animation-delay:.1s}.wave i:nth-child(3){animation-delay:.2s}.wave i:nth-child(4){animation-delay:.3s}.wave i:nth-child(5){animation-delay:.4s}.wave i:nth-child(6){animation-delay:.5s}.wave i:nth-child(7){animation-delay:.6s}
+@keyframes wave{0%,100%{transform:scaleY(.2)}50%{transform:scaleY(1)}}
+.iconbtn{width:38px;height:38px;border:1px solid var(--line2);border-radius:4px;display:grid;place-items:center;color:var(--acc)}
+.iconbtn.off{color:var(--dim)}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
