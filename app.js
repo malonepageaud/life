@@ -35,10 +35,15 @@ const I = {
   more: '<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="19" cy="12" r="1.8"/></svg>',
   business: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg>',
 };
-const ROUTES = [
-  ['today', 'Today'], ['homework', 'Homework'], ['study', 'Study'], ['grades', 'Grades'], ['calendar', 'Calendar'], ['sports', 'Gym'], ['business', 'Business'], ['goals', 'Goals'], ['out', 'Going out'], ['ideas', 'Ideas'], ['inbox', 'Inbox'], ['more', 'More'],
-];
-const TAB_ROUTES = ['today', 'homework', 'study', 'grades', 'sports', 'business', 'more'];
+const GROUPS = {
+  home: { label: 'Home', icon: 'today', segs: [['home', 'Today']] },
+  school: { label: 'School', icon: 'study', segs: [['homework', 'Homework'], ['study', 'Study'], ['grades', 'Grades']] },
+  life: { label: 'Life', icon: 'sports', segs: [['sports', 'Gym'], ['calendar', 'Calendar'], ['out', 'Going out'], ['goals', 'Goals']] },
+  work: { label: 'Work', icon: 'business', segs: [['business', 'Business'], ['inbox', 'Inbox'], ['ideas', 'Ideas']] },
+};
+const SEG2GROUP = {}; for (const [g, v] of Object.entries(GROUPS)) for (const [s] of v.segs) SEG2GROUP[s] = g;
+SEG2GROUP.today = 'home'; SEG2GROUP.more = 'home';
+const ROUTES = Object.values(GROUPS).flatMap(g => g.segs);
 
 // ---------- crypto ----------
 const ub64 = (s) => Uint8Array.from(atob(s), c => c.charCodeAt(0));
@@ -92,25 +97,33 @@ $('#lockForm').addEventListener('submit', async (e) => {
 $('#syncBtn').addEventListener('click', () => load(true).catch(() => toast('Could not refresh')));
 
 // ---------- nav ----------
-function route() { const r = (location.hash.replace('#', '').split('&')[0]) || 'today'; return ROUTES.some(x => x[0] === r) ? r : 'today'; }
-window.addEventListener('hashchange', () => { if (!location.hash.startsWith('#study')) quiz = null; render(); window.scrollTo(0, 0); });
+function route() {
+  let [g, s] = location.hash.slice(1).split('&')[0].split('/');
+  if (!GROUPS[g] && SEG2GROUP[g]) { s = g === 'today' || g === 'more' ? 'home' : g; g = SEG2GROUP[g]; }
+  if (!GROUPS[g]) g = 'home';
+  if (!s || !GROUPS[g].segs.some(x => x[0] === s)) s = (S.lastSeg || {})[g] || GROUPS[g].segs[0][0];
+  return { g, s };
+}
+let lastRouteKey = '';
+window.addEventListener('hashchange', () => { if (!/study/.test(location.hash)) quiz = null; render(); window.scrollTo(0, 0); });
 function badges() {
   if (!D) return {};
   const hw = D.homework.filter(h => h.due && h.due > Date.now() && h.due - Date.now() < 3 * DAY).length;
   const newCh = D.changes.filter(c => c.time > (S.seenChanges || 0)).length;
-  return { homework: hw, inbox: D.mail?.essec?.unread || 0, today: newCh };
+  return { school: hw, work: D.mail?.essec?.unread || 0 };
 }
+const MIC_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>';
 function renderNav() {
-  const b = badges(), cur = route();
-  const link = (r, label) => `<a href="#${r}" class="${cur === r ? 'on' : ''}">${I[r]}<span>${label}</span>${b[r] ? `<span class="dot">${b[r] > 9 ? '9+' : b[r]}</span>` : ''}</a>`;
-  $('#sideNav').innerHTML = ROUTES.filter(([r]) => r !== 'more').map(([r, l]) => link(r, l)).join('');
-  $('#tabbar').innerHTML = ROUTES.filter(([r]) => TAB_ROUTES.includes(r)).map(([r, l]) => link(r, l)).join('');
+  const b = badges(), { g: cg, s: cs } = route();
+  const tab = (g) => `<a href="#${g}" class="${cg === g ? 'on' : ''}">${I[GROUPS[g].icon]}<span>${GROUPS[g].label}</span>${b[g] ? `<span class="dot">${b[g] > 9 ? '9+' : b[g]}</span>` : ''}</a>`;
+  $('#tabbar').innerHTML = tab('home') + tab('school') + `<button class="orb" data-act="orb" aria-label="Agent">${MIC_SVG}</button>` + tab('life') + tab('work');
+  $('#sideNav').innerHTML = `<button class="agentbtn" data-act="orb">${MIC_SVG.replace('<svg', '<svg width="20"')} Talk to your agent</button>` + Object.entries(GROUPS).map(([g, v]) => `<a href="#${g}" class="${cg === g ? 'on' : ''}">${I[v.icon]}<span>${v.label}</span>${b[g] ? `<span class="dot">${b[g]}</span>` : ''}</a>` + (v.segs.length > 1 ? v.segs.map(([s, l]) => `<a class="sub ${cg === g && cs === s ? 'on' : ''}" href="#${g}/${s}">${l}</a>`).join('') : '')).join('');
 }
 function header(title) {
   $('#title').textContent = title;
   $('#dateLine').textContent = fmt(Date.now(), { weekday: 'long', day: 'numeric', month: 'long' });
-  $('#syncText').textContent = D ? 'Updated ' + rel(D.updatedAt) : '…';
-  $('#sideFoot').innerHTML = D ? `Synced from Moodle, Gmail & Calendar<br>Updated ${rel(D.updatedAt)} · refreshes hourly` : '';
+  $('#syncText').textContent = D ? 'synced ' + rel(D.updatedAt).replace(' ago', '') : '…';
+  $('#sideFoot').innerHTML = D ? `ONLINE · synced ${rel(D.updatedAt)}<br>Moodle · Gmail · Zoho · Calendar · Aentry` : '';
 }
 
 // ---------- views ----------
@@ -148,10 +161,10 @@ V.today = () => {
   const biz = D.business?.today || [];
   const bd = S.biz?.[dk] || {};
   return `
-  <div class="card hero today-hero"><div class="row between" style="align-items:flex-start">
-    <div style="flex:1;min-width:0"><div class="eyebrow">${greet}, ${esc(D.owner || 'Malone')}</div><div class="hl">${esc(D.briefing.headline)}</div></div>
+  <div class="card hero"><div class="jarvis"><div class="core"></div><div style="flex:1;min-width:0"><div class="status"><b>●</b> ONLINE</div><div class="status">${D.homework.filter(x => x.due && x.due > now && x.due - now < 7 * DAY).length} due · ${(D.exams || [])[0] ? 'exam in ' + Math.max(0, Math.ceil(((D.exams[0].t) - now) / DAY)) + 'd' : ''}</div><div class="status">${sportsWeek().done}/${D.sports.weeklyTarget} gym · avg ${D.grades.average != null ? D.grades.average.toFixed(1) : '–'}</div></div>
     <div class="ring" style="--p:${score};--c:var(--ok)" title="Day score"><span>${score}%</span></div></div>
-    <div class="small muted" style="margin-top:8px">Day score: must-dos + gym</div></div>
+    <div class="hl" style="margin-top:14px">${esc(D.briefing.headline)}</div></div>
+  ${(() => { const nx = D.calendar.events.find(e => !e.allDay && e.end > now && e.start < end + 6 * 3600000); if (!nx) return ''; const mins = Math.round((nx.start - now) / 60000); return `<div class="card nextup"><div class="mins">${mins <= 0 ? 'NOW' : mins < 60 ? mins + 'm' : Math.floor(mins / 60) + 'h' + String(mins % 60).padStart(2, '0')}</div><div style="flex:1;min-width:0"><div class="tag">Next up</div><div style="font-weight:700">${esc(nx.title)}</div><div class="small muted">${hm(nx.start)}–${hm(nx.end)}${nx.location ? ' · ' + esc(nx.location) : ''}</div></div></div>`; })()}
   <div class="chips">${(D.countdowns || []).map(c => { const d = Math.ceil((new Date(c.date).getTime() - now) / DAY); return d >= 0 ? `<span class="chip">${esc(c.label)} <b>${d === 0 ? 'today' : d + 'd'}</b></span>` : ''; }).join('')}</div>
   <div class="card"><h2>Must do <span class="pill ${got === parts && parts ? 'ok' : ''}">${focus.filter((_, i) => fd[i]).length}/${focus.length}</span></h2><div class="list">${focus.map((f, i) => `<div class="item ${fd[i] ? 'done' : ''}"><button class="check ${fd[i] ? 'on' : ''}" data-act="focus" data-i="${i}"></button><div class="main"><div class="t">${esc(f)}</div></div></div>`).join('') || '<div class="empty">Nothing set</div>'}</div></div>
   <div class="card"><h2>Today</h2><div class="tl">${sched.map(s => `<div class="item"><div class="time ${s.t <= now && (s.end || s.t + 3600000) > now ? 'now' : ''}" style="${s.kind === 'due' ? 'color:var(--warn)' : ''}">${hm(s.t)}</div><div class="main"><div class="t" style="${s.kind === 'plan' ? 'font-weight:500;color:#c9cde0' : ''}">${esc(s.text)}</div>${s.loc ? `<div class="m">${esc(s.loc)}</div>` : ''}</div></div>`).join('') || '<div class="empty">Nothing left today</div>'}</div></div>
@@ -426,14 +439,20 @@ const mailRow = (m) => `<div class="item"><span class="cdot" style="background:$
 // ---------- render + actions ----------
 function render() {
   if (!D) return;
-  const r = route();
-  header(ROUTES.find(x => x[0] === r)[1]);
+  const { g, s } = route(); (S.lastSeg ||= {})[g] = s;
+  header(g === 'home' ? greetWord() + ', ' + (D.owner || 'Malone') : GROUPS[g].label);
   renderNav();
-  $('#view').innerHTML = V[r]();
-  renderChat();
+  const segs = GROUPS[g].segs;
+  const sub = segs.length > 1 ? `<nav class="subnav">${segs.map(([k, l]) => `<a href="#${g}/${k}" class="${k === s ? 'on' : ''}">${l}</a>`).join('')}</nav>` : '';
+  const v = $('#view');
+  v.innerHTML = sub + V[s === 'home' ? 'today' : s]();
+  const key = g + '/' + s;
+  if (key !== lastRouteKey) { v.classList.remove('anim'); void v.offsetWidth; v.classList.add('anim'); lastRouteKey = key; }
   const f = $('#addTodo');
-  if (f) f.addEventListener('submit', (e) => { e.preventDefault(); const v = $('#todoText').value.trim(); if (!v) return; S.custom.unshift({ id: 'u' + Date.now(), text: v }); save(); render(); });
+  if (f) f.addEventListener('submit', (e) => { e.preventDefault(); const val = $('#todoText').value.trim(); if (!val) return; S.custom.unshift({ id: 'u' + Date.now(), text: val }); save(); render(); });
+  renderChat();
 }
+function greetWord() { const h = sgParts(Date.now()).h; return h < 5 ? 'Up late' : h < 12 ? 'Morning' : h < 18 ? 'Afternoon' : 'Evening'; }
 document.addEventListener('click', (e) => {
   const el = e.target.closest('[data-act]'); if (!el) return;
   const a = el.dataset.act, dk = dayKey();
@@ -444,6 +463,7 @@ document.addEventListener('click', (e) => {
   else if (a === 'reset') { (S.reset[dk] ||= {})[el.dataset.i] = !S.reset[dk]?.[el.dataset.i]; }
   else if (a === 'sport') { S.sports[dk] = !S.sports[dk]; if (S.sports[dk]) toast('Session logged. Keep the streak.'); }
   else if (a === 'sportday') { const k = el.dataset.k; if (k <= dk) S.sports[k] = !S.sports[k]; }
+  else if (a === 'orb') { openSheet(true); return; }
   else if (a === 'askopt') { (S.asked ||= {})[el.dataset.ask] = el.dataset.opt; save(); sendText(`[ask ${el.dataset.ask}] ${el.dataset.opt}`); return; }
   else if (a === 'aebook') { aeBook(el.dataset.id); return; }
   else if (a === 'quizgo') { startQuiz(el.dataset.k); return; }
@@ -466,7 +486,7 @@ function toast(msg) { const t = $('#toast'); t.textContent = msg; t.classList.ad
 
 document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible' && D && Date.now() - (load._last || 0) > 5 * 60000) { load._last = Date.now(); load().catch(() => {}); } });
 setInterval(() => { if (D && document.visibilityState === 'visible') load().catch(() => {}); }, 15 * 60000);
-setInterval(() => { if (D) header(ROUTES.find(x => x[0] === route())[1]); }, 60000);
+setInterval(() => { if (D) $('#syncText').textContent = 'synced ' + rel(D.updatedAt).replace(' ago', ''); }, 60000);
 
 // ---------- quick update (voice / text log) ----------
 const PEND = 'life:pending';
@@ -509,7 +529,7 @@ function renderChat() {
   box.scrollTop = box.scrollHeight;
 }
 let chatPoll = null;
-function openSheet() { $('#sheet').classList.remove('hidden'); renderChat(); flushPending(); clearInterval(chatPoll); chatPoll = setInterval(() => { if (pending().some(m => m.status === 'sent')) load().then(() => { flushPending(); }).catch(() => {}); }, 40000); }
+function openSheet(auto) { $('#sheet').classList.remove('hidden'); if (auto === true && SR && !listening) setTimeout(() => startMic(), 150); renderChat(); flushPending(); clearInterval(chatPoll); chatPoll = setInterval(() => { if (pending().some(m => m.status === 'sent')) load().then(() => { flushPending(); }).catch(() => {}); }, 40000); }
 function closeSheet() { stopMic(); clearInterval(chatPoll); $('#sheet').classList.add('hidden'); }
 $('#fab').addEventListener('click', openSheet);
 $('#sheetClose').addEventListener('click', closeSheet);
