@@ -1,562 +1,1906 @@
 [
-  {
-    "id": "chinese-001",
-    "topic": "No-pinyin list: Lessons 10-12",
-    "difficulty": 1,
-    "q": "What does 谁 mean?",
-    "choices": [
-      "what",
-      "who",
-      "which",
-      "how many"
-    ],
-    "answer": 1,
-    "explain": "谁 (shéi) = who. 什么 = what, 哪 = which, 几 = how many."
-  },
-  {
-    "id": "chinese-002",
-    "topic": "No-pinyin list: Lessons 10-12",
-    "difficulty": 3,
-    "q": "Which character means \"which\" (as in 你是哪国人)?",
-    "choices": [
-      "哪",
-      "那",
-      "谁",
-      "几"
-    ],
-    "answer": 0,
-    "explain": "哪 (nǎ) = which. 那 (nà) = that. Check the left side: 口 means a question word."
-  },
-  {
-    "id": "chinese-003",
-    "topic": "No-pinyin list: Lessons 10-12",
-    "difficulty": 1,
-    "q": "What does 那 mean (那位是谁?)?",
-    "choices": [
-      "this",
-      "which",
-      "who",
-      "that"
-    ],
-    "answer": 3,
-    "explain": "那 (nà) = that. 这 (zhè) = this."
-  },
-  {
-    "id": "chinese-004",
-    "topic": "No-pinyin list: Lessons 13-15",
-    "difficulty": 2,
-    "q": "Which pinyin is right for 几 (as in 你几岁)?",
-    "choices": [
-      "jī",
-      "jì",
-      "jǐ",
-      "qǐ"
-    ],
-    "answer": 2,
-    "explain": "几 = jǐ (third tone), \"how many\"."
-  },
-  {
-    "id": "chinese-005",
-    "topic": "No-pinyin list: Lessons 22-24",
-    "difficulty": 1,
-    "q": "What does 吃 mean?",
-    "choices": [
-      "to drink",
-      "to eat",
-      "to buy",
-      "to look"
-    ],
-    "answer": 1,
-    "explain": "吃 (chī) = to eat. 喝 = to drink, 买 = to buy, 看 = to look."
-  },
-  {
-    "id": "chinese-006",
-    "topic": "No-pinyin list: Lessons 22-24",
-    "difficulty": 2,
-    "q": "What does 买 mean?",
-    "choices": [
-      "to buy",
-      "to go",
-      "to eat",
-      "to want"
-    ],
-    "answer": 0,
-    "explain": "买 (mǎi) = to buy. 去 = to go, 吃 = to eat, 想 = to want."
-  },
-  {
-    "id": "chinese-007",
-    "topic": "No-pinyin list: Lessons 7-9",
-    "difficulty": 1,
-    "q": "What does 书 mean?",
-    "choices": [
-      "money",
-      "school",
-      "friend",
-      "book"
-    ],
-    "answer": 3,
-    "explain": "书 (shū) = book. 钱 = money, 学校 = school, 朋友 = friend."
-  },
-  {
-    "id": "chinese-008",
-    "topic": "No-pinyin list: Lessons 1-2 vocabulary",
-    "difficulty": 1,
-    "q": "What does 钱 mean?",
-    "choices": [
-      "book",
-      "house, family",
-      "money",
-      "school"
-    ],
-    "answer": 2,
-    "explain": "钱 (qián) = money. 家 = family/house."
-  },
-  {
-    "id": "chinese-009",
-    "topic": "No-pinyin list: Lessons 13-15",
-    "difficulty": 1,
-    "q": "In 我今年十九岁, what does 岁 mean?",
-    "choices": [
-      "book (measure word)",
-      "years old (measure word for age)",
-      "person (measure word)",
-      "mouth (measure word)"
-    ],
-    "answer": 1,
-    "explain": "岁 (suì) is the measure word for age. 本 is for books, 口 for family members, 个 general."
-  },
-  {
-    "id": "chinese-010",
-    "topic": "No-pinyin list: Lessons 13-15",
-    "difficulty": 3,
-    "q": "Which pinyin is right for 两 (\"two of something\")?",
-    "choices": [
-      "liǎng",
-      "liàng",
-      "liáng",
-      "lǎng"
-    ],
-    "answer": 0,
-    "explain": "两 = liǎng (third tone). It is used before measure words: 两个孩子."
-  },
-  {
-    "id": "chinese-011",
-    "topic": "No-pinyin list: Lessons 1-2 vocabulary",
-    "difficulty": 2,
-    "q": "Which character means \"very, quite\"?",
-    "choices": [
-      "也",
-      "不",
-      "和",
-      "很"
-    ],
-    "answer": 3,
-    "explain": "很 (hěn) = very. 也 = also, 不 = not, 和 = and."
-  },
-  {
-    "id": "chinese-012",
-    "topic": "No-pinyin list: Lessons 7-9",
-    "difficulty": 1,
-    "q": "What does 也 mean?",
-    "choices": [
-      "not",
-      "very",
-      "also, too",
-      "and"
-    ],
-    "answer": 2,
-    "explain": "也 (yě) = also: 我也是学生."
-  },
-  {
-    "id": "chinese-013",
-    "topic": "No-pinyin list: Lessons 7-9",
-    "difficulty": 1,
-    "q": "Fill the blank (I am also a student): 我___是学生。",
-    "choices": [
-      "吗",
-      "也",
-      "的",
-      "个"
-    ],
-    "answer": 1,
-    "explain": "也 goes before the verb: Subject + 也 + verb. 吗 ends questions, 的 shows possession."
-  },
-  {
-    "id": "chinese-014",
-    "topic": "No-pinyin list: Lessons 7-9",
-    "difficulty": 2,
-    "q": "Fill the blank (This is my business card): 这是我___名片。",
-    "choices": [
-      "的",
-      "吗",
-      "个",
-      "很"
-    ],
-    "answer": 0,
-    "explain": "Pronoun + 的 + noun = possession: 我的名片."
-  },
-  {
-    "id": "chinese-015",
-    "topic": "No-pinyin list: Lessons 13-15",
-    "difficulty": 2,
-    "q": "Fill the blank (I have three books): 我有三___书。",
-    "choices": [
-      "岁",
-      "口",
-      "位",
-      "本"
-    ],
-    "answer": 3,
-    "explain": "本 (běn) is the measure word for books. 岁 is for age, 口 for family members, 位 for people (polite)."
-  },
-  {
-    "id": "chinese-016",
-    "topic": "No-pinyin list: Lessons 13-15",
-    "difficulty": 2,
-    "q": "Fill the blank (I am nineteen years old this year): 我今年十九___。",
-    "choices": [
-      "本",
-      "个",
-      "岁",
-      "口"
-    ],
-    "answer": 2,
-    "explain": "Age uses 岁: 十九岁."
-  },
-  {
-    "id": "chinese-017",
-    "topic": "No-pinyin list: Lessons 13-15",
-    "difficulty": 2,
-    "q": "Fill the blank (How old are you?): 你___岁?",
-    "choices": [
-      "谁",
-      "几",
-      "哪",
-      "好"
-    ],
-    "answer": 1,
-    "explain": "几岁 = how old (asking about a child, or in the course pattern 你几岁?). 几 = how many."
-  },
-  {
-    "id": "chinese-018",
-    "topic": "No-pinyin list: Lessons 16-18",
-    "difficulty": 1,
-    "q": "What does 学 mean (as in 学习)?",
-    "choices": [
-      "to study, to learn",
-      "to see",
-      "to speak",
-      "to want"
-    ],
-    "answer": 0,
-    "explain": "学 (xué) = to study/learn. 学习 = study, 学生 = student, 学校 = school."
-  },
-  {
-    "id": "chinese-019",
-    "topic": "No-pinyin list: Lessons 16-18",
-    "difficulty": 2,
-    "q": "Which meaning fits 会 in 她会说中文?",
-    "choices": [
-      "to buy",
-      "to say",
-      "to go",
-      "can, to be able to"
-    ],
-    "answer": 3,
-    "explain": "会 (huì) = can/know how to. 她会说中文 = She can speak Chinese."
-  },
-  {
-    "id": "chinese-020",
-    "topic": "No-pinyin list: Lessons 16-18",
-    "difficulty": 3,
-    "q": "Which pinyin is right for 说?",
-    "choices": [
-      "shuǒ",
-      "shōu",
-      "shuō",
-      "xuē"
-    ],
-    "answer": 2,
-    "explain": "说 = shuō (first tone), \"to speak\"."
-  },
-  {
-    "id": "chinese-021",
-    "topic": "No-pinyin list: Lessons 19-21",
-    "difficulty": 2,
-    "q": "Which pinyin is right for 去 (to go)?",
-    "choices": [
-      "qū",
-      "qù",
-      "jù",
-      "qǔ"
-    ],
-    "answer": 1,
-    "explain": "去 = qù (fourth tone): 明天她去中国."
-  },
-  {
-    "id": "chinese-022",
-    "topic": "No-pinyin list: Lessons 16-18",
-    "difficulty": 3,
-    "q": "What is the pinyin of the first character in 好吃 (delicious)?",
-    "choices": [
-      "hǎo",
-      "hào",
-      "háo",
-      "hāo"
-    ],
-    "answer": 0,
-    "explain": "好 = hǎo (third tone). 号 (hào, \"day number\") is a different character."
-  },
-  {
-    "id": "chinese-023",
-    "topic": "No-pinyin list: Lessons 1-2 vocabulary",
-    "difficulty": 1,
-    "q": "Which character is the number seven?",
-    "choices": [
-      "九",
-      "六",
-      "四",
-      "七"
-    ],
-    "answer": 3,
-    "explain": "七 = qī. 九 = jiǔ, 六 = liù, 四 = sì."
-  },
-  {
-    "id": "chinese-024",
-    "topic": "No-pinyin list: Lessons 1-2 vocabulary",
-    "difficulty": 1,
-    "q": "What does 大 mean?",
-    "choices": [
-      "small",
-      "many",
-      "big",
-      "old"
-    ],
-    "answer": 2,
-    "explain": "大 (dà) = big. 小 = small, 多 = many, 老 = old."
-  },
-  {
-    "id": "chinese-025",
-    "topic": "No-pinyin list: Lessons 19-21",
-    "difficulty": 1,
-    "q": "What does 月 mean in 十月五号?",
-    "choices": [
-      "year",
-      "month",
-      "day",
-      "week"
-    ],
-    "answer": 1,
-    "explain": "月 (yuè) = month. 年 = year, 号/日 = day, 星期 = week."
-  },
-  {
-    "id": "chinese-026",
-    "topic": "No-pinyin list: Lessons 1-2 vocabulary",
-    "difficulty": 2,
-    "q": "Which character means \"afternoon\"?",
-    "choices": [
-      "下午",
-      "上午",
-      "早上",
-      "晚上"
-    ],
-    "answer": 0,
-    "explain": "下午 (xiàwǔ) = afternoon. 上午 (shàngwǔ) = morning."
-  },
-  {
-    "id": "chinese-027",
-    "topic": "No-pinyin list: Lessons 16-18",
-    "difficulty": 2,
-    "q": "What does 中文 mean?",
-    "choices": [
-      "China",
-      "Chinese person",
-      "Chinese tea",
-      "Chinese language"
-    ],
-    "answer": 3,
-    "explain": "中文 (zhōngwén) = Chinese language. 中国 = China, 中国人 = Chinese person."
-  },
-  {
-    "id": "chinese-028",
-    "topic": "No-pinyin list: Lessons 10-12",
-    "difficulty": 3,
-    "q": "What does 哪国人 (nǎ guó rén) ask?",
-    "choices": [
-      "Who is the person?",
-      "How old is the person?",
-      "Which country is someone from (nationality)?",
-      "What is the person called?"
-    ],
-    "answer": 2,
-    "explain": "哪 = which, 国 = country, 人 = person. 你是哪国人? 我是中国人。"
-  },
-  {
-    "id": "chinese-029",
-    "topic": "No-pinyin list: Lessons 22-24",
-    "difficulty": 2,
-    "q": "Which pinyin is right for 想 (\"to want\")?",
-    "choices": [
-      "xiāng",
-      "xiǎng",
-      "xiàng",
-      "shǎng"
-    ],
-    "answer": 1,
-    "explain": "想 = xiǎng (third tone): 我想吃米饭."
-  },
-  {
-    "id": "chinese-030",
-    "topic": "No-pinyin list: Lessons 19-21",
-    "difficulty": 2,
-    "q": "What does 看 mean (as in 看书)?",
-    "choices": [
-      "to look, to see, to read",
-      "to sit",
-      "to come",
-      "to do"
-    ],
-    "answer": 0,
-    "explain": "看 (kàn) = to look/see. 看书 = to read."
-  },
-  {
-    "id": "chinese-031",
-    "topic": "Lesson 1-4 phrases",
-    "difficulty": 1,
-    "q": "Which is the correct pinyin of 你好?",
-    "choices": [
-      "nǐ hào",
-      "nī hǎo",
-      "nǐ hāo",
-      "nǐ hǎo"
-    ],
-    "answer": 3,
-    "explain": "你 = nǐ, 好 = hǎo. Both are written with third tone marks."
-  },
-  {
-    "id": "chinese-032",
-    "topic": "Lesson 1-4 phrases",
-    "difficulty": 1,
-    "q": "A: 谢谢! B: ___",
-    "choices": [
-      "再见!",
-      "请进!",
-      "不客气!",
-      "早上好!"
-    ],
-    "answer": 2,
-    "explain": "谢谢 (thank you) is answered by 不客气 (you are welcome)."
-  },
-  {
-    "id": "chinese-033",
-    "topic": "Lesson 16-18 dialogue",
-    "difficulty": 1,
-    "q": "A: 对不起, 我来晚了! B: ___",
-    "choices": [
-      "谢谢!",
-      "没关系!",
-      "请坐!",
-      "你好!"
-    ],
-    "answer": 1,
-    "explain": "没关系 (it does not matter) answers 对不起 (sorry)."
-  },
-  {
-    "id": "chinese-034",
-    "topic": "Lesson 5-6 vocab",
-    "difficulty": 1,
-    "q": "Which word means \"welcome\"?",
-    "choices": [
-      "欢迎",
-      "再见",
-      "请进",
-      "认识"
-    ],
-    "answer": 0,
-    "explain": "欢迎 (huānyíng) = welcome. 再见 = goodbye, 请进 = please come in, 认识 = to know."
-  },
-  {
-    "id": "chinese-035",
-    "topic": "Lesson 5-6 sentence",
-    "difficulty": 2,
-    "q": "Fill the blank (Nice to meet you): 很___认识你。",
-    "choices": [
-      "好吃",
-      "忙",
-      "美",
-      "高兴"
-    ],
-    "answer": 3,
-    "explain": "很高兴认识你 = Nice to meet you. 高兴 (gāoxìng) = glad."
-  },
-  {
-    "id": "chinese-036",
-    "topic": "Lesson 7-9 dialogue",
-    "difficulty": 2,
-    "q": "A: 你叫什么名字? B: ___",
-    "choices": [
-      "我是老师。",
-      "我有两个孩子。",
-      "我叫小玲。",
-      "我很高兴。"
-    ],
-    "answer": 2,
-    "explain": "Ask the name with 叫什么名字, answer with 我叫 + name."
-  },
-  {
-    "id": "chinese-037",
-    "topic": "Lesson 10-12 vocab",
-    "difficulty": 2,
-    "q": "What does 同事 mean?",
-    "choices": [
-      "classmate",
-      "colleague",
-      "manager",
-      "friend"
-    ],
-    "answer": 1,
-    "explain": "同事 (tóngshì) = colleague. 同学 = classmate, 经理 = manager, 朋友 = friend."
-  },
-  {
-    "id": "chinese-038",
-    "topic": "Lesson 13-15 sentence",
-    "difficulty": 3,
-    "q": "Which sentence means \"I have two children\"?",
-    "choices": [
-      "我有两个孩子。",
-      "我有二个孩子。",
-      "我有两岁孩子。",
-      "我两有孩子。"
-    ],
-    "answer": 0,
-    "explain": "Use 两 + measure word + noun for two objects: 两个孩子. 二 is not used before 个 here."
-  },
-  {
-    "id": "chinese-039",
-    "topic": "Lesson 22-24 sentence",
-    "difficulty": 3,
-    "q": "Which sentence means \"I want to eat rice\"?",
-    "choices": [
-      "我吃想米饭。",
-      "想我吃米饭。",
-      "我想米饭吃。",
-      "我想吃米饭。"
-    ],
-    "answer": 3,
-    "explain": "Pattern: subject + 想 + verb + object. 我想吃米饭."
-  },
-  {
-    "id": "chinese-040",
-    "topic": "Lesson 19-21 dates",
-    "difficulty": 3,
-    "q": "Today is Thursday (星期四). Which sentence is right for tomorrow?",
-    "choices": [
-      "明天星期三。",
-      "明天星期六。",
-      "明天星期五。",
-      "明天星期日。"
-    ],
-    "answer": 2,
-    "explain": "星期四 + 1 = 星期五. Tomorrow = 明天."
-  }
+{
+"id": "chinese-001",
+"topic": "No-pinyin list: Lessons 10-12",
+"difficulty": 1,
+"q": "What does 谁 mean?",
+"choices": [
+"what",
+"who",
+"which",
+"how many"
+],
+"answer": 1,
+"explain": "谁 (shéi) = who. 什么 = what, 哪 = which, 几 = how many."
+},
+{
+"id": "chinese-002",
+"topic": "No-pinyin list: Lessons 10-12",
+"difficulty": 3,
+"q": "Which character means \"which\" (as in 你是哪国人)?",
+"choices": [
+"哪",
+"那",
+"谁",
+"几"
+],
+"answer": 0,
+"explain": "哪 (nǎ) = which. 那 (nà) = that. Check the left side: 口 means a question word."
+},
+{
+"id": "chinese-003",
+"topic": "No-pinyin list: Lessons 10-12",
+"difficulty": 1,
+"q": "What does 那 mean (那位是谁?)?",
+"choices": [
+"this",
+"which",
+"who",
+"that"
+],
+"answer": 3,
+"explain": "那 (nà) = that. 这 (zhè) = this."
+},
+{
+"id": "chinese-004",
+"topic": "No-pinyin list: Lessons 13-15",
+"difficulty": 2,
+"q": "Which pinyin is right for 几 (as in 你几岁)?",
+"choices": [
+"jī",
+"jì",
+"jǐ",
+"qǐ"
+],
+"answer": 2,
+"explain": "几 = jǐ (third tone), \"how many\"."
+},
+{
+"id": "chinese-005",
+"topic": "No-pinyin list: Lessons 22-24",
+"difficulty": 1,
+"q": "What does 吃 mean?",
+"choices": [
+"to drink",
+"to eat",
+"to buy",
+"to look"
+],
+"answer": 1,
+"explain": "吃 (chī) = to eat. 喝 = to drink, 买 = to buy, 看 = to look."
+},
+{
+"id": "chinese-006",
+"topic": "No-pinyin list: Lessons 22-24",
+"difficulty": 2,
+"q": "What does 买 mean?",
+"choices": [
+"to buy",
+"to go",
+"to eat",
+"to want"
+],
+"answer": 0,
+"explain": "买 (mǎi) = to buy. 去 = to go, 吃 = to eat, 想 = to want."
+},
+{
+"id": "chinese-007",
+"topic": "No-pinyin list: Lessons 7-9",
+"difficulty": 1,
+"q": "What does 书 mean?",
+"choices": [
+"money",
+"school",
+"friend",
+"book"
+],
+"answer": 3,
+"explain": "书 (shū) = book. 钱 = money, 学校 = school, 朋友 = friend."
+},
+{
+"id": "chinese-008",
+"topic": "No-pinyin list: Lessons 1-2 vocabulary",
+"difficulty": 1,
+"q": "What does 钱 mean?",
+"choices": [
+"book",
+"house, family",
+"money",
+"school"
+],
+"answer": 2,
+"explain": "钱 (qián) = money. 家 = family/house."
+},
+{
+"id": "chinese-009",
+"topic": "No-pinyin list: Lessons 13-15",
+"difficulty": 1,
+"q": "In 我今年十九岁, what does 岁 mean?",
+"choices": [
+"book (measure word)",
+"years old (measure word for age)",
+"person (measure word)",
+"mouth (measure word)"
+],
+"answer": 1,
+"explain": "岁 (suì) is the measure word for age. 本 is for books, 口 for family members, 个 general."
+},
+{
+"id": "chinese-010",
+"topic": "No-pinyin list: Lessons 13-15",
+"difficulty": 3,
+"q": "Which pinyin is right for 两 (\"two of something\")?",
+"choices": [
+"liǎng",
+"liàng",
+"liáng",
+"lǎng"
+],
+"answer": 0,
+"explain": "两 = liǎng (third tone). It is used before measure words: 两个孩子."
+},
+{
+"id": "chinese-011",
+"topic": "No-pinyin list: Lessons 1-2 vocabulary",
+"difficulty": 2,
+"q": "Which character means \"very, quite\"?",
+"choices": [
+"也",
+"不",
+"和",
+"很"
+],
+"answer": 3,
+"explain": "很 (hěn) = very. 也 = also, 不 = not, 和 = and."
+},
+{
+"id": "chinese-012",
+"topic": "No-pinyin list: Lessons 7-9",
+"difficulty": 1,
+"q": "What does 也 mean?",
+"choices": [
+"not",
+"very",
+"also, too",
+"and"
+],
+"answer": 2,
+"explain": "也 (yě) = also: 我也是学生."
+},
+{
+"id": "chinese-013",
+"topic": "No-pinyin list: Lessons 7-9",
+"difficulty": 1,
+"q": "Fill the blank (I am also a student): 我___是学生。",
+"choices": [
+"吗",
+"也",
+"的",
+"个"
+],
+"answer": 1,
+"explain": "也 goes before the verb: Subject + 也 + verb. 吗 ends questions, 的 shows possession."
+},
+{
+"id": "chinese-014",
+"topic": "No-pinyin list: Lessons 7-9",
+"difficulty": 2,
+"q": "Fill the blank (This is my business card): 这是我___名片。",
+"choices": [
+"的",
+"吗",
+"个",
+"很"
+],
+"answer": 0,
+"explain": "Pronoun + 的 + noun = possession: 我的名片."
+},
+{
+"id": "chinese-015",
+"topic": "No-pinyin list: Lessons 13-15",
+"difficulty": 2,
+"q": "Fill the blank (I have three books): 我有三___书。",
+"choices": [
+"岁",
+"口",
+"位",
+"本"
+],
+"answer": 3,
+"explain": "本 (běn) is the measure word for books. 岁 is for age, 口 for family members, 位 for people (polite)."
+},
+{
+"id": "chinese-016",
+"topic": "No-pinyin list: Lessons 13-15",
+"difficulty": 2,
+"q": "Fill the blank (I am nineteen years old this year): 我今年十九___。",
+"choices": [
+"本",
+"个",
+"岁",
+"口"
+],
+"answer": 2,
+"explain": "Age uses 岁: 十九岁."
+},
+{
+"id": "chinese-017",
+"topic": "No-pinyin list: Lessons 13-15",
+"difficulty": 2,
+"q": "Fill the blank (How old are you?): 你___岁?",
+"choices": [
+"谁",
+"几",
+"哪",
+"好"
+],
+"answer": 1,
+"explain": "几岁 = how old (asking about a child, or in the course pattern 你几岁?). 几 = how many."
+},
+{
+"id": "chinese-018",
+"topic": "No-pinyin list: Lessons 16-18",
+"difficulty": 1,
+"q": "What does 学 mean (as in 学习)?",
+"choices": [
+"to study, to learn",
+"to see",
+"to speak",
+"to want"
+],
+"answer": 0,
+"explain": "学 (xué) = to study/learn. 学习 = study, 学生 = student, 学校 = school."
+},
+{
+"id": "chinese-019",
+"topic": "No-pinyin list: Lessons 16-18",
+"difficulty": 2,
+"q": "Which meaning fits 会 in 她会说中文?",
+"choices": [
+"to buy",
+"to say",
+"to go",
+"can, to be able to"
+],
+"answer": 3,
+"explain": "会 (huì) = can/know how to. 她会说中文 = She can speak Chinese."
+},
+{
+"id": "chinese-020",
+"topic": "No-pinyin list: Lessons 16-18",
+"difficulty": 3,
+"q": "Which pinyin is right for 说?",
+"choices": [
+"shuǒ",
+"shōu",
+"shuō",
+"xuē"
+],
+"answer": 2,
+"explain": "说 = shuō (first tone), \"to speak\"."
+},
+{
+"id": "chinese-021",
+"topic": "No-pinyin list: Lessons 19-21",
+"difficulty": 2,
+"q": "Which pinyin is right for 去 (to go)?",
+"choices": [
+"qū",
+"qù",
+"jù",
+"qǔ"
+],
+"answer": 1,
+"explain": "去 = qù (fourth tone): 明天她去中国."
+},
+{
+"id": "chinese-022",
+"topic": "No-pinyin list: Lessons 16-18",
+"difficulty": 3,
+"q": "What is the pinyin of the first character in 好吃 (delicious)?",
+"choices": [
+"hǎo",
+"hào",
+"háo",
+"hāo"
+],
+"answer": 0,
+"explain": "好 = hǎo (third tone). 号 (hào, \"day number\") is a different character."
+},
+{
+"id": "chinese-023",
+"topic": "No-pinyin list: Lessons 1-2 vocabulary",
+"difficulty": 1,
+"q": "Which character is the number seven?",
+"choices": [
+"九",
+"六",
+"四",
+"七"
+],
+"answer": 3,
+"explain": "七 = qī. 九 = jiǔ, 六 = liù, 四 = sì."
+},
+{
+"id": "chinese-024",
+"topic": "No-pinyin list: Lessons 1-2 vocabulary",
+"difficulty": 1,
+"q": "What does 大 mean?",
+"choices": [
+"small",
+"many",
+"big",
+"old"
+],
+"answer": 2,
+"explain": "大 (dà) = big. 小 = small, 多 = many, 老 = old."
+},
+{
+"id": "chinese-025",
+"topic": "No-pinyin list: Lessons 19-21",
+"difficulty": 1,
+"q": "What does 月 mean in 十月五号?",
+"choices": [
+"year",
+"month",
+"day",
+"week"
+],
+"answer": 1,
+"explain": "月 (yuè) = month. 年 = year, 号/日 = day, 星期 = week."
+},
+{
+"id": "chinese-026",
+"topic": "No-pinyin list: Lessons 1-2 vocabulary",
+"difficulty": 2,
+"q": "Which character means \"afternoon\"?",
+"choices": [
+"下午",
+"上午",
+"早上",
+"晚上"
+],
+"answer": 0,
+"explain": "下午 (xiàwǔ) = afternoon. 上午 (shàngwǔ) = morning."
+},
+{
+"id": "chinese-027",
+"topic": "No-pinyin list: Lessons 16-18",
+"difficulty": 2,
+"q": "What does 中文 mean?",
+"choices": [
+"China",
+"Chinese person",
+"Chinese tea",
+"Chinese language"
+],
+"answer": 3,
+"explain": "中文 (zhōngwén) = Chinese language. 中国 = China, 中国人 = Chinese person."
+},
+{
+"id": "chinese-028",
+"topic": "No-pinyin list: Lessons 10-12",
+"difficulty": 3,
+"q": "What does 哪国人 (nǎ guó rén) ask?",
+"choices": [
+"Who is the person?",
+"How old is the person?",
+"Which country is someone from (nationality)?",
+"What is the person called?"
+],
+"answer": 2,
+"explain": "哪 = which, 国 = country, 人 = person. 你是哪国人? 我是中国人。"
+},
+{
+"id": "chinese-029",
+"topic": "No-pinyin list: Lessons 22-24",
+"difficulty": 2,
+"q": "Which pinyin is right for 想 (\"to want\")?",
+"choices": [
+"xiāng",
+"xiǎng",
+"xiàng",
+"shǎng"
+],
+"answer": 1,
+"explain": "想 = xiǎng (third tone): 我想吃米饭."
+},
+{
+"id": "chinese-030",
+"topic": "No-pinyin list: Lessons 19-21",
+"difficulty": 2,
+"q": "What does 看 mean (as in 看书)?",
+"choices": [
+"to look, to see, to read",
+"to sit",
+"to come",
+"to do"
+],
+"answer": 0,
+"explain": "看 (kàn) = to look/see. 看书 = to read."
+},
+{
+"id": "chinese-031",
+"topic": "Lesson 1-4 phrases",
+"difficulty": 1,
+"q": "Which is the correct pinyin of 你好?",
+"choices": [
+"nǐ hào",
+"nī hǎo",
+"nǐ hāo",
+"nǐ hǎo"
+],
+"answer": 3,
+"explain": "你 = nǐ, 好 = hǎo. Both are written with third tone marks."
+},
+{
+"id": "chinese-032",
+"topic": "Lesson 1-4 phrases",
+"difficulty": 1,
+"q": "A: 谢谢! B: ___",
+"choices": [
+"再见!",
+"请进!",
+"不客气!",
+"早上好!"
+],
+"answer": 2,
+"explain": "谢谢 (thank you) is answered by 不客气 (you are welcome)."
+},
+{
+"id": "chinese-033",
+"topic": "Lesson 16-18 dialogue",
+"difficulty": 1,
+"q": "A: 对不起, 我来晚了! B: ___",
+"choices": [
+"谢谢!",
+"没关系!",
+"请坐!",
+"你好!"
+],
+"answer": 1,
+"explain": "没关系 (it does not matter) answers 对不起 (sorry)."
+},
+{
+"id": "chinese-034",
+"topic": "Lesson 5-6 vocab",
+"difficulty": 1,
+"q": "Which word means \"welcome\"?",
+"choices": [
+"欢迎",
+"再见",
+"请进",
+"认识"
+],
+"answer": 0,
+"explain": "欢迎 (huānyíng) = welcome. 再见 = goodbye, 请进 = please come in, 认识 = to know."
+},
+{
+"id": "chinese-035",
+"topic": "Lesson 5-6 sentence",
+"difficulty": 2,
+"q": "Fill the blank (Nice to meet you): 很___认识你。",
+"choices": [
+"好吃",
+"忙",
+"美",
+"高兴"
+],
+"answer": 3,
+"explain": "很高兴认识你 = Nice to meet you. 高兴 (gāoxìng) = glad."
+},
+{
+"id": "chinese-036",
+"topic": "Lesson 7-9 dialogue",
+"difficulty": 2,
+"q": "A: 你叫什么名字? B: ___",
+"choices": [
+"我是老师。",
+"我有两个孩子。",
+"我叫小玲。",
+"我很高兴。"
+],
+"answer": 2,
+"explain": "Ask the name with 叫什么名字, answer with 我叫 + name."
+},
+{
+"id": "chinese-037",
+"topic": "Lesson 10-12 vocab",
+"difficulty": 2,
+"q": "What does 同事 mean?",
+"choices": [
+"classmate",
+"colleague",
+"manager",
+"friend"
+],
+"answer": 1,
+"explain": "同事 (tóngshì) = colleague. 同学 = classmate, 经理 = manager, 朋友 = friend."
+},
+{
+"id": "chinese-038",
+"topic": "Lesson 13-15 sentence",
+"difficulty": 3,
+"q": "Which sentence means \"I have two children\"?",
+"choices": [
+"我有两个孩子。",
+"我有二个孩子。",
+"我有两岁孩子。",
+"我两有孩子。"
+],
+"answer": 0,
+"explain": "Use 两 + measure word + noun for two objects: 两个孩子. 二 is not used before 个 here."
+},
+{
+"id": "chinese-039",
+"topic": "Lesson 22-24 sentence",
+"difficulty": 3,
+"q": "Which sentence means \"I want to eat rice\"?",
+"choices": [
+"我吃想米饭。",
+"想我吃米饭。",
+"我想米饭吃。",
+"我想吃米饭。"
+],
+"answer": 3,
+"explain": "Pattern: subject + 想 + verb + object. 我想吃米饭."
+},
+{
+"id": "chinese-040",
+"topic": "Lesson 19-21 dates",
+"difficulty": 3,
+"q": "Today is Thursday (星期四). Which sentence is right for tomorrow?",
+"choices": [
+"明天星期三。",
+"明天星期六。",
+"明天星期五。",
+"明天星期日。"
+],
+"answer": 2,
+"explain": "星期四 + 1 = 星期五. Tomorrow = 明天."
+},
+{
+"id": "chinese-041",
+"topic": "Reading without pinyin (3 Dec exam)",
+"difficulty": 2,
+"q": "What does 我 mean? (no pinyin on the exam)",
+"choices": [
+"years old",
+"to want",
+"I, me",
+"Miss"
+],
+"answer": 2,
+"explain": "我 (wǒ) = I, me."
+},
+{
+"id": "chinese-042",
+"topic": "Reading without pinyin (3 Dec exam)",
+"difficulty": 2,
+"q": "What does 你 mean? (no pinyin on the exam)",
+"choices": [
+"mouth / measure word for family members",
+"you",
+"eight",
+"and"
+],
+"answer": 1,
+"explain": "你 (nǐ) = you."
+},
+{
+"id": "chinese-043",
+"topic": "Reading without pinyin (3 Dec exam)",
+"difficulty": 2,
+"q": "What does 他 mean? (no pinyin on the exam)",
+"choices": [
+"son",
+"how many, how much",
+"park",
+"he, him"
+],
+"answer": 3,
+"explain": "他 (tā) = he, him."
+},
+{
+"id": "chinese-044",
+"topic": "Reading without pinyin (3 Dec exam)",
+"difficulty": 2,
+"q": "What does 她 mean? (no pinyin on the exam)",
+"choices": [
+"daughter",
+"money",
+"she, her",
+"year"
+],
+"answer": 2,
+"explain": "她 (tā) = she, her."
+},
+{
+"id": "chinese-045",
+"topic": "Reading without pinyin (3 Dec exam)",
+"difficulty": 2,
+"q": "What does 这 mean? (no pinyin on the exam)",
+"choices": [
+"China",
+"up, on, above",
+"this",
+"ten"
+],
+"answer": 2,
+"explain": "这 (zhè) = this."
+},
+{
+"id": "chinese-046",
+"topic": "Reading without pinyin (3 Dec exam)",
+"difficulty": 2,
+"q": "What does 那 mean? (no pinyin on the exam)",
+"choices": [
+"Nice to meet you",
+"that",
+"day of the month (spoken)",
+"glad"
+],
+"answer": 1,
+"explain": "那 (nà) = that."
+},
+{
+"id": "chinese-047",
+"topic": "Reading without pinyin (3 Dec exam)",
+"difficulty": 2,
+"q": "What does 什么 mean? (no pinyin on the exam)",
+"choices": [
+"what",
+"and",
+"old",
+"day (written)"
+],
+"answer": 0,
+"explain": "什么 (shénme) = what."
+},
+{
+"id": "chinese-048",
+"topic": "Reading without pinyin (3 Dec exam)",
+"difficulty": 2,
+"q": "What does 谁 mean? (no pinyin on the exam)",
+"choices": [
+"can, may",
+"this year",
+"who",
+"what about...?"
+],
+"answer": 2,
+"explain": "谁 (shéi) = who."
+},
+{
+"id": "chinese-049",
+"topic": "Reading without pinyin (3 Dec exam)",
+"difficulty": 2,
+"q": "What does 哪 mean? (no pinyin on the exam)",
+"choices": [
+"nine",
+"six",
+"which",
+"China"
+],
+"answer": 2,
+"explain": "哪 (nǎ) = which."
+},
+{
+"id": "chinese-050",
+"topic": "Reading without pinyin (3 Dec exam)",
+"difficulty": 2,
+"q": "What does 几 mean? (no pinyin on the exam)",
+"choices": [
+"change of state / past",
+"how many",
+"to sit",
+"rice"
+],
+"answer": 1,
+"explain": "几 (jǐ) = how many."
+},
+{
+"id": "chinese-051",
+"topic": "Reading without pinyin (3 Dec exam)",
+"difficulty": 2,
+"q": "What does 多少 mean? (no pinyin on the exam)",
+"choices": [
+"they (female)",
+"how many, how much",
+"change of state / past",
+"four"
+],
+"answer": 1,
+"explain": "多少 (duōshǎo) = how many, how much."
+},
+{
+"id": "chinese-052",
+"topic": "Reading without pinyin (3 Dec exam)",
+"difficulty": 2,
+"q": "What does 四 mean? (no pinyin on the exam)",
+"choices": [
+"not (negates 有)",
+"evening",
+"four",
+"month"
+],
+"answer": 2,
+"explain": "四 (sì) = four."
+},
+{
+"id": "chinese-053",
+"topic": "Reading without pinyin (3 Dec exam)",
+"difficulty": 2,
+"q": "What does 五 mean? (no pinyin on the exam)",
+"choices": [
+"five",
+"busy",
+"China",
+"English language"
+],
+"answer": 0,
+"explain": "五 (wǔ) = five."
+},
+{
+"id": "chinese-054",
+"topic": "Reading without pinyin (3 Dec exam)",
+"difficulty": 2,
+"q": "What does 六 mean? (no pinyin on the exam)",
+"choices": [
+"late",
+"Japan",
+"Japanese language",
+"six"
+],
+"answer": 3,
+"explain": "六 (liù) = six."
+},
+{
+"id": "chinese-055",
+"topic": "Reading without pinyin (3 Dec exam)",
+"difficulty": 2,
+"q": "What does 七 mean? (no pinyin on the exam)",
+"choices": [
+"day of the month (spoken)",
+"son",
+"dad",
+"seven"
+],
+"answer": 3,
+"explain": "七 (qī) = seven."
+},
+{
+"id": "chinese-056",
+"topic": "Reading without pinyin (3 Dec exam)",
+"difficulty": 2,
+"q": "What does 八 mean? (no pinyin on the exam)",
+"choices": [
+"eight",
+"China",
+"name",
+"Mr."
+],
+"answer": 0,
+"explain": "八 (bā) = eight."
+},
+{
+"id": "chinese-057",
+"topic": "Reading without pinyin (3 Dec exam)",
+"difficulty": 2,
+"q": "What does 九 mean? (no pinyin on the exam)",
+"choices": [
+"nine",
+"next year",
+"company",
+"big"
+],
+"answer": 0,
+"explain": "九 (jiǔ) = nine."
+},
+{
+"id": "chinese-058",
+"topic": "Reading without pinyin (3 Dec exam)",
+"difficulty": 2,
+"q": "What does 十 mean? (no pinyin on the exam)",
+"choices": [
+"UK",
+"he, him",
+"six",
+"ten"
+],
+"answer": 3,
+"explain": "十 (shí) = ten."
+},
+{
+"id": "chinese-059",
+"topic": "Reading without pinyin (3 Dec exam)",
+"difficulty": 2,
+"q": "What does 两 mean? (no pinyin on the exam)",
+"choices": [
+"two (of something)",
+"evening",
+"teacher",
+"business card"
+],
+"answer": 0,
+"explain": "两 (liǎng) = two (of something)."
+},
+{
+"id": "chinese-060",
+"topic": "Reading without pinyin (3 Dec exam)",
+"difficulty": 2,
+"q": "What does 口 mean? (no pinyin on the exam)",
+"choices": [
+"Japanese language",
+"sky, day",
+"Madam",
+"mouth / measure word for family members"
+],
+"answer": 3,
+"explain": "口 (kǒu) = mouth / measure word for family members."
+},
+{
+"id": "chinese-061",
+"topic": "Reading without pinyin (3 Dec exam)",
+"difficulty": 2,
+"q": "What does 个 mean? (no pinyin on the exam)",
+"choices": [
+"she, her",
+"school",
+"general measure word",
+"shop"
+],
+"answer": 2,
+"explain": "个 (gè) = general measure word."
+},
+{
+"id": "chinese-062",
+"topic": "Reading without pinyin (3 Dec exam)",
+"difficulty": 2,
+"q": "What does 本 mean? (no pinyin on the exam)",
+"choices": [
+"can (learned skill)",
+"to drink",
+"measure word for books",
+"glad"
+],
+"answer": 2,
+"explain": "本 (běn) = measure word for books."
+},
+{
+"id": "chinese-063",
+"topic": "Reading without pinyin (3 Dec exam)",
+"difficulty": 2,
+"q": "What does 岁 mean? (no pinyin on the exam)",
+"choices": [
+"It doesn't matter",
+"how many",
+"they (female)",
+"years old"
+],
+"answer": 3,
+"explain": "岁 (suì) = years old."
+},
+{
+"id": "chinese-064",
+"topic": "Reading without pinyin (3 Dec exam)",
+"difficulty": 2,
+"q": "What does 不 mean? (no pinyin on the exam)",
+"choices": [
+"not, no",
+"money",
+"It doesn't matter",
+"to know (a fact)"
+],
+"answer": 0,
+"explain": "不 (bù) = not, no."
+},
+{
+"id": "chinese-065",
+"topic": "Reading without pinyin (3 Dec exam)",
+"difficulty": 2,
+"q": "What does 也 mean? (no pinyin on the exam)",
+"choices": [
+"how many",
+"also, too",
+"measure word for books",
+"who"
+],
+"answer": 1,
+"explain": "也 (yě) = also, too."
+},
+{
+"id": "chinese-066",
+"topic": "Reading without pinyin (3 Dec exam)",
+"difficulty": 2,
+"q": "What does 很 mean? (no pinyin on the exam)",
+"choices": [
+"very",
+"to come",
+"to buy",
+"to be called"
+],
+"answer": 0,
+"explain": "很 (hěn) = very."
+},
+{
+"id": "chinese-067",
+"topic": "Reading without pinyin (3 Dec exam)",
+"difficulty": 2,
+"q": "What does 好 mean? (no pinyin on the exam)",
+"choices": [
+"Mr.",
+"good",
+"manager",
+"dish, cuisine"
+],
+"answer": 1,
+"explain": "好 (hǎo) = good."
+},
+{
+"id": "chinese-068",
+"topic": "Reading without pinyin (3 Dec exam)",
+"difficulty": 2,
+"q": "What does 大 mean? (no pinyin on the exam)",
+"choices": [
+"can (learned skill)",
+"eight",
+"big",
+"piece / yuan (money)"
+],
+"answer": 2,
+"explain": "大 (dà) = big."
+},
+{
+"id": "chinese-069",
+"topic": "Reading without pinyin (3 Dec exam)",
+"difficulty": 2,
+"q": "What does 小 mean? (no pinyin on the exam)",
+"choices": [
+"few, little",
+"next year",
+"small",
+"Japan"
+],
+"answer": 2,
+"explain": "小 (xiǎo) = small."
+},
+{
+"id": "chinese-070",
+"topic": "Reading without pinyin (3 Dec exam)",
+"difficulty": 2,
+"q": "What does 好吃 mean? (no pinyin on the exam)",
+"choices": [
+"delicious",
+"plural suffix (我们)",
+"person",
+"month"
+],
+"answer": 0,
+"explain": "好吃 (hǎochī) = delicious."
+},
+{
+"id": "chinese-071",
+"topic": "Reading without pinyin (3 Dec exam)",
+"difficulty": 2,
+"q": "What does 美 mean? (no pinyin on the exam)",
+"choices": [
+"beautiful",
+"he, him",
+"piece / yuan (money)",
+"good"
+],
+"answer": 0,
+"explain": "美 (měi) = beautiful."
+},
+{
+"id": "chinese-072",
+"topic": "Reading without pinyin (3 Dec exam)",
+"difficulty": 2,
+"q": "What does 老 mean? (no pinyin on the exam)",
+"choices": [
+"family, home",
+"Japan",
+"old",
+"to drink"
+],
+"answer": 2,
+"explain": "老 (lǎo) = old."
+},
+{
+"id": "chinese-073",
+"topic": "Reading without pinyin (3 Dec exam)",
+"difficulty": 2,
+"q": "What does 的 mean? (no pinyin on the exam)",
+"choices": [
+"piece / yuan (money)",
+"measure word for people (polite)",
+"big",
+"possession particle"
+],
+"answer": 3,
+"explain": "的 (de) = possession particle."
+},
+{
+"id": "chinese-074",
+"topic": "Reading without pinyin (3 Dec exam)",
+"difficulty": 2,
+"q": "What does 吗 mean? (no pinyin on the exam)",
+"choices": [
+"yes-or-no question particle",
+"rice",
+"to read",
+"month"
+],
+"answer": 0,
+"explain": "吗 (ma) = yes-or-no question particle."
+},
+{
+"id": "chinese-075",
+"topic": "Reading without pinyin (3 Dec exam)",
+"difficulty": 2,
+"q": "What does 今天 mean? (no pinyin on the exam)",
+"choices": [
+"few, little",
+"rice",
+"today",
+"yesterday"
+],
+"answer": 2,
+"explain": "今天 (jīntiān) = today."
+},
+{
+"id": "chinese-076",
+"topic": "Reading without pinyin (3 Dec exam)",
+"difficulty": 2,
+"q": "What does 年 mean? (no pinyin on the exam)",
+"choices": [
+"to go back",
+"Chinese language",
+"year",
+"to buy"
+],
+"answer": 2,
+"explain": "年 (nián) = year."
+},
+{
+"id": "chinese-077",
+"topic": "Reading without pinyin (3 Dec exam)",
+"difficulty": 2,
+"q": "What does 月 mean? (no pinyin on the exam)",
+"choices": [
+"small",
+"evening",
+"month",
+"to know (someone)"
+],
+"answer": 2,
+"explain": "月 (yuè) = month."
+},
+{
+"id": "chinese-078",
+"topic": "Reading without pinyin (3 Dec exam)",
+"difficulty": 2,
+"q": "What does 日 mean? (no pinyin on the exam)",
+"choices": [
+"day (written)",
+"mom",
+"French language",
+"daughter"
+],
+"answer": 0,
+"explain": "日 (rì) = day (written)."
+},
+{
+"id": "chinese-079",
+"topic": "Reading without pinyin (3 Dec exam)",
+"difficulty": 2,
+"q": "What does 星期 mean? (no pinyin on the exam)",
+"choices": [
+"to go",
+"manager",
+"few, little",
+"week"
+],
+"answer": 3,
+"explain": "星期 (xīngqī) = week."
+},
+{
+"id": "chinese-080",
+"topic": "Reading without pinyin (3 Dec exam)",
+"difficulty": 2,
+"q": "What does 中国 mean? (no pinyin on the exam)",
+"choices": [
+"afternoon",
+"to have",
+"Please sit down",
+"China"
+],
+"answer": 3,
+"explain": "中国 (zhōngguó) = China."
+},
+{
+"id": "chinese-081",
+"topic": "Reading without pinyin (3 Dec exam)",
+"difficulty": 2,
+"q": "What does 法国 mean? (no pinyin on the exam)",
+"choices": [
+"also, too",
+"good",
+"France",
+"plural suffix (我们)"
+],
+"answer": 2,
+"explain": "法国 (fǎguó) = France."
+},
+{
+"id": "chinese-082",
+"topic": "Reading without pinyin (3 Dec exam)",
+"difficulty": 2,
+"q": "What does 中文 mean? (no pinyin on the exam)",
+"choices": [
+"Chinese language",
+"to speak",
+"to be called",
+"good"
+],
+"answer": 0,
+"explain": "中文 (zhōngwén) = Chinese language."
+},
+{
+"id": "chinese-083",
+"topic": "Reading without pinyin (3 Dec exam)",
+"difficulty": 2,
+"q": "What does 汉语 mean? (no pinyin on the exam)",
+"choices": [
+"this year",
+"Chinese language",
+"nine",
+"to be called"
+],
+"answer": 1,
+"explain": "汉语 (hànyǔ) = Chinese language."
+},
+{
+"id": "chinese-084",
+"topic": "Reading without pinyin (3 Dec exam)",
+"difficulty": 2,
+"q": "What does 老师 mean? (no pinyin on the exam)",
+"choices": [
+"today",
+"teacher",
+"to read",
+"five"
+],
+"answer": 1,
+"explain": "老师 (lǎoshī) = teacher."
+},
+{
+"id": "chinese-085",
+"topic": "Reading without pinyin (3 Dec exam)",
+"difficulty": 2,
+"q": "What does 学生 mean? (no pinyin on the exam)",
+"choices": [
+"delicious",
+"you (plural)",
+"shop",
+"student"
+],
+"answer": 3,
+"explain": "学生 (xuéshēng) = student."
+},
+{
+"id": "chinese-086",
+"topic": "Reading without pinyin (3 Dec exam)",
+"difficulty": 2,
+"q": "What does 朋友 mean? (no pinyin on the exam)",
+"choices": [
+"friend",
+"to write",
+"four",
+"cup"
+],
+"answer": 0,
+"explain": "朋友 (péngyou) = friend."
+},
+{
+"id": "chinese-087",
+"topic": "Reading without pinyin (3 Dec exam)",
+"difficulty": 2,
+"q": "What does 家 mean? (no pinyin on the exam)",
+"choices": [
+"and",
+"family, home",
+"how many",
+"person"
+],
+"answer": 1,
+"explain": "家 (jiā) = family, home."
+},
+{
+"id": "chinese-088",
+"topic": "Reading without pinyin (3 Dec exam)",
+"difficulty": 2,
+"q": "What does 学校 mean? (no pinyin on the exam)",
+"choices": [
+"small",
+"school",
+"to read",
+"person"
+],
+"answer": 1,
+"explain": "学校 (xuéxiào) = school."
+},
+{
+"id": "chinese-089",
+"topic": "Reading without pinyin (3 Dec exam)",
+"difficulty": 2,
+"q": "What does 书 mean? (no pinyin on the exam)",
+"choices": [
+"book",
+"many, much",
+"to rest",
+"colleague"
+],
+"answer": 0,
+"explain": "书 (shū) = book."
+},
+{
+"id": "chinese-090",
+"topic": "Reading without pinyin (3 Dec exam)",
+"difficulty": 2,
+"q": "What does 钱 mean? (no pinyin on the exam)",
+"choices": [
+"school",
+"money",
+"can, may",
+"you (polite)"
+],
+"answer": 1,
+"explain": "钱 (qián) = money."
+},
+{
+"id": "chinese-091",
+"topic": "Reading without pinyin (3 Dec exam)",
+"difficulty": 2,
+"q": "What does 是 mean? (no pinyin on the exam)",
+"choices": [
+"beautiful",
+"two (of something)",
+"park",
+"to be"
+],
+"answer": 3,
+"explain": "是 (shì) = to be."
+},
+{
+"id": "chinese-092",
+"topic": "Reading without pinyin (3 Dec exam)",
+"difficulty": 2,
+"q": "What does 有 mean? (no pinyin on the exam)",
+"choices": [
+"to have",
+"to enter",
+"we, us",
+"to know (a fact)"
+],
+"answer": 0,
+"explain": "有 (yǒu) = to have."
+},
+{
+"id": "chinese-093",
+"topic": "Reading without pinyin (3 Dec exam)",
+"difficulty": 2,
+"q": "What does 叫 mean? (no pinyin on the exam)",
+"choices": [
+"to look, to watch",
+"not, no",
+"to be called",
+"day (written)"
+],
+"answer": 2,
+"explain": "叫 (jiào) = to be called."
+},
+{
+"id": "chinese-094",
+"topic": "Reading without pinyin (3 Dec exam)",
+"difficulty": 2,
+"q": "What does 说 mean? (no pinyin on the exam)",
+"choices": [
+"person",
+"book",
+"to study",
+"to speak"
+],
+"answer": 3,
+"explain": "说 (shuō) = to speak."
+},
+{
+"id": "chinese-095",
+"topic": "Reading without pinyin (3 Dec exam)",
+"difficulty": 2,
+"q": "What does 会 mean? (no pinyin on the exam)",
+"choices": [
+"teacher",
+"can (learned skill)",
+"this year",
+"UK"
+],
+"answer": 1,
+"explain": "会 (huì) = can (learned skill)."
+},
+{
+"id": "chinese-096",
+"topic": "Reading without pinyin (3 Dec exam)",
+"difficulty": 2,
+"q": "What does 做 mean? (no pinyin on the exam)",
+"choices": [
+"friend",
+"to do, to make",
+"yesterday",
+"many, much"
+],
+"answer": 1,
+"explain": "做 (zuò) = to do, to make."
+},
+{
+"id": "chinese-097",
+"topic": "Reading without pinyin (3 Dec exam)",
+"difficulty": 2,
+"q": "What does 去 mean? (no pinyin on the exam)",
+"choices": [
+"friend",
+"to go",
+"yes-or-no question particle",
+"glad"
+],
+"answer": 1,
+"explain": "去 (qù) = to go."
+},
+{
+"id": "chinese-098",
+"topic": "Reading without pinyin (3 Dec exam)",
+"difficulty": 2,
+"q": "What does 看 mean? (no pinyin on the exam)",
+"choices": [
+"to have",
+"a bit, a while",
+"how old",
+"to look, to watch"
+],
+"answer": 3,
+"explain": "看 (kàn) = to look, to watch."
+},
+{
+"id": "chinese-099",
+"topic": "Reading without pinyin (3 Dec exam)",
+"difficulty": 2,
+"q": "What does 想 mean? (no pinyin on the exam)",
+"choices": [
+"one",
+"French language",
+"to want",
+"to go back"
+],
+"answer": 2,
+"explain": "想 (xiǎng) = to want."
+},
+{
+"id": "chinese-100",
+"topic": "Reading without pinyin (3 Dec exam)",
+"difficulty": 2,
+"q": "What does 吃 mean? (no pinyin on the exam)",
+"choices": [
+"French language",
+"to eat",
+"name",
+"years old"
+],
+"answer": 1,
+"explain": "吃 (chī) = to eat."
+},
+{
+"id": "chinese-101",
+"topic": "Reading without pinyin (3 Dec exam)",
+"difficulty": 2,
+"q": "What does 买 mean? (no pinyin on the exam)",
+"choices": [
+"not (negates 有)",
+"we, us",
+"possession particle",
+"to buy"
+],
+"answer": 3,
+"explain": "买 (mǎi) = to buy."
+},
+{
+"id": "chinese-102",
+"topic": "Reading without pinyin (3 Dec exam)",
+"difficulty": 2,
+"q": "What does 人 mean? (no pinyin on the exam)",
+"choices": [
+"to buy",
+"six",
+"sky, day",
+"person"
+],
+"answer": 3,
+"explain": "人 (rén) = person."
+},
+{
+"id": "chinese-103",
+"topic": "Reading without pinyin (3 Dec exam)",
+"difficulty": 2,
+"q": "What does 们 mean? (no pinyin on the exam)",
+"choices": [
+"delicious",
+"ten",
+"plural suffix (我们)",
+"up, on, above"
+],
+"answer": 2,
+"explain": "们 (men) = plural suffix (我们)."
+},
+{
+"id": "chinese-104",
+"topic": "Reading without pinyin (3 Dec exam)",
+"difficulty": 2,
+"q": "What does 上 mean? (no pinyin on the exam)",
+"choices": [
+"up, on, above",
+"to study",
+"and",
+"a bit, a while"
+],
+"answer": 0,
+"explain": "上 (shàng) = up, on, above."
+},
+{
+"id": "chinese-105",
+"topic": "Reading without pinyin (3 Dec exam)",
+"difficulty": 2,
+"q": "What does 下 mean? (no pinyin on the exam)",
+"choices": [
+"down, below",
+"today",
+"what",
+"English language"
+],
+"answer": 0,
+"explain": "下 (xià) = down, below."
+},
+{
+"id": "chinese-106",
+"topic": "Reading without pinyin (3 Dec exam)",
+"difficulty": 2,
+"q": "What does 学 mean? (no pinyin on the exam)",
+"choices": [
+"six",
+"morning (before noon)",
+"nine",
+"to study"
+],
+"answer": 3,
+"explain": "学 (xué) = to study."
+},
+{
+"id": "chinese-107",
+"topic": "Lessons 1-24: find the word",
+"difficulty": 2,
+"q": "Which word means \"five\"?",
+"choices": [
+"书",
+"五",
+"想",
+"三"
+],
+"answer": 1,
+"explain": "五 (wǔ) = five."
+},
+{
+"id": "chinese-108",
+"topic": "Lessons 1-24: find the word",
+"difficulty": 2,
+"q": "Which word means \"Good afternoon\"?",
+"choices": [
+"对不起",
+"不客气",
+"下午好",
+"早上好"
+],
+"answer": 2,
+"explain": "下午好 (xiàwǔ hǎo) = Good afternoon."
+},
+{
+"id": "chinese-109",
+"topic": "Lessons 1-24: find the word",
+"difficulty": 2,
+"q": "Which word means \"business trip\"?",
+"choices": [
+"一下",
+"米饭",
+"出差",
+"星期"
+],
+"answer": 2,
+"explain": "出差 (chūchāi) = business trip."
+},
+{
+"id": "chinese-110",
+"topic": "Lessons 1-24: find the word",
+"difficulty": 2,
+"q": "Which word means \"son\"?",
+"choices": [
+"美国",
+"小姐",
+"昨天",
+"儿子"
+],
+"answer": 3,
+"explain": "儿子 (érzi) = son."
+},
+{
+"id": "chinese-111",
+"topic": "Lessons 1-24: find the word",
+"difficulty": 2,
+"q": "Which word means \"Nice to meet you\"?",
+"choices": [
+"请",
+"很高兴认识你",
+"知道",
+"什么"
+],
+"answer": 1,
+"explain": "很高兴认识你 (hěn gāoxìng rènshi nǐ) = Nice to meet you."
+},
+{
+"id": "chinese-112",
+"topic": "Lessons 1-24: find the word",
+"difficulty": 2,
+"q": "Which word means \"busy\"?",
+"choices": [
+"吗",
+"本",
+"忙",
+"做"
+],
+"answer": 2,
+"explain": "忙 (máng) = busy."
+},
+{
+"id": "chinese-113",
+"topic": "Lessons 1-24: find the word",
+"difficulty": 2,
+"q": "Which word means \"we, us\"?",
+"choices": [
+"我们",
+"先生",
+"认识",
+"汉语"
+],
+"answer": 0,
+"explain": "我们 (wǒmen) = we, us."
+},
+{
+"id": "chinese-114",
+"topic": "Lessons 1-24: find the word",
+"difficulty": 2,
+"q": "Which word means \"measure word for books\"?",
+"choices": [
+"忙",
+"那",
+"本",
+"我"
+],
+"answer": 2,
+"explain": "本 (běn) = measure word for books."
+},
+{
+"id": "chinese-115",
+"topic": "Lessons 1-24: find the word",
+"difficulty": 2,
+"q": "Which word means \"next year\"?",
+"choices": [
+"美国",
+"孩子",
+"明年",
+"上午"
+],
+"answer": 2,
+"explain": "明年 (míngnián) = next year."
+},
+{
+"id": "chinese-116",
+"topic": "Lessons 1-24: find the word",
+"difficulty": 2,
+"q": "Which word means \"company\"?",
+"choices": [
+"名字",
+"法文",
+"公司",
+"杯子"
+],
+"answer": 2,
+"explain": "公司 (gōngsī) = company."
+},
+{
+"id": "chinese-117",
+"topic": "Lessons 1-24: find the word",
+"difficulty": 2,
+"q": "Which word means \"measure word for people (polite)\"?",
+"choices": [
+"位",
+"的",
+"和",
+"家"
+],
+"answer": 0,
+"explain": "位 (wèi) = measure word for people (polite)."
+},
+{
+"id": "chinese-118",
+"topic": "Lessons 1-24: find the word",
+"difficulty": 2,
+"q": "Which word means \"Japanese language\"?",
+"choices": [
+"早上",
+"日文",
+"今年",
+"米饭"
+],
+"answer": 1,
+"explain": "日文 (rìwén) = Japanese language."
+},
+{
+"id": "chinese-119",
+"topic": "Lessons 1-24: find the word",
+"difficulty": 2,
+"q": "Which word means \"how\"?",
+"choices": [
+"她们",
+"怎么",
+"同学",
+"朋友"
+],
+"answer": 1,
+"explain": "怎么 (zěnme) = how."
+},
+{
+"id": "chinese-120",
+"topic": "Lessons 1-24: find the word",
+"difficulty": 2,
+"q": "Which word means \"late\"?",
+"choices": [
+"买",
+"很",
+"十",
+"晚"
+],
+"answer": 3,
+"explain": "晚 (wǎn) = late."
+},
+{
+"id": "chinese-121",
+"topic": "Lessons 1-24: find the word",
+"difficulty": 2,
+"q": "Which word means \"how many, how much\"?",
+"choices": [
+"高兴",
+"下午",
+"明天",
+"多少"
+],
+"answer": 3,
+"explain": "多少 (duōshǎo) = how many, how much."
+},
+{
+"id": "chinese-122",
+"topic": "Lessons 1-24: find the word",
+"difficulty": 2,
+"q": "Which word means \"French language\"?",
+"choices": [
+"欢迎",
+"法文",
+"中国",
+"什么"
+],
+"answer": 1,
+"explain": "法文 (fǎwén) = French language."
+},
+{
+"id": "chinese-123",
+"topic": "Lessons 1-24: find the word",
+"difficulty": 2,
+"q": "Which word means \"to know (someone)\"?",
+"choices": [
+"认识",
+"明天",
+"日本",
+"孩子"
+],
+"answer": 0,
+"explain": "认识 (rènshi) = to know (someone)."
+},
+{
+"id": "chinese-124",
+"topic": "Lessons 1-24: find the word",
+"difficulty": 2,
+"q": "Which word means \"week\"?",
+"choices": [
+"好吃",
+"老师",
+"高兴",
+"星期"
+],
+"answer": 3,
+"explain": "星期 (xīngqī) = week."
+},
+{
+"id": "chinese-125",
+"topic": "Lessons 1-24: find the word",
+"difficulty": 2,
+"q": "Which word means \"to go back\"?",
+"choices": [
+"小",
+"回",
+"十",
+"来"
+],
+"answer": 1,
+"explain": "回 (huí) = to go back."
+},
+{
+"id": "chinese-126",
+"topic": "Lessons 1-24: find the word",
+"difficulty": 2,
+"q": "Which word means \"can (learned skill)\"?",
+"choices": [
+"年",
+"学",
+"会",
+"四"
+],
+"answer": 2,
+"explain": "会 (huì) = can (learned skill)."
+},
+{
+"id": "chinese-127",
+"topic": "Lessons 1-24: find the word",
+"difficulty": 2,
+"q": "Which word means \"Chinese language\"?",
+"choices": [
+"英语",
+"昨天",
+"汉语",
+"早上"
+],
+"answer": 2,
+"explain": "汉语 (hànyǔ) = Chinese language."
+},
+{
+"id": "chinese-128",
+"topic": "Lessons 1-24: find the word",
+"difficulty": 2,
+"q": "Which word means \"France\"?",
+"choices": [
+"多少",
+"朋友",
+"日语",
+"法国"
+],
+"answer": 3,
+"explain": "法国 (fǎguó) = France."
+},
+{
+"id": "chinese-129",
+"topic": "Lessons 1-24: find the word",
+"difficulty": 2,
+"q": "Which word means \"six\"?",
+"choices": [
+"个",
+"六",
+"进",
+"哪"
+],
+"answer": 1,
+"explain": "六 (liù) = six."
+},
+{
+"id": "chinese-130",
+"topic": "Lessons 1-24: find the word",
+"difficulty": 2,
+"q": "Which word means \"few, little\"?",
+"choices": [
+"也",
+"人",
+"七",
+"少"
+],
+"answer": 3,
+"explain": "少 (shǎo) = few, little."
+},
+{
+"id": "chinese-131",
+"topic": "Lessons 1-24: find the word",
+"difficulty": 2,
+"q": "Which word means \"two\"?",
+"choices": [
+"是",
+"二",
+"吃",
+"一"
+],
+"answer": 1,
+"explain": "二 (èr) = two."
+},
+{
+"id": "chinese-132",
+"topic": "Lessons 1-24: find the word",
+"difficulty": 2,
+"q": "Which word means \"to study\"?",
+"choices": [
+"个",
+"四",
+"九",
+"学"
+],
+"answer": 3,
+"explain": "学 (xué) = to study."
+},
+{
+"id": "chinese-133",
+"topic": "Lessons 1-24: find the word",
+"difficulty": 2,
+"q": "Which word means \"small\"?",
+"choices": [
+"小",
+"我",
+"看",
+"您"
+],
+"answer": 0,
+"explain": "小 (xiǎo) = small."
+},
+{
+"id": "chinese-134",
+"topic": "Lessons 1-24: find the word",
+"difficulty": 2,
+"q": "Which word means \"colleague\"?",
+"choices": [
+"高兴",
+"老师",
+"同事",
+"明天"
+],
+"answer": 2,
+"explain": "同事 (tóngshì) = colleague."
+},
+{
+"id": "chinese-135",
+"topic": "Lessons 1-24: find the word",
+"difficulty": 2,
+"q": "Which word means \"Madam\"?",
+"choices": [
+"再见",
+"爸爸",
+"中文",
+"女士"
+],
+"answer": 3,
+"explain": "女士 (nǚshì) = Madam."
+},
+{
+"id": "chinese-136",
+"topic": "Lessons 1-24: find the word",
+"difficulty": 2,
+"q": "Which word means \"surname / to be surnamed\"?",
+"choices": [
+"请",
+"晚",
+"姓",
+"吃"
+],
+"answer": 2,
+"explain": "姓 (xìng) = surname / to be surnamed."
+}
 ]
