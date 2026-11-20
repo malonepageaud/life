@@ -243,6 +243,25 @@
   // typed messages also get the acknowledgment + spoken reply
   $('#send')?.addEventListener('click', () => { if (!$('#msg').value.trim()) return; const t = $('#msg').value.trim(); convoUntil = Date.now() + 12 * 60000; clearInterval(convoPoll); convoPoll = setInterval(() => { if (Date.now() > convoUntil) return clearInterval(convoPoll); if (document.visibilityState === 'visible') load().catch(() => { }); }, 12000); }, true);
 
+
+  // ---------- Revision program (config.revisionPlan, written with Malone 20 Nov) ----------
+  const RCOL = { finacc: '#ffb547', maths: '#7c9cff', marketing: '#ff6fa8', japanese: '#ff5e5e', chinese: '#ff8a3d', macro: '#5ee0ff', stats: '#9b7bff', geo: '#3dffb0', excel: '#4cd964' };
+  const hasDeck = (k) => (D.studyAssets?.summaries || []).includes(k + '.json');
+  const sgToday = () => new Date(Date.now() + 8 * 3600000).toISOString().slice(0, 10);
+  const prettyDay = (iso) => new Date(iso + 'T12:00:00+08:00').toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', timeZone: 'Asia/Singapore' });
+  const blockRow = (d, b, i) => { const k = 'rp' + d.date + i, on = L('revDone', {})[k]; return `<div class="item ${on ? 'done' : ''}"><button class="check ${on ? 'on' : ''}" data-act="rev" data-k="${k}"></button><div class="main"><div class="t"><span style="color:${RCOL[b.s] || 'var(--gold)'};font-weight:700">${esc(b.name)}</span> · ${esc(b.what)}</div><div class="m">${esc(b.t)}</div></div>${hasDeck(b.s) ? `<a class="btn" href="#study&s=${b.s}">Réviser</a>` : ''}</div>`; };
+  if (typeof V.planner === 'function') {
+    const oldPlanner = V.planner, oldRev = F.revision;
+    V.planner = () => {
+      const P = D.revisionPlan; if (!P?.length) return oldPlanner();
+      const t = sgToday(), days = P.filter(d => d.date >= t), done = L('revDone', {});
+      const all = P.flatMap(d => d.blocks.map((b, i) => 'rp' + d.date + i)), nd = all.filter(k => done[k]).length;
+      return `<div class="card hero"><div class="eyebrow">Programme de révision</div><div class="hl">Jusqu'au 17 décembre</div><p class="small">${nd}/${all.length} blocs faits. Coche chaque bloc quand il est fini.</p></div>` +
+        days.map((d, j) => `<div class="card ${j === 0 && d.date === t ? 'today-plan' : ''}"><div class="row between"><div class="tag">${d.date === t ? "Aujourd'hui · " : ''}${prettyDay(d.date)}</div></div>${d.fixed ? `<div class="small" style="margin:4px 0 2px;color:${/EXAM|PITCH/.test(d.fixed) ? 'var(--bad)' : 'var(--mut)'}">${esc(d.fixed)}</div>` : ''}<div class="list" style="margin-top:6px">${d.blocks.map((b, i) => blockRow(d, b, i)).join('')}</div></div>`).join('');
+    };
+    F.revision = () => { const d = (D.revisionPlan || []).find(x => x.date === sgToday()); if (!d) return oldRev ? oldRev() : ''; return `<div class="card"><h2>Révisions aujourd'hui <a class="small muted" href="#school/planner">Programme →</a></h2><div class="list">${d.blocks.map((b, i) => blockRow(d, b, i)).join('')}</div></div>`; };
+  }
+
   // ---------- 6. Life Index ----------
   function lifeIndex() {
     const g = D.grades.average ? Math.min(1, D.grades.average / 18) : 0.5;
