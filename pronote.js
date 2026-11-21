@@ -30,8 +30,8 @@
       <section class="pn-card"><h3>Travail à faire</h3>
         ${hw.map(h => `<div class="pn-taf-mini"><i style="background:${esc(h.color)}"></i><div><span class="pn-mat">${esc(courseOf(h.course)?.name || h.course)}</span><b>${esc(h.title)}</b><span class="pn-pour">Pour ${pourLabel(h.due)}</span></div></div>`).join('') || '<div class="pn-empty">Aucun travail</div>'}
         <a class="pn-more" href="#school/pn_taf">Tout le travail à faire</a></section>
-      <section class="pn-card"><h3>Dernières notes</h3>
-        ${items.map(({ c, i }) => `<div class="pn-note-mini"><i style="background:${c.color}"></i><div><span class="pn-mat">${esc(c.name)}</span><span>${esc(i.name)}</span></div><b>${num(parseFloat(i.grade))}<small>/20</small></b></div>`).join('') || '<div class="pn-empty">Aucune note</div>'}
+      <section class="pn-card pr-home"><h3>Dernières notes</h3>
+        ${items.map(({ c, i }) => `<div class="pr-last"><i style="background:${c.color}"></i><div><b>${esc(c.name.toUpperCase())}</b><span>${esc(i.name)}</span></div><em>${(() => { const g = parseFloat(i.grade); return num(g) + (g > 20 ? '<small>/100</small>' : ''); })()}</em></div>`).join('') || '<div class="pn-empty">Aucune note</div>'}
         <a class="pn-more" href="#school/pn_notes">Toutes les notes</a></section>
       <section class="pn-card"><h3>Examens à venir</h3>
         ${ex.map(e => `<div class="pn-ex"><span class="pn-j">J-${Math.max(0, Math.ceil((e.t - now) / DAYMS))}</span><div><b>${esc(e.course.split(' (')[0])}</b><span>${fr(e.t, { weekday: 'long', day: 'numeric', month: 'long' })} à ${hhmm(e.t)}</span></div></div>`).join('') || '<div class="pn-empty">Aucun examen</div>'}</section>
@@ -69,17 +69,51 @@
   };
   ACT.pnfait = (el) => { const d = L('pnDone', {}); d[el.dataset.k] = !d[el.dataset.k]; };
 
-  // ---------- Notes ----------
+  // ---------- Notes (copie de l'écran "Mes notes" de l'app Pronote) ----------
+  const den = (g) => g > 20 ? 100 : 20;
+  const gradeCell = (g) => { const d = den(g); return `${num(g)}${d !== 20 ? `<small>/${d}</small>` : ''}`; };
   V.pn_notes = () => {
-    const cs = courses();
-    return `<div class="pn-card pn-moy-top"><div><h3>Moyenne générale</h3><span>Pondérée par les ECTS, sur les notes publiées</span></div><div class="pn-big">${num(D.grades?.average)}<small>/20</small></div></div>` +
-      cs.map(c => {
+    const tab = S._pnNotesTab || 'matiere', cs = courses();
+    const tabs = `<div class="pr-period"><button disabled>‹</button><b>Semestre 1</b><button disabled>›</button></div>
+      <div class="pr-tabs"><button class="${tab === 'matiere' ? 'on' : ''}" data-act="pnntab" data-t="matiere">Matière</button><button class="${tab === 'bulletin' ? 'on' : ''}" data-act="pnntab" data-t="bulletin">Bulletin</button></div>`;
+    let body = '';
+    if (tab === 'matiere') {
+      body = cs.map((c, ci) => {
         const items = (c.items || []).filter(i => i.grade && !isNaN(parseFloat(i.grade)));
-        return `<div class="pn-card pn-mat-card"><div class="pn-mat-head" style="--c:${c.color}"><div><b>${esc(c.name)}</b><span>Coef. ${c.ects || '-'} ECTS${c.gradedShare != null ? ' · ' + c.gradedShare + '% de la note publié' : ''}</span></div><div class="pn-moy-mat">${c.current != null ? num(c.current) : '<em>-</em>'}</div></div>
-          ${(c.components || []).map(p => `<div class="pn-ligne"><span>${esc(p.name)} <small>${p.weight}%</small></span><b class="${p.grade == null ? 'np' : ''}">${p.grade != null ? num(p.grade) + '<small>/20</small>' : 'Non publié'}</b></div>`).join('')}
-          ${items.length ? `<details><summary>Détail des notes (${items.length})</summary>${items.map(i => `<div class="pn-ligne sub"><span>${esc(i.name)}</span><b>${num(parseFloat(i.grade))}<small>/20</small></b></div>`).join('')}</details>` : ''}</div>`;
+        return `<div class="pr-mat"><div class="pr-mat-h" style="--c:${c.color}"><span>${esc(c.name.toUpperCase())}</span><b>${c.current != null ? num(c.current) : ''}</b></div>
+          ${items.map((i, ii) => `<button class="pr-row" data-act="pnnote" data-c="${ci}" data-i="${ii}"><span>${esc(i.name)}</span><b>${gradeCell(parseFloat(i.grade))}</b></button>`).join('') || `<div class="pr-row empty"><span>Aucune note publiée</span></div>`}</div>`;
       }).join('');
+    } else {
+      body = cs.map(c => `<div class="pr-mat"><div class="pr-mat-h" style="--c:${c.color}"><span>${esc(c.name.toUpperCase())}</span><b>${c.current != null ? num(c.current) : ''}</b></div>
+        <div class="pr-row info"><span>Coefficient</span><b>${c.ects || '-'}</b></div>
+        ${(c.components || []).map(p => `<div class="pr-row info"><span>${esc(p.name)} (${p.weight} %)</span><b class="${p.grade == null ? 'np' : ''}">${p.grade != null ? num(p.grade) : 'Non publié'}</b></div>`).join('')}</div>`).join('');
+    }
+    return `<div class="pr-wrap">${tabs}${body}<div class="pr-moygen"><span>Moyenne générale élève</span><b>${num(D.grades?.average)}</b></div></div>`;
   };
+  ACT.pnntab = (el) => { S._pnNotesTab = el.dataset.t; };
+  ACT.pnnote = (el) => {
+    const c = courses()[+el.dataset.c], i = (c.items || []).filter(x => x.grade && !isNaN(parseFloat(x.grade)))[+el.dataset.i]; if (!i) return false;
+    const g = parseFloat(i.grade);
+    document.querySelector('.pr-sheet')?.remove();
+    const sh = document.createElement('div'); sh.className = 'pr-sheet';
+    sh.innerHTML = `<div class="pr-sheet-card"><div class="pr-mat-h" style="--c:${c.color}"><span>${esc(c.name.toUpperCase())}</span></div><div class="pr-sheet-t">${esc(i.name)}</div>
+      <div class="pr-row info"><span>Note élève</span><b>${gradeCell(g)}</b></div>${i.pct ? `<div class="pr-row info"><span>Pourcentage</span><b>${esc(i.pct)}</b></div>` : ''}
+      <div class="pr-row info"><span>Moyenne de la matière</span><b>${c.current != null ? num(c.current) : '-'}</b></div>
+      ${i.url ? `<a class="pr-sheet-btn" href="${esc(i.url)}" target="_blank" rel="noopener">Voir sur Moodle</a>` : ''}<button class="pr-sheet-x">Fermer</button></div>`;
+    sh.onclick = (e) => { if (e.target === sh || e.target.closest('.pr-sheet-x')) sh.remove(); };
+    document.body.appendChild(sh); return false;
+  };
+
+  // Pronote mobile header
+  const TITLES = { pn_home: "Page d'accueil", pn_edt: 'Emploi du temps', pn_taf: 'Travail à faire', pn_notes: 'Mes notes', planner: 'Révisions', study: 'Study' };
+  function pnHeader(seg) {
+    const top = document.querySelector('.top'); if (!top) return;
+    let h = document.getElementById('prHead');
+    if (!document.body.classList.contains('pn')) { h?.remove(); return; }
+    if (!h) { h = document.createElement('div'); h.id = 'prHead'; h.className = 'pr-head'; top.parentNode.insertBefore(h, top); }
+    h.innerHTML = `<i class="pr-blob"></i><div class="pr-av">MP</div><div class="pr-who"><small>PAGEAUD Malone</small><b>${TITLES[seg] || 'School'}</b></div><a class="pr-ic" href="#school/pn_home" aria-label="Accueil"><svg viewBox="0 0 24 24" width="24" height="24" fill="#fff"><path d="M12 3 2 12h3v8h5v-5h4v5h5v-8h3z"/></svg></a><button class="pr-ic" data-act="pnsync" aria-label="Actualiser"><svg viewBox="0 0 24 24" width="26" height="26" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M8 12h12M12 17h8"/></svg></button>`;
+  }
+  ACT.pnsync = () => { load(true).catch(() => toast('Actualisation impossible')); return false; };
 
   // ---------- wiring ----------
   const seg0 = GROUPS.school.segs;
@@ -96,6 +130,7 @@
     const r = route(), mode = PN();
     document.body.classList.toggle('pn', mode !== 'off' && (mode === 'all' || r.g === 'school'));
     prevRender();
+    pnHeader(r.s);
   };
   // System setting
   const prevSys = V.system;
