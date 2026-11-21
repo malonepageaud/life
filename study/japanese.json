@@ -1,0 +1,1248 @@
+[
+{
+"id": "japanese-001",
+"topic": "Particles",
+"difficulty": 1,
+"q": "わたし ＿ だいがくせいです。",
+"choices": [
+"は",
+"を",
+"で",
+"に"
+],
+"answer": 0,
+"explain": "は (wa) marks the topic: わたしは だいがくせいです = I am a university student."
+},
+{
+"id": "japanese-002",
+"topic": "Particles",
+"difficulty": 1,
+"q": "ひるごはん ＿ たべます。",
+"choices": [
+"が",
+"を",
+"に",
+"へ"
+],
+"answer": 1,
+"explain": "を (o) marks the object of the verb: ひるごはんを たべます = I eat lunch."
+},
+{
+"id": "japanese-003",
+"topic": "Particles",
+"difficulty": 2,
+"q": "いっぷうどう ＿ ひるごはんを たべます。",
+"choices": [
+"に",
+"を",
+"で",
+"と"
+],
+"answer": 2,
+"explain": "で (de) marks the place where an action happens: いっぷうどうで たべます."
+},
+{
+"id": "japanese-004",
+"topic": "Particles",
+"difficulty": 2,
+"q": "ビシャン ＿ すんでいます。",
+"choices": [
+"で",
+"に",
+"を",
+"が"
+],
+"answer": 1,
+"explain": "すんでいます takes に: [place]に すんでいます = I live in [place]."
+},
+{
+"id": "japanese-005",
+"topic": "Particles",
+"difficulty": 2,
+"q": "カーラさんは にほんご ＿ できます。",
+"choices": [
+"を",
+"で",
+"が",
+"に"
+],
+"answer": 2,
+"explain": "できます and わかります usually take が: にほんごが できます."
+},
+{
+"id": "japanese-006",
+"topic": "Particles",
+"difficulty": 2,
+"q": "カーラさんは フランスご ＿ できます。(French too)",
+"choices": [
+"も",
+"と",
+"で",
+"を"
+],
+"answer": 0,
+"explain": "も (mo) = also / too: フランスごも できます."
+},
+{
+"id": "japanese-007",
+"topic": "Particles",
+"difficulty": 2,
+"q": "りょうしん ＿ あね ＿ わたしです。(parents and sister and me)",
+"choices": [
+"も",
+"と",
+"で",
+"の"
+],
+"answer": 1,
+"explain": "と (to) = and, between nouns: りょうしんと あねと わたしです."
+},
+{
+"id": "japanese-008",
+"topic": "Particles",
+"difficulty": 2,
+"q": "わたしは おすし ＿ すきです。",
+"choices": [
+"を",
+"で",
+"が",
+"に"
+],
+"answer": 2,
+"explain": "すき takes が: おすしが すきです = I like sushi."
+},
+{
+"id": "japanese-009",
+"topic": "Particles",
+"difficulty": 3,
+"q": "カーラさんは ちゅうごくご ＿ できません。(contrast: as for Chinese...)",
+"choices": [
+"が",
+"は",
+"を",
+"で"
+],
+"answer": 1,
+"explain": "は replaces が to contrast/highlight, often in negative sentences: ちゅうごくごは できません."
+},
+{
+"id": "japanese-010",
+"topic": "Particles",
+"difficulty": 2,
+"q": "Which particle turns a sentence into a question?",
+"choices": [
+"ね",
+"よ",
+"か",
+"も"
+],
+"answer": 2,
+"explain": "か (ka) at the end = question: がくせいですか."
+},
+{
+"id": "japanese-011",
+"topic": "Particles",
+"difficulty": 2,
+"q": "あにの こどもです。What does の do here?",
+"choices": [
+"and",
+"possession (my brother's child)",
+"place",
+"also"
+],
+"answer": 1,
+"explain": "の links nouns = 's: あにの こども = my older brother's child."
+},
+{
+"id": "japanese-012",
+"topic": "Negative forms",
+"difficulty": 1,
+"q": "Negative of がくせいです:",
+"choices": [
+"がくせいません",
+"がくせいじゃないです",
+"がくせいくないです",
+"がくせいでした"
+],
+"answer": 1,
+"explain": "Noun + じゃないです = is not."
+},
+{
+"id": "japanese-013",
+"topic": "Negative forms",
+"difficulty": 2,
+"q": "Negative of おいしいです:",
+"choices": [
+"おいしいじゃないです",
+"おいしくないです",
+"おいしません",
+"おいしいないです"
+],
+"answer": 1,
+"explain": "い-adjectives: drop い, add くないです → おいしくないです."
+},
+{
+"id": "japanese-014",
+"topic": "Negative forms",
+"difficulty": 2,
+"q": "Negative of たかいです:",
+"choices": [
+"たかくないです",
+"たかいじゃないです",
+"たかません",
+"たかないです"
+],
+"answer": 0,
+"explain": "たかい → たかくないです (not expensive)."
+},
+{
+"id": "japanese-015",
+"topic": "Negative forms",
+"difficulty": 2,
+"q": "Negative of すきです:",
+"choices": [
+"すきくないです",
+"すきません",
+"すきじゃないです",
+"すきないです"
+],
+"answer": 2,
+"explain": "すき is a な-adjective, so it works like a noun: すきじゃないです."
+},
+{
+"id": "japanese-016",
+"topic": "Negative forms",
+"difficulty": 1,
+"q": "Negative of たべます:",
+"choices": [
+"たべません",
+"たべくないです",
+"たべじゃないです",
+"たべないます"
+],
+"answer": 0,
+"explain": "Verbs: ～ます → ～ません."
+},
+{
+"id": "japanese-017",
+"topic": "Negative forms",
+"difficulty": 1,
+"q": "Negative of できます:",
+"choices": [
+"できくないです",
+"できません",
+"できじゃないです",
+"できないます"
+],
+"answer": 1,
+"explain": "できます → できません (cannot)."
+},
+{
+"id": "japanese-018",
+"topic": "Negative forms",
+"difficulty": 3,
+"q": "やすいです means cheap. Which is also correct for 'not expensive'?",
+"choices": [
+"たかいです",
+"たかくないです",
+"やすくないです",
+"おそいです"
+],
+"answer": 1,
+"explain": "たかくないです = not expensive, close in meaning to やすいです."
+},
+{
+"id": "japanese-019",
+"topic": "Questions",
+"difficulty": 1,
+"q": "How do you ask 'Where do you eat lunch?'",
+"choices": [
+"なにで ひるごはんを たべますか",
+"どこで ひるごはんを たべますか",
+"だれと ひるごはんを たべますか",
+"どこに ひるごはんを たべますか"
+],
+"answer": 1,
+"explain": "どこ (where) + で (place of action): どこで たべますか."
+},
+{
+"id": "japanese-020",
+"topic": "Questions",
+"difficulty": 1,
+"q": "ごかぞくは ＿ ですか。(How many people?)",
+"choices": [
+"なんさい",
+"なんにん",
+"なに",
+"どこ"
+],
+"answer": 1,
+"explain": "なんにん = how many people."
+},
+{
+"id": "japanese-021",
+"topic": "Questions",
+"difficulty": 2,
+"q": "Polite way to ask someone's age:",
+"choices": [
+"なんさいですか",
+"おいくつですか",
+"なんにんですか",
+"だれですか"
+],
+"answer": 1,
+"explain": "おいくつですか is the polite version of なんさいですか."
+},
+{
+"id": "japanese-022",
+"topic": "Questions",
+"difficulty": 1,
+"q": "この おとこのこは ＿ ですか。(Who is this boy?)",
+"choices": [
+"どこ",
+"なん",
+"だれ",
+"いくつ"
+],
+"answer": 2,
+"explain": "だれ = who."
+},
+{
+"id": "japanese-023",
+"topic": "Questions",
+"difficulty": 1,
+"q": "How do you ask someone's job?",
+"choices": [
+"おなまえは",
+"おしごとは なんですか",
+"どこに すんでいますか",
+"なにごが できますか"
+],
+"answer": 1,
+"explain": "おしごとは なんですか = What is your job?"
+},
+{
+"id": "japanese-024",
+"topic": "Questions",
+"difficulty": 2,
+"q": "How do you ask 'Which languages do you speak?'",
+"choices": [
+"なにごが できますか",
+"なにじんですか",
+"どこで できますか",
+"だれが できますか"
+],
+"answer": 0,
+"explain": "なにご = which language."
+},
+{
+"id": "japanese-025",
+"topic": "Questions",
+"difficulty": 2,
+"q": "To ask a classmate 'Are you Singaporean?', the course says to AVOID:",
+"choices": [
+"Aさんは",
+"あなたは",
+"(no subject)",
+"すみません"
+],
+"answer": 1,
+"explain": "Don't use あなた. Use the person's name + さん, or no subject at all."
+},
+{
+"id": "japanese-026",
+"topic": "Questions",
+"difficulty": 1,
+"q": "すきな たべものは なんですか means:",
+"choices": [
+"What food do you dislike?",
+"What is your favourite food?",
+"Where do you eat?",
+"How much is the food?"
+],
+"answer": 1,
+"explain": "すきな = favourite/liked, たべもの = food."
+},
+{
+"id": "japanese-027",
+"topic": "Questions",
+"difficulty": 2,
+"q": "Best answer to きらいな たべものは なんですか if you like everything:",
+"choices": [
+"ありません。ぜんぶ すきです。",
+"はい、できます。",
+"いいえ、いません。",
+"そうしましょう。"
+],
+"answer": 0,
+"explain": "ありません (there isn't any) + ぜんぶ すきです (I like everything)."
+},
+{
+"id": "japanese-028",
+"topic": "Counters",
+"difficulty": 1,
+"q": "1 person =",
+"choices": [
+"いちにん",
+"ひとり",
+"ひとつ",
+"いっさい"
+],
+"answer": 1,
+"explain": "ひとり is irregular. 2 people = ふたり, then さんにん, よにん..."
+},
+{
+"id": "japanese-029",
+"topic": "Counters",
+"difficulty": 1,
+"q": "2 people =",
+"choices": [
+"ににん",
+"ふたつ",
+"ふたり",
+"にさい"
+],
+"answer": 2,
+"explain": "ふたり is irregular."
+},
+{
+"id": "japanese-030",
+"topic": "Counters",
+"difficulty": 2,
+"q": "4 people =",
+"choices": [
+"しにん",
+"よんにん",
+"よにん",
+"よっつ"
+],
+"answer": 2,
+"explain": "4 people = よにん."
+},
+{
+"id": "japanese-031",
+"topic": "Counters",
+"difficulty": 2,
+"q": "ハンバーガー ＿ ください。(one hamburger)",
+"choices": [
+"ひとり",
+"ひとつ",
+"いち",
+"いっさい"
+],
+"answer": 1,
+"explain": "Things are counted with ひとつ, ふたつ. ひとり is for people."
+},
+{
+"id": "japanese-032",
+"topic": "Counters",
+"difficulty": 2,
+"q": "4 years old =",
+"choices": [
+"よんさい",
+"しさい",
+"よさい",
+"よっつ"
+],
+"answer": 0,
+"explain": "4 years old = よんさい (よん + さい)."
+},
+{
+"id": "japanese-033",
+"topic": "Numbers",
+"difficulty": 1,
+"q": "7 can be read:",
+"choices": [
+"なな / しち",
+"ろく / む",
+"く / きゅう",
+"し / よん"
+],
+"answer": 0,
+"explain": "7 = なな or しち."
+},
+{
+"id": "japanese-034",
+"topic": "Numbers",
+"difficulty": 1,
+"q": "9 can be read:",
+"choices": [
+"はち",
+"きゅう / く",
+"じゅう",
+"なな"
+],
+"answer": 1,
+"explain": "9 = きゅう or く."
+},
+{
+"id": "japanese-035",
+"topic": "Numbers",
+"difficulty": 2,
+"q": "45 =",
+"choices": [
+"しごじゅう",
+"よんじゅうご",
+"ごじゅうよん",
+"よんごじゅう"
+],
+"answer": 1,
+"explain": "tens first: よんじゅう (40) + ご (5)."
+},
+{
+"id": "japanese-036",
+"topic": "Numbers",
+"difficulty": 2,
+"q": "99 =",
+"choices": [
+"くじゅうく",
+"きゅうじゅうきゅう",
+"きゅうきゅう",
+"くきゅうじゅう"
+],
+"answer": 1,
+"explain": "99 = きゅうじゅうきゅう."
+},
+{
+"id": "japanese-037",
+"topic": "Numbers",
+"difficulty": 2,
+"q": "68 =",
+"choices": [
+"ろくじゅうはち",
+"はちじゅうろく",
+"ろくはち",
+"むじゅうはち"
+],
+"answer": 0,
+"explain": "60 ろくじゅう + 8 はち."
+},
+{
+"id": "japanese-038",
+"topic": "Family",
+"difficulty": 1,
+"q": "'My mother' (talking about your own family):",
+"choices": [
+"おかあさん",
+"はは",
+"おばあさん",
+"あね"
+],
+"answer": 1,
+"explain": "Own family = humble words: はは (my mother). おかあさん = someone else's mother."
+},
+{
+"id": "japanese-039",
+"topic": "Family",
+"difficulty": 2,
+"q": "'Your older brother' (someone else's family):",
+"choices": [
+"あに",
+"おとうと",
+"おにいさん",
+"きょうだい"
+],
+"answer": 2,
+"explain": "Someone else's older brother = おにいさん. My older brother = あに."
+},
+{
+"id": "japanese-040",
+"topic": "Family",
+"difficulty": 1,
+"q": "いもうと means:",
+"choices": [
+"younger sister",
+"older sister",
+"younger brother",
+"mother"
+],
+"answer": 0,
+"explain": "いもうと = younger sister; おとうと = younger brother."
+},
+{
+"id": "japanese-041",
+"topic": "Family",
+"difficulty": 2,
+"q": "'My parents' =",
+"choices": [
+"ごりょうしん",
+"りょうしん",
+"おとうさん",
+"かぞく"
+],
+"answer": 1,
+"explain": "りょうしん = my parents; ごりょうしん = someone else's parents."
+},
+{
+"id": "japanese-042",
+"topic": "Family",
+"difficulty": 2,
+"q": "おくさん means:",
+"choices": [
+"my wife",
+"someone else's wife",
+"my husband",
+"grandmother"
+],
+"answer": 1,
+"explain": "おくさん = someone else's wife. おっと = my husband."
+},
+{
+"id": "japanese-043",
+"topic": "Jobs",
+"difficulty": 2,
+"q": "To say 'I am a teacher' you say:",
+"choices": [
+"わたしは せんせいです",
+"わたしは きょうしです",
+"わたしは がくせいです",
+"わたしは いしゃです"
+],
+"answer": 1,
+"explain": "For yourself or your family: きょうし. せんせい is for calling/talking about someone else."
+},
+{
+"id": "japanese-044",
+"topic": "Jobs",
+"difficulty": 1,
+"q": "かいしゃいん means:",
+"choices": [
+"doctor",
+"company employee",
+"student",
+"teacher"
+],
+"answer": 1,
+"explain": "かいしゃいん = company employee."
+},
+{
+"id": "japanese-045",
+"topic": "Languages",
+"difficulty": 1,
+"q": "Language name = country +",
+"choices": [
+"じん",
+"ご",
+"さん",
+"や"
+],
+"answer": 1,
+"explain": "にほん + ご = にほんご (Japanese). Nationality is country + じん."
+},
+{
+"id": "japanese-046",
+"topic": "Languages",
+"difficulty": 1,
+"q": "French person =",
+"choices": [
+"フランスご",
+"フランスじん",
+"フランスや",
+"フランスさん"
+],
+"answer": 1,
+"explain": "Nationality = country + じん."
+},
+{
+"id": "japanese-047",
+"topic": "Languages",
+"difficulty": 2,
+"q": "'I'm learning it now' =",
+"choices": [
+"べんきょうちゅうです",
+"すこし できます",
+"できません",
+"わかります"
+],
+"answer": 0,
+"explain": "べんきょうちゅう = in the middle of studying."
+},
+{
+"id": "japanese-048",
+"topic": "Languages",
+"difficulty": 1,
+"q": "すこし できます means:",
+"choices": [
+"I can't",
+"I can a little",
+"I'm learning",
+"I understand completely"
+],
+"answer": 1,
+"explain": "すこし (= ちょっと) = a little."
+},
+{
+"id": "japanese-049",
+"topic": "Adjectives",
+"difficulty": 2,
+"q": "Which is correct?",
+"choices": [
+"すきみせ",
+"すきな みせ",
+"すきい みせ",
+"すきの みせ"
+],
+"answer": 1,
+"explain": "な-adjectives take な before a noun: すきな みせ, きれいな みせ."
+},
+{
+"id": "japanese-050",
+"topic": "Adjectives",
+"difficulty": 1,
+"q": "やすい means:",
+"choices": [
+"expensive",
+"fast",
+"cheap",
+"slow"
+],
+"answer": 2,
+"explain": "やすい = cheap; たかい = expensive."
+},
+{
+"id": "japanese-051",
+"topic": "Adjectives",
+"difficulty": 1,
+"q": "おそい means:",
+"choices": [
+"fast",
+"slow",
+"delicious",
+"young"
+],
+"answer": 1,
+"explain": "おそい = slow / late; はやい = fast."
+},
+{
+"id": "japanese-052",
+"topic": "Adjectives",
+"difficulty": 2,
+"q": "いちばん すきです means:",
+"choices": [
+"I like it a little",
+"I like it the most",
+"I don't like it",
+"I like everything"
+],
+"answer": 1,
+"explain": "いちばん = number one / the most."
+},
+{
+"id": "japanese-053",
+"topic": "Invitations",
+"difficulty": 2,
+"q": "'Let's eat lunch!' =",
+"choices": [
+"ひるごはんを たべます",
+"ひるごはんを たべましょう",
+"ひるごはんを たべません",
+"ひるごはんを たべましたか"
+],
+"answer": 1,
+"explain": "～ましょう = let's ..."
+},
+{
+"id": "japanese-054",
+"topic": "Invitations",
+"difficulty": 2,
+"q": "Agreeing to a suggestion 'Then, let's do that':",
+"choices": [
+"じゃあ、そう しましょう",
+"いいえ、ありません",
+"すみません",
+"しつれいします"
+],
+"answer": 0,
+"explain": "じゃあ、そう しましょう = then, let's do that."
+},
+{
+"id": "japanese-055",
+"topic": "Invitations",
+"difficulty": 2,
+"q": "Ordering: two hamburgers and one coffee:",
+"choices": [
+"ハンバーガー ふたり と コーヒー ひとり ください",
+"ハンバーガー ふたつ と コーヒー ひとつ ください",
+"ハンバーガー に と コーヒー いち ください",
+"ハンバーガー ふたつ を コーヒー ひとつ です"
+],
+"answer": 1,
+"explain": "[item] [ひとつ/ふたつ] ください, joined with と."
+},
+{
+"id": "japanese-056",
+"topic": "Existence",
+"difficulty": 2,
+"q": "ねこが ＿。(I have a cat / there is a cat)",
+"choices": [
+"あります",
+"います",
+"です",
+"できます"
+],
+"answer": 1,
+"explain": "います for people and animals; ありません/あります for things."
+},
+{
+"id": "japanese-057",
+"topic": "Existence",
+"difficulty": 2,
+"q": "じかんが ＿。(I have no time)",
+"choices": [
+"いません",
+"ありません",
+"じゃないです",
+"できません"
+],
+"answer": 1,
+"explain": "Things (time, money) use あります / ありません."
+},
+{
+"id": "japanese-058",
+"topic": "Greetings",
+"difficulty": 1,
+"q": "Leaving work before your colleagues, you say:",
+"choices": [
+"おさきに しつれいします",
+"おつかれさまでした",
+"いただきます",
+"はじめまして"
+],
+"answer": 0,
+"explain": "おさきに しつれいします = excuse me for leaving first."
+},
+{
+"id": "japanese-059",
+"topic": "Greetings",
+"difficulty": 1,
+"q": "'Thank you for your hard work' =",
+"choices": [
+"おつかれさまでした",
+"おはよう ございます",
+"ごめんなさい",
+"どうぞ"
+],
+"answer": 0,
+"explain": "おつかれさまでした, said at the end of class or work."
+},
+{
+"id": "japanese-060",
+"topic": "Greetings",
+"difficulty": 1,
+"q": "Offering something / 'go ahead':",
+"choices": [
+"おねがいします",
+"どうぞ",
+"すみません",
+"いいえ"
+],
+"answer": 1,
+"explain": "どうぞ when offering; おねがいします when asking."
+},
+{
+"id": "japanese-061",
+"topic": "Greetings",
+"difficulty": 1,
+"q": "'One more time, please' =",
+"choices": [
+"もういちど おねがいします",
+"ちょっと まって ください",
+"わかりません",
+"しつもんが あります"
+],
+"answer": 0,
+"explain": "もういちど = one more time."
+},
+{
+"id": "japanese-062",
+"topic": "Greetings",
+"difficulty": 2,
+"q": "～に にていますね means:",
+"choices": [
+"you look young",
+"you look like ...",
+"you live in ...",
+"you are cool"
+],
+"answer": 1,
+"explain": "にています = to resemble."
+},
+{
+"id": "japanese-063",
+"topic": "Kana & spelling",
+"difficulty": 1,
+"q": "In わたしは, the topic marker is written は but read:",
+"choices": [
+"ha",
+"wa",
+"o",
+"e"
+],
+"answer": 1,
+"explain": "The topic particle は is pronounced wa."
+},
+{
+"id": "japanese-064",
+"topic": "Kana & spelling",
+"difficulty": 2,
+"q": "Why is こんにちは written with は?",
+"choices": [
+"Mistake",
+"It was originally a topic marker",
+"Katakana rule",
+"It is read ha"
+],
+"answer": 1,
+"explain": "Konnichiwa originally meant 'today is (a fine day)', with the topic marker は."
+},
+{
+"id": "japanese-065",
+"topic": "Kana & spelling",
+"difficulty": 2,
+"q": "きっぷ (ticket): the small っ means:",
+"choices": [
+"a long vowel",
+"a double consonant (kippu)",
+"a question",
+"a pause for breath"
+],
+"answer": 1,
+"explain": "Small っ doubles the next consonant: ki-p-pu."
+},
+{
+"id": "japanese-066",
+"topic": "Kana & spelling",
+"difficulty": 2,
+"q": "How is せんせい pronounced?",
+"choices": [
+"sen-se-i",
+"sensee (long e)",
+"sensai",
+"sensu"
+],
+"answer": 1,
+"explain": "えい is pronounced as a long ē: sensee."
+},
+{
+"id": "japanese-067",
+"topic": "Kana & spelling",
+"difficulty": 2,
+"q": "How is おとうさん pronounced?",
+"choices": [
+"o-to-u-san",
+"otoosan (long o)",
+"otausan",
+"otusan"
+],
+"answer": 1,
+"explain": "おう is pronounced as a long ō: otoosan."
+},
+{
+"id": "japanese-068",
+"topic": "Kana & spelling",
+"difficulty": 2,
+"q": "しゃ is read:",
+"choices": [
+"shiya",
+"sha",
+"sya",
+"chi-ya"
+],
+"answer": 1,
+"explain": "Small ゃ combines with し: しゃ = sha (かいしゃいん)."
+},
+{
+"id": "japanese-069",
+"topic": "Kana & spelling",
+"difficulty": 1,
+"q": "Which word is written in katakana?",
+"choices": [
+"すし",
+"コーヒー",
+"おちゃ",
+"ごはん"
+],
+"answer": 1,
+"explain": "Foreign loanwords (coffee) use katakana: コーヒー."
+},
+{
+"id": "japanese-070",
+"topic": "Vocabulary (read the kana)",
+"difficulty": 1,
+"q": "What does いぬ mean?",
+"choices": [
+"dog",
+"Mr./Ms. (suffix for others, never yourself)",
+"Thank you very much",
+"dictionary"
+],
+"answer": 0,
+"explain": "いぬ (inu) = dog."
+},
+{
+"id": "japanese-071",
+"topic": "Vocabulary (read the kana)",
+"difficulty": 1,
+"q": "What does どうですか mean?",
+"choices": [
+"See you (casual)",
+"to live (in a place)",
+"French (language)",
+"How is it?"
+],
+"answer": 3,
+"explain": "どうですか (doo desu ka) = How is it?."
+},
+{
+"id": "japanese-072",
+"topic": "Vocabulary (read the kana)",
+"difficulty": 1,
+"q": "What does よしゅう mean?",
+"choices": [
+"woman",
+"restaurant",
+"me too",
+"preparation (for class)"
+],
+"answer": 3,
+"explain": "よしゅう (yoshuu) = preparation (for class)."
+},
+{
+"id": "japanese-073",
+"topic": "Vocabulary (read the kana)",
+"difficulty": 1,
+"q": "What does ゼロ mean?",
+"choices": [
+"person",
+"0",
+"2",
+"salmon roe"
+],
+"answer": 1,
+"explain": "ゼロ (zero) = 0."
+},
+{
+"id": "japanese-074",
+"topic": "Vocabulary (read the kana)",
+"difficulty": 1,
+"q": "What does シンガポールじん mean?",
+"choices": [
+"I have no money",
+"classroom",
+"Please say it",
+"Singaporean"
+],
+"answer": 3,
+"explain": "シンガポールじん (shingapoorujin) = Singaporean."
+},
+{
+"id": "japanese-075",
+"topic": "Vocabulary (read the kana)",
+"difficulty": 1,
+"q": "What does さん mean?",
+"choices": [
+"cold soba with dipping sauce",
+"classroom",
+"all",
+"3"
+],
+"answer": 3,
+"explain": "さん (san) = 3."
+},
+{
+"id": "japanese-076",
+"topic": "Vocabulary (read the kana)",
+"difficulty": 1,
+"q": "What does たべもの mean?",
+"choices": [
+"food",
+"older sister (someone else's)",
+"2",
+"slowly"
+],
+"answer": 0,
+"explain": "たべもの (tabemono) = food."
+},
+{
+"id": "japanese-077",
+"topic": "Vocabulary (read the kana)",
+"difficulty": 1,
+"q": "What does ひとつ mean?",
+"choices": [
+"one (thing)",
+"someone else's siblings",
+"please give me",
+"someone else's family"
+],
+"answer": 0,
+"explain": "ひとつ (hitotsu) = one (thing)."
+},
+{
+"id": "japanese-078",
+"topic": "Vocabulary (read the kana)",
+"difficulty": 1,
+"q": "What does えいご mean?",
+"choices": [
+"6",
+"name (polite, someone else's)",
+"See you (casual)",
+"English (language)"
+],
+"answer": 3,
+"explain": "えいご (eego) = English (language)."
+},
+{
+"id": "japanese-079",
+"topic": "Vocabulary (read the kana)",
+"difficulty": 1,
+"q": "What does かいて ください mean?",
+"choices": [
+"Please look",
+"Please write",
+"Please listen",
+"someone else's parents"
+],
+"answer": 1,
+"explain": "かいて ください (kaite kudasai) = Please write."
+},
+{
+"id": "japanese-080",
+"topic": "Vocabulary (read the kana)",
+"difficulty": 1,
+"q": "What does しつれいします mean?",
+"choices": [
+"Goodbye (polite) / excuse me (entering)",
+"I have no time",
+"mother (someone else's)",
+"favourite, liked"
+],
+"answer": 0,
+"explain": "しつれいします (shitsuree shimasu) = Goodbye (polite) / excuse me (entering)."
+},
+{
+"id": "japanese-081",
+"topic": "Vocabulary (read the kana)",
+"difficulty": 1,
+"q": "What does できます mean?",
+"choices": [
+"can (speak/do)",
+"9",
+"clock, watch",
+"I'm learning it now"
+],
+"answer": 0,
+"explain": "できます (dekimasu) = can (speak/do)."
+},
+{
+"id": "japanese-082",
+"topic": "Vocabulary (read the kana)",
+"difficulty": 1,
+"q": "What does マレーシアじん mean?",
+"choices": [
+"Malaysian person",
+"what",
+"slow",
+"sushi restaurant"
+],
+"answer": 0,
+"explain": "マレーシアじん (mareeshiajin) = Malaysian person."
+},
+{
+"id": "japanese-083",
+"topic": "Vocabulary (read the kana)",
+"difficulty": 1,
+"q": "What does はち mean?",
+"choices": [
+"8",
+"7",
+"country",
+"you look young"
+],
+"answer": 0,
+"explain": "はち (hachi) = 8."
+},
+{
+"id": "japanese-084",
+"topic": "Vocabulary (read the kana)",
+"difficulty": 1,
+"q": "What does かいしゃいん mean?",
+"choices": [
+"older brother (someone else's)",
+"company employee",
+"classroom",
+"is not (negative of です)"
+],
+"answer": 1,
+"explain": "かいしゃいん (kaishain) = company employee."
+},
+{
+"id": "japanese-085",
+"topic": "Vocabulary (read the kana)",
+"difficulty": 1,
+"q": "What does おねがいします mean?",
+"choices": [
+"review",
+"chair",
+"someone else's wife",
+"Please (asking for something)"
+],
+"answer": 3,
+"explain": "おねがいします (onegaishimasu) = Please (asking for something)."
+},
+{
+"id": "japanese-086",
+"topic": "Vocabulary (read the kana)",
+"difficulty": 1,
+"q": "What does りょうしん mean?",
+"choices": [
+"eraser",
+"cold soba with dipping sauce",
+"lunch",
+"my parents"
+],
+"answer": 3,
+"explain": "りょうしん (ryooshin) = my parents."
+},
+{
+"id": "japanese-087",
+"topic": "Vocabulary (read the kana)",
+"difficulty": 1,
+"q": "What does どうぞ よろしく おねがいします mean?",
+"choices": [
+"fried noodles",
+"ramen",
+"Japanese (language)",
+"Nice to meet you / please treat me well"
+],
+"answer": 3,
+"explain": "どうぞ よろしく おねがいします (doozo yoroshiku onegaishimasu) = Nice to meet you / please treat me well."
+},
+{
+"id": "japanese-088",
+"topic": "Vocabulary (read the kana)",
+"difficulty": 1,
+"q": "What does すんでいます mean?",
+"choices": [
+"to live (in a place)",
+"7",
+"Nice to meet you / please treat me well",
+"rice with simmered beef"
+],
+"answer": 0,
+"explain": "すんでいます (sunde imasu) = to live (in a place)."
+},
+{
+"id": "japanese-089",
+"topic": "Vocabulary (read the kana)",
+"difficulty": 1,
+"q": "What does いって ください mean?",
+"choices": [
+"I (very formal)",
+"Let's do that",
+"Please say it",
+"Please write"
+],
+"answer": 2,
+"explain": "いって ください (itte kudasai) = Please say it."
+}
+]

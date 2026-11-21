@@ -1,0 +1,67 @@
+[
+ {
+  "session": "Lesson 1 - Greetings and self-introduction",
+  "bullets": [
+   "はじめまして。[name]です。どうぞ よろしく おねがいします。 = Nice to meet you. I'm ... .",
+   "A は B です (A wa B desu) = A is B. は is the topic marker (read wa). The subject わたしは is often dropped.",
+   "～さん goes after OTHER people's names, never your own. お in おなまえ is a polite prefix.",
+   "Nationality = country + じん: にほんじん, シンガポールじん. だいがくせい = university student.",
+   "Greetings: おはよう ございます (morning), こんにちは (day), こんばんは (evening), さようなら / しつれいします (bye).",
+   "おさきに しつれいします = I'm leaving first. おつかれさまでした = thanks for your hard work. じゃ、また = see you.",
+   "すみません (excuse me / sorry), ごめんなさい (sorry, casual), おねがいします (please, asking), どうぞ (please, offering).",
+   "The final u in です / ます is almost silent: dess, mass."
+  ]
+ },
+ {
+  "session": "Lesson 2 - Hiragana rules and classroom Japanese",
+  "bullets": [
+   "Contracted sounds: い-column kana + small ゃゅょ: きゃ kya, しゃ sha, ちゅ chu, じょ jo (かいしゃいん, しゅくだい, じしょ).",
+   "Small っ doubles the next consonant: きっぷ kippu, ちょっと chotto, じゅっぷん juppun.",
+   "Long vowels: おかあさん (aa), おにいさん (ii), ちゅうごく (uu), えい = ee (せんせい, えいご), おう = oo (おとうさん). Exceptions: おねえさん, おおきい, とおか.",
+   "Topic marker wa is written は; こんにちは / こんばんは also end in は. Punctuation: 、 and 。, no ? in formal writing.",
+   "Q: ～は がくせいですか。 A: はい、がくせいです。/ いいえ、かいしゃいんです。",
+   "Classroom: きいて / いって / みて / よんで / かいて ください, ちょっと まって ください, もういちど おねがいします.",
+   "わかります / わかりません, だいじょうぶです, だめです, しつもんが ありますか.",
+   "Things: きょうかしょ, つくえ, いす, えんぴつ, けしゴム, ノート, パソコン, けいたいでんわ. Loanwords are written in katakana (コーヒー, グーグル)."
+  ]
+ },
+ {
+  "session": "Lesson 3 - Jobs, countries and languages",
+  "bullets": [
+   "おしごとは なんですか。 = What is your job? Answer: [job] です。",
+   "きょうし = teacher when talking about yourself or your family; せんせい = calling your teacher or someone else.",
+   "Negative of a noun: ～じゃないです. がくせいです → がくせいじゃないです.",
+   "Question: add か. Don't use あなた: say [name]さんは ～ですか or drop the subject.",
+   "Language = country + ご: にほんご, フランスご, ちゅうごくご; English = えいご.",
+   "[language] が できます / できません (can / cannot speak). わかります works the same way, also with が.",
+   "Answers: はい、できます / すこし できます (a little) / べんきょうちゅうです (learning it) / いいえ、できません.",
+   "も = also: フランスごも できます. は replaces が to contrast, often in negatives: ちゅうごくごは できません. わたしも ～です = me too. そうですか = I see."
+  ]
+ },
+ {
+  "session": "Lesson 4 - Family, numbers, where you live",
+  "bullets": [
+   "ごかぞくは なんにんですか。 → さんにんです。りょうしんと わたしです。 (と = and between nouns).",
+   "People counter: ひとり, ふたり (irregular), さんにん, よにん, ごにん...",
+   "Own family (humble) vs someone else's: はは / おかあさん, ちち / おとうさん, あに / おにいさん, あね / おねえさん, りょうしん / ごりょうしん, きょうだい / ごきょうだい. いもうと, おとうと.",
+   "Numbers: いち に さん よん(し) ご ろく なな(しち) はち きゅう(く) じゅう. 45 = よんじゅうご, 99 = きゅうじゅうきゅう.",
+   "[place] に すんでいます = I live in ... . Q: どこに すんでいますか。",
+   "います = there is / have, for people and animals: ねこが います. いいえ、いません.",
+   "だれですか (who?), なんさいですか / おいくつですか (how old? polite) → よんさいです.",
+   "Compliments: きれいですね, かっこいいですね, おわかいですね, ～に にていますね (looks like ...)."
+  ]
+ },
+ {
+  "session": "Lesson 6 - Food: where do you eat?",
+  "bullets": [
+   "すきな たべもの / のみもの / りょうりは なんですか。 → おすしです。/ おすしが すきです / だいすきです / いちばん すきです.",
+   "きらいな たべものは なんですか。 → ありません。ぜんぶ すきです。",
+   "[place] で [thing] を たべます: で = where the action happens, を = object. Q: どこで ひるごはんを たべますか。",
+   "Shops: すしや, そばや, ラーメンや, ～やさん, きっさてん, レストラン, カフェ, みせ.",
+   "い-adjectives: おいしい, やすい, たかい, はやい, おそい, まずい. Negative: drop い + くないです (おいしくないです).",
+   "Negatives summary: noun / な-adj → じゃないです (すきじゃないです); い-adj → くないです; verb ます → ません (たべません).",
+   "な-adjective before a noun keeps な: すきな みせ, きれいな みせ. どうですか = how is it?",
+   "～ましょう = let's ... → じゃあ、そう しましょう. Ordering: [item] ひとつ / ふたつ ください. じかんが / おかねが ありません (no time / money)."
+  ]
+ }
+]

@@ -1,0 +1,1346 @@
+[
+{
+"id": "ja-001",
+"front": "はじめまして",
+"back": "hajimemashite - Nice to meet you (first meeting)",
+"tag": "L1"
+},
+{
+"id": "ja-002",
+"front": "どうぞ よろしく おねがいします",
+"back": "doozo yoroshiku onegaishimasu - Nice to meet you / please treat me well",
+"tag": "L1"
+},
+{
+"id": "ja-003",
+"front": "わたし",
+"back": "watashi - I, me",
+"tag": "L1"
+},
+{
+"id": "ja-004",
+"front": "～です",
+"back": "~ desu - am / is / are",
+"tag": "L1"
+},
+{
+"id": "ja-005",
+"front": "なまえ",
+"back": "namae - name",
+"tag": "L1"
+},
+{
+"id": "ja-006",
+"front": "おなまえ",
+"back": "o-namae - name (polite, someone else's)",
+"tag": "L1"
+},
+{
+"id": "ja-007",
+"front": "～さん",
+"back": "~ san - Mr./Ms. (suffix for others, never yourself)",
+"tag": "L1"
+},
+{
+"id": "ja-008",
+"front": "だいがくせい",
+"back": "daigakusei - university student",
+"tag": "L1"
+},
+{
+"id": "ja-009",
+"front": "にほんじん",
+"back": "nihonjin - Japanese person",
+"tag": "L1"
+},
+{
+"id": "ja-010",
+"front": "シンガポールじん",
+"back": "shingapoorujin - Singaporean",
+"tag": "L1"
+},
+{
+"id": "ja-011",
+"front": "おはよう ございます",
+"back": "ohayoo gozaimasu - Good morning (polite)",
+"tag": "L1"
+},
+{
+"id": "ja-012",
+"front": "こんにちは",
+"back": "konnichiwa - Hello / good afternoon",
+"tag": "L1"
+},
+{
+"id": "ja-013",
+"front": "こんばんは",
+"back": "konbanwa - Good evening",
+"tag": "L1"
+},
+{
+"id": "ja-014",
+"front": "さようなら",
+"back": "sayoonara - Goodbye",
+"tag": "L1"
+},
+{
+"id": "ja-015",
+"front": "しつれいします",
+"back": "shitsuree shimasu - Goodbye (polite) / excuse me (entering)",
+"tag": "L1"
+},
+{
+"id": "ja-016",
+"front": "おさきに しつれいします",
+"back": "osaki ni shitsuree shimasu - I'm leaving before you",
+"tag": "L1"
+},
+{
+"id": "ja-017",
+"front": "おつかれさまでした",
+"back": "otsukaresama deshita - Thank you for your hard work",
+"tag": "L1"
+},
+{
+"id": "ja-018",
+"front": "じゃ、また",
+"back": "ja, mata - See you (casual)",
+"tag": "L1"
+},
+{
+"id": "ja-019",
+"front": "どうも ありがとう ございます",
+"back": "doomo arigatoo gozaimasu - Thank you very much",
+"tag": "L1"
+},
+{
+"id": "ja-020",
+"front": "ありがとう ございました",
+"back": "arigatoo gozaimashita - Thank you (for what was done)",
+"tag": "L1"
+},
+{
+"id": "ja-021",
+"front": "すみません",
+"back": "sumimasen - Excuse me / I'm sorry",
+"tag": "L1"
+},
+{
+"id": "ja-022",
+"front": "ごめんなさい",
+"back": "gomen nasai - I'm sorry (casual)",
+"tag": "L1"
+},
+{
+"id": "ja-023",
+"front": "おねがいします",
+"back": "onegaishimasu - Please (asking for something)",
+"tag": "L1"
+},
+{
+"id": "ja-024",
+"front": "どうぞ",
+"back": "doozo - Go ahead / here you are (offering)",
+"tag": "L1"
+},
+{
+"id": "ja-025",
+"front": "せんせい",
+"back": "sensee - teacher (someone else / calling your teacher)",
+"tag": "L1"
+},
+{
+"id": "ja-026",
+"front": "いか",
+"back": "ika - squid",
+"tag": "L2"
+},
+{
+"id": "ja-027",
+"front": "たこ",
+"back": "tako - octopus",
+"tag": "L2"
+},
+{
+"id": "ja-028",
+"front": "うに",
+"back": "uni - sea urchin",
+"tag": "L2"
+},
+{
+"id": "ja-029",
+"front": "いくら",
+"back": "ikura - salmon roe",
+"tag": "L2"
+},
+{
+"id": "ja-030",
+"front": "ほたて",
+"back": "hotate - scallop",
+"tag": "L2"
+},
+{
+"id": "ja-031",
+"front": "ざるそば",
+"back": "zarusoba - cold soba with dipping sauce",
+"tag": "L2"
+},
+{
+"id": "ja-032",
+"front": "きつねうどん",
+"back": "kitsune udon - udon with fried tofu",
+"tag": "L2"
+},
+{
+"id": "ja-033",
+"front": "いなりずし",
+"back": "inarizushi - sushi rice in fried tofu skin",
+"tag": "L2"
+},
+{
+"id": "ja-034",
+"front": "たまごまき",
+"back": "tamagomaki - egg roll",
+"tag": "L2"
+},
+{
+"id": "ja-035",
+"front": "かつどん",
+"back": "katsudon - rice with pork cutlet",
+"tag": "L2"
+},
+{
+"id": "ja-036",
+"front": "おやこどん",
+"back": "oyakodon - rice with chicken and egg",
+"tag": "L2"
+},
+{
+"id": "ja-037",
+"front": "ぎゅうどん",
+"back": "gyuudon - rice with simmered beef",
+"tag": "L2"
+},
+{
+"id": "ja-038",
+"front": "かいしゃいん",
+"back": "kaishain - company employee",
+"tag": "L2"
+},
+{
+"id": "ja-039",
+"front": "いしゃ",
+"back": "isha - medical doctor",
+"tag": "L2"
+},
+{
+"id": "ja-040",
+"front": "しゅくだい",
+"back": "shukudai - homework",
+"tag": "L2"
+},
+{
+"id": "ja-041",
+"front": "じしょ",
+"back": "jisho - dictionary",
+"tag": "L2"
+},
+{
+"id": "ja-042",
+"front": "としょかん",
+"back": "toshokan - library",
+"tag": "L2"
+},
+{
+"id": "ja-043",
+"front": "おちゃ",
+"back": "ocha - tea",
+"tag": "L2"
+},
+{
+"id": "ja-044",
+"front": "ひゃく",
+"back": "hyaku - hundred",
+"tag": "L2"
+},
+{
+"id": "ja-045",
+"front": "きっぷ",
+"back": "kippu - ticket",
+"tag": "L2"
+},
+{
+"id": "ja-046",
+"front": "ゆっくり",
+"back": "yukkuri - slowly",
+"tag": "L2"
+},
+{
+"id": "ja-047",
+"front": "ちょっと",
+"back": "chotto - a little",
+"tag": "L2"
+},
+{
+"id": "ja-048",
+"front": "じゅっぷん",
+"back": "juppun - 10 minutes",
+"tag": "L2"
+},
+{
+"id": "ja-049",
+"front": "おかあさん",
+"back": "okaasan - mother (someone else's)",
+"tag": "L2"
+},
+{
+"id": "ja-050",
+"front": "おばあさん",
+"back": "obaasan - grandmother",
+"tag": "L2"
+},
+{
+"id": "ja-051",
+"front": "ちいさい",
+"back": "chiisai - small",
+"tag": "L2"
+},
+{
+"id": "ja-052",
+"front": "おいしい",
+"back": "oishii - delicious",
+"tag": "L2"
+},
+{
+"id": "ja-053",
+"front": "いいえ",
+"back": "iie - no",
+"tag": "L2"
+},
+{
+"id": "ja-054",
+"front": "はい",
+"back": "hai - yes",
+"tag": "L2"
+},
+{
+"id": "ja-055",
+"front": "ええ",
+"back": "ee - yes (casual)",
+"tag": "L2"
+},
+{
+"id": "ja-056",
+"front": "ちゅうごく",
+"back": "chuugoku - China",
+"tag": "L2"
+},
+{
+"id": "ja-057",
+"front": "えいご",
+"back": "eego - English (language)",
+"tag": "L2"
+},
+{
+"id": "ja-058",
+"front": "とけい",
+"back": "tokee - clock, watch",
+"tag": "L2"
+},
+{
+"id": "ja-059",
+"front": "がくせい",
+"back": "gakusee - student",
+"tag": "L2"
+},
+{
+"id": "ja-060",
+"front": "おおきい",
+"back": "ookii - big",
+"tag": "L2"
+},
+{
+"id": "ja-061",
+"front": "みなさん",
+"back": "minasan - everybody",
+"tag": "L2"
+},
+{
+"id": "ja-062",
+"front": "はじめましょう",
+"back": "hajimemashoo - Let's start",
+"tag": "L2"
+},
+{
+"id": "ja-063",
+"front": "おわりましょう",
+"back": "owarimashoo - Let's finish",
+"tag": "L2"
+},
+{
+"id": "ja-064",
+"front": "おそくなって すみません",
+"back": "osoku natte sumimasen - Sorry for being late",
+"tag": "L2"
+},
+{
+"id": "ja-065",
+"front": "きいて ください",
+"back": "kiite kudasai - Please listen",
+"tag": "L2"
+},
+{
+"id": "ja-066",
+"front": "いって ください",
+"back": "itte kudasai - Please say it",
+"tag": "L2"
+},
+{
+"id": "ja-067",
+"front": "みて ください",
+"back": "mite kudasai - Please look",
+"tag": "L2"
+},
+{
+"id": "ja-068",
+"front": "よんで ください",
+"back": "yonde kudasai - Please read",
+"tag": "L2"
+},
+{
+"id": "ja-069",
+"front": "かいて ください",
+"back": "kaite kudasai - Please write",
+"tag": "L2"
+},
+{
+"id": "ja-070",
+"front": "ちょっと まって ください",
+"back": "chotto matte kudasai - Please wait a moment",
+"tag": "L2"
+},
+{
+"id": "ja-071",
+"front": "しつもんが ありますか",
+"back": "shitsumon ga arimasu ka - Do you have questions?",
+"tag": "L2"
+},
+{
+"id": "ja-072",
+"front": "わかります",
+"back": "wakarimasu - I understand",
+"tag": "L2"
+},
+{
+"id": "ja-073",
+"front": "わかりません",
+"back": "wakarimasen - I don't understand",
+"tag": "L2"
+},
+{
+"id": "ja-074",
+"front": "だいじょうぶです",
+"back": "daijoobu desu - I'm / it's OK",
+"tag": "L2"
+},
+{
+"id": "ja-075",
+"front": "だめです",
+"back": "dame desu - No good / not allowed",
+"tag": "L2"
+},
+{
+"id": "ja-076",
+"front": "もういちど おねがいします",
+"back": "moo ichido onegaishimasu - One more time, please",
+"tag": "L2"
+},
+{
+"id": "ja-077",
+"front": "ふくしゅう",
+"back": "fukushuu - review",
+"tag": "L2"
+},
+{
+"id": "ja-078",
+"front": "よしゅう",
+"back": "yoshuu - preparation (for class)",
+"tag": "L2"
+},
+{
+"id": "ja-079",
+"front": "きょうかしょ",
+"back": "kyookasho - textbook",
+"tag": "L2"
+},
+{
+"id": "ja-080",
+"front": "がっこう",
+"back": "gakkoo - school",
+"tag": "L2"
+},
+{
+"id": "ja-081",
+"front": "きょうしつ",
+"back": "kyooshitsu - classroom",
+"tag": "L2"
+},
+{
+"id": "ja-082",
+"front": "じゅぎょう",
+"back": "jugyoo - class, lesson",
+"tag": "L2"
+},
+{
+"id": "ja-083",
+"front": "つくえ",
+"back": "tsukue - desk",
+"tag": "L2"
+},
+{
+"id": "ja-084",
+"front": "いす",
+"back": "isu - chair",
+"tag": "L2"
+},
+{
+"id": "ja-085",
+"front": "えんぴつ",
+"back": "enpitsu - pencil",
+"tag": "L2"
+},
+{
+"id": "ja-086",
+"front": "けしゴム",
+"back": "keshigomu - eraser",
+"tag": "L2"
+},
+{
+"id": "ja-087",
+"front": "ノート",
+"back": "nooto - notebook",
+"tag": "L2"
+},
+{
+"id": "ja-088",
+"front": "パソコン",
+"back": "pasokon - computer (PC)",
+"tag": "L2"
+},
+{
+"id": "ja-089",
+"front": "けいたいでんわ",
+"back": "keetai denwa - mobile phone",
+"tag": "L2"
+},
+{
+"id": "ja-090",
+"front": "コーヒー",
+"back": "koohii - coffee",
+"tag": "L2"
+},
+{
+"id": "ja-091",
+"front": "グーグル",
+"back": "guuguru - Google (katakana)",
+"tag": "L2"
+},
+{
+"id": "ja-092",
+"front": "マイクロソフト",
+"back": "maikurosofuto - Microsoft (katakana)",
+"tag": "L2"
+},
+{
+"id": "ja-093",
+"front": "マクドナルド",
+"back": "makudonarudo - McDonald's (katakana)",
+"tag": "L2"
+},
+{
+"id": "ja-094",
+"front": "しごと",
+"back": "shigoto - job, work",
+"tag": "L3"
+},
+{
+"id": "ja-095",
+"front": "おしごとは なんですか",
+"back": "o-shigoto wa nan desu ka - What is your job?",
+"tag": "L3"
+},
+{
+"id": "ja-096",
+"front": "きょうし",
+"back": "kyooshi - teacher (myself / my family)",
+"tag": "L3"
+},
+{
+"id": "ja-097",
+"front": "～じゃないです",
+"back": "~ ja nai desu - is not (negative of です)",
+"tag": "L3"
+},
+{
+"id": "ja-098",
+"front": "くに",
+"back": "kuni - country",
+"tag": "L3"
+},
+{
+"id": "ja-099",
+"front": "ことば",
+"back": "kotoba - language, word",
+"tag": "L3"
+},
+{
+"id": "ja-100",
+"front": "シンガポール",
+"back": "shingapooru - Singapore",
+"tag": "L3"
+},
+{
+"id": "ja-101",
+"front": "マレーシアじん",
+"back": "mareeshiajin - Malaysian person",
+"tag": "L3"
+},
+{
+"id": "ja-102",
+"front": "にほんご",
+"back": "nihongo - Japanese (language)",
+"tag": "L3"
+},
+{
+"id": "ja-103",
+"front": "フランスご",
+"back": "furansugo - French (language)",
+"tag": "L3"
+},
+{
+"id": "ja-104",
+"front": "ちゅうごくご",
+"back": "chuugokugo - Chinese (language)",
+"tag": "L3"
+},
+{
+"id": "ja-105",
+"front": "なにご",
+"back": "nanigo - which language?",
+"tag": "L3"
+},
+{
+"id": "ja-106",
+"front": "できます",
+"back": "dekimasu - can (speak/do)",
+"tag": "L3"
+},
+{
+"id": "ja-107",
+"front": "できません",
+"back": "dekimasen - cannot",
+"tag": "L3"
+},
+{
+"id": "ja-108",
+"front": "すこし",
+"back": "sukoshi - a little (= ちょっと)",
+"tag": "L3"
+},
+{
+"id": "ja-109",
+"front": "べんきょうちゅうです",
+"back": "benkyoo chuu desu - I'm learning it now",
+"tag": "L3"
+},
+{
+"id": "ja-110",
+"front": "そうですか",
+"back": "soo desu ka - I see",
+"tag": "L3"
+},
+{
+"id": "ja-111",
+"front": "わたしも",
+"back": "watashi mo - me too",
+"tag": "L3"
+},
+{
+"id": "ja-112",
+"front": "なん",
+"back": "nan - what",
+"tag": "L3"
+},
+{
+"id": "ja-113",
+"front": "ぼく",
+"back": "boku - I (male)",
+"tag": "L3"
+},
+{
+"id": "ja-114",
+"front": "わたくし",
+"back": "watakushi - I (very formal)",
+"tag": "L3"
+},
+{
+"id": "ja-115",
+"front": "かぞく",
+"back": "kazoku - my family",
+"tag": "L4"
+},
+{
+"id": "ja-116",
+"front": "ごかぞく",
+"back": "go-kazoku - someone else's family",
+"tag": "L4"
+},
+{
+"id": "ja-117",
+"front": "なんにん",
+"back": "nannin - how many people?",
+"tag": "L4"
+},
+{
+"id": "ja-118",
+"front": "ひとり",
+"back": "hitori - 1 person",
+"tag": "L4"
+},
+{
+"id": "ja-119",
+"front": "ふたり",
+"back": "futari - 2 people",
+"tag": "L4"
+},
+{
+"id": "ja-120",
+"front": "さんにん",
+"back": "sannin - 3 people",
+"tag": "L4"
+},
+{
+"id": "ja-121",
+"front": "よにん",
+"back": "yonin - 4 people",
+"tag": "L4"
+},
+{
+"id": "ja-122",
+"front": "ごにん",
+"back": "gonin - 5 people",
+"tag": "L4"
+},
+{
+"id": "ja-123",
+"front": "りょうしん",
+"back": "ryooshin - my parents",
+"tag": "L4"
+},
+{
+"id": "ja-124",
+"front": "ごりょうしん",
+"back": "go-ryooshin - someone else's parents",
+"tag": "L4"
+},
+{
+"id": "ja-125",
+"front": "ちち",
+"back": "chichi - my father",
+"tag": "L4"
+},
+{
+"id": "ja-126",
+"front": "はは",
+"back": "haha - my mother",
+"tag": "L4"
+},
+{
+"id": "ja-127",
+"front": "あに",
+"back": "ani - my older brother",
+"tag": "L4"
+},
+{
+"id": "ja-128",
+"front": "あね",
+"back": "ane - my older sister",
+"tag": "L4"
+},
+{
+"id": "ja-129",
+"front": "おとうと",
+"back": "otooto - younger brother",
+"tag": "L4"
+},
+{
+"id": "ja-130",
+"front": "いもうと",
+"back": "imooto - younger sister",
+"tag": "L4"
+},
+{
+"id": "ja-131",
+"front": "きょうだい",
+"back": "kyoodai - my siblings",
+"tag": "L4"
+},
+{
+"id": "ja-132",
+"front": "ごきょうだい",
+"back": "go-kyoodai - someone else's siblings",
+"tag": "L4"
+},
+{
+"id": "ja-133",
+"front": "おとうさん",
+"back": "otoosan - father (someone else's)",
+"tag": "L4"
+},
+{
+"id": "ja-134",
+"front": "おにいさん",
+"back": "oniisan - older brother (someone else's)",
+"tag": "L4"
+},
+{
+"id": "ja-135",
+"front": "おねえさん",
+"back": "oneesan - older sister (someone else's)",
+"tag": "L4"
+},
+{
+"id": "ja-136",
+"front": "おっと",
+"back": "otto - my husband",
+"tag": "L4"
+},
+{
+"id": "ja-137",
+"front": "おくさん",
+"back": "okusan - someone else's wife",
+"tag": "L4"
+},
+{
+"id": "ja-138",
+"front": "すんでいます",
+"back": "sunde imasu - to live (in a place)",
+"tag": "L4"
+},
+{
+"id": "ja-139",
+"front": "どこ",
+"back": "doko - where",
+"tag": "L4"
+},
+{
+"id": "ja-140",
+"front": "しゃしん",
+"back": "shashin - photo",
+"tag": "L4"
+},
+{
+"id": "ja-141",
+"front": "ペット",
+"back": "petto - pet",
+"tag": "L4"
+},
+{
+"id": "ja-142",
+"front": "ねこ",
+"back": "neko - cat",
+"tag": "L4"
+},
+{
+"id": "ja-143",
+"front": "いぬ",
+"back": "inu - dog",
+"tag": "L4"
+},
+{
+"id": "ja-144",
+"front": "ひと",
+"back": "hito - person",
+"tag": "L4"
+},
+{
+"id": "ja-145",
+"front": "おとこの ひと",
+"back": "otoko no hito - man",
+"tag": "L4"
+},
+{
+"id": "ja-146",
+"front": "おんなの ひと",
+"back": "onna no hito - woman",
+"tag": "L4"
+},
+{
+"id": "ja-147",
+"front": "おとこの こ",
+"back": "otoko no ko - boy",
+"tag": "L4"
+},
+{
+"id": "ja-148",
+"front": "おんなの こ",
+"back": "onna no ko - girl",
+"tag": "L4"
+},
+{
+"id": "ja-149",
+"front": "あかちゃん",
+"back": "akachan - baby",
+"tag": "L4"
+},
+{
+"id": "ja-150",
+"front": "こども",
+"back": "kodomo - child",
+"tag": "L4"
+},
+{
+"id": "ja-151",
+"front": "ともだち",
+"back": "tomodachi - friend",
+"tag": "L4"
+},
+{
+"id": "ja-152",
+"front": "かれ",
+"back": "kare - he / boyfriend",
+"tag": "L4"
+},
+{
+"id": "ja-153",
+"front": "かのじょ",
+"back": "kanojo - she / girlfriend",
+"tag": "L4"
+},
+{
+"id": "ja-154",
+"front": "だれ",
+"back": "dare - who",
+"tag": "L4"
+},
+{
+"id": "ja-155",
+"front": "なんさい",
+"back": "nansai - how old?",
+"tag": "L4"
+},
+{
+"id": "ja-156",
+"front": "おいくつですか",
+"back": "o-ikutsu desu ka - How old are you? (polite)",
+"tag": "L4"
+},
+{
+"id": "ja-157",
+"front": "～さい",
+"back": "~ sai - ... years old",
+"tag": "L4"
+},
+{
+"id": "ja-158",
+"front": "います",
+"back": "imasu - there is / have (people, animals)",
+"tag": "L4"
+},
+{
+"id": "ja-159",
+"front": "きれいですね",
+"back": "kiree desu ne - pretty, isn't it",
+"tag": "L4"
+},
+{
+"id": "ja-160",
+"front": "かっこいいですね",
+"back": "kakkoii desu ne - cool, isn't it",
+"tag": "L4"
+},
+{
+"id": "ja-161",
+"front": "おわかいですね",
+"back": "o-wakai desu ne - you look young",
+"tag": "L4"
+},
+{
+"id": "ja-162",
+"front": "～に にていますね",
+"back": "~ ni nite imasu ne - looks like ...",
+"tag": "L4"
+},
+{
+"id": "ja-163",
+"front": "ゼロ",
+"back": "zero - 0",
+"tag": "L4"
+},
+{
+"id": "ja-164",
+"front": "いち",
+"back": "ichi - 1",
+"tag": "L4"
+},
+{
+"id": "ja-165",
+"front": "に",
+"back": "ni - 2",
+"tag": "L4"
+},
+{
+"id": "ja-166",
+"front": "さん",
+"back": "san - 3",
+"tag": "L4"
+},
+{
+"id": "ja-167",
+"front": "よん / し",
+"back": "yon / shi - 4",
+"tag": "L4"
+},
+{
+"id": "ja-168",
+"front": "ご",
+"back": "go - 5",
+"tag": "L4"
+},
+{
+"id": "ja-169",
+"front": "ろく",
+"back": "roku - 6",
+"tag": "L4"
+},
+{
+"id": "ja-170",
+"front": "なな / しち",
+"back": "nana / shichi - 7",
+"tag": "L4"
+},
+{
+"id": "ja-171",
+"front": "はち",
+"back": "hachi - 8",
+"tag": "L4"
+},
+{
+"id": "ja-172",
+"front": "きゅう / く",
+"back": "kyuu / ku - 9",
+"tag": "L4"
+},
+{
+"id": "ja-173",
+"front": "じゅう",
+"back": "juu - 10",
+"tag": "L4"
+},
+{
+"id": "ja-174",
+"front": "たべもの",
+"back": "tabemono - food",
+"tag": "L6"
+},
+{
+"id": "ja-175",
+"front": "のみもの",
+"back": "nomimono - drink",
+"tag": "L6"
+},
+{
+"id": "ja-176",
+"front": "りょうり",
+"back": "ryoori - dish, cuisine",
+"tag": "L6"
+},
+{
+"id": "ja-177",
+"front": "すきな",
+"back": "suki na - favourite, liked",
+"tag": "L6"
+},
+{
+"id": "ja-178",
+"front": "きらいな",
+"back": "kirai na - disliked",
+"tag": "L6"
+},
+{
+"id": "ja-179",
+"front": "だいすき",
+"back": "daisuki - love, like very much",
+"tag": "L6"
+},
+{
+"id": "ja-180",
+"front": "いちばん",
+"back": "ichiban - the most, best",
+"tag": "L6"
+},
+{
+"id": "ja-181",
+"front": "ぜんぶ",
+"back": "zenbu - all",
+"tag": "L6"
+},
+{
+"id": "ja-182",
+"front": "ありません",
+"back": "arimasen - there isn't / don't have",
+"tag": "L6"
+},
+{
+"id": "ja-183",
+"front": "くだもの",
+"back": "kudamono - fruit",
+"tag": "L6"
+},
+{
+"id": "ja-184",
+"front": "こうちゃ",
+"back": "koocha - black tea",
+"tag": "L6"
+},
+{
+"id": "ja-185",
+"front": "さかな",
+"back": "sakana - fish",
+"tag": "L6"
+},
+{
+"id": "ja-186",
+"front": "おにぎり",
+"back": "onigiri - rice ball",
+"tag": "L6"
+},
+{
+"id": "ja-187",
+"front": "やきそば",
+"back": "yakisoba - fried noodles",
+"tag": "L6"
+},
+{
+"id": "ja-188",
+"front": "みそしる",
+"back": "misoshiru - miso soup",
+"tag": "L6"
+},
+{
+"id": "ja-189",
+"front": "さしみ",
+"back": "sashimi - raw fish",
+"tag": "L6"
+},
+{
+"id": "ja-190",
+"front": "おべんとう",
+"back": "o-bentoo - lunch box",
+"tag": "L6"
+},
+{
+"id": "ja-191",
+"front": "すしや",
+"back": "sushiya - sushi restaurant",
+"tag": "L6"
+},
+{
+"id": "ja-192",
+"front": "そばや",
+"back": "sobaya - soba restaurant",
+"tag": "L6"
+},
+{
+"id": "ja-193",
+"front": "ラーメンや",
+"back": "raamen'ya - ramen shop",
+"tag": "L6"
+},
+{
+"id": "ja-194",
+"front": "～やさん",
+"back": "~ yasan - ... shop (polite)",
+"tag": "L6"
+},
+{
+"id": "ja-195",
+"front": "みせ",
+"back": "mise - shop, restaurant",
+"tag": "L6"
+},
+{
+"id": "ja-196",
+"front": "きっさてん",
+"back": "kissaten - coffee shop",
+"tag": "L6"
+},
+{
+"id": "ja-197",
+"front": "レストラン",
+"back": "resutoran - restaurant",
+"tag": "L6"
+},
+{
+"id": "ja-198",
+"front": "カフェ",
+"back": "kafe - café",
+"tag": "L6"
+},
+{
+"id": "ja-199",
+"front": "ひるごはん",
+"back": "hirugohan - lunch",
+"tag": "L6"
+},
+{
+"id": "ja-200",
+"front": "たべます",
+"back": "tabemasu - to eat",
+"tag": "L6"
+},
+{
+"id": "ja-201",
+"front": "たべません",
+"back": "tabemasen - don't eat",
+"tag": "L6"
+},
+{
+"id": "ja-202",
+"front": "いきます",
+"back": "ikimasu - to go",
+"tag": "L6"
+},
+{
+"id": "ja-203",
+"front": "きょう",
+"back": "kyoo - today",
+"tag": "L6"
+},
+{
+"id": "ja-204",
+"front": "じゃあ",
+"back": "jaa - then, well",
+"tag": "L6"
+},
+{
+"id": "ja-205",
+"front": "おいしくないです",
+"back": "oishiku nai desu - not delicious",
+"tag": "L6"
+},
+{
+"id": "ja-206",
+"front": "まずいです",
+"back": "mazui desu - tastes bad",
+"tag": "L6"
+},
+{
+"id": "ja-207",
+"front": "やすいです",
+"back": "yasui desu - cheap",
+"tag": "L6"
+},
+{
+"id": "ja-208",
+"front": "たかいです",
+"back": "takai desu - expensive",
+"tag": "L6"
+},
+{
+"id": "ja-209",
+"front": "はやいです",
+"back": "hayai desu - fast",
+"tag": "L6"
+},
+{
+"id": "ja-210",
+"front": "おそいです",
+"back": "osoi desu - slow",
+"tag": "L6"
+},
+{
+"id": "ja-211",
+"front": "～ましょう",
+"back": "~ mashoo - Let's ...",
+"tag": "L6"
+},
+{
+"id": "ja-212",
+"front": "そう しましょう",
+"back": "soo shimashoo - Let's do that",
+"tag": "L6"
+},
+{
+"id": "ja-213",
+"front": "じかんが ありません",
+"back": "jikan ga arimasen - I have no time",
+"tag": "L6"
+},
+{
+"id": "ja-214",
+"front": "おかねが ありません",
+"back": "okane ga arimasen - I have no money",
+"tag": "L6"
+},
+{
+"id": "ja-215",
+"front": "どうですか",
+"back": "doo desu ka - How is it?",
+"tag": "L6"
+},
+{
+"id": "ja-216",
+"front": "ハンバーガー",
+"back": "hanbaagaa - hamburger",
+"tag": "L6"
+},
+{
+"id": "ja-217",
+"front": "カレー",
+"back": "karee - curry",
+"tag": "L6"
+},
+{
+"id": "ja-218",
+"front": "ラーメン",
+"back": "raamen - ramen",
+"tag": "L6"
+},
+{
+"id": "ja-219",
+"front": "メニュー",
+"back": "menyuu - menu",
+"tag": "L6"
+},
+{
+"id": "ja-220",
+"front": "ひとつ",
+"back": "hitotsu - one (thing)",
+"tag": "L6"
+},
+{
+"id": "ja-221",
+"front": "ふたつ",
+"back": "futatsu - two (things)",
+"tag": "L6"
+},
+{
+"id": "ja-222",
+"front": "ください",
+"back": "kudasai - please give me",
+"tag": "L6"
+},
+{
+"id": "ja-223",
+"front": "～えん",
+"back": "~ en - ... yen",
+"tag": "L6"
+},
+{
+"id": "ja-224",
+"front": "おさけ",
+"back": "o-sake - alcohol, sake",
+"tag": "L6"
+}
+]
