@@ -753,3 +753,10 @@ button.pr-row::after{content:'';position:absolute;right:0;bottom:0;border-style:
 .pr-last>i{width:8px;height:8px;border-radius:50%;flex:none;background:#4a2b1a!important}
 .pr-last div{flex:1;min-width:0}.pr-last b{display:block;font-size:14px;font-weight:700;color:#111;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.pr-last span{display:block;font-size:13px;color:#444}
 .pr-last em{font-style:normal;min-width:84px;text-align:center;background:#fdd8a8;color:#111;font-size:16px;font-weight:500;padding:9px 8px;border-radius:3px}.pr-last em small{font-size:11px}
+.pr-mat-h span small{display:block;font-weight:400;font-size:12px;color:#555;margin-top:2px;letter-spacing:0}
+.pr-row span small{display:block;font-size:12.5px;color:#777;margin-top:3px}
+.pr-row.moy{background:#f3f6f4;font-weight:600}.pr-row.moy b{font-weight:700;font-size:16px}
+.pr-np{font-style:italic;font-weight:400;color:#9a9a9a;font-size:13px}
+.pr-daterow{border-left:6px solid var(--c)}.pr-daterow strong{display:block;font-size:12.5px;font-weight:700;color:#111;margin-bottom:2px}
+.pr-moygen small{display:block;font-size:11.5px;color:#666;margin-top:3px;line-height:1.3}
+.pr-sheet-t small{display:block;font-size:13px;color:#777;margin-top:2px}
